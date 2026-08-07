@@ -15,7 +15,7 @@ Semantic HTML and responsive CSS with no JavaScript dependency in the current bu
 
 ## Media status
 
-The current preview still uses graphic placeholders while final authorized portrait photography, city photography, project stills and video links are selected. The layout is designed so real media can replace the placeholders without changing the overall editorial direction.
+Selected real portfolio media is now stored under `assets/images/` and used on the homepage and case-study pages. Current media includes Mikhail portrait photography, London/Ontario and Canada city photography, campaign stills, Forest City Spotlight golf-course stills, and London (UK) city visuals. Belgrade-specific media and direct video/publication links remain to be added when selected and verified.
 
 ## Source-of-truth rule
 
