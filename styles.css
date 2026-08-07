@@ -6,3 +6,10 @@
 @import url("assets/css/part-6.css");
 @import url("assets/css/part-7.css");
 @import url("assets/css/part-8.css");
+
+/* QA correction for the misspelled declaration in the earlier component stylesheet. */
+.card-link:hover,
+.text-link:hover,
+.back-link:hover {
+  text-decoration-thickness: 2px;
+}
