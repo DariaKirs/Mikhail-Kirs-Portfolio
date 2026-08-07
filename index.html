@@ -3,242 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portfolio of Mikhail Kirs, a London, Ontario–based Video Content Producer focused on Personal Brand Content, Local Business Storytelling, long-form city work and visual communication.">
+  <meta name="description" content="Portfolio of Mikhail Kirs, a London, Ontario–based Video Content Producer focused on Personal Brand Content, Local Business Storytelling, long-form films and visual communication.">
   <meta name="theme-color" content="#f7f1e8">
   <meta property="og:title" content="Mikhail Kirs — Video Content Producer">
-  <meta property="og:description" content="Personal Brand Content, Local Business Storytelling, long-form city work and visual communication.">
+  <meta property="og:description" content="Personal Brand Content, Local Business Storytelling, long-form films and visual communication.">
   <meta property="og:type" content="website">
   <title>Mikhail Kirs — Video Content Producer</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
-  <style>
-    :root {
-      --text: #20364a;
-      --fanshawe-red: #c8102e;
-    }
-
-    .hero h1,
-    .section h2,
-    .card h3,
-    .about-copy .lead,
-    .service-list strong,
-    .brand {
-      color: var(--text);
-    }
-
-    .service-list li {
-      min-height: 142px;
-      padding: 24px;
-      border: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      border-radius: 16px;
-      background: var(--surface);
-      cursor: default;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .service-list li:nth-child(4n + 1) { box-shadow: 7px 7px 0 var(--cyan); }
-    .service-list li:nth-child(4n + 2) { box-shadow: 7px 7px 0 var(--purple); }
-    .service-list li:nth-child(4n + 3) { box-shadow: 7px 7px 0 var(--coral); }
-    .service-list li:nth-child(4n + 4) { box-shadow: 7px 7px 0 var(--green); }
-
-    .service-list li:hover,
-    .service-list li:focus-within {
-      transform: translate(-2px, -6px);
-    }
-
-    .about-title {
-      align-self: start;
-    }
-
-    .about-portrait-stack {
-      position: relative;
-      width: min(100%, 360px);
-      margin: 54px 0 24px 42px;
-      isolation: isolate;
-    }
-
-    .about-portrait-stack::before,
-    .about-portrait-stack::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 30px 18px 30px 18px;
-      z-index: -1;
-    }
-
-    .about-portrait-stack::before {
-      background: var(--yellow);
-      transform: translate(-26px, -20px) rotate(-5deg);
-    }
-
-    .about-portrait-stack::after {
-      background: var(--cyan);
-      transform: translate(22px, 20px) rotate(4deg);
-    }
-
-    .about-portrait-stack img {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      object-position: 50% 28%;
-      border: 5px solid var(--surface);
-      border-radius: 30px 18px 30px 18px;
-      box-shadow: var(--shadow);
-      transition: transform .22s ease;
-    }
-
-    .about-portrait-stack:hover img {
-      transform: translateY(-4px);
-    }
-
-    .about-photo-caption {
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: .78rem;
-      font-weight: 750;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .education-card {
-      border-bottom: 4px solid var(--fanshawe-red);
-    }
-
-    .education-year {
-      background: var(--fanshawe-red);
-      color: white;
-    }
-
-    .skill-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .35rem 0;
-      margin-top: 24px;
-      padding: 0;
-    }
-
-    .skill-list li {
-      padding: 0;
-      border: 0;
-      border-radius: 0;
-      background: transparent;
-      color: var(--text);
-      font-weight: 750;
-    }
-
-    .skill-list li:not(:last-child)::after {
-      content: " · ";
-      margin: 0 .5rem;
-      color: var(--coral);
-      font-weight: 900;
-    }
-
-    .contact-manifesto {
-      display: grid;
-      gap: .06em;
-      max-width: 760px;
-      font-size: clamp(3.1rem, 5.6vw, 6.2rem);
-      line-height: .94;
-      letter-spacing: -.055em;
-    }
-
-    .contact-manifesto span {
-      display: block;
-    }
-
-    .contact-manifesto em {
-      font-style: normal;
-    }
-
-    .word-seen { color: var(--cyan); }
-    .word-heard { color: var(--purple); }
-    .word-told { color: var(--green); }
-
-    .contact-prompt {
-      margin-bottom: 20px;
-      color: var(--text);
-      font-size: clamp(1.25rem, 2vw, 1.65rem);
-      font-weight: 800;
-    }
-
-    .contact-section .actions {
-      gap: 12px;
-    }
-
-    .contact-section .button.linkedin {
-      border-color: var(--text);
-      color: var(--text);
-    }
-
-    .contact-section .button.instagram {
-      border-color: var(--purple);
-      color: var(--purple);
-    }
-
-    .site-footer .footer-row {
-      justify-content: flex-start;
-      color: var(--muted);
-    }
-
-    .site-footer a {
-      color: var(--text);
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .site-footer a:hover,
-    .site-footer a:focus-visible {
-      text-decoration: underline;
-      text-underline-offset: 4px;
-    }
-
-    @media (max-width: 820px) {
-      .about-portrait-stack {
-        margin-left: 26px;
-      }
-
-      .contact-manifesto {
-        font-size: clamp(2.8rem, 10vw, 5rem);
-      }
-    }
-
-    @media (max-width: 620px) {
-      .service-list li {
-        min-height: 124px;
-      }
-
-      .about-portrait-stack {
-        width: calc(100% - 42px);
-        margin: 44px 0 34px 22px;
-      }
-
-      .contact-manifesto {
-        font-size: clamp(2.55rem, 12vw, 4.2rem);
-      }
-
-      .contact-section .actions {
-        align-items: stretch;
-      }
-
-      .contact-section .button {
-        width: 100%;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .service-list li,
-      .about-portrait-stack img {
-        transition: none;
-      }
-
-      .service-list li:hover,
-      .service-list li:focus-within,
-      .about-portrait-stack:hover img {
-        transform: none;
-      }
-    }
-  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -251,7 +23,6 @@
       </a>
       <nav class="nav-links" aria-label="Main navigation">
         <a href="#work">Work</a>
-        <a href="#services">What I Do</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -271,27 +42,12 @@
             <a class="button" href="#work">View Selected Work</a>
             <a class="button secondary" href="mailto:mikhail.kirs.ca@gmail.com">Contact Mikhail</a>
           </div>
-          <div class="hero-notes" aria-label="Professional details">
-            <span>London, Ontario</span>
-            <span>Personal Brand Content</span>
-            <span>Full-cycle production</span>
-          </div>
         </div>
 
-        <div class="hero-collage" aria-label="Photo collage with Mikhail and his photography from London, Ontario">
+        <div class="hero-collage hero-identity" aria-label="Portrait of Mikhail Kirs with signature graphic shapes">
           <figure class="collage-tile collage-portrait">
-            <img class="media-focus-portrait" src="assets/images/Portrate_2.JPG" alt="Portrait of Mikhail Kirs in London, Ontario" width="864" height="1536">
+            <img class="media-focus-portrait" src="assets/images/Portrait.JPG" alt="Portrait of Mikhail Kirs" width="864" height="1536">
           </figure>
-          <figure class="collage-tile collage-city-one">
-            <img class="media-focus-center" src="assets/images/Ivy.JPG" alt="Historic building with autumn ivy and a Canadian flag in London, Ontario" loading="eager">
-          </figure>
-          <figure class="collage-tile collage-city-two">
-            <img class="media-focus-center" src="assets/images/Dundas_Str.JPG" alt="Dundas Street Centre United Church framed by trees in London, Ontario" loading="eager">
-          </figure>
-          <figure class="collage-tile collage-city-three">
-            <img class="media-focus-center" src="assets/images/Spider.JPG" alt="Urban detail photographed in downtown London, Ontario" loading="eager">
-          </figure>
-          <span class="collage-accent accent-yellow" aria-hidden="true"></span>
           <span class="collage-accent accent-coral" aria-hidden="true"></span>
           <span class="collage-accent accent-purple" aria-hidden="true"></span>
           <span class="collage-accent accent-green" aria-hidden="true"></span>
@@ -307,9 +63,7 @@
             <p class="eyebrow">Selected Work</p>
             <h2>Three directions in visual storytelling.</h2>
           </div>
-          <p>
-            Personal Brand Content, Local Business Storytelling and long-form city films.
-          </p>
+          <p>Personal Brand Content, Local Business Storytelling and long-form films.</p>
         </div>
 
         <div class="work-grid">
@@ -321,9 +75,7 @@
             <div class="card-body">
               <p class="card-meta">London, Ontario · Mayoral Campaign</p>
               <h3>Mustafa Zebuun Mayoral Campaign</h3>
-              <p>
-                Campaign video work with Mikhail publicly credited as “Filmed and Edited by” in relevant publications. The political topic and message remain controlled by the candidate and campaign.
-              </p>
+              <p>Visual and production work for Mustafa Zebuun’s mayoral campaign in London, Ontario. Political topics and messaging are determined by the candidate himself.</p>
               <a class="card-link" href="project-mayoral.html">View case study <span aria-hidden="true">↗</span></a>
             </div>
           </article>
@@ -336,50 +88,24 @@
             <div class="card-body">
               <p class="card-meta">London, Ontario · Video Series</p>
               <h3>Forest City Spotlight</h3>
-              <p>
-                A Local Business Storytelling series for London businesses and places, with Mikhail publicly credited as “Filmed and Edited by” in relevant publications.
-              </p>
+              <p>A Local Business Storytelling series presenting London businesses and places through short-form social video.</p>
               <a class="card-link" href="project-forest-city.html">View case study <span aria-hidden="true">↗</span></a>
             </div>
           </article>
 
           <article class="card card-city">
-            <a class="card-media" href="project-city-storytelling.html" aria-label="Open London and Belgrade long-form city films case study">
+            <a class="card-media" href="project-city-storytelling.html" aria-label="Open Long-Form Visual Storytelling case study">
               <img class="media-focus-center" src="assets/images/London_Bridge.jpeg" alt="Tower Bridge framed by contemporary London architecture" loading="lazy">
               <span class="media-label">Long-Form Storytelling</span>
             </a>
             <div class="card-body">
-              <p class="card-meta">Long-Form City Films · London (UK) & Belgrade</p>
-              <h3>London & Belgrade City Films</h3>
-              <p>
-                Two long-form city projects extending the portfolio beyond short social content into sustained place-based visual storytelling.
-              </p>
+              <p class="card-meta">Long-Form Films · Personal Projects</p>
+              <h3>Long-Form Visual Storytelling</h3>
+              <p>Personal long-form projects built around research, scripting, historical context and visual storytelling.</p>
               <a class="card-link" href="project-city-storytelling.html">View case study <span aria-hidden="true">↗</span></a>
             </div>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section class="section services-section" id="services">
-      <div class="container columns">
-        <div class="sticky-intro">
-          <p class="eyebrow">What I Do</p>
-          <h2>From the first idea to the finished video.</h2>
-          <p>
-            A hands-on production process for people and businesses that need clear, visually consistent content.
-          </p>
-        </div>
-        <ul class="service-list">
-          <li><span>01</span><strong>Concept & wording refinement</strong></li>
-          <li><span>02</span><strong>Script support</strong></li>
-          <li><span>03</span><strong>Location selection</strong></li>
-          <li><span>04</span><strong>Shoot planning</strong></li>
-          <li><span>05</span><strong>Filming</strong></li>
-          <li><span>06</span><strong>Full video editing</strong></li>
-          <li><span>07</span><strong>Subtitles & on-screen text</strong></li>
-          <li><span>08</span><strong>Graphics, music & visual details</strong></li>
-        </ul>
       </div>
     </section>
 
@@ -394,12 +120,8 @@
           </figure>
         </div>
         <div class="about-copy">
-          <p class="lead">
-            I’m a Video Content Producer and Interactive Media Design graduate based in London, Ontario. I create Personal Brand Content, Local Business Storytelling, long-form city work and visual communication for people, businesses and places.
-          </p>
-          <p>
-            I combine planning, filming and post-production in one workflow — refining concepts and scripts, selecting locations, organizing shoots, filming, editing complete videos, and adding subtitles, music, graphics and on-screen text.
-          </p>
+          <p class="lead">I’m a Video Content Producer and Interactive Media Design graduate based in London, Ontario. I create Personal Brand Content, Local Business Storytelling and long-form city films — using visual communication to shape how people, businesses and places are seen.</p>
+          <p class="workflow-copy"><strong>From the first idea to the finished video.</strong> I combine planning, filming and post-production in one workflow — refining concepts and scripts, selecting locations, organizing shoots, filming, editing complete videos, and adding subtitles, music, graphics and on-screen text.</p>
           <div class="education-card">
             <span class="education-year">2026</span>
             <div>
@@ -407,15 +129,6 @@
               <p>Ontario College Diploma · Interactive Media Design</p>
             </div>
           </div>
-          <ul class="skill-list" aria-label="Selected skills">
-            <li>Video Production</li>
-            <li>Video Editing</li>
-            <li>Visual Storytelling</li>
-            <li>Visual Communication</li>
-            <li>Location Selection</li>
-            <li>Social Media Content Production</li>
-            <li>Content Analytics Review</li>
-          </ul>
         </div>
       </div>
     </section>
@@ -447,7 +160,7 @@
 
   <footer class="site-footer">
     <div class="container footer-row">
-      <span>© 2026 Mikhail Kirs&nbsp;&nbsp;Website by <a href="https://archkirs.site" target="_blank" rel="noopener noreferrer">ARCHKIRS</a></span>
+      <span>© 2026 Mikhail Kirs&emsp;Website by <a href="https://archkirs.site/en" target="_blank" rel="noopener noreferrer">ARCHKIRS</a></span>
     </div>
   </footer>
 </body>
