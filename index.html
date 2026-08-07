@@ -12,6 +12,11 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
   <style>
+    .contact-box::before,
+    .contact-box::after {
+      pointer-events: none;
+    }
+
     .contact-box::after {
       content: "";
       position: absolute;
@@ -23,7 +28,48 @@
       background: var(--coral);
       transform: rotate(8deg);
       box-shadow: 0 14px 30px rgba(48, 38, 28, 0.08);
-      pointer-events: none;
+    }
+
+    .contact-prompt {
+      text-align: center;
+      font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+    }
+
+    @media (min-width: 1051px) {
+      .contact-box {
+        min-height: clamp(560px, 35vw, 650px);
+      }
+
+      .contact-copy {
+        position: absolute;
+        z-index: 4;
+        top: 68%;
+        right: clamp(34px, 5vw, 78px);
+        width: min(610px, 43%);
+        display: grid;
+        justify-items: center;
+        gap: 16px;
+        margin-top: 0;
+        transform: translateY(-50%);
+      }
+
+      .contact-section .actions {
+        justify-content: center;
+        margin-top: 0;
+      }
+    }
+
+    @media (max-width: 1050px) {
+      .contact-copy {
+        position: relative;
+        z-index: 4;
+        width: auto;
+        margin-top: 30px;
+      }
+
+      .contact-prompt {
+        text-align: left;
+      }
     }
 
     @media (max-width: 820px) {
@@ -182,12 +228,11 @@
           <div class="contact-copy">
             <p class="contact-prompt">Ready to tell yours?</p>
             <div class="actions">
-              <a class="button" href="mailto:mikhail.kirs.ca@gmail.com">Email Mikhail</a>
-              <a class="button secondary linkedin" href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-              <a class="button secondary instagram" href="https://www.instagram.com/mikki.kirs6haa/" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <a class="button" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=mikhail.kirs.ca%40gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email Mikhail Kirs">Email me</a>
+              <a class="button secondary linkedin" href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Connect with Mikhail Kirs on LinkedIn">Connect with me</a>
+              <a class="button secondary instagram" href="https://instagram.com/mikki.kirs6haa" target="_blank" rel="noopener noreferrer" aria-label="Follow Mikhail Kirs on Instagram">Follow me</a>
             </div>
           </div>
-          <span class="contact-dot" aria-hidden="true"></span>
         </div>
       </div>
     </section>
