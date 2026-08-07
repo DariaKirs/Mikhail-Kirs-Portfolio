@@ -74,19 +74,34 @@
       z-index: 0;
     }
 
+    /* One full-width content wrapper keeps headline + CTA on the same axis. */
+    .contact-center {
+      position: relative;
+      z-index: 3;
+      display: flex !important;
+      grid-column: 1 / -1 !important;
+      width: 100% !important;
+      max-width: none !important;
+      flex-direction: column;
+      align-items: center;
+      align-self: stretch !important;
+      justify-content: center;
+    }
+
     .contact-main {
       position: static !important;
       z-index: 3;
       display: grid;
       width: 100%;
+      max-width: none !important;
       align-self: stretch !important;
       justify-items: center;
     }
 
     .contact-main .eyebrow {
       position: absolute;
-      top: clamp(54px, 4vw, 72px);
-      left: clamp(42px, 6vw, 92px);
+      top: clamp(-38px, -2.8vw, -24px);
+      left: 0;
       margin: 0;
       text-align: left;
     }
@@ -113,6 +128,7 @@
       z-index: 3;
       display: grid !important;
       width: 100% !important;
+      max-width: none !important;
       align-self: stretch !important;
       justify-items: center !important;
       place-items: center !important;
@@ -172,8 +188,8 @@
       }
 
       .contact-main .eyebrow {
-        top: 44px;
-        left: 34px;
+        top: -46px;
+        left: 0;
       }
 
       .contact-box::after {
@@ -218,8 +234,8 @@
       }
 
       .contact-main .eyebrow {
-        top: 38px;
-        left: 24px;
+        top: -42px;
+        left: 0;
       }
 
       .contact-manifesto {
@@ -384,20 +400,22 @@
       <div class="container">
         <div class="contact-box">
           <span class="contact-lilac" aria-hidden="true"></span>
-          <div class="contact-main">
-            <p class="eyebrow">Contact</p>
-            <h2 class="contact-manifesto">
-              <span>You have to be <em class="word-seen">seen</em>.</span>
-              <span>You have to be <em class="word-heard">heard</em>.</span>
-              <span>Your story has to be <em class="word-told">told</em>.</span>
-            </h2>
-          </div>
-          <div class="contact-copy">
-            <p class="contact-prompt">Ready to tell yours?</p>
-            <div class="actions">
-              <a class="button" href="mailto:mikhail.kirs.ca@gmail.com" aria-label="Email Mikhail Kirs">Mail me</a>
-              <a class="button secondary linkedin" href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Connect with Mikhail Kirs on LinkedIn">Connect with me</a>
-              <a class="button secondary instagram" href="https://instagram.com/mikki.kirs6haa" target="_blank" rel="noopener noreferrer" aria-label="Follow Mikhail Kirs on Instagram">Follow me</a>
+          <div class="contact-center">
+            <div class="contact-main">
+              <p class="eyebrow">Contact</p>
+              <h2 class="contact-manifesto">
+                <span>You have to be <em class="word-seen">seen</em>.</span>
+                <span>You have to be <em class="word-heard">heard</em>.</span>
+                <span>Your story has to be <em class="word-told">told</em>.</span>
+              </h2>
+            </div>
+            <div class="contact-copy">
+              <p class="contact-prompt">Ready to tell yours?</p>
+              <div class="actions">
+                <a class="button" href="mailto:mikhail.kirs.ca@gmail.com" aria-label="Email Mikhail Kirs">Mail me</a>
+                <a class="button secondary linkedin" href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Connect with Mikhail Kirs on LinkedIn">Connect with me</a>
+                <a class="button secondary instagram" href="https://instagram.com/mikki.kirs6haa" target="_blank" rel="noopener noreferrer" aria-label="Follow Mikhail Kirs on Instagram">Follow me</a>
+              </div>
             </div>
           </div>
         </div>
