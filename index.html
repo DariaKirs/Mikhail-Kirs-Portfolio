@@ -16,6 +16,8 @@
     .contact-box {
       position: relative;
       display: flex !important;
+      grid-template-columns: none !important;
+      gap: 0 !important;
       min-height: clamp(690px, 40vw, 760px);
       flex-direction: column;
       align-items: center;
@@ -77,6 +79,7 @@
       z-index: 3;
       display: grid;
       width: 100%;
+      align-self: stretch !important;
       justify-items: center;
     }
 
@@ -110,7 +113,9 @@
       z-index: 3;
       display: grid !important;
       width: 100% !important;
+      align-self: stretch !important;
       justify-items: center !important;
+      place-items: center !important;
       gap: 20px;
       margin: clamp(42px, 4vw, 58px) 0 0 !important;
       transform: none !important;
@@ -128,11 +133,12 @@
     .contact-section .actions {
       display: grid !important;
       grid-template-columns: 190px 260px 190px;
+      justify-self: center !important;
       justify-content: center !important;
       align-items: center;
       gap: 18px;
       width: auto !important;
-      margin: 0 !important;
+      margin: 0 auto !important;
     }
 
     .contact-section .button,
@@ -389,7 +395,7 @@
           <div class="contact-copy">
             <p class="contact-prompt">Ready to tell yours?</p>
             <div class="actions">
-              <a class="button" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=mikhail.kirs.ca%40gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email Mikhail Kirs">Mail me</a>
+              <a class="button" href="mailto:mikhail.kirs.ca@gmail.com" aria-label="Email Mikhail Kirs">Mail me</a>
               <a class="button secondary linkedin" href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Connect with Mikhail Kirs on LinkedIn">Connect with me</a>
               <a class="button secondary instagram" href="https://instagram.com/mikki.kirs6haa" target="_blank" rel="noopener noreferrer" aria-label="Follow Mikhail Kirs on Instagram">Follow me</a>
             </div>
