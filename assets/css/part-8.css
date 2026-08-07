@@ -96,3 +96,38 @@
     flex-direction: column;
   }
 }
+
+/* Final contact alignment lock: make both content groups span the entire card
+   even if an older two-column contact rule survives elsewhere in the cascade. */
+.contact-section .contact-box {
+  display: flex !important;
+  grid-template-columns: none !important;
+  gap: 0 !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.contact-section .contact-box > .contact-main,
+.contact-section .contact-box > .contact-copy {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  align-self: stretch !important;
+}
+
+.contact-section .contact-box > .contact-main {
+  justify-items: center !important;
+}
+
+.contact-section .contact-box > .contact-copy {
+  display: grid !important;
+  justify-items: center !important;
+  place-items: center !important;
+}
+
+.contact-section .contact-box > .contact-copy > .contact-prompt,
+.contact-section .contact-box > .contact-copy > .actions {
+  justify-self: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
