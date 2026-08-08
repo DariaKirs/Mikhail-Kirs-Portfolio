@@ -190,22 +190,54 @@ body {
   color: var(--accent-purple) !important;
 }
 
-/* Hero: keep only the large supporting shapes and the editorial portrait. */
+/* Hero: exact mirrored counterpart of the About portrait stack.
+   About: coral upper-left / green lower-right.
+   Hero: coral upper-right / lilac lower-left. */
+.hero-identity::before,
+.hero-identity::after {
+  width: min(72%, 370px) !important;
+  height: 485px !important;
+  left: 50% !important;
+  right: auto !important;
+  top: 50% !important;
+  bottom: auto !important;
+  border-radius: 30px 18px 30px 18px !important;
+  box-shadow: none !important;
+}
+
 .hero-identity::before {
   background: var(--dusty-rose) !important;
+  transform: translate(calc(-50% + 26px), calc(-50% - 20px)) rotate(5deg) !important;
 }
 
 .hero-identity::after {
-  background: var(--mist-blue) !important;
+  background: var(--soft-lilac) !important;
+  transform: translate(calc(-50% - 22px), calc(-50% + 20px)) rotate(-4deg) !important;
 }
 
 .hero-identity .collage-portrait {
-  box-shadow: 18px 20px 0 var(--accent-purple), var(--shadow) !important;
+  width: min(72%, 370px) !important;
+  height: 485px !important;
+  left: 50% !important;
+  top: 50% !important;
+  border: 5px solid var(--surface) !important;
+  border-radius: 30px 18px 30px 18px !important;
+  transform: translate(-50%, -50%) !important;
+  box-shadow: var(--shadow) !important;
 }
 
 .hero-identity .collage-accent,
 .hero-identity .collage-caption {
   display: none !important;
+}
+
+@media (max-width: 620px) {
+  .hero-identity::before,
+  .hero-identity::after,
+  .hero-identity .collage-portrait {
+    width: 68% !important;
+    height: 330px !important;
+  }
 }
 
 /* About: graduation portrait and calm palette framing. */
