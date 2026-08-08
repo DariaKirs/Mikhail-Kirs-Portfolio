@@ -131,3 +131,166 @@
   margin-left: auto !important;
   margin-right: auto !important;
 }
+
+/* ========================================================================== */
+/* Final Palette — Calm Editorial · approved 2026-08-08                     */
+/* ========================================================================== */
+
+:root {
+  --bg: #F4EFE6 !important;
+  --text: #20364A !important;
+
+  /* Approved accents */
+  --dusty-rose: #D87B89 !important;
+  --mist-blue: #D8E9EE !important;
+  --soft-lilac: #C7B6DD !important;
+  --muted-green: #7E9C86 !important;
+  --button-blue: #326E8B !important;
+  --accent-purple: #69418C !important;
+  --fanshawe-red: #C8102E !important;
+
+  /* Compatibility aliases for the existing component system. */
+  --blue: var(--button-blue) !important;
+  --cyan: var(--mist-blue) !important;
+  --purple: var(--accent-purple) !important;
+  --coral: var(--dusty-rose) !important;
+  --green: var(--muted-green) !important;
+  --yellow: var(--dusty-rose) !important;
+}
+
+body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+.site-header {
+  background: rgba(244, 239, 230, 0.92) !important;
+}
+
+/* Primary and secondary action colors. */
+.button {
+  border-color: var(--button-blue) !important;
+  background: var(--button-blue) !important;
+  box-shadow: 0 8px 0 rgba(50, 110, 139, 0.14) !important;
+}
+
+.button:hover,
+.button:focus-visible {
+  box-shadow: 0 13px 0 rgba(50, 110, 139, 0.12) !important;
+}
+
+.button.secondary {
+  border-color: var(--accent-purple) !important;
+  background: transparent !important;
+  color: var(--accent-purple) !important;
+  box-shadow: none !important;
+}
+
+.eyebrow {
+  color: var(--accent-purple) !important;
+}
+
+/* Hero: keep only the large supporting shapes and the editorial portrait. */
+.hero-identity::before {
+  background: var(--dusty-rose) !important;
+}
+
+.hero-identity::after {
+  background: var(--mist-blue) !important;
+}
+
+.hero-identity .collage-portrait {
+  box-shadow: 18px 20px 0 var(--accent-purple), var(--shadow) !important;
+}
+
+.hero-identity .collage-accent,
+.hero-identity .collage-caption {
+  display: none !important;
+}
+
+/* About: graduation portrait and calm palette framing. */
+.about-portrait-stack::before {
+  background: var(--soft-lilac) !important;
+}
+
+.about-portrait-stack::after {
+  background: var(--mist-blue) !important;
+}
+
+.about-portrait-stack img {
+  content: url("../images/IMG_5720.jpeg") !important;
+  aspect-ratio: 3 / 4 !important;
+  object-fit: cover !important;
+  object-position: 50% 50% !important;
+}
+
+.about-photo-caption {
+  font-size: 0 !important;
+}
+
+.about-photo-caption::after {
+  content: "Fanshawe College · 2026";
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.education-card {
+  border-bottom-color: var(--fanshawe-red) !important;
+}
+
+.education-year {
+  background: var(--fanshawe-red) !important;
+}
+
+/* New approved Mustafa photography. */
+.work-section .card-purple .card-media img {
+  content: url("../images/IMG_7726.jpeg") !important;
+  object-fit: cover !important;
+  object-position: 50% 30% !important;
+}
+
+.project-page-purple .project-hero-media img {
+  content: url("../images/IMG_7164.jpeg") !important;
+  object-fit: cover !important;
+  object-position: 50% 38% !important;
+}
+
+/* Contact is the visual reference for the final palette. */
+#contact .contact-box::after {
+  background: var(--dusty-rose) !important;
+}
+
+#contact .contact-box::before {
+  background: var(--mist-blue) !important;
+}
+
+#contact .contact-lilac {
+  background: var(--soft-lilac) !important;
+}
+
+.word-seen {
+  color: var(--button-blue) !important;
+}
+
+.word-heard {
+  color: var(--accent-purple) !important;
+}
+
+.word-told {
+  color: var(--muted-green) !important;
+}
+
+.contact-section .button.linkedin {
+  border-color: var(--text) !important;
+  background: transparent !important;
+  color: var(--text) !important;
+}
+
+.contact-section .button.instagram {
+  border-color: var(--accent-purple) !important;
+  background: transparent !important;
+  color: var(--accent-purple) !important;
+}
