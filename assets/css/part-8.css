@@ -210,11 +210,11 @@ body {
 
 /* About: graduation portrait and calm palette framing. */
 .about-portrait-stack::before {
-  background: var(--soft-lilac) !important;
+  background: var(--dusty-rose) !important;
 }
 
 .about-portrait-stack::after {
-  background: var(--mist-blue) !important;
+  background: var(--muted-green) !important;
 }
 
 .about-portrait-stack img {
