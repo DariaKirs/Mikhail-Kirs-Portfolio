@@ -81,13 +81,16 @@ section[id] {
   height: 485px;
   left: 50%;
   top: 50%;
+  overflow: hidden;
   border-radius: 58px 22px 58px 22px;
+  background: url("assets/images/mikhail-hero-editorial.svg") center 44% / cover no-repeat;
   transform: translate(-50%, -50%) rotate(-2deg);
   box-shadow: 18px 20px 0 var(--purple), var(--shadow);
 }
 
 .hero-identity .collage-portrait img {
   object-position: 50% 28%;
+  opacity: 0;
 }
 
 .hero-identity .accent-coral {
