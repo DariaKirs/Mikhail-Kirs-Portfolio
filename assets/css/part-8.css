@@ -225,16 +225,7 @@ body {
 }
 
 .about-photo-caption {
-  font-size: 0 !important;
-}
-
-.about-photo-caption::after {
-  content: "Fanshawe College · 2026";
-  color: var(--muted);
-  font-size: .78rem;
-  font-weight: 750;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  display: none !important;
 }
 
 .education-card {
