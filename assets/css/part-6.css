@@ -70,7 +70,7 @@
 }
 
 /* Contact CTA refinement: keep the approved 207 px desktop capsules and replace
-   particle dust with slow, unfolding snowflake-like sparkles on hover/focus. */
+   the snowflake effect with slow, unfolding golden stars on hover/focus. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button {
   position: relative;
   overflow: visible;
@@ -87,7 +87,6 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   margin: -.5em 0 0 -.5em;
   display: grid;
   place-items: center;
-  color: rgba(255, 255, 255, 0.96);
   line-height: 1;
   opacity: 0;
   pointer-events: none;
@@ -96,96 +95,97 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   z-index: 2;
 }
 
-/* Larger crystalline flakes. Each text-shadow repeats the same snowflake at a
-   different point around the button, so the shapes read as flakes rather than dots. */
+/* Main four-point stars — warm gold with restrained pale highlights. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::before {
-  content: "❄";
+  content: "✦";
+  color: rgba(250, 205, 105, 0.98);
+  font-size: 14px;
+  text-shadow:
+    -94px -8px 0 rgba(255, 218, 128, .98),
+    -70px -34px 0 rgba(244, 190, 78, .94),
+    -40px 25px 0 rgba(255, 232, 168, .88),
+    -12px -38px 0 rgba(250, 205, 105, .96),
+     28px 28px 0 rgba(255, 225, 145, .92),
+     56px -30px 0 rgba(239, 181, 70, .94),
+     84px 18px 0 rgba(255, 235, 178, .88),
+    100px -10px 0 rgba(248, 200, 94, .90);
+}
+
+/* Smaller companion stars add depth and make the opening feel less mechanical. */
+html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+  content: "✧";
+  color: rgba(255, 232, 168, 0.94);
   font-size: 11px;
   text-shadow:
-    -92px -10px 0 rgba(255,255,255,.96),
-    -68px -31px 0 rgba(216,233,238,.96),
-    -38px 24px 0 rgba(255,255,255,.86),
-    -12px -36px 0 rgba(199,182,221,.82),
-     26px 27px 0 rgba(255,255,255,.90),
-     54px -28px 0 rgba(216,233,238,.94),
-     82px 16px 0 rgba(255,255,255,.88),
-     98px -12px 0 rgba(199,182,221,.78);
+    -106px 20px 0 rgba(255, 236, 181, .86),
+    -80px 36px 0 rgba(246, 198, 92, .86),
+    -54px -20px 0 rgba(255, 222, 136, .92),
+    -26px 38px 0 rgba(255, 238, 188, .82),
+      8px -32px 0 rgba(241, 184, 72, .90),
+     40px 36px 0 rgba(255, 228, 154, .90),
+     68px -10px 0 rgba(255, 240, 194, .82),
+     92px 32px 0 rgba(247, 196, 88, .84);
 }
 
-/* Smaller companion flakes create a second layer so the opening feels organic. */
-html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-  content: "❅";
-  font-size: 8px;
-  text-shadow:
-    -104px 18px 0 rgba(216,233,238,.84),
-    -78px 34px 0 rgba(255,255,255,.80),
-    -52px -18px 0 rgba(255,255,255,.92),
-    -24px 36px 0 rgba(199,182,221,.76),
-      8px -30px 0 rgba(255,255,255,.86),
-     38px 35px 0 rgba(216,233,238,.88),
-     66px -8px 0 rgba(255,255,255,.82),
-     90px 30px 0 rgba(199,182,221,.72);
-}
-
-@keyframes contact-cta-snowflake-open-a {
+@keyframes contact-cta-star-open-a {
   0% {
     opacity: 0;
-    transform: translate3d(0, 8px, 0) scale(.16) rotate(-18deg);
-    filter: blur(1.8px) drop-shadow(0 0 0 rgba(255,255,255,0));
+    transform: translate3d(0, 8px, 0) scale(.12) rotate(-20deg);
+    filter: blur(1.6px) drop-shadow(0 0 0 rgba(255, 205, 96, 0));
   }
   18% {
-    opacity: .96;
+    opacity: .98;
   }
   46% {
-    opacity: .92;
-    transform: translate3d(-2px, -4px, 0) scale(.92) rotate(5deg);
-    filter: blur(.15px) drop-shadow(0 0 5px rgba(255,255,255,.48));
+    opacity: .94;
+    transform: translate3d(-2px, -5px, 0) scale(.92) rotate(7deg);
+    filter: blur(.08px) drop-shadow(0 0 6px rgba(255, 211, 112, .52));
   }
   72% {
     opacity: .62;
-    transform: translate3d(-7px, -16px, 0) scale(1.08) rotate(18deg);
+    transform: translate3d(-8px, -17px, 0) scale(1.08) rotate(18deg);
   }
   100% {
     opacity: 0;
-    transform: translate3d(-14px, -34px, 0) scale(1.20) rotate(28deg);
-    filter: blur(.4px) drop-shadow(0 0 8px rgba(255,255,255,.18));
+    transform: translate3d(-16px, -36px, 0) scale(1.22) rotate(30deg);
+    filter: blur(.35px) drop-shadow(0 0 9px rgba(255, 211, 112, .18));
   }
 }
 
-@keyframes contact-cta-snowflake-open-b {
+@keyframes contact-cta-star-open-b {
   0% {
     opacity: 0;
-    transform: translate3d(0, 10px, 0) scale(.10) rotate(22deg);
-    filter: blur(1.6px) drop-shadow(0 0 0 rgba(255,255,255,0));
+    transform: translate3d(0, 10px, 0) scale(.10) rotate(24deg);
+    filter: blur(1.4px) drop-shadow(0 0 0 rgba(255, 226, 154, 0));
   }
-  24% {
-    opacity: .86;
+  22% {
+    opacity: .90;
   }
   50% {
-    opacity: .82;
-    transform: translate3d(4px, -2px, 0) scale(.88) rotate(-6deg);
-    filter: blur(.1px) drop-shadow(0 0 4px rgba(216,233,238,.45));
+    opacity: .84;
+    transform: translate3d(4px, -3px, 0) scale(.90) rotate(-7deg);
+    filter: blur(.06px) drop-shadow(0 0 5px rgba(255, 230, 164, .44));
   }
   76% {
     opacity: .48;
-    transform: translate3d(10px, -18px, 0) scale(1.03) rotate(-18deg);
+    transform: translate3d(10px, -19px, 0) scale(1.05) rotate(-19deg);
   }
   100% {
     opacity: 0;
-    transform: translate3d(18px, -38px, 0) scale(1.16) rotate(-30deg);
-    filter: blur(.35px) drop-shadow(0 0 7px rgba(216,233,238,.16));
+    transform: translate3d(19px, -39px, 0) scale(1.18) rotate(-31deg);
+    filter: blur(.30px) drop-shadow(0 0 8px rgba(255, 230, 164, .15));
   }
 }
 
 @media (hover: hover) and (pointer: fine) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::before,
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::before {
-    animation: contact-cta-snowflake-open-a 2.15s cubic-bezier(.16,.68,.22,1) both;
+    animation: contact-cta-star-open-a 2.10s cubic-bezier(.16,.68,.22,1) both;
   }
 
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
-    animation: contact-cta-snowflake-open-b 2.35s .10s cubic-bezier(.18,.64,.20,1) both;
+    animation: contact-cta-star-open-b 2.20s .08s cubic-bezier(.18,.64,.20,1) both;
   }
 }
 
