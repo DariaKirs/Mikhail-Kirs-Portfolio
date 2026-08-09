@@ -3,11 +3,11 @@
 @import url("assets/css/part-3.css");
 @import url("assets/css/part-4.css");
 @import url("assets/css/part-5.css");
-@import url("assets/css/part-6.css");
+@import url("assets/css/part-6.css?v=20260809-2058");
 @import url("assets/css/part-7.css");
 @import url("assets/css/part-8.css");
 @import url("assets/css/part-9.css");
-@import url("assets/css/part-10.css?v=20260809-2051");
+@import url("assets/css/part-10.css?v=20260809-2058");
 
 /* QA correction for the misspelled declaration in the earlier component stylesheet. */
 .card-link:hover,
