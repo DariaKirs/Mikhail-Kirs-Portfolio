@@ -363,4 +363,9 @@ body {
     margin-top: 24px !important;
     margin-bottom: 0 !important;
   }
+
+  /* Final left-column balance: reduce only the Mikhail Kirs title by 8%. */
+  #about .about-title h2 {
+    font-size: clamp(2.119rem, 3.978vw, 3.935rem) !important;
+  }
 }
