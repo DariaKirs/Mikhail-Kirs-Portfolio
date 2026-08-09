@@ -389,3 +389,43 @@ body {
     aspect-ratio: auto !important;
   }
 }
+
+/* Mobile Hero: preserve the approved desktop composition and only change the
+   reading order on narrow screens so Mikhail appears immediately after the headline. */
+@media (max-width: 620px) {
+  .hero .hero-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 0 !important;
+    align-items: start !important;
+  }
+
+  .hero .hero-copy-block {
+    display: contents !important;
+  }
+
+  .hero .hero-copy-block > h1 {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  .hero .hero-identity {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    width: 100% !important;
+    min-height: 390px !important;
+    margin: 28px 0 30px !important;
+  }
+
+  .hero .hero-copy {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    margin-top: 0 !important;
+  }
+
+  .hero .actions {
+    grid-column: 1 !important;
+    grid-row: 4 !important;
+    margin-top: 24px !important;
+  }
+}
