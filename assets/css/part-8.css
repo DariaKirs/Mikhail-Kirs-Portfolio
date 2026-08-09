@@ -350,3 +350,17 @@ body {
     font-size: 0.92rem !important;
   }
 }
+
+/* About desktop height lock: match the Contact card's ~690px physical-sheet scale
+   without changing the approved portrait or its two color underlays. */
+@media (min-width: 821px) {
+  #about .about-layout {
+    padding-top: 42px !important;
+    padding-bottom: 42px !important;
+  }
+
+  #about .about-portrait-stack {
+    margin-top: 24px !important;
+    margin-bottom: 0 !important;
+  }
+}
