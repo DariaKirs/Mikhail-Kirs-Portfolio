@@ -70,6 +70,14 @@
     margin: 0 !important;
   }
 
+  /* In the approved layout the workflow heading is its own line and the body
+     starts beneath it. Keep this explicit so later cascade changes cannot turn
+     the <strong> back into an inline heading. */
+  section#about .workflow-copy > strong {
+    display: block !important;
+    margin-bottom: 14px !important;
+  }
+
   section#about .education-card {
     margin-top: clamp(36px, 3vw, 48px) !important;
   }
