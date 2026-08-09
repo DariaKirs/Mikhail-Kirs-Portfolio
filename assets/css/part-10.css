@@ -24,7 +24,7 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   animation: none !important;
 }
 
-/* Original restrained light sweep. */
+/* Original restrained light sweep from production commit ef09e9a. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
   content: "" !important;
   display: block !important;
@@ -87,8 +87,39 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   }
 }
 
+/* Scroll reveal: calm editorial movement for text groups and cards.
+   Individual translate is used instead of transform so existing card hover transforms remain intact. */
+.scroll-reveal {
+  opacity: 0;
+  translate: 0 22px;
+  transition:
+    opacity 0.72s cubic-bezier(.22,.61,.36,1),
+    translate 0.72s cubic-bezier(.22,.61,.36,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, translate;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+@media (max-width: 620px) {
+  .scroll-reveal {
+    translate: 0 16px;
+    transition-duration: 0.62s;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
     display: none !important;
+  }
+
+  .scroll-reveal,
+  .scroll-reveal.is-visible {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
   }
 }
