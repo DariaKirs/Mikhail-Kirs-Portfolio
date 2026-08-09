@@ -69,7 +69,7 @@
   }
 }
 
-/* Contact — approved clean typography and the original restrained light sweep. */
+/* Contact — approved upright emphasis and exact ef09e9a hover shimmer. */
 #contact .contact-manifesto em,
 #contact .word-seen,
 #contact .word-heard,
@@ -79,28 +79,25 @@
 
 html body main#main-content section#contact.contact-section .contact-copy .actions .button {
   position: relative;
-  overflow: hidden !important;
+  overflow: hidden;
   isolation: isolate;
 }
 
-/* No stars, snowflakes, dust or decorative particles. */
+/* Decorative particles remain disabled. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::before {
   content: none !important;
   display: none !important;
   animation: none !important;
 }
 
-/* Original Contact CTA animation: a short soft light sweep. */
+/* Exact restrained light sweep from production commit ef09e9a. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-  content: "" !important;
-  position: absolute !important;
-  top: -45% !important;
-  bottom: -45% !important;
-  left: -65% !important;
-  width: 38% !important;
-  height: auto !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
+  content: "";
+  position: absolute;
+  top: -45%;
+  bottom: -45%;
+  left: -65%;
+  width: 38%;
   background: linear-gradient(
     90deg,
     transparent 0%,
@@ -108,16 +105,10 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
     rgba(255, 255, 255, 0.44) 50%,
     rgba(255, 255, 255, 0.08) 76%,
     transparent 100%
-  ) !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  text-shadow: none !important;
-  transform: skewX(-18deg) !important;
-  filter: none !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  animation: none !important;
-  z-index: 2 !important;
+  );
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
 }
 
 @keyframes contact-cta-shimmer {
@@ -139,7 +130,7 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
 @media (hover: hover) and (pointer: fine) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
-    animation: contact-cta-shimmer 0.78s ease-out !important;
+    animation: contact-cta-shimmer 0.78s ease-out;
   }
 }
 
@@ -173,16 +164,8 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   }
 }
 
-/* Touch devices do not run a substitute particle animation. */
-@media (hover: none), (pointer: coarse) {
-  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-    animation: none !important;
-    opacity: 0 !important;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-    display: none !important;
+    display: none;
   }
 }
