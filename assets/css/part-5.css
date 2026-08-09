@@ -37,3 +37,11 @@
     line-height: 0.98;
   }
 }
+
+/* Keep the About editorial sheet at the same physical-card scale as Contact.
+   Portrait stacks can change size independently without collapsing the beige sheet. */
+@media (min-width: 821px) {
+  #about .about-layout {
+    min-height: clamp(690px, 40vw, 760px) !important;
+  }
+}
