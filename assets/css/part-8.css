@@ -369,3 +369,23 @@ body {
     font-size: clamp(1.907rem, 3.580vw, 3.542rem) !important;
   }
 }
+
+/* Approved desktop portrait-card lock: Hero and About are exactly 288 × 384 px. */
+@media (min-width: 821px) {
+  .hero-identity::before,
+  .hero-identity::after,
+  .hero-identity .collage-portrait {
+    width: 288px !important;
+    height: 384px !important;
+  }
+
+  #about .about-portrait-stack {
+    width: 288px !important;
+  }
+
+  #about .about-portrait-stack img {
+    width: 288px !important;
+    height: 384px !important;
+    aspect-ratio: auto !important;
+  }
+}
