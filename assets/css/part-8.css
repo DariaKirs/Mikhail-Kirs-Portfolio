@@ -504,3 +504,40 @@ body {
     line-height: 1.45 !important;
   }
 }
+
+/* Approved Contact CTA palette: recognizable platform colors, softened to match the editorial system.
+   No platform icons: color alone carries the cue. */
+#contact .actions .button[href^="mailto:"] {
+  border-color: transparent !important;
+  background: linear-gradient(100deg, #EA4335 0%, #FBBC04 34%, #34A853 67%, #4285F4 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(0.74) brightness(0.96);
+}
+
+#contact .actions .button.linkedin {
+  border-color: transparent !important;
+  background: #0A66C2 !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(0.78) brightness(0.97);
+}
+
+#contact .actions .button.instagram {
+  border-color: transparent !important;
+  background: linear-gradient(100deg, #833AB4 0%, #C13584 28%, #E1306C 52%, #F77737 76%, #FCAF45 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(0.76) brightness(0.97);
+}
+
+#contact .actions .button[href^="mailto:"]:hover,
+#contact .actions .button[href^="mailto:"]:focus-visible,
+#contact .actions .button.linkedin:hover,
+#contact .actions .button.linkedin:focus-visible,
+#contact .actions .button.instagram:hover,
+#contact .actions .button.instagram:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 rgba(32, 54, 74, 0.08) !important;
+  filter: saturate(0.86) brightness(0.99);
+}
