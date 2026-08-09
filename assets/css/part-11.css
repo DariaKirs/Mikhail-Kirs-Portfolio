@@ -1,17 +1,57 @@
-/* About desktop alignment lock — restore the approved visual balance from commit e9af3f4.
-   This intentionally overrides only the later 384px flex-centering experiment.
-   All typography, portrait geometry, palette, motion and other sections remain untouched. */
+/* About desktop structural alignment.
+   The previous cascade tried to center .about-copy against the full left column,
+   which also contains the ABOUT label and Mikhail Kirs heading. That makes the
+   right-hand text look too high even when align-self/justify-content say center.
+
+   Fix: let the children of .about-title participate directly in the parent grid.
+   The portrait and .about-copy then occupy the SAME grid row, so their vertical
+   centers are genuinely aligned. No pixel-offset guessing and no fixed-height
+   copy container. */
 
 @media (min-width: 821px) {
+  #about .about-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr) !important;
+    grid-template-rows: auto auto auto !important;
+    column-gap: clamp(50px, 9vw, 110px) !important;
+    row-gap: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Keep the existing DOM, but remove the wrapper from grid geometry so the
+     label, heading and portrait can occupy separate rows. */
+  #about .about-title {
+    display: contents !important;
+  }
+
+  #about .about-title > .eyebrow {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+  }
+
+  #about .about-title > h2 {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+  }
+
+  #about .about-portrait-stack {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    align-self: center !important;
+  }
+
   #about .about-copy {
+    grid-column: 2 !important;
+    grid-row: 3 !important;
     display: block !important;
     height: auto !important;
     min-height: 0 !important;
-    align-self: stretch !important;
-    padding-top: clamp(36px, 3vw, 52px) !important;
+    align-self: center !important;
+    padding-top: 0 !important;
     transform: none !important;
   }
 
+  /* Preserve the approved e9af3f4 internal rhythm. */
   #about .about-copy .lead {
     margin: 0 0 clamp(44px, 3.5vw, 58px) !important;
   }
