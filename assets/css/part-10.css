@@ -87,39 +87,66 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
   }
 }
 
-/* Scroll reveal: calm editorial movement for text groups and cards.
-   Individual translate is used instead of transform so existing card hover transforms remain intact. */
-.scroll-reveal {
-  opacity: 0;
-  translate: 0 22px;
-  transition:
-    opacity 0.72s cubic-bezier(.22,.61,.36,1),
-    translate 0.72s cubic-bezier(.22,.61,.36,1);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, translate;
+/* Calm editorial reveal as content enters the viewport.
+   Hero is intentionally excluded: only scrolled-to text groups and cards move. */
+@keyframes editorial-scroll-reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
 }
 
-.scroll-reveal.is-visible {
-  opacity: 1;
-  translate: 0 0;
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .work-section .section-heading > *,
+    .work-section .card,
+    #about .about-title,
+    #about .about-copy,
+    #contact .contact-main,
+    #contact .contact-copy {
+      animation-name: editorial-scroll-reveal;
+      animation-duration: 1ms;
+      animation-fill-mode: both;
+      animation-timing-function: linear;
+      animation-timeline: view();
+      animation-range: entry 4% cover 30%;
+    }
+
+    .work-section .card:nth-child(2) {
+      animation-range: entry 7% cover 33%;
+    }
+
+    .work-section .card:nth-child(3) {
+      animation-range: entry 10% cover 36%;
+    }
+
+    #about .about-copy,
+    #contact .contact-copy {
+      animation-range: entry 8% cover 34%;
+    }
+  }
 }
 
-@media (max-width: 620px) {
-  .scroll-reveal {
-    translate: 0 16px;
-    transition-duration: 0.62s;
+@media (max-width: 620px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .work-section .section-heading > *,
+    .work-section .card,
+    #about .about-title,
+    #about .about-copy,
+    #contact .contact-main,
+    #contact .contact-copy {
+      animation-range: entry 2% cover 24%;
+    }
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
     display: none !important;
-  }
-
-  .scroll-reveal,
-  .scroll-reveal.is-visible {
-    opacity: 1 !important;
-    translate: none !important;
-    transition: none !important;
   }
 }
