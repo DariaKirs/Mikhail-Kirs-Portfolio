@@ -541,3 +541,15 @@ body {
   box-shadow: 0 12px 0 rgba(32, 54, 74, 0.08) !important;
   filter: saturate(0.86) brightness(0.99);
 }
+
+/* Contact desktop geometry: three equal CTA capsules. */
+@media (min-width: 821px) {
+  html body #contact .contact-copy .actions .button,
+  html body #contact .contact-copy .actions .button.linkedin,
+  html body #contact .contact-copy .actions .button.instagram {
+    width: 230px !important;
+    min-width: 230px !important;
+    max-width: 230px !important;
+    flex: 0 0 230px !important;
+  }
+}
