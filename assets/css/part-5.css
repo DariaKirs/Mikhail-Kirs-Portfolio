@@ -77,3 +77,35 @@
     box-shadow: 0 22px 48px rgba(32, 54, 74, 0.08);
   }
 }
+
+/* Approved Hero content hierarchy: headline first, portrait as the left-hand visual,
+   supporting copy next, and one primary invitation to view the work. */
+.hero .hero-copy-block > .eyebrow {
+  display: none !important;
+}
+
+.hero .hero-copy-block > .actions .button.secondary {
+  display: none !important;
+}
+
+@media (min-width: 1051px) {
+  .hero .hero-layout {
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr) !important;
+    gap: clamp(50px, 9vw, 110px) !important;
+    align-items: center !important;
+  }
+
+  .hero .hero-identity {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    min-height: 520px !important;
+    justify-self: stretch !important;
+  }
+
+  .hero .hero-copy-block {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: center !important;
+  }
+}
