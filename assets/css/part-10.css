@@ -1,7 +1,7 @@
 /* Recovery and motion layer — 2026-08-09.
    Keep the approved About structure, center the right-hand copy against the
    portrait height, preserve upright Contact emphasis, and provide the CSS side
-   of the IntersectionObserver reveal system. */
+   of the scroll reveal system. */
 
 /* -------------------------------------------------------------------------- */
 /* ABOUT — approved editorial sheet and portrait underlays                     */
@@ -144,37 +144,40 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* SCROLL REVEALS — IntersectionObserver classes                               */
+/* SCROLL REVEALS — explicit scroll-triggered classes                          */
 /* -------------------------------------------------------------------------- */
 
-/* Content is hidden only after JS has successfully initialized. If JS is not
-   available, everything remains visible rather than disappearing. */
+/* Elements are hidden only after JS has initialized. The animation uses the
+   long-supported transform property rather than scroll timelines or individual
+   translate properties, so it behaves consistently in production browsers. */
 html.reveal-ready .scroll-reveal {
   opacity: 0;
-  translate: 0 28px;
+  transform: translateY(36px);
   transition:
-    opacity 720ms cubic-bezier(.22,.72,.2,1),
-    translate 720ms cubic-bezier(.22,.72,.2,1);
+    opacity 760ms cubic-bezier(.22,.72,.2,1),
+    transform 760ms cubic-bezier(.22,.72,.2,1);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, translate;
+  will-change: opacity, transform;
 }
 
 html.reveal-ready .scroll-reveal.is-visible {
   opacity: 1;
-  translate: 0 0;
+  transform: translateY(0);
 }
 
 @media (max-width: 620px) {
   html.reveal-ready .scroll-reveal {
-    translate: 0 20px;
-    transition-duration: 640ms;
+    transform: translateY(26px);
+    transition-duration: 680ms;
   }
 
   html.reveal-ready .scroll-reveal.is-visible {
-    translate: 0 0;
+    transform: translateY(0);
   }
 }
 
+/* Respect reduced-motion preferences without making the reveal disappear
+   completely: use a short opacity-only transition and remove movement. */
 @media (prefers-reduced-motion: reduce) {
   #about .about-portrait-stack img {
     transition: none;
@@ -184,10 +187,14 @@ html.reveal-ready .scroll-reveal.is-visible {
     transform: none;
   }
 
-  html.reveal-ready .scroll-reveal,
+  html.reveal-ready .scroll-reveal {
+    opacity: 0;
+    transform: none;
+    transition: opacity 220ms ease;
+  }
+
   html.reveal-ready .scroll-reveal.is-visible {
     opacity: 1;
-    translate: none;
-    transition: none;
+    transform: none;
   }
 }
