@@ -68,3 +68,71 @@
     min-height: 270px;
   }
 }
+
+/* Contact CTA refinement: slightly shorter desktop capsules plus a restrained
+   light sweep on hover/focus. Mobile keeps the approved full-width layout. */
+html body main#main-content section#contact.contact-section .contact-copy .actions .button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+  content: "";
+  position: absolute;
+  top: -45%;
+  bottom: -45%;
+  left: -65%;
+  width: 38%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 24%,
+    rgba(255, 255, 255, 0.44) 50%,
+    rgba(255, 255, 255, 0.08) 76%,
+    transparent 100%
+  );
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes contact-cta-shimmer {
+  0% {
+    left: -65%;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
+    animation: contact-cta-shimmer 0.78s ease-out;
+  }
+}
+
+@media (min-width: 821px) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button,
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button.linkedin,
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button.instagram {
+    width: 207px !important;
+    min-width: 207px !important;
+    max-width: 207px !important;
+    flex: 0 0 207px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+    display: none;
+  }
+}
