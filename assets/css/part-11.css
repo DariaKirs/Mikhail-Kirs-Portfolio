@@ -1,58 +1,56 @@
-/* About desktop geometry restored from the exact production state at commit
-   e9af3f47d559753abb4e72a1b587174b1984113c.
-   This file intentionally overrides only later About alignment experiments. */
+/* About desktop geometry lock — exact effective parameters from commit
+   3037c5934508bb4e33f894589a06a02e53a346e6 ("Refine About portrait spacing and copy grouping").
+   This overrides only later About experiments; mobile and other sections remain untouched. */
 
 @media (min-width: 821px) {
-  /* Exact two-column geometry used in e9af3f4. */
-  #about .about-layout {
+  /* Exact two-column About sheet geometry at 3037c59. */
+  section#about .about-layout {
     display: grid !important;
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr) !important;
     gap: clamp(50px, 9vw, 110px) !important;
     align-items: stretch !important;
+    min-height: clamp(690px, 40vw, 760px) !important;
     padding-top: 42px !important;
+    padding-right: clamp(34px, 4.4vw, 68px) !important;
     padding-bottom: 42px !important;
     padding-left: clamp(34px, 4.4vw, 68px) !important;
-    padding-right: clamp(34px, 4.4vw, 68px) !important;
   }
 
-  /* Restore the original wrapper geometry. Do not split ABOUT / title / photo
-     into separate parent-grid rows. */
-  #about .about-title {
+  /* Original left column: ABOUT -> Mikhail Kirs -> portrait, in normal flow. */
+  section#about .about-title {
     display: block !important;
     align-self: start !important;
   }
 
-  #about .about-title > .eyebrow,
-  #about .about-title > h2,
-  #about .about-portrait-stack {
+  section#about .about-title > .eyebrow,
+  section#about .about-title > h2,
+  section#about .about-portrait-stack {
     grid-column: auto !important;
     grid-row: auto !important;
   }
 
-  /* Exact final title scale in e9af3f4. */
-  #about .about-title h2 {
+  section#about .about-title h2 {
     font-size: clamp(1.907rem, 3.580vw, 3.542rem) !important;
   }
 
-  /* Exact portrait spacing and desktop size in e9af3f4. */
-  #about .about-portrait-stack {
+  /* Exact portrait values after the 3037c59 refinement. */
+  section#about .about-portrait-stack {
     width: 288px !important;
-    margin-top: 24px !important;
+    margin-top: 50px !important;
     margin-right: 0 !important;
     margin-bottom: 0 !important;
-    margin-left: 42px !important;
+    margin-left: 64px !important;
     align-self: auto !important;
   }
 
-  #about .about-portrait-stack img {
+  section#about .about-portrait-stack img {
     width: 288px !important;
     height: 384px !important;
     aspect-ratio: auto !important;
   }
 
-  /* Exact right-column behaviour in e9af3f4: independent second column,
-     normal document flow, 30px visual lowering, and the approved inner rhythm. */
-  #about .about-copy {
+  /* Exact right-column placement and rhythm at 3037c59. */
+  section#about .about-copy {
     display: block !important;
     grid-column: auto !important;
     grid-row: auto !important;
@@ -64,15 +62,15 @@
     transform: translateY(30px) !important;
   }
 
-  #about .about-copy .lead {
-    margin: 0 0 clamp(44px, 3.5vw, 58px) !important;
+  section#about .about-copy .lead {
+    margin: 0 0 clamp(36px, 3vw, 48px) !important;
   }
 
-  #about .workflow-copy {
+  section#about .workflow-copy {
     margin: 0 !important;
   }
 
-  #about .education-card {
-    margin-top: clamp(44px, 3.5vw, 58px) !important;
+  section#about .education-card {
+    margin-top: clamp(36px, 3vw, 48px) !important;
   }
 }
