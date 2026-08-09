@@ -1,10 +1,10 @@
 /* Recovery and motion layer — 2026-08-09.
-   This file restores structural About rules that were accidentally lost when the
-   Hero preview branch was promoted, keeps Contact emphasis upright, restores the
-   original ef09e9a hover shimmer, and adds calm scroll-driven reveals. */
+   Keep the approved About structure, center the right-hand copy against the
+   portrait height, preserve upright Contact emphasis, and provide the CSS side
+   of the IntersectionObserver reveal system. */
 
 /* -------------------------------------------------------------------------- */
-/* ABOUT — restore the approved editorial sheet and portrait underlays         */
+/* ABOUT — approved editorial sheet and portrait underlays                     */
 /* -------------------------------------------------------------------------- */
 
 #about .about-layout {
@@ -65,8 +65,24 @@
   }
 }
 
-/* Keep the Fanshawe credential integrated into the editorial sheet rather than
-   rendering as a second large white card. */
+/* The portrait is locked to 384 px on desktop. Align the copy container to the
+   bottom of the same grid row and give it the same height, so the complete copy
+   group is vertically centered against the photograph itself rather than the
+   whole left column (which also contains ABOUT + Mikhail Kirs). */
+@media (min-width: 821px) {
+  #about .about-copy {
+    display: flex !important;
+    height: 384px !important;
+    min-height: 384px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-self: end !important;
+    padding-top: 0 !important;
+    transform: none !important;
+  }
+}
+
+/* Keep the Fanshawe credential integrated into the editorial sheet. */
 #about .education-card {
   padding: 0 !important;
   border: 0 !important;
@@ -117,7 +133,7 @@
 }
 
 /* -------------------------------------------------------------------------- */
-/* CONTACT — upright emphasis + original production shimmer from ef09e9a      */
+/* CONTACT — only typography lock here; shimmer lives in part-6 as ef09e9a    */
 /* -------------------------------------------------------------------------- */
 
 #contact .contact-manifesto em,
@@ -127,133 +143,35 @@
   font-style: normal !important;
 }
 
-html body main#main-content section#contact.contact-section .contact-copy .actions .button {
-  position: relative;
-  overflow: hidden !important;
-  isolation: isolate;
-}
+/* -------------------------------------------------------------------------- */
+/* SCROLL REVEALS — IntersectionObserver classes                               */
+/* -------------------------------------------------------------------------- */
 
-html body main#main-content section#contact.contact-section .contact-copy .actions .button::before {
-  content: none !important;
-  display: none !important;
-  animation: none !important;
-}
-
-html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-  content: "" !important;
-  display: block !important;
-  position: absolute !important;
-  inset: auto !important;
-  top: -45% !important;
-  bottom: -45% !important;
-  left: -65%;
-  width: 38% !important;
-  height: auto !important;
-  margin: 0 !important;
-  border-radius: 0 !important;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.08) 24%,
-    rgba(255, 255, 255, 0.44) 50%,
-    rgba(255, 255, 255, 0.08) 76%,
-    transparent 100%
-  ) !important;
-  color: transparent !important;
-  font-size: 0 !important;
-  text-shadow: none !important;
-  transform: skewX(-18deg) !important;
-  filter: none !important;
+/* Content is hidden only after JS has successfully initialized. If JS is not
+   available, everything remains visible rather than disappearing. */
+html.reveal-ready .scroll-reveal {
   opacity: 0;
-  pointer-events: none !important;
-  animation: none;
-  z-index: 2 !important;
+  translate: 0 28px;
+  transition:
+    opacity 720ms cubic-bezier(.22,.72,.2,1),
+    translate 720ms cubic-bezier(.22,.72,.2,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, translate;
 }
 
-@keyframes contact-cta-original-shimmer {
-  0% {
-    left: -65%;
-    opacity: 0;
-  }
-  18% {
-    opacity: 1;
-  }
-  100% {
-    left: 130%;
-    opacity: 0;
-  }
+html.reveal-ready .scroll-reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
-  html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
-    animation: contact-cta-original-shimmer 0.78s ease-out !important;
+@media (max-width: 620px) {
+  html.reveal-ready .scroll-reveal {
+    translate: 0 20px;
+    transition-duration: 640ms;
   }
-}
 
-@media (hover: none), (pointer: coarse) {
-  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-    animation: none !important;
-    opacity: 0;
-  }
-}
-
-/* -------------------------------------------------------------------------- */
-/* SCROLL REVEALS — native viewport timeline, Hero deliberately excluded       */
-/* -------------------------------------------------------------------------- */
-
-@keyframes editorial-scroll-reveal {
-  from {
-    opacity: 0;
-    translate: 0 34px;
-  }
-  to {
-    opacity: 1;
+  html.reveal-ready .scroll-reveal.is-visible {
     translate: 0 0;
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .work-section .section-heading > *,
-    .work-section .card,
-    #about .about-title,
-    #about .about-copy,
-    #contact .contact-main,
-    #contact .contact-copy {
-      animation-name: editorial-scroll-reveal;
-      animation-duration: 1s;
-      animation-fill-mode: both;
-      animation-timing-function: cubic-bezier(.22,.72,.2,1);
-      animation-timeline: view();
-      animation-range: entry 0% cover 38%;
-    }
-
-    .work-section .card:nth-child(2) {
-      animation-range: entry 5% cover 41%;
-    }
-
-    .work-section .card:nth-child(3) {
-      animation-range: entry 10% cover 44%;
-    }
-
-    #about .about-copy,
-    #contact .contact-copy {
-      animation-range: entry 6% cover 42%;
-    }
-  }
-}
-
-@media (max-width: 620px) and (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .work-section .section-heading > *,
-    .work-section .card,
-    #about .about-title,
-    #about .about-copy,
-    #contact .contact-main,
-    #contact .contact-copy {
-      animation-range: entry 0% cover 32%;
-    }
   }
 }
 
@@ -266,7 +184,10 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
     transform: none;
   }
 
-  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-    display: none !important;
+  html.reveal-ready .scroll-reveal,
+  html.reveal-ready .scroll-reveal.is-visible {
+    opacity: 1;
+    translate: none;
+    transition: none;
   }
 }
