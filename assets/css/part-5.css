@@ -63,3 +63,17 @@
     margin-top: clamp(36px, 3vw, 48px) !important;
   }
 }
+
+/* Hero first-pass normalization: use the approved physical-sheet geometry from About.
+   Keep all Hero typography untouched for visual review; the portrait stack is already
+   locked elsewhere to the approved 288 x 384 px size shared with About. */
+@media (min-width: 1051px) {
+  .hero .hero-layout {
+    min-height: clamp(690px, 40vw, 760px) !important;
+    padding: 42px clamp(34px, 4.4vw, 68px) !important;
+    border: 1px solid var(--line-dark);
+    border-radius: 42px 18px 42px 18px;
+    background: var(--surface-strong);
+    box-shadow: 0 22px 48px rgba(32, 54, 74, 0.08);
+  }
+}
