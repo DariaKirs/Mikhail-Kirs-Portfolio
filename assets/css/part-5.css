@@ -109,3 +109,88 @@
     align-self: center !important;
   }
 }
+
+/* Final Hero philosophy: value -> visible form -> visual bridge -> community.
+   Keep the existing DOM stable while the approved copy is reviewed in layout. */
+.hero .hero-copy-block > h1 {
+  font-size: 0 !important;
+}
+
+.hero .hero-copy-block > h1::before {
+  content: "What you do best deserves to be seen.";
+  display: block;
+  color: var(--text);
+  font-size: clamp(3.15rem, 6.4vw, 6.3rem);
+  line-height: 0.94;
+  letter-spacing: -0.058em;
+  text-wrap: balance;
+}
+
+.hero .hero-copy {
+  max-width: 690px;
+  margin-top: 30px !important;
+  font-size: 0 !important;
+}
+
+.hero .hero-copy::before {
+  content: "You may have knowledge worth sharing, expertise worth trusting, an idea worth hearing, a business or a place worth discovering. But people can only see what has been made visible.";
+  display: block;
+  color: var(--muted);
+  font-size: clamp(1.08rem, 1.65vw, 1.36rem);
+  line-height: 1.48;
+}
+
+.hero .hero-copy::after {
+  content: "The value is already there. It just needs a visible form.";
+  display: block;
+  margin-top: 24px;
+  color: var(--text);
+  font-size: clamp(1.18rem, 1.45vw, 1.34rem);
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.hero .actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  margin-top: 24px;
+}
+
+.hero .actions::before {
+  content: "My job is to build a visual bridge between what you do best and the community.";
+  display: block;
+  max-width: 690px;
+  color: var(--text);
+  font-size: clamp(1.12rem, 1.35vw, 1.26rem);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+@media (min-width: 1051px) {
+  .hero .hero-copy-block > h1::before {
+    max-width: 760px;
+    font-size: clamp(3.35rem, 4.55vw, 4.7rem);
+    line-height: 0.96;
+    letter-spacing: -0.052em;
+  }
+
+  .hero .hero-copy::before {
+    font-size: clamp(1rem, 1.35vw, 1.18rem);
+  }
+}
+
+@media (max-width: 1050px) and (min-width: 621px) {
+  .hero .hero-copy-block > h1::before {
+    font-size: clamp(3.15rem, 8.5vw, 4.5rem);
+    line-height: 0.96;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero .hero-copy-block > h1::before {
+    font-size: clamp(2.6rem, 11.5vw, 3.45rem);
+    line-height: 0.98;
+  }
+}
