@@ -429,3 +429,19 @@ body {
     margin-top: 24px !important;
   }
 }
+
+/* Mobile About: keep the portrait stack comfortably inside the editorial sheet. */
+@media (max-width: 620px) {
+  #about .about-portrait-stack {
+    width: calc(100% - 64px) !important;
+    margin: 44px auto 34px !important;
+  }
+
+  #about .about-portrait-stack::before {
+    transform: translate(-18px, -16px) rotate(-5deg) !important;
+  }
+
+  #about .about-portrait-stack::after {
+    transform: translate(16px, 16px) rotate(4deg) !important;
+  }
+}
