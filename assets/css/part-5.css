@@ -164,8 +164,8 @@
   max-width: 690px;
   color: var(--text);
   font-size: clamp(1.12rem, 1.35vw, 1.26rem);
-  font-weight: 700;
-  line-height: 1.4;
+  font-weight: 600;
+  line-height: 1.48;
 }
 
 @media (min-width: 1051px) {
