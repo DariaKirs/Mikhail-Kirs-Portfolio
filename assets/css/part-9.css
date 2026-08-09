@@ -1,8 +1,9 @@
-/* Hero collage preview — Variant 3
-   One integrated editorial object: main portrait + two underlays + two city frames.
-   Current Hero copy and approved calm palette stay unchanged. */
+/* Hero collage preview — Variant 4
+   Portrait-only composition: remove city frames completely and enlarge the
+   portrait + its two approved palette underlays by exactly 20% from Variant 3.
+   Current Hero copy stays unchanged. Main branch is untouched. */
 
-/* Hero only: remove the large editorial sheet. About and Contact are untouched. */
+/* Hero only: remove the large editorial sheet. About and Contact stay untouched. */
 .hero .hero-layout {
   border: 0 !important;
   border-radius: 0 !important;
@@ -16,26 +17,8 @@
   isolation: isolate !important;
 }
 
-/* Reuse only two decorative spans as city-photo frames. The third is removed. */
-.hero .hero-identity .collage-accent {
-  position: absolute !important;
-  display: block !important;
-  overflow: hidden !important;
-  border: 4px solid var(--bg) !important;
-  background-position: center !important;
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-}
-
-.hero .hero-identity .accent-coral {
-  background-image: url("../images/Ivy.JPG") !important;
-}
-
-.hero .hero-identity .accent-purple {
-  background-image: url("../images/Dundas_Str.JPG") !important;
-}
-
-.hero .hero-identity .accent-green,
+/* Variant 4: no city cards and no collage label. */
+.hero .hero-identity .collage-accent,
 .hero .hero-identity .collage-caption {
   display: none !important;
 }
@@ -47,10 +30,10 @@
   }
 
   .hero .hero-layout {
-    min-height: 650px !important;
+    min-height: 680px !important;
     padding: 18px 0 14px !important;
-    grid-template-columns: minmax(0, 1.12fr) minmax(470px, 0.88fr) !important;
-    gap: clamp(48px, 5vw, 76px) !important;
+    grid-template-columns: minmax(0, 1.08fr) minmax(500px, 0.92fr) !important;
+    gap: clamp(48px, 5vw, 78px) !important;
     align-items: center !important;
   }
 
@@ -75,35 +58,35 @@
     grid-column: 2 !important;
     grid-row: 1 !important;
     width: 100% !important;
-    min-height: 590px !important;
+    min-height: 650px !important;
     margin: 0 !important;
     justify-self: stretch !important;
   }
 
-  /* Portrait is the single dominant object. */
+  /* Variant 3 was 350 × 466. Variant 4 is exactly +20%: 420 × 559.2. */
   .hero .hero-identity::before,
   .hero .hero-identity::after,
   .hero .hero-identity .collage-portrait {
-    width: 350px !important;
-    height: 466px !important;
-    left: 41% !important;
-    top: 51% !important;
+    width: 420px !important;
+    height: 559px !important;
+    left: 50% !important;
+    top: 50% !important;
     right: auto !important;
     bottom: auto !important;
-    border-radius: 34px 18px 34px 18px !important;
+    border-radius: 40px 21px 40px 21px !important;
   }
 
   .hero .hero-identity::before {
     z-index: 1 !important;
     background: var(--dusty-rose) !important;
-    transform: translate(calc(-50% + 25px), calc(-50% - 20px)) rotate(4.5deg) !important;
+    transform: translate(calc(-50% + 30px), calc(-50% - 24px)) rotate(4.5deg) !important;
     box-shadow: none !important;
   }
 
   .hero .hero-identity::after {
     z-index: 1 !important;
     background: var(--soft-lilac) !important;
-    transform: translate(calc(-50% - 21px), calc(-50% + 18px)) rotate(-3.8deg) !important;
+    transform: translate(calc(-50% - 25px), calc(-50% + 22px)) rotate(-3.8deg) !important;
     box-shadow: none !important;
   }
 
@@ -111,35 +94,7 @@
     z-index: 5 !important;
     border: 5px solid var(--bg) !important;
     transform: translate(-50%, -50%) !important;
-    box-shadow: 0 22px 44px rgba(32, 54, 74, 0.14) !important;
-  }
-
-  /* Top city frame tucks behind the portrait instead of floating separately. */
-  .hero .hero-identity .accent-coral {
-    z-index: 3 !important;
-    width: 205px !important;
-    height: 160px !important;
-    left: auto !important;
-    right: 8px !important;
-    top: 54px !important;
-    bottom: auto !important;
-    border-radius: 28px 44px 28px 44px !important;
-    transform: rotate(2.2deg) !important;
-    box-shadow: 0 18px 34px rgba(32, 54, 74, 0.12) !important;
-  }
-
-  /* Lower city frame overlaps the portrait edge and visually closes the composition. */
-  .hero .hero-identity .accent-purple {
-    z-index: 7 !important;
-    width: 235px !important;
-    height: 170px !important;
-    left: auto !important;
-    right: 0 !important;
-    top: auto !important;
-    bottom: 48px !important;
-    border-radius: 24px 42px 24px 42px !important;
-    transform: rotate(-2.4deg) !important;
-    box-shadow: 0 18px 34px rgba(32, 54, 74, 0.12) !important;
+    box-shadow: 0 24px 48px rgba(32, 54, 74, 0.14) !important;
   }
 }
 
@@ -148,7 +103,7 @@
     min-height: 0 !important;
     padding: 10px 0 24px !important;
     grid-template-columns: minmax(0, 1fr) !important;
-    gap: 26px !important;
+    gap: 28px !important;
   }
 
   .hero .hero-copy-block {
@@ -156,64 +111,39 @@
   }
 
   .hero .hero-identity {
-    width: min(100%, 610px) !important;
-    min-height: 530px !important;
+    width: min(100%, 640px) !important;
+    min-height: 600px !important;
     margin: 8px auto 0 !important;
   }
 
+  /* Variant 3 was 320 × 426. +20% = 384 × 511.2. */
   .hero .hero-identity::before,
   .hero .hero-identity::after,
   .hero .hero-identity .collage-portrait {
-    width: 320px !important;
-    height: 426px !important;
-    left: 42% !important;
-    top: 51% !important;
-    border-radius: 32px 18px 32px 18px !important;
+    width: 384px !important;
+    height: 511px !important;
+    left: 50% !important;
+    top: 50% !important;
+    border-radius: 38px 20px 38px 20px !important;
   }
 
   .hero .hero-identity::before {
     z-index: 1 !important;
     background: var(--dusty-rose) !important;
-    transform: translate(calc(-50% + 23px), calc(-50% - 18px)) rotate(4.5deg) !important;
+    transform: translate(calc(-50% + 28px), calc(-50% - 22px)) rotate(4.5deg) !important;
   }
 
   .hero .hero-identity::after {
     z-index: 1 !important;
     background: var(--soft-lilac) !important;
-    transform: translate(calc(-50% - 19px), calc(-50% + 17px)) rotate(-3.8deg) !important;
+    transform: translate(calc(-50% - 23px), calc(-50% + 20px)) rotate(-3.8deg) !important;
   }
 
   .hero .hero-identity .collage-portrait {
     z-index: 5 !important;
     border: 5px solid var(--bg) !important;
     transform: translate(-50%, -50%) !important;
-    box-shadow: 0 20px 38px rgba(32,54,74,.13) !important;
-  }
-
-  .hero .hero-identity .accent-coral {
-    z-index: 3 !important;
-    width: 180px !important;
-    height: 140px !important;
-    left: auto !important;
-    right: 12px !important;
-    top: 42px !important;
-    bottom: auto !important;
-    border-radius: 26px 40px 26px 40px !important;
-    transform: rotate(2.2deg) !important;
-    box-shadow: 0 16px 30px rgba(32,54,74,.11) !important;
-  }
-
-  .hero .hero-identity .accent-purple {
-    z-index: 7 !important;
-    width: 210px !important;
-    height: 152px !important;
-    left: auto !important;
-    right: 4px !important;
-    top: auto !important;
-    bottom: 38px !important;
-    border-radius: 22px 38px 22px 38px !important;
-    transform: rotate(-2.4deg) !important;
-    box-shadow: 0 16px 30px rgba(32,54,74,.11) !important;
+    box-shadow: 0 22px 42px rgba(32,54,74,.13) !important;
   }
 }
 
@@ -231,64 +161,37 @@
 
   .hero .hero-identity {
     width: 100% !important;
-    min-height: 360px !important;
+    min-height: 430px !important;
     margin: 24px 0 28px !important;
   }
 
+  /* Variant 3 was 232 × 309. +20% = 278.4 × 370.8. */
   .hero .hero-identity::before,
   .hero .hero-identity::after,
   .hero .hero-identity .collage-portrait {
-    width: 232px !important;
-    height: 309px !important;
-    left: 43% !important;
-    top: 51% !important;
-    border-radius: 28px 16px 28px 16px !important;
+    width: 278px !important;
+    height: 371px !important;
+    left: 50% !important;
+    top: 50% !important;
+    border-radius: 33px 18px 33px 18px !important;
   }
 
   .hero .hero-identity::before {
     z-index: 1 !important;
     background: var(--dusty-rose) !important;
-    transform: translate(calc(-50% + 18px), calc(-50% - 14px)) rotate(4.5deg) !important;
+    transform: translate(calc(-50% + 22px), calc(-50% - 17px)) rotate(4.5deg) !important;
   }
 
   .hero .hero-identity::after {
     z-index: 1 !important;
     background: var(--soft-lilac) !important;
-    transform: translate(calc(-50% - 15px), calc(-50% + 14px)) rotate(-3.8deg) !important;
+    transform: translate(calc(-50% - 18px), calc(-50% + 17px)) rotate(-3.8deg) !important;
   }
 
   .hero .hero-identity .collage-portrait {
     z-index: 5 !important;
     border: 4px solid var(--bg) !important;
     transform: translate(-50%, -50%) !important;
-    box-shadow: 0 18px 32px rgba(32,54,74,.12) !important;
-  }
-
-  .hero .hero-identity .accent-coral {
-    z-index: 3 !important;
-    width: 114px !important;
-    height: 88px !important;
-    left: auto !important;
-    right: 2px !important;
-    top: 34px !important;
-    bottom: auto !important;
-    border-width: 3px !important;
-    border-radius: 20px 30px 20px 30px !important;
-    transform: rotate(2.2deg) !important;
-    box-shadow: 0 12px 22px rgba(32,54,74,.10) !important;
-  }
-
-  .hero .hero-identity .accent-purple {
-    z-index: 7 !important;
-    width: 130px !important;
-    height: 94px !important;
-    left: auto !important;
-    right: 0 !important;
-    top: auto !important;
-    bottom: 34px !important;
-    border-width: 3px !important;
-    border-radius: 18px 30px 18px 30px !important;
-    transform: rotate(-2.4deg) !important;
-    box-shadow: 0 12px 22px rgba(32,54,74,.10) !important;
+    box-shadow: 0 20px 36px rgba(32,54,74,.12) !important;
   }
 }
