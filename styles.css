@@ -529,3 +529,14 @@ section[id] {
     border-radius: 14px 6px 14px 6px;
   }
 }
+
+/* About desktop fit refinement — keep portrait scale, tighten title, lower copy. */
+@media (min-width: 821px) {
+  #about .about-title h2 {
+    font-size: clamp(2.303rem, 4.324vw, 4.277rem);
+  }
+
+  #about .about-copy {
+    transform: translateY(30px);
+  }
+}
