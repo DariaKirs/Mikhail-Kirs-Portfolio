@@ -70,7 +70,7 @@
 }
 
 /* Contact CTA refinement: keep the approved 207 px desktop capsules and replace
-   the previous coarse dots with a slower, finer cloud of magic dust. */
+   particle dust with slow, unfolding snowflake-like sparkles on hover/focus. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button {
   position: relative;
   overflow: visible;
@@ -79,103 +79,113 @@ html body main#main-content section#contact.contact-section .contact-copy .actio
 
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::before,
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-  content: "";
   position: absolute;
-  inset: -30px -24px;
-  border-radius: 999px;
+  left: 50%;
+  top: 50%;
+  width: 1em;
+  height: 1em;
+  margin: -.5em 0 0 -.5em;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.96);
+  line-height: 1;
   opacity: 0;
   pointer-events: none;
-  background-repeat: no-repeat;
-  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.42));
   transform-origin: center;
-  will-change: transform, opacity;
+  will-change: transform, opacity, filter;
   z-index: 2;
 }
 
-/* Fine dust — many tiny particles, deliberately irregular rather than five large dots. */
+/* Larger crystalline flakes. Each text-shadow repeats the same snowflake at a
+   different point around the button, so the shapes read as flakes rather than dots. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::before {
-  background:
-    radial-gradient(circle, rgba(255,255,255,.96) 0 1.15px, transparent 1.6px) 3% 62% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.74) 0 .75px, transparent 1.25px) 9% 38% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.88) 0 .95px, transparent 1.45px) 14% 78% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.62) 0 .65px, transparent 1.15px) 20% 18% / 6px 6px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.92) 0 1.05px, transparent 1.55px) 25% 54% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.70) 0 .72px, transparent 1.18px) 30% 84% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.82) 0 .88px, transparent 1.38px) 35% 31% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.56) 0 .58px, transparent 1.08px) 41% 68% / 6px 6px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.90) 0 1px, transparent 1.5px) 47% 12% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.68) 0 .7px, transparent 1.2px) 52% 72% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.78) 0 .82px, transparent 1.32px) 57% 42% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.52) 0 .55px, transparent 1.05px) 62% 88% / 6px 6px no-repeat;
+  content: "❄";
+  font-size: 11px;
+  text-shadow:
+    -92px -10px 0 rgba(255,255,255,.96),
+    -68px -31px 0 rgba(216,233,238,.96),
+    -38px 24px 0 rgba(255,255,255,.86),
+    -12px -36px 0 rgba(199,182,221,.82),
+     26px 27px 0 rgba(255,255,255,.90),
+     54px -28px 0 rgba(216,233,238,.94),
+     82px 16px 0 rgba(255,255,255,.88),
+     98px -12px 0 rgba(199,182,221,.78);
 }
 
+/* Smaller companion flakes create a second layer so the opening feels organic. */
 html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
-  background:
-    radial-gradient(circle, rgba(255,255,255,.58) 0 .58px, transparent 1.08px) 40% 20% / 6px 6px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.80) 0 .86px, transparent 1.36px) 46% 76% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.68) 0 .72px, transparent 1.22px) 52% 34% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.92) 0 1.04px, transparent 1.54px) 58% 58% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.54) 0 .56px, transparent 1.06px) 64% 88% / 6px 6px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.76) 0 .8px, transparent 1.3px) 69% 16% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.86) 0 .94px, transparent 1.44px) 74% 69% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.64) 0 .66px, transparent 1.16px) 80% 40% / 6px 6px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.94) 0 1.08px, transparent 1.58px) 85% 82% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.72) 0 .76px, transparent 1.26px) 90% 24% / 7px 7px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.88) 0 .96px, transparent 1.46px) 95% 57% / 8px 8px no-repeat,
-    radial-gradient(circle, rgba(255,255,255,.50) 0 .52px, transparent 1.02px) 98% 36% / 6px 6px no-repeat;
+  content: "❅";
+  font-size: 8px;
+  text-shadow:
+    -104px 18px 0 rgba(216,233,238,.84),
+    -78px 34px 0 rgba(255,255,255,.80),
+    -52px -18px 0 rgba(255,255,255,.92),
+    -24px 36px 0 rgba(199,182,221,.76),
+      8px -30px 0 rgba(255,255,255,.86),
+     38px 35px 0 rgba(216,233,238,.88),
+     66px -8px 0 rgba(255,255,255,.82),
+     90px 30px 0 rgba(199,182,221,.72);
 }
 
-@keyframes contact-cta-dust-left {
+@keyframes contact-cta-snowflake-open-a {
   0% {
     opacity: 0;
-    transform: translate3d(0, 2px, 0) scale(.72);
+    transform: translate3d(0, 8px, 0) scale(.16) rotate(-18deg);
+    filter: blur(1.8px) drop-shadow(0 0 0 rgba(255,255,255,0));
   }
-  12% {
-    opacity: .92;
-  }
-  42% {
-    opacity: .78;
-    transform: translate3d(-5px, -6px, 0) scale(.98);
-  }
-  72% {
-    opacity: .42;
-  }
-  100% {
-    opacity: 0;
-    transform: translate3d(-24px, -30px, 0) scale(1.24);
-  }
-}
-
-@keyframes contact-cta-dust-right {
-  0% {
-    opacity: 0;
-    transform: translate3d(0, 3px, 0) scale(.68);
-  }
-  16% {
-    opacity: .88;
+  18% {
+    opacity: .96;
   }
   46% {
-    opacity: .72;
-    transform: translate3d(6px, -7px, 0) scale(1.02);
+    opacity: .92;
+    transform: translate3d(-2px, -4px, 0) scale(.92) rotate(5deg);
+    filter: blur(.15px) drop-shadow(0 0 5px rgba(255,255,255,.48));
   }
-  76% {
-    opacity: .36;
+  72% {
+    opacity: .62;
+    transform: translate3d(-7px, -16px, 0) scale(1.08) rotate(18deg);
   }
   100% {
     opacity: 0;
-    transform: translate3d(28px, -34px, 0) scale(1.28);
+    transform: translate3d(-14px, -34px, 0) scale(1.20) rotate(28deg);
+    filter: blur(.4px) drop-shadow(0 0 8px rgba(255,255,255,.18));
+  }
+}
+
+@keyframes contact-cta-snowflake-open-b {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(.10) rotate(22deg);
+    filter: blur(1.6px) drop-shadow(0 0 0 rgba(255,255,255,0));
+  }
+  24% {
+    opacity: .86;
+  }
+  50% {
+    opacity: .82;
+    transform: translate3d(4px, -2px, 0) scale(.88) rotate(-6deg);
+    filter: blur(.1px) drop-shadow(0 0 4px rgba(216,233,238,.45));
+  }
+  76% {
+    opacity: .48;
+    transform: translate3d(10px, -18px, 0) scale(1.03) rotate(-18deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(18px, -38px, 0) scale(1.16) rotate(-30deg);
+    filter: blur(.35px) drop-shadow(0 0 7px rgba(216,233,238,.16));
   }
 }
 
 @media (hover: hover) and (pointer: fine) {
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::before,
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::before {
-    animation: contact-cta-dust-left 1.7s cubic-bezier(.18,.68,.24,1) both;
+    animation: contact-cta-snowflake-open-a 2.15s cubic-bezier(.16,.68,.22,1) both;
   }
 
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
   html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
-    animation: contact-cta-dust-right 1.95s .08s cubic-bezier(.16,.64,.2,1) both;
+    animation: contact-cta-snowflake-open-b 2.35s .10s cubic-bezier(.18,.64,.20,1) both;
   }
 }
 
