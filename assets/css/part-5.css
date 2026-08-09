@@ -190,6 +190,9 @@
 
 @media (max-width: 620px) {
   .hero .hero-copy-block > h1::before {
+    content: "What you do best" "\A" "deserves to be seen.";
+    white-space: pre-line;
+    text-wrap: wrap;
     font-size: clamp(2.6rem, 11.5vw, 3.45rem);
     line-height: 0.98;
   }
