@@ -1,0 +1,26 @@
+/* About desktop alignment lock — restore the approved visual balance from commit e9af3f4.
+   This intentionally overrides only the later 384px flex-centering experiment.
+   All typography, portrait geometry, palette, motion and other sections remain untouched. */
+
+@media (min-width: 821px) {
+  #about .about-copy {
+    display: block !important;
+    height: auto !important;
+    min-height: 0 !important;
+    align-self: stretch !important;
+    padding-top: clamp(36px, 3vw, 52px) !important;
+    transform: none !important;
+  }
+
+  #about .about-copy .lead {
+    margin: 0 0 clamp(44px, 3.5vw, 58px) !important;
+  }
+
+  #about .workflow-copy {
+    margin: 0 !important;
+  }
+
+  #about .education-card {
+    margin-top: clamp(44px, 3.5vw, 58px) !important;
+  }
+}
