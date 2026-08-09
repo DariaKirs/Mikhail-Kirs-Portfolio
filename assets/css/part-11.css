@@ -1,57 +1,69 @@
-/* About desktop structural alignment.
-   The previous cascade tried to center .about-copy against the full left column,
-   which also contains the ABOUT label and Mikhail Kirs heading. That makes the
-   right-hand text look too high even when align-self/justify-content say center.
-
-   Fix: let the children of .about-title participate directly in the parent grid.
-   The portrait and .about-copy then occupy the SAME grid row, so their vertical
-   centers are genuinely aligned. No pixel-offset guessing and no fixed-height
-   copy container. */
+/* About desktop geometry restored from the exact production state at commit
+   e9af3f47d559753abb4e72a1b587174b1984113c.
+   This file intentionally overrides only later About alignment experiments. */
 
 @media (min-width: 821px) {
+  /* Exact two-column geometry used in e9af3f4. */
   #about .about-layout {
     display: grid !important;
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr) !important;
-    grid-template-rows: auto auto auto !important;
-    column-gap: clamp(50px, 9vw, 110px) !important;
-    row-gap: 0 !important;
-    align-items: start !important;
+    gap: clamp(50px, 9vw, 110px) !important;
+    align-items: stretch !important;
+    padding-top: 42px !important;
+    padding-bottom: 42px !important;
+    padding-left: clamp(34px, 4.4vw, 68px) !important;
+    padding-right: clamp(34px, 4.4vw, 68px) !important;
   }
 
-  /* Keep the existing DOM, but remove the wrapper from grid geometry so the
-     label, heading and portrait can occupy separate rows. */
+  /* Restore the original wrapper geometry. Do not split ABOUT / title / photo
+     into separate parent-grid rows. */
   #about .about-title {
-    display: contents !important;
-  }
-
-  #about .about-title > .eyebrow {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-  }
-
-  #about .about-title > h2 {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-  }
-
-  #about .about-portrait-stack {
-    grid-column: 1 !important;
-    grid-row: 3 !important;
-    align-self: center !important;
-  }
-
-  #about .about-copy {
-    grid-column: 2 !important;
-    grid-row: 3 !important;
     display: block !important;
+    align-self: start !important;
+  }
+
+  #about .about-title > .eyebrow,
+  #about .about-title > h2,
+  #about .about-portrait-stack {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  /* Exact final title scale in e9af3f4. */
+  #about .about-title h2 {
+    font-size: clamp(1.907rem, 3.580vw, 3.542rem) !important;
+  }
+
+  /* Exact portrait spacing and desktop size in e9af3f4. */
+  #about .about-portrait-stack {
+    width: 288px !important;
+    margin-top: 24px !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 42px !important;
+    align-self: auto !important;
+  }
+
+  #about .about-portrait-stack img {
+    width: 288px !important;
+    height: 384px !important;
+    aspect-ratio: auto !important;
+  }
+
+  /* Exact right-column behaviour in e9af3f4: independent second column,
+     normal document flow, 30px visual lowering, and the approved inner rhythm. */
+  #about .about-copy {
+    display: block !important;
+    grid-column: auto !important;
+    grid-row: auto !important;
     height: auto !important;
     min-height: 0 !important;
-    align-self: center !important;
-    padding-top: 0 !important;
-    transform: none !important;
+    align-self: stretch !important;
+    justify-content: normal !important;
+    padding-top: clamp(36px, 3vw, 52px) !important;
+    transform: translateY(30px) !important;
   }
 
-  /* Preserve the approved e9af3f4 internal rhythm. */
   #about .about-copy .lead {
     margin: 0 0 clamp(44px, 3.5vw, 58px) !important;
   }
