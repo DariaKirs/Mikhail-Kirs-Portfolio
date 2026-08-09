@@ -1,0 +1,94 @@
+/* Contact correction — approved 2026-08-09.
+   Keep the approved Contact composition and platform-color buttons, but:
+   1) return seen / heard / told to upright type;
+   2) remove all star / snowflake / particle effects;
+   3) restore the original restrained light-sweep hover animation from commit ef09e9a. */
+
+#contact .contact-manifesto em,
+#contact .word-seen,
+#contact .word-heard,
+#contact .word-told {
+  font-style: normal !important;
+}
+
+html body main#main-content section#contact.contact-section .contact-copy .actions .button {
+  position: relative;
+  overflow: hidden !important;
+  isolation: isolate;
+}
+
+/* Disable every decorative pseudo-element previously used for dust, snowflakes or stars. */
+html body main#main-content section#contact.contact-section .contact-copy .actions .button::before {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+}
+
+/* Original restrained light sweep. */
+html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  inset: auto !important;
+  top: -45% !important;
+  bottom: -45% !important;
+  left: -65% !important;
+  width: 38% !important;
+  height: auto !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 24%,
+    rgba(255, 255, 255, 0.44) 50%,
+    rgba(255, 255, 255, 0.08) 76%,
+    transparent 100%
+  ) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  text-shadow: none !important;
+  transform: skewX(-18deg) !important;
+  filter: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  animation: none !important;
+  z-index: 2 !important;
+}
+
+@keyframes contact-cta-original-shimmer {
+  0% {
+    left: -65%;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  100% {
+    left: 130%;
+    opacity: 0;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button:hover::after,
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button:focus-visible::after {
+    animation: contact-cta-original-shimmer 0.78s ease-out !important;
+  }
+}
+
+/* Touch devices: no automatic stars, snowflakes, particles or substitute effect. */
+@media (hover: none), (pointer: coarse) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html body main#main-content section#contact.contact-section .contact-copy .actions .button::after {
+    display: none !important;
+  }
+}
