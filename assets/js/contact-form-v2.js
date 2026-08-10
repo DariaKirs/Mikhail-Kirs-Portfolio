@@ -1,5 +1,5 @@
 (() => {
-  const CONTACT_VERSION = '20260810-1325';
+  const CONTACT_VERSION = '20260810-1344';
   const REQUEST_TIMEOUT_MS = 18000;
   const cssHref = `assets/css/contact-form.css?v=${CONTACT_VERSION}`;
 
@@ -23,7 +23,7 @@
 
   const mailButton = document.createElement('button');
   mailButton.type = 'button';
-  mailButton.className = existingMailLink.className;
+  mailButton.className = `${existingMailLink.className} mail-form-button`;
   mailButton.textContent = 'Mail me';
   mailButton.setAttribute('aria-label', 'Open contact form for Mikhail Kirs');
   mailButton.dataset.contactOpen = 'true';
@@ -47,22 +47,22 @@
     <div class="contact-modal-card">
       <button class="contact-modal-close" type="button" aria-label="Close contact form">×</button>
       <p class="contact-modal-eyebrow">Contact</p>
-      <h2 class="contact-modal-title" id="contact-dialog-title">Tell me about your project.</h2>
-      <p class="contact-modal-intro">Share a few details and I’ll get back to you.</p>
+      <h2 class="contact-modal-title" id="contact-dialog-title">What should we make visible?</h2>
+      <p class="contact-modal-intro">A person, a place, a business, an idea — tell me what you want to share, and we’ll find the right visual form.</p>
 
       <form class="contact-form" id="contact-form" novalidate>
         <fieldset class="contact-form-fields">
-          <div class="contact-field">
+          <div class="contact-field contact-field-name">
             <label for="contact-name">Name</label>
             <input id="contact-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="80" required>
           </div>
 
-          <div class="contact-field">
+          <div class="contact-field contact-field-email">
             <label for="contact-email">Email</label>
             <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
           </div>
 
-          <div class="contact-field">
+          <div class="contact-field contact-field-message">
             <label for="contact-message">Message</label>
             <textarea id="contact-message" name="message" minlength="10" maxlength="4000" required></textarea>
           </div>
