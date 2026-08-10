@@ -1,5 +1,7 @@
 (() => {
   const cssHref = 'assets/css/contact-form.css?v=20260810-1205';
+  const SEND_TIMEOUT_MS = 8000;
+  const RETRY_DELAY_MS = 900;
 
   if (!document.querySelector('link[data-contact-form-styles]')) {
     const link = document.createElement('link');
@@ -131,6 +133,43 @@
     if (dialog.open) dialog.close();
   };
 
+  const wait = (milliseconds) => new Promise((resolve) => {
+    window.setTimeout(resolve, milliseconds);
+  });
+
+  const sendContactRequest = async (payload) => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload),
+        signal: controller.signal
+      });
+
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        const requestError = new Error(result.error || 'Unable to send your message right now.');
+        requestError.status = response.status;
+        throw requestError;
+      }
+
+      return result;
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  };
+
+  const isRetryableSendError = (error) => {
+    if (error?.name === 'AbortError' || error instanceof TypeError) return true;
+    return [502, 503, 504].includes(Number(error?.status));
+  };
+
   mailButton.addEventListener('click', openDialog);
   closeButton.addEventListener('click', closeDialog);
 
@@ -166,27 +205,25 @@
     submitButton.textContent = 'Sending…';
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
+      try {
+        await sendContactRequest(payload);
+      } catch (firstError) {
+        if (!isRetryableSendError(firstError)) throw firstError;
 
-      const result = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        throw new Error(result.error || 'Unable to send your message right now.');
+        submitButton.textContent = 'Confirming…';
+        await wait(RETRY_DELAY_MS);
+        await sendContactRequest(payload);
       }
 
       fieldset.hidden = true;
       status.textContent = '';
       success.hidden = false;
     } catch (error) {
-      status.textContent = error instanceof Error
-        ? error.message
-        : 'Unable to send your message right now. Please try again.';
+      status.textContent = isRetryableSendError(error)
+        ? 'We couldn’t confirm delivery. Your message may already have been sent; please wait a moment before trying again.'
+        : (error instanceof Error
+            ? error.message
+            : 'Unable to send your message right now. Please try again.');
       submitButton.disabled = false;
       submitButton.textContent = 'Send message';
     }
