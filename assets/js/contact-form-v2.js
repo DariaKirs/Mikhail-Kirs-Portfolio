@@ -1,7 +1,7 @@
 (() => {
   const CONTACT_VERSION = '20260810-1455';
   const REQUEST_TIMEOUT_MS = 18000;
-  const cssHref = `assets/css/contact-form.css?v=${CONTACT_VERSION}`;
+  const cssHref = `assets/css/contact-form-refine.css?v=${CONTACT_VERSION}`;
 
   window.__MK_CONTACT_VERSION__ = CONTACT_VERSION;
 
