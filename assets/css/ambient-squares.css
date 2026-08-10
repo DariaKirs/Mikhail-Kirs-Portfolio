@@ -1,5 +1,6 @@
 /* Interactive Soft Squares — DREAM 2 HERO preview only.
-   Isolated experiment: no production styles depend on this file. */
+   Isolated experiment: no production styles depend on this file.
+   DREAM 2 colors remain unblended; depth comes from opacity, size and blur. */
 
 .hero[data-ambient-squares="hero"] {
   position: relative;
@@ -50,7 +51,7 @@
 
 .ambient-square-shape {
   border-radius: 31% 14% 31% 14%;
-  background: color-mix(in srgb, var(--ambient-color) 90%, #F4EFE6);
+  background: var(--ambient-color);
   opacity: .025;
   filter: blur(var(--ambient-blur));
   transform: rotate(var(--ambient-rotation)) scale(var(--ambient-start-scale));
@@ -66,12 +67,12 @@
 }
 
 .ambient-square.is-ready .ambient-square-shape {
-  opacity: var(--ambient-opacity);
+  opacity: clamp(.78, calc(var(--ambient-opacity) + .28), .92);
   transform: rotate(var(--ambient-rotation)) scale(1);
 }
 
 .ambient-square.is-compressing .ambient-square-shape {
-  opacity: min(.78, calc(var(--ambient-opacity) + .12));
+  opacity: .96;
   filter: blur(0);
   transform: rotate(var(--ambient-rotation)) scale(.86);
   transition:
@@ -82,7 +83,7 @@
 }
 
 .ambient-square.is-clouding .ambient-square-shape {
-  opacity: .18;
+  opacity: .24;
   filter: blur(5px);
   border-radius: 46% 38% 50% 42%;
   transform: rotate(var(--ambient-rotation)) scale(1.12);
@@ -107,14 +108,14 @@
   width: var(--cloud-size);
   height: var(--cloud-size);
   border-radius: 44% 34% 52% 38%;
-  background: color-mix(in srgb, var(--cloud-color) 94%, #F4EFE6);
+  background: var(--cloud-color);
 }
 
 .ambient-particle {
   width: var(--particle-size);
   height: var(--particle-height);
   border-radius: var(--particle-radius);
-  background: color-mix(in srgb, var(--particle-color) 97%, #F4EFE6);
+  background: var(--particle-color);
   opacity: var(--particle-opacity);
 }
 
@@ -147,7 +148,7 @@
 
 @media (max-width: 820px) {
   .ambient-square.is-ready .ambient-square-shape {
-    opacity: min(var(--ambient-opacity), .58);
+    opacity: clamp(.72, calc(var(--ambient-opacity) + .22), .86);
   }
 }
 
