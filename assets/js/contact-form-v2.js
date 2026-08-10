@@ -1,5 +1,5 @@
 (() => {
-  const CONTACT_VERSION = '20260810-1344';
+  const CONTACT_VERSION = '20260810-1455';
   const REQUEST_TIMEOUT_MS = 18000;
   const cssHref = `assets/css/contact-form.css?v=${CONTACT_VERSION}`;
 
@@ -48,7 +48,7 @@
       <button class="contact-modal-close" type="button" aria-label="Close contact form">×</button>
       <p class="contact-modal-eyebrow">Contact</p>
       <h2 class="contact-modal-title" id="contact-dialog-title">What should we make visible?</h2>
-      <p class="contact-modal-intro">A person, a place, a business, an idea — tell me what you want to share, and we’ll find the right visual form.</p>
+      <p class="contact-modal-intro">A person, a place, a business, an idea? Tell me what you have in mind, and we’ll find the right visual form.</p>
 
       <form class="contact-form" id="contact-form" novalidate>
         <fieldset class="contact-form-fields">
