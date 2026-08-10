@@ -297,11 +297,19 @@
     }
 
     #about .workflow-copy strong {
+      display: block;
       margin-bottom: 14px;
       color: var(--text);
       font-size: clamp(1.35rem, 1.45vw, 1.5rem) !important;
       font-weight: 800;
       line-height: 1.2;
+    }
+
+    #about .workflow-detail {
+      margin: 0;
+      color: inherit;
+      font: inherit;
+      line-height: inherit;
     }
 
     @media (max-width: 820px) {
@@ -424,7 +432,10 @@
         </div>
         <div class="about-copy">
           <p class="lead">I use video to bring people, businesses and places into focus by creating Personal Brand Content, telling local stories and producing long-form films.</p>
-          <p class="workflow-copy"><strong>From the first idea to the finished video.</strong> I combine planning, filming and post-production in one workflow — refining concepts and scripts, selecting locations, organizing shoots, filming, editing complete videos, and adding subtitles, music, graphics and on-screen text.</p>
+          <div class="workflow-copy">
+            <strong>From the first idea to the finished video.</strong>
+            <p class="workflow-detail">I combine planning, filming and post-production in one workflow — refining concepts and scripts, selecting locations, organizing shoots, filming, editing complete videos, and adding subtitles, music, graphics and on-screen text.</p>
+          </div>
           <div class="education-card">
             <span class="education-year">2026</span>
             <div>
