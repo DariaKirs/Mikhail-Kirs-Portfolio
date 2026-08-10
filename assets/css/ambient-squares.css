@@ -1,4 +1,4 @@
-/* Interactive Soft Squares v1 — HERO preview only.
+/* Interactive Soft Squares v2 — HERO preview only.
    Isolated experiment: no production styles depend on this file. */
 
 .hero[data-ambient-squares="hero"] {
@@ -38,25 +38,28 @@
   width: 100%;
   height: 100%;
   border-radius: 31% 14% 31% 14%;
-  background: var(--ambient-color);
-  opacity: 0;
-  transform: rotate(var(--ambient-rotation)) scale(.86);
+  background: color-mix(in srgb, var(--ambient-color) var(--ambient-mix), #F4EFE6);
+  opacity: .04;
+  filter: blur(var(--ambient-blur));
+  transform: rotate(var(--ambient-rotation)) scale(var(--ambient-start-scale));
   transform-origin: center;
   transition:
-    opacity 560ms cubic-bezier(.22,.72,.2,1),
-    transform 560ms cubic-bezier(.22,.72,.2,1);
-  will-change: transform, opacity;
+    opacity var(--ambient-grow-duration) linear,
+    transform var(--ambient-grow-duration) cubic-bezier(.18,.72,.18,1),
+    filter 900ms ease;
+  will-change: transform, opacity, filter;
 }
 
 .ambient-square.is-ready .ambient-square-shape {
-  opacity: .86;
+  opacity: var(--ambient-opacity);
   transform: rotate(var(--ambient-rotation)) scale(1);
 }
 
 .ambient-square.is-compressing .ambient-square-shape {
-  opacity: .92;
-  transform: rotate(var(--ambient-rotation)) scale(.85);
-  transition-duration: 82ms;
+  opacity: min(1, calc(var(--ambient-opacity) + .12));
+  filter: blur(0);
+  transform: rotate(var(--ambient-rotation)) scale(.84);
+  transition-duration: 88ms;
   transition-timing-function: cubic-bezier(.3,.02,.5,1);
 }
 
@@ -74,21 +77,29 @@
 }
 
 @keyframes ambient-square-drift {
-  from {
-    transform: translate(-50%, -50%) translate3d(0, 0, 0);
+  0% {
+    transform:
+      translate(-50%, -50%)
+      translate3d(0, 0, 0)
+      rotate(0deg);
   }
-  to {
-    transform: translate(-50%, -50%) translate3d(var(--ambient-drift-x), var(--ambient-drift-y), 0);
+  48% {
+    transform:
+      translate(-50%, -50%)
+      translate3d(var(--ambient-drift-mid-x), var(--ambient-drift-mid-y), 0)
+      rotate(var(--ambient-drift-mid-rotation));
+  }
+  100% {
+    transform:
+      translate(-50%, -50%)
+      translate3d(var(--ambient-drift-x), var(--ambient-drift-y), 0)
+      rotate(var(--ambient-drift-rotation));
   }
 }
 
 @media (max-width: 820px) {
-  .ambient-square-shape {
-    opacity: 0;
-  }
-
   .ambient-square.is-ready .ambient-square-shape {
-    opacity: .78;
+    opacity: min(var(--ambient-opacity), .62);
   }
 }
 
@@ -98,6 +109,6 @@
   }
 
   .ambient-square-shape {
-    transition-duration: 180ms;
+    transition-duration: 220ms;
   }
 }
