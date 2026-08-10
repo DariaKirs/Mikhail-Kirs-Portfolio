@@ -1,7 +1,9 @@
 (() => {
-  const cssHref = 'assets/css/contact-form.css?v=20260810-1205';
-  const SEND_TIMEOUT_MS = 8000;
-  const RETRY_DELAY_MS = 900;
+  const CONTACT_VERSION = '20260810-1325';
+  const REQUEST_TIMEOUT_MS = 18000;
+  const cssHref = `assets/css/contact-form.css?v=${CONTACT_VERSION}`;
+
+  window.__MK_CONTACT_VERSION__ = CONTACT_VERSION;
 
   if (!document.querySelector('link[data-contact-form-styles]')) {
     const link = document.createElement('link');
@@ -85,7 +87,7 @@
 
         <p class="contact-form-status" role="status" aria-live="polite"></p>
 
-        <div class="contact-success" hidden>
+        <div class="contact-success">
           <strong>Thanks — your message has been sent.</strong>
           <p>Mikhail will reply to the email address you provided.</p>
         </div>
@@ -100,6 +102,7 @@
     document.body.appendChild(dialog);
   }
 
+  const card = dialog.querySelector('.contact-modal-card');
   const form = dialog.querySelector('#contact-form');
   const fieldset = dialog.querySelector('.contact-form-fields');
   const status = dialog.querySelector('.contact-form-status');
@@ -110,12 +113,16 @@
   const startedAtInput = dialog.querySelector('#contact-started-at');
 
   let returnFocus = mailButton;
+  let activeSubmission = 0;
 
   const resetFormState = () => {
+    activeSubmission += 1;
     form.reset();
-    fieldset.hidden = false;
-    success.hidden = true;
+    form.removeAttribute('aria-busy');
+    fieldset.classList.remove('is-hidden');
+    success.classList.remove('is-visible');
     status.textContent = '';
+    status.classList.remove('is-error');
     submitButton.disabled = false;
     submitButton.textContent = 'Send message';
     startedAtInput.value = String(Date.now());
@@ -126,31 +133,58 @@
     resetFormState();
     document.body.classList.add('contact-modal-open');
     dialog.showModal();
+    card.scrollTop = 0;
     window.requestAnimationFrame(() => nameInput.focus());
   };
 
   const closeDialog = () => {
+    activeSubmission += 1;
     if (dialog.open) dialog.close();
   };
 
-  const wait = (milliseconds) => new Promise((resolve) => {
-    window.setTimeout(resolve, milliseconds);
-  });
+  const showSuccess = () => {
+    form.removeAttribute('aria-busy');
+    fieldset.classList.add('is-hidden');
+    status.textContent = '';
+    status.classList.remove('is-error');
+    success.classList.add('is-visible');
+    submitButton.disabled = false;
+    submitButton.textContent = 'Send message';
+    card.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const showError = (message) => {
+    form.removeAttribute('aria-busy');
+    status.textContent = message;
+    status.classList.add('is-error');
+    submitButton.disabled = false;
+    submitButton.textContent = 'Send message';
+    status.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  };
 
   const sendContactRequest = async (payload) => {
     const controller = new AbortController();
-    const timeoutId = window.setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
+    let timeoutId;
 
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload),
-        signal: controller.signal
-      });
+    const timeoutPromise = new Promise((_, reject) => {
+      timeoutId = window.setTimeout(() => {
+        controller.abort();
+        const timeoutError = new Error('We couldn’t confirm delivery in time. Your message may already have been sent; please wait a moment before trying again.');
+        timeoutError.name = 'ContactTimeoutError';
+        reject(timeoutError);
+      }, REQUEST_TIMEOUT_MS);
+    });
 
+    const requestPromise = fetch('/api/contact', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-MK-Contact-Client': CONTACT_VERSION
+      },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+      cache: 'no-store'
+    }).then(async (response) => {
       const result = await response.json().catch(() => ({}));
 
       if (!response.ok) {
@@ -160,14 +194,13 @@
       }
 
       return result;
+    });
+
+    try {
+      return await Promise.race([requestPromise, timeoutPromise]);
     } finally {
       window.clearTimeout(timeoutId);
     }
-  };
-
-  const isRetryableSendError = (error) => {
-    if (error?.name === 'AbortError' || error instanceof TypeError) return true;
-    return [502, 503, 504].includes(Number(error?.status));
   };
 
   mailButton.addEventListener('click', openDialog);
@@ -178,6 +211,7 @@
   });
 
   dialog.addEventListener('close', () => {
+    activeSubmission += 1;
     document.body.classList.remove('contact-modal-open');
     if (returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
   });
@@ -185,12 +219,14 @@
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     status.textContent = '';
+    status.classList.remove('is-error');
 
     if (!form.checkValidity()) {
       form.reportValidity();
       return;
     }
 
+    const submissionId = ++activeSubmission;
     const formData = new FormData(form);
     const payload = {
       name: String(formData.get('name') || ''),
@@ -201,31 +237,19 @@
       consent: formData.get('consent') === 'on'
     };
 
+    form.setAttribute('aria-busy', 'true');
     submitButton.disabled = true;
     submitButton.textContent = 'Sending…';
 
     try {
-      try {
-        await sendContactRequest(payload);
-      } catch (firstError) {
-        if (!isRetryableSendError(firstError)) throw firstError;
-
-        submitButton.textContent = 'Confirming…';
-        await wait(RETRY_DELAY_MS);
-        await sendContactRequest(payload);
-      }
-
-      fieldset.hidden = true;
-      status.textContent = '';
-      success.hidden = false;
+      await sendContactRequest(payload);
+      if (submissionId !== activeSubmission || !dialog.open) return;
+      showSuccess();
     } catch (error) {
-      status.textContent = isRetryableSendError(error)
-        ? 'We couldn’t confirm delivery. Your message may already have been sent; please wait a moment before trying again.'
-        : (error instanceof Error
-            ? error.message
-            : 'Unable to send your message right now. Please try again.');
-      submitButton.disabled = false;
-      submitButton.textContent = 'Send message';
+      if (submissionId !== activeSubmission || !dialog.open) return;
+      showError(error instanceof Error
+        ? error.message
+        : 'Unable to send your message right now. Please try again.');
     }
   });
 })();

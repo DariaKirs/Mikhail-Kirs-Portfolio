@@ -1,8 +1,8 @@
 import crypto from 'node:crypto';
-import { Resend } from 'resend';
 
 const RATE_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT = 5;
+const RESEND_TIMEOUT_MS = 5000;
 const rateBuckets = new Map();
 
 const allowedOrigins = new Set([
@@ -12,6 +12,18 @@ const allowedOrigins = new Set([
 ]);
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function json(body, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'X-Content-Type-Options': 'nosniff',
+      'X-MK-Contact-API': '20260810-1325'
+    }
+  });
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -23,11 +35,11 @@ function escapeHtml(value) {
 }
 
 function getClientIp(request) {
-  const forwarded = request.headers['x-forwarded-for'];
-  if (typeof forwarded === 'string' && forwarded.trim()) {
+  const forwarded = request.headers.get('x-forwarded-for');
+  if (forwarded?.trim()) {
     return forwarded.split(',')[0].trim();
   }
-  return request.socket?.remoteAddress || 'unknown';
+  return request.headers.get('x-real-ip') || 'unknown';
 }
 
 function isRateLimited(ip) {
@@ -65,114 +77,184 @@ function makeRequestId(name, email, message, startedAt) {
     .slice(0, 40);
 }
 
-export default async function handler(request, response) {
-  response.setHeader('Cache-Control', 'no-store');
-  response.setHeader('X-Content-Type-Options', 'nosniff');
+function wait(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
 
-  if (request.method !== 'POST') {
-    response.setHeader('Allow', 'POST');
-    return response.status(405).json({ error: 'Method not allowed.' });
-  }
-
-  const origin = request.headers.origin;
-  if (!origin || !allowedOrigins.has(origin)) {
-    return response.status(403).json({ error: 'Request origin is not allowed.' });
-  }
-
-  const contentType = String(request.headers['content-type'] || '');
-  if (!contentType.toLowerCase().startsWith('application/json')) {
-    return response.status(415).json({ error: 'Unsupported request type.' });
-  }
-
-  let body;
-  try {
-    body = request.body || {};
-  } catch {
-    return response.status(400).json({ error: 'Invalid request.' });
-  }
-
-  const name = cleanName(body.name);
-  const email = String(body.email || '').trim().toLowerCase();
-  const message = String(body.message || '').trim();
-  const website = String(body.website || '').trim();
-  const consent = body.consent === true;
-  const startedAt = Number(body.startedAt);
-
-  /* Honeypot: quietly accept automated submissions without sending mail. */
-  if (website) {
-    return response.status(200).json({ ok: true });
-  }
-
-  if (
-    name.length < 2 ||
-    name.length > 80 ||
-    email.length > 254 ||
-    !emailPattern.test(email) ||
-    message.length < 10 ||
-    message.length > 4000 ||
-    !consent
-  ) {
-    return response.status(400).json({ error: 'Please check the form fields and try again.' });
-  }
-
-  /* A real user cannot meaningfully complete the form immediately after opening it. */
-  if (!Number.isFinite(startedAt) || Date.now() - startedAt < 1200 || Date.now() - startedAt > 2 * 60 * 60 * 1000) {
-    return response.status(400).json({ error: 'Please reopen the form and try again.' });
-  }
-
-  const ip = getClientIp(request);
-  if (isRateLimited(ip)) {
-    return response.status(429).json({ error: 'Too many messages were sent recently. Please try again in a few minutes.' });
-  }
-
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not configured.');
-    return response.status(503).json({ error: 'Messaging is temporarily unavailable. Please try again later.' });
-  }
-
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const safeName = escapeHtml(name);
-  const safeEmail = escapeHtml(email);
-  const safeMessage = escapeHtml(message).replaceAll('\n', '<br>');
-  const requestId = makeRequestId(name, email, message, startedAt);
+async function sendThroughResend(apiKey, payload, idempotencyKey) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), RESEND_TIMEOUT_MS);
 
   try {
-    const { error } = await resend.emails.send(
-      {
-        from: 'Mikhail Kirs Portfolio <contact@mikhailkirs.com>',
-        to: ['mikhail.kirs.ca@gmail.com'],
-        replyTo: email,
-        subject: `Portfolio inquiry from ${name}`,
-        text: `New portfolio inquiry\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`,
-        html: `
-          <div style="font-family:Arial,Helvetica,sans-serif;color:#20364A;line-height:1.55;max-width:680px;margin:0 auto;padding:24px;">
-            <p style="margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#69418C;">Mikhail Kirs Portfolio</p>
-            <h1 style="margin:0 0 24px;font-size:28px;line-height:1.15;">New project inquiry</h1>
-            <p style="margin:0 0 8px;"><strong>Name:</strong> ${safeName}</p>
-            <p style="margin:0 0 24px;"><strong>Email:</strong> ${safeEmail}</p>
-            <div style="padding:20px;border:1px solid #D8E9EE;border-radius:20px 10px 20px 10px;background:#F4EFE6;">
-              ${safeMessage}
-            </div>
-            <p style="margin:24px 0 0;font-size:13px;color:#5F6D78;">Replying to this email will reply directly to ${safeEmail}.</p>
-          </div>
-        `,
-        tags: [
-          { name: 'source', value: 'portfolio_contact' }
-        ]
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+        'Idempotency-Key': idempotencyKey
       },
-      {
-        idempotencyKey: `portfolio-contact/${requestId}`
-      }
-    );
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
 
-    if (error) {
-      console.error('Resend contact error:', error);
-      return response.status(502).json({ error: 'Unable to send your message right now. Please try again.' });
+    const raw = await response.text();
+    let result = {};
+    try {
+      result = raw ? JSON.parse(raw) : {};
+    } catch {
+      result = {};
     }
 
-    return response.status(200).json({ ok: true });
-  } catch (error) {
-    console.error('Contact endpoint failure:', error);
-    return response.status(502).json({ error: 'Unable to send your message right now. Please try again.' });
+    if (!response.ok) {
+      const error = new Error(result?.message || result?.error?.message || 'Resend rejected the email request.');
+      error.status = response.status;
+      error.code = result?.name || result?.error?.name || '';
+      throw error;
+    }
+
+    return result;
+  } finally {
+    clearTimeout(timeout);
   }
 }
+
+function isRetryableResendError(error) {
+  if (error?.name === 'AbortError' || error instanceof TypeError) return true;
+  const status = Number(error?.status);
+  if (status === 409 && error?.code === 'concurrent_idempotent_requests') return true;
+  return status >= 500 && status <= 599;
+}
+
+async function sendWithRetry(apiKey, payload, idempotencyKey) {
+  let lastError;
+  const delays = [0, 500, 1000];
+
+  for (let attempt = 0; attempt < delays.length; attempt += 1) {
+    if (delays[attempt]) await wait(delays[attempt]);
+
+    try {
+      return await sendThroughResend(apiKey, payload, idempotencyKey);
+    } catch (error) {
+      lastError = error;
+      if (!isRetryableResendError(error) || attempt === delays.length - 1) {
+        throw error;
+      }
+    }
+  }
+
+  throw lastError || new Error('Unable to send email.');
+}
+
+export default {
+  async fetch(request) {
+    if (request.method !== 'POST') {
+      return json({ error: 'Method not allowed.' }, 405);
+    }
+
+    const origin = request.headers.get('origin');
+    if (!origin || !allowedOrigins.has(origin)) {
+      return json({ error: 'Request origin is not allowed.' }, 403);
+    }
+
+    const contentType = String(request.headers.get('content-type') || '');
+    if (!contentType.toLowerCase().startsWith('application/json')) {
+      return json({ error: 'Unsupported request type.' }, 415);
+    }
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return json({ error: 'Invalid request.' }, 400);
+    }
+
+    const name = cleanName(body.name);
+    const email = String(body.email || '').trim().toLowerCase();
+    const message = String(body.message || '').trim();
+    const website = String(body.website || '').trim();
+    const consent = body.consent === true;
+    const startedAt = Number(body.startedAt);
+
+    /* Honeypot: quietly accept automated submissions without sending mail. */
+    if (website) {
+      return json({ ok: true });
+    }
+
+    if (
+      name.length < 2 ||
+      name.length > 80 ||
+      email.length > 254 ||
+      !emailPattern.test(email) ||
+      message.length < 10 ||
+      message.length > 4000 ||
+      !consent
+    ) {
+      return json({ error: 'Please check the form fields and try again.' }, 400);
+    }
+
+    const formAge = Date.now() - startedAt;
+    if (!Number.isFinite(startedAt) || formAge < 1200 || formAge > 2 * 60 * 60 * 1000) {
+      return json({ error: 'Please reopen the form and try again.' }, 400);
+    }
+
+    const ip = getClientIp(request);
+    if (isRateLimited(ip)) {
+      return json({ error: 'Too many messages were sent recently. Please try again in a few minutes.' }, 429);
+    }
+
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('RESEND_API_KEY is not configured.');
+      return json({ error: 'Messaging is temporarily unavailable. Please try again later.' }, 503);
+    }
+
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeMessage = escapeHtml(message).replaceAll('\n', '<br>');
+    const requestId = makeRequestId(name, email, message, startedAt);
+    const idempotencyKey = `portfolio-contact/${requestId}`;
+
+    const emailPayload = {
+      from: 'Mikhail Kirs Portfolio <contact@mikhailkirs.com>',
+      to: ['mikhail.kirs.ca@gmail.com'],
+      reply_to: email,
+      subject: `Portfolio inquiry from ${name}`,
+      text: `New portfolio inquiry\n\nName: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n`,
+      html: `
+        <div style="font-family:Arial,Helvetica,sans-serif;color:#20364A;line-height:1.55;max-width:680px;margin:0 auto;padding:24px;">
+          <p style="margin:0 0 8px;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#69418C;">Mikhail Kirs Portfolio</p>
+          <h1 style="margin:0 0 24px;font-size:28px;line-height:1.15;">New project inquiry</h1>
+          <p style="margin:0 0 8px;"><strong>Name:</strong> ${safeName}</p>
+          <p style="margin:0 0 24px;"><strong>Email:</strong> ${safeEmail}</p>
+          <div style="padding:20px;border:1px solid #D8E9EE;border-radius:20px 10px 20px 10px;background:#F4EFE6;">${safeMessage}</div>
+          <p style="margin:24px 0 0;font-size:13px;color:#5F6D78;">Replying to this email will reply directly to ${safeEmail}.</p>
+        </div>
+      `,
+      tags: [{ name: 'source', value: 'portfolio_contact' }]
+    };
+
+    try {
+      const result = await sendWithRetry(apiKey, emailPayload, idempotencyKey);
+      return json({ ok: true, requestId, emailId: result.id || null });
+    } catch (error) {
+      console.error('Contact endpoint failure:', {
+        name: error?.name,
+        message: error?.message,
+        status: error?.status,
+        code: error?.code,
+        requestId
+      });
+
+      if (error?.name === 'AbortError') {
+        return json({ error: 'Email delivery timed out. Please try again in a moment.', requestId }, 504);
+      }
+
+      const status = Number(error?.status);
+      if (status >= 400 && status < 500 && status !== 409) {
+        return json({ error: 'Unable to send your message right now. Please check the address and try again.', requestId }, 502);
+      }
+
+      return json({ error: 'Unable to confirm email delivery right now. Please try again in a moment.', requestId }, 502);
+    }
+  }
+};

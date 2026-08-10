@@ -128,6 +128,13 @@ body.contact-modal-open {
   border: 0;
 }
 
+/* Explicit state classes are used instead of the hidden attribute because this
+   fieldset has an authored display:grid rule. This keeps success/error UI
+   deterministic across browsers. */
+.contact-form-fields.is-hidden {
+  display: none !important;
+}
+
 .contact-field {
   display: grid;
   gap: 8px;
@@ -233,19 +240,28 @@ body.contact-modal-open {
 }
 
 .contact-form-status {
-  min-height: 1.5em;
-  margin: 16px 0 0;
+  min-height: 0;
+  margin: 0;
   color: #8a3242;
   font-size: .92rem;
   font-weight: 650;
 }
 
+.contact-form-status.is-error:not(:empty) {
+  margin-top: 16px;
+}
+
 .contact-success {
+  display: none;
   margin-top: 28px;
   padding: 24px 26px;
   border: 1px solid rgba(126, 156, 134, .55);
   border-radius: 24px 11px 24px 11px;
   background: rgba(126, 156, 134, .14);
+}
+
+.contact-success.is-visible {
+  display: block;
 }
 
 .contact-success strong {
