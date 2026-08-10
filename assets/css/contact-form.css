@@ -5,14 +5,14 @@ body.contact-modal-open {
 }
 
 .contact-dialog {
-  width: min(720px, calc(100vw - 40px));
-  max-width: 720px;
-  max-height: calc(100dvh - 40px);
+  width: min(820px, calc(100vw - 40px));
+  max-width: 820px;
+  max-height: calc(100dvh - 32px);
   margin: auto;
   padding: 0;
   overflow: visible;
   border: 0;
-  border-radius: 38px 18px 38px 18px;
+  border-radius: 34px 16px 34px 16px;
   background: transparent;
   color: var(--text);
 }
@@ -39,11 +39,11 @@ body.contact-modal-open {
 
 .contact-modal-card {
   position: relative;
-  max-height: calc(100dvh - 40px);
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
-  padding: clamp(30px, 5vw, 48px);
+  padding: 28px 34px 30px;
   border: 1px solid rgba(32, 54, 74, 0.24);
-  border-radius: 38px 18px 38px 18px;
+  border-radius: 34px 16px 34px 16px;
   background: var(--bg);
   box-shadow: 0 28px 80px rgba(32, 54, 74, 0.24);
 }
@@ -51,20 +51,20 @@ body.contact-modal-open {
 .contact-modal-card::before {
   content: "";
   display: block;
-  width: 84px;
-  height: 8px;
-  margin-bottom: 28px;
+  width: 72px;
+  height: 7px;
+  margin-bottom: 18px;
   border-radius: 999px;
   background: var(--dusty-rose);
 }
 
 .contact-modal-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 18px;
   display: grid;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
   place-items: center;
   padding: 0;
   border: 1px solid rgba(32, 54, 74, 0.26);
@@ -72,7 +72,7 @@ body.contact-modal-open {
   background: transparent;
   color: var(--text);
   font: inherit;
-  font-size: 1.6rem;
+  font-size: 1.55rem;
   line-height: 1;
   cursor: pointer;
 }
@@ -87,63 +87,69 @@ body.contact-modal-open {
 .contact-form input:focus-visible,
 .contact-form textarea:focus-visible,
 .contact-form input[type="checkbox"]:focus-visible {
-  outline: 3px solid rgba(105, 65, 140, 0.22);
+  outline: 3px solid rgba(105, 65, 140, 0.18);
   outline-offset: 3px;
 }
 
 .contact-modal-eyebrow {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--accent-purple);
-  font-size: .76rem;
+  font-size: .72rem;
   font-weight: 850;
   letter-spacing: .14em;
   text-transform: uppercase;
 }
 
 .contact-modal-title {
-  max-width: 560px;
+  max-width: 650px;
   margin: 0;
+  padding-right: 46px;
   color: var(--text);
-  font-size: clamp(2.3rem, 5vw, 3.65rem);
+  font-size: clamp(2.15rem, 4.2vw, 3.15rem);
   line-height: .98;
   letter-spacing: -.045em;
 }
 
 .contact-modal-intro {
-  max-width: 540px;
-  margin: 18px 0 0;
+  max-width: 700px;
+  margin: 12px 0 0;
   color: rgba(32, 54, 74, .78);
-  font-size: 1.04rem;
+  font-size: .96rem;
+  line-height: 1.48;
 }
 
 .contact-form {
-  margin-top: 32px;
+  margin-top: 22px;
 }
 
 .contact-form-fields {
   display: grid;
-  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
   margin: 0;
   padding: 0;
   border: 0;
 }
 
-/* Explicit state classes are used instead of the hidden attribute because this
-   fieldset has an authored display:grid rule. This keeps success/error UI
-   deterministic across browsers. */
 .contact-form-fields.is-hidden {
   display: none !important;
 }
 
 .contact-field {
   display: grid;
-  gap: 8px;
+  gap: 6px;
+}
+
+.contact-field-message,
+.contact-consent,
+.contact-form-actions {
+  grid-column: 1 / -1;
 }
 
 .contact-field label,
 .contact-consent {
   color: var(--text);
-  font-size: .92rem;
+  font-size: .86rem;
   font-weight: 750;
 }
 
@@ -151,24 +157,25 @@ body.contact-modal-open {
 .contact-field textarea {
   width: 100%;
   border: 1px solid rgba(32, 54, 74, .32);
-  border-radius: 18px 9px 18px 9px;
+  border-radius: 16px 8px 16px 8px;
   background: rgba(255, 255, 255, .48);
   color: var(--text);
   font: inherit;
-  font-size: 1rem;
+  font-size: .96rem;
   transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
 .contact-field input {
-  min-height: 52px;
-  padding: 12px 15px;
+  min-height: 48px;
+  padding: 10px 14px;
 }
 
 .contact-field textarea {
-  min-height: 160px;
+  min-height: 116px;
+  max-height: 180px;
   resize: vertical;
-  padding: 14px 15px;
-  line-height: 1.5;
+  padding: 12px 14px;
+  line-height: 1.46;
 }
 
 .contact-field input:hover,
@@ -187,18 +194,18 @@ body.contact-modal-open {
 .contact-consent {
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr);
-  gap: 11px;
+  gap: 9px;
   align-items: start;
-  margin-top: 2px;
+  margin-top: 0;
   color: rgba(32, 54, 74, .82);
   font-weight: 550;
-  line-height: 1.45;
+  line-height: 1.4;
 }
 
 .contact-consent input {
   width: 18px;
   height: 18px;
-  margin: 2px 0 0;
+  margin: 1px 0 0;
   accent-color: var(--button-blue);
 }
 
@@ -214,13 +221,14 @@ body.contact-modal-open {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 14px 18px;
-  margin-top: 24px;
+  gap: 10px 16px;
+  margin-top: 8px;
 }
 
 .contact-submit.button {
   width: auto !important;
-  min-width: 174px !important;
+  min-width: 168px !important;
+  min-height: 48px !important;
   margin: 0 !important;
   cursor: pointer;
   font: inherit;
@@ -235,28 +243,28 @@ body.contact-modal-open {
 .contact-form-note {
   margin: 0;
   color: rgba(32, 54, 74, .66);
-  font-size: .82rem;
-  line-height: 1.45;
+  font-size: .78rem;
+  line-height: 1.4;
 }
 
 .contact-form-status {
   min-height: 0;
   margin: 0;
   color: #8a3242;
-  font-size: .92rem;
+  font-size: .9rem;
   font-weight: 650;
 }
 
 .contact-form-status.is-error:not(:empty) {
-  margin-top: 16px;
+  margin-top: 12px;
 }
 
 .contact-success {
   display: none;
-  margin-top: 28px;
-  padding: 24px 26px;
+  margin-top: 20px;
+  padding: 22px 24px;
   border: 1px solid rgba(126, 156, 134, .55);
-  border-radius: 24px 11px 24px 11px;
+  border-radius: 22px 10px 22px 10px;
   background: rgba(126, 156, 134, .14);
 }
 
@@ -266,8 +274,8 @@ body.contact-modal-open {
 
 .contact-success strong {
   display: block;
-  margin-bottom: 6px;
-  font-size: 1.2rem;
+  margin-bottom: 5px;
+  font-size: 1.15rem;
 }
 
 .contact-success p {
@@ -292,12 +300,33 @@ body.contact-modal-open {
   cursor: pointer;
 }
 
+/* Restore the approved softened Google palette after Mail me changed from a
+   mailto link to a form-opening button. The original mailto selector no longer
+   matches, so the explicit button class now carries the same visual identity. */
+#contact .actions button.mail-form-button {
+  border-color: transparent !important;
+  background: linear-gradient(100deg, #EA4335 0%, #FBBC04 34%, #34A853 67%, #4285F4 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(0.74) brightness(0.96);
+  outline: none !important;
+}
+
+#contact .actions button.mail-form-button:hover,
+#contact .actions button.mail-form-button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 rgba(32, 54, 74, 0.08) !important;
+  filter: saturate(0.86) brightness(0.99);
+  outline: 3px solid rgba(50, 110, 139, 0.16) !important;
+  outline-offset: 3px;
+}
+
 /* Footer remains a single calm line while exposing the privacy link. */
 .site-footer .footer-row > span {
   line-height: 1.7;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 700px) {
   .contact-dialog {
     width: calc(100vw - 16px);
     max-width: none;
@@ -306,41 +335,49 @@ body.contact-modal-open {
 
   .contact-modal-card {
     max-height: calc(100dvh - 16px);
-    padding: 30px 22px 28px;
+    padding: 28px 22px 26px;
     border-radius: 30px 14px 30px 14px;
   }
 
   .contact-modal-card::before {
-    width: 66px;
-    margin-bottom: 24px;
+    width: 62px;
+    margin-bottom: 20px;
   }
 
   .contact-modal-close {
-    top: 16px;
-    right: 16px;
-    width: 42px;
-    height: 42px;
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
   }
 
   .contact-modal-title {
-    padding-right: 38px;
-    font-size: clamp(2.15rem, 10vw, 3rem);
+    padding-right: 40px;
+    font-size: clamp(2rem, 9vw, 2.8rem);
   }
 
   .contact-modal-intro {
-    font-size: .98rem;
+    font-size: .94rem;
   }
 
   .contact-form {
-    margin-top: 26px;
+    margin-top: 22px;
   }
 
   .contact-form-fields {
-    gap: 17px;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .contact-field-message,
+  .contact-consent,
+  .contact-form-actions {
+    grid-column: auto;
   }
 
   .contact-field textarea {
-    min-height: 150px;
+    min-height: 140px;
+    max-height: 220px;
   }
 
   .contact-form-actions {
