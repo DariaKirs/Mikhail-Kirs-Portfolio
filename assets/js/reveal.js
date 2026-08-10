@@ -60,3 +60,12 @@
     window.requestAnimationFrame(requestRevealCheck);
   });
 })();
+
+/* Contact is loaded as a separate enhancement so the approved reveal system
+   remains unchanged and the form can evolve independently. */
+(() => {
+  const script = document.createElement('script');
+  script.src = 'assets/js/contact-form.js?v=20260810-1205';
+  script.async = false;
+  document.head.appendChild(script);
+})();
