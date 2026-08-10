@@ -9,32 +9,29 @@
   layer.setAttribute('aria-hidden', 'true');
   hero.prepend(layer);
 
-  const COLORS = ['#D87B89', '#7E9C86', '#326E8B', '#69418C'];
+  const COLORS = ['#2F8BFF', '#7348D9', '#FF6F7C', '#F4B02A'];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)');
 
-  /* Birth points are intentionally biased toward the sides and lower edge.
-     Each square rises from one of these peripheral safe zones. */
+  /* DREAM 2 rule: every square is born at the bottom of HERO.
+     X positions stay in peripheral/safe lanes while Y remains at the lower edge. */
   const desktopZones = [
-    { x: 5.5, y: 38 },
-    { x: 94.5, y: 36 },
-    { x: 5.5, y: 61 },
-    { x: 94.5, y: 60 },
-    { x: 6.5, y: 82 },
-    { x: 93.5, y: 82 },
-    { x: 22, y: 94 },
-    { x: 48, y: 95 },
-    { x: 76, y: 94 },
-    { x: 88, y: 92 }
+    { x: 4.5, y: 98 },
+    { x: 13, y: 101 },
+    { x: 28, y: 97 },
+    { x: 46, y: 100 },
+    { x: 61, y: 98 },
+    { x: 87, y: 101 },
+    { x: 96, y: 97 },
+    { x: 73, y: 100 }
   ];
 
   const mobileZones = [
-    { x: 7, y: 52 },
-    { x: 92, y: 54 },
-    { x: 8, y: 82 },
-    { x: 91, y: 84 },
-    { x: 24, y: 94 },
-    { x: 76, y: 94 }
+    { x: 7, y: 99 },
+    { x: 28, y: 101 },
+    { x: 50, y: 98 },
+    { x: 72, y: 101 },
+    { x: 93, y: 99 }
   ];
 
   const liveSquares = new Set();
@@ -45,7 +42,7 @@
   const random = (min, max) => Math.random() * (max - min) + min;
   const choose = (items) => items[Math.floor(Math.random() * items.length)];
   const signedRange = (min, max) => (Math.random() < .5 ? -1 : 1) * random(min, max);
-  const desktopTarget = Math.floor(random(5, 8));
+  const desktopTarget = choose([5, 6, 6, 6, 7]);
 
   const isMobile = () => window.innerWidth <= 820;
   const zones = () => isMobile() ? mobileZones : desktopZones;
@@ -53,56 +50,61 @@
 
   const sizeFor = (index) => {
     if (isMobile()) {
-      if (index === 0) return random(64, 78);
-      if (index === 1) return random(42, 54);
-      return random(32, 42);
+      if (index === 0) return random(68, 82);
+      if (index === 1) return random(46, 60);
+      return random(34, 46);
     }
 
     const slot = index % 7;
-    if (slot === 0) return random(92, 104);
-    if (slot === 1) return random(58, 68);
-    if (slot === 2) return random(34, 40);
-    if (slot === 3) return random(52, 64);
-    if (slot === 4) return random(82, 98);
-    if (slot === 5) return random(46, 58);
-    return random(32, 40);
+    if (slot === 0) return random(98, 112);
+    if (slot === 1) return random(62, 74);
+    if (slot === 2) return random(38, 46);
+    if (slot === 3) return random(56, 70);
+    if (slot === 4) return random(86, 104);
+    if (slot === 5) return random(48, 62);
+    return random(36, 44);
   };
 
   const depthFor = () => {
     const roll = Math.random();
     if (roll < .34) {
       return {
-        opacity: random(.38, .46),
-        blur: random(1, 1.65),
-        mix: random(44, 51)
+        opacity: random(.42, .5),
+        blur: random(1, 1.45),
+        mix: random(84, 88)
       };
     }
     if (roll < .72) {
       return {
-        opacity: random(.44, .52),
-        blur: random(.4, 1),
-        mix: random(49, 57)
+        opacity: random(.5, .58),
+        blur: random(.35, .9),
+        mix: random(88, 92)
       };
     }
     return {
-      opacity: random(.5, .58),
-      blur: random(.05, .4),
-      mix: random(55, 63)
+      opacity: random(.58, .66),
+      blur: random(.02, .32),
+      mix: random(92, 96)
     };
   };
 
   const growthDurationFor = (size) => {
     if (reducedMotion.matches) return 240;
-    if (size >= 80) return random(5600, 7000);
-    if (size >= 50) return random(4800, 6200);
-    return random(4000, 5200);
+    if (size >= 85) return random(7200, 9000);
+    if (size >= 55) return random(6500, 8200);
+    return random(5800, 7400);
   };
 
-  const riseFor = (zoneY) => {
+  const riseFor = (size) => {
     if (reducedMotion.matches) return 0;
-    const scale = isMobile() ? .58 : 1;
-    const distance = zoneY >= 88 ? random(125, 185) : zoneY >= 70 ? random(105, 165) : random(82, 142);
-    return -distance * scale;
+    const layerHeight = layer.getBoundingClientRect().height || hero.getBoundingClientRect().height || 720;
+    const overshoot = isMobile() ? random(70, 120) : random(100, 170);
+    return -(layerHeight + size * 1.65 + overshoot);
+  };
+
+  const riseDurationFor = () => {
+    if (reducedMotion.matches) return 1;
+    return isMobile() ? random(19, 27) : random(21, 30);
   };
 
   const pickZone = (avoidIndex = -1) => {
@@ -156,7 +158,7 @@
       speck.style.top = `${y}px`;
       speck.style.setProperty('--cloud-size', `${speckSize}px`);
       speck.style.setProperty('--cloud-color', color);
-      speck.style.setProperty('--cloud-mix', `${Math.min(82, Number(mix) + random(12, 24))}%`);
+      speck.style.setProperty('--cloud-mix', `${Math.min(98, Number(mix) + random(2, 6))}%`);
 
       layer.appendChild(speck);
 
@@ -229,7 +231,7 @@
       particle.style.setProperty('--particle-height', `${pHeight}px`);
       particle.style.setProperty('--particle-radius', `${random(12, 48)}% ${random(7, 36)}%`);
       particle.style.setProperty('--particle-color', color);
-      particle.style.setProperty('--particle-mix', `${Math.min(92, Number(mix) + random(16, 30))}%`);
+      particle.style.setProperty('--particle-mix', `${Math.min(100, Number(mix) + random(3, 8))}%`);
       particle.style.setProperty('--particle-opacity', String(startOpacity));
 
       layer.appendChild(particle);
@@ -308,7 +310,7 @@
         liveSquares.delete(square);
         square.remove();
 
-        const respawnDelay = reducedMotion.matches ? 1600 : random(2400, 3900);
+        const respawnDelay = reducedMotion.matches ? 1600 : random(1800, 3100);
         window.setTimeout(() => {
           if (liveSquares.size < targetCount()) spawnSquare(liveSquares.size, zoneIndex);
         }, respawnDelay);
@@ -329,6 +331,19 @@
     }, { passive: false });
   };
 
+  const recycleSquare = (square, zoneIndex) => {
+    if (!square || !square.isConnected || square.dataset.state === 'bursting') return;
+
+    occupiedZones.delete(zoneIndex);
+    liveSquares.delete(square);
+    square.remove();
+
+    const respawnDelay = reducedMotion.matches ? 1800 : random(180, 620);
+    window.setTimeout(() => {
+      if (liveSquares.size < targetCount()) spawnSquare(liveSquares.size, zoneIndex);
+    }, respawnDelay);
+  };
+
   function spawnSquare(index, avoidZone = -1) {
     if (liveSquares.size >= targetCount()) return;
 
@@ -346,7 +361,7 @@
     const rotation = random(-10, 12);
     const depth = depthFor();
     const growthDuration = growthDurationFor(size);
-    const driftScale = isMobile() ? .66 : 1;
+    const driftScale = isMobile() ? .64 : 1;
     const localGeneration = ++generation;
 
     square.className = 'ambient-square';
@@ -365,14 +380,13 @@
     square.style.setProperty('--ambient-opacity', String(depth.opacity));
     square.style.setProperty('--ambient-blur', `${depth.blur}px`);
     square.style.setProperty('--ambient-rotation', `${rotation}deg`);
-    square.style.setProperty('--ambient-start-scale', String(random(.22, .4)));
+    square.style.setProperty('--ambient-start-scale', String(random(.12, .24)));
     square.style.setProperty('--ambient-grow-duration', `${growthDuration}ms`);
-    square.style.setProperty('--ambient-rise-y', `${riseFor(picked.zone.y)}px`);
-    square.style.setProperty('--ambient-rise-duration', `${reducedMotion.matches ? 1 : random(28, 42)}s`);
-    square.style.setProperty('--ambient-sway-x', `${signedRange(24, 50) * driftScale}px`);
-    square.style.setProperty('--ambient-sway-y', `${random(-10, 8) * driftScale}px`);
+    square.style.setProperty('--ambient-rise-y', `${riseFor(size)}px`);
+    square.style.setProperty('--ambient-rise-duration', `${riseDurationFor()}s`);
+    square.style.setProperty('--ambient-sway-x', `${signedRange(20, 46) * driftScale}px`);
     square.style.setProperty('--ambient-sway-rotation', `${random(-5.5, 5.5)}deg`);
-    square.style.setProperty('--ambient-sway-duration', `${random(8, 13)}s`);
+    square.style.setProperty('--ambient-sway-duration', `${random(7.5, 12)}s`);
     square.style.setProperty('--ambient-sway-delay', `${random(-5, 0)}s`);
 
     motion.className = 'ambient-square-motion';
@@ -386,6 +400,10 @@
     liveSquares.add(square);
     bindInteraction(square, shape);
 
+    if (!reducedMotion.matches) {
+      motion.addEventListener('animationend', () => recycleSquare(square, picked.index), { once: true });
+    }
+
     window.setTimeout(() => {
       if (!square.isConnected) return;
       square.classList.add('is-ready');
@@ -393,14 +411,14 @@
       window.setTimeout(() => {
         if (!square.isConnected) return;
         square.dataset.state = 'ready';
-      }, growthDuration + 70);
+      }, Math.min(growthDuration + 70, 7600));
     }, random(45, 140));
   }
 
   const seed = () => {
     const count = targetCount();
     for (let i = 0; i < count; i += 1) {
-      window.setTimeout(() => spawnSquare(i), 170 + i * random(210, 330));
+      window.setTimeout(() => spawnSquare(i), 160 + i * random(190, 300));
     }
   };
 
