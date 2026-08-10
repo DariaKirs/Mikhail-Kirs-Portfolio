@@ -88,8 +88,8 @@
         <p class="contact-form-status" role="status" aria-live="polite"></p>
 
         <div class="contact-success">
-          <strong>Thanks — your message has been sent.</strong>
-          <p>Mikhail will reply to the email address you provided.</p>
+          <strong>Thanks! Your message has been sent.</strong>
+          <p>I’ll reply to the email address you provided.</p>
         </div>
       </form>
     </div>
