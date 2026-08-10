@@ -65,7 +65,7 @@
    remains unchanged and the form can evolve independently. */
 (() => {
   const script = document.createElement('script');
-  script.src = 'assets/js/contact-form.js?v=20260810-1205';
+  script.src = 'assets/js/contact-form.js?v=20260810-1307';
   script.async = false;
   document.head.appendChild(script);
 })();
