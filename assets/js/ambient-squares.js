@@ -14,19 +14,25 @@
   const finePointer = window.matchMedia('(pointer: fine)');
 
   const desktopZones = [
-    { x: 4.6, y: 18 },
-    { x: 95.2, y: 22 },
-    { x: 4.2, y: 74 },
-    { x: 95.5, y: 72 },
-    { x: 53, y: 5.5 },
-    { x: 51, y: 94 }
+    { x: 6, y: 16 },
+    { x: 48, y: 8 },
+    { x: 94, y: 17 },
+    { x: 7, y: 49 },
+    { x: 48, y: 46 },
+    { x: 94, y: 50 },
+    { x: 7, y: 82 },
+    { x: 46, y: 88 },
+    { x: 94, y: 82 },
+    { x: 72, y: 94 }
   ];
 
   const mobileZones = [
-    { x: 7, y: 11 },
-    { x: 93, y: 15 },
-    { x: 7, y: 84 },
-    { x: 92, y: 88 }
+    { x: 8, y: 12 },
+    { x: 91, y: 16 },
+    { x: 7, y: 48 },
+    { x: 92, y: 54 },
+    { x: 8, y: 86 },
+    { x: 90, y: 88 }
   ];
 
   const liveSquares = new Set();
@@ -36,16 +42,58 @@
 
   const random = (min, max) => Math.random() * (max - min) + min;
   const choose = (items) => items[Math.floor(Math.random() * items.length)];
+  const signedRange = (min, max) => (Math.random() < .5 ? -1 : 1) * random(min, max);
+  const desktopTarget = Math.floor(random(5, 8));
 
   const isMobile = () => window.innerWidth <= 820;
   const zones = () => isMobile() ? mobileZones : desktopZones;
-  const targetCount = () => isMobile() ? 2 : 4;
+  const targetCount = () => isMobile() ? 3 : desktopTarget;
 
   const sizeFor = (index) => {
-    if (isMobile()) return index === 0 ? random(42, 50) : random(27, 35);
-    if (index === 0) return random(68, 78);
-    if (index === 1 || index === 2) return random(42, 52);
-    return random(24, 30);
+    if (isMobile()) {
+      if (index === 0) return random(58, 72);
+      if (index === 1) return random(38, 50);
+      return random(30, 40);
+    }
+
+    const slot = index % 7;
+    if (slot === 0) return random(88, 108);
+    if (slot === 1) return random(56, 70);
+    if (slot === 2) return random(34, 44);
+    if (slot === 3) return random(52, 66);
+    if (slot === 4) return random(74, 92);
+    if (slot === 5) return random(46, 60);
+    return random(30, 40);
+  };
+
+  const depthFor = () => {
+    const roll = Math.random();
+    if (roll < .32) {
+      return {
+        opacity: random(.48, .56),
+        blur: random(.75, 1.35),
+        mix: random(55, 62)
+      };
+    }
+    if (roll < .7) {
+      return {
+        opacity: random(.55, .63),
+        blur: random(.25, .75),
+        mix: random(59, 67)
+      };
+    }
+    return {
+      opacity: random(.62, .69),
+      blur: random(0, .3),
+      mix: random(63, 71)
+    };
+  };
+
+  const growthDurationFor = (size) => {
+    if (reducedMotion.matches) return 220;
+    if (size >= 78) return random(4700, 5800);
+    if (size >= 48) return random(3700, 4900);
+    return random(2900, 3900);
   };
 
   const pickZone = (avoidIndex = -1) => {
@@ -62,7 +110,7 @@
     return choose(fallback.length ? fallback : zones().map((zone, index) => ({ zone, index })));
   };
 
-  const particleBudget = () => isMobile() ? 42 : 82;
+  const particleBudget = () => isMobile() ? 92 : 180;
 
   const burst = (square) => {
     if (!square || square.dataset.state !== 'ready') return;
@@ -82,31 +130,37 @@
       const centerX = rect.left - layerRect.left + rect.width / 2;
       const centerY = rect.top - layerRect.top + rect.height / 2;
 
-      const wanted = size < 36 ? 14 : size < 60 ? 21 : 29;
-      const room = Math.max(8, particleBudget() - activeParticles);
+      const wanted = size < 45 ? 24 : size < 75 ? 36 : 50;
+      const room = Math.max(14, particleBudget() - activeParticles);
       const count = Math.min(wanted, room);
-      const durationBase = reducedMotion.matches ? 260 : random(430, 560);
+      const durationBase = reducedMotion.matches ? 280 : random(650, 860);
+      const maxFall = Math.max(80, layerRect.height - centerY + 72);
 
       for (let i = 0; i < count; i += 1) {
         const particle = document.createElement('span');
         particle.className = 'ambient-particle';
 
-        const pSize = random(2.2, 6.6);
-        const pHeight = Math.max(2, pSize * random(.55, 1.35));
-        const vx = random(-34, 34) * (size / 58);
-        const lift = random(-22, 8);
-        const fall = random(24, 68) * (size / 58);
-        const rotation = random(-150, 150);
-        const duration = durationBase + random(-45, 85);
-        const delay = random(0, 28);
+        const fineDust = Math.random() < .58;
+        const pSize = fineDust ? random(1.2, 3.2) : random(3, 6.6);
+        const pHeight = Math.max(1.2, pSize * random(.5, 1.5));
+        const sizeFactor = Math.max(.72, size / 72);
+        const vx = random(-48, 48) * sizeFactor;
+        const lift = random(-34, 10);
+        const longFall = Math.random() < .26;
+        const rawFall = (longFall ? random(145, 265) : random(72, 150)) * Math.min(1.18, sizeFactor);
+        const fall = Math.min(rawFall, maxFall);
+        const rotation = random(-210, 210);
+        const duration = durationBase + (longFall ? random(130, 280) : random(-35, 120));
+        const delay = random(0, 42);
+        const startOpacity = random(.5, .9);
 
         particle.style.left = `${centerX}px`;
         particle.style.top = `${centerY}px`;
         particle.style.setProperty('--particle-size', `${pSize}px`);
         particle.style.setProperty('--particle-height', `${pHeight}px`);
-        particle.style.setProperty('--particle-radius', `${random(16, 42)}% ${random(8, 30)}%`);
+        particle.style.setProperty('--particle-radius', `${random(12, 46)}% ${random(7, 34)}%`);
         particle.style.setProperty('--particle-color', color);
-        particle.style.setProperty('--particle-opacity', String(random(.56, .92)));
+        particle.style.setProperty('--particle-opacity', String(startOpacity));
 
         layer.appendChild(particle);
         activeParticles += 1;
@@ -114,23 +168,28 @@
         const animation = particle.animate([
           {
             transform: 'translate3d(-50%, -50%, 0) rotate(0deg) scale(1)',
-            opacity: Number(particle.style.getPropertyValue('--particle-opacity')) || .8,
+            opacity: startOpacity,
             offset: 0
           },
           {
-            transform: `translate3d(calc(-50% + ${vx * .52}px), calc(-50% + ${lift}px), 0) rotate(${rotation * .35}deg) scale(.92)`,
-            opacity: .82,
-            offset: .28
+            transform: `translate3d(calc(-50% + ${vx * .42}px), calc(-50% + ${lift}px), 0) rotate(${rotation * .24}deg) scale(.96)`,
+            opacity: Math.min(.9, startOpacity + .06),
+            offset: .22
           },
           {
-            transform: `translate3d(calc(-50% + ${vx}px), calc(-50% + ${lift + fall}px), 0) rotate(${rotation}deg) scale(.28)`,
+            transform: `translate3d(calc(-50% + ${vx * .76}px), calc(-50% + ${lift + fall * .38}px), 0) rotate(${rotation * .58}deg) scale(.7)`,
+            opacity: startOpacity * .68,
+            offset: .58
+          },
+          {
+            transform: `translate3d(calc(-50% + ${vx}px), calc(-50% + ${lift + fall}px), 0) rotate(${rotation}deg) scale(.12)`,
             opacity: 0,
             offset: 1
           }
         ], {
           duration,
           delay,
-          easing: 'cubic-bezier(.18,.72,.25,1)',
+          easing: 'cubic-bezier(.16,.56,.18,1)',
           fill: 'forwards'
         });
 
@@ -144,11 +203,11 @@
       liveSquares.delete(square);
       square.remove();
 
-      const respawnDelay = reducedMotion.matches ? 1700 : random(2500, 4000);
+      const respawnDelay = reducedMotion.matches ? 1500 : random(2100, 3400);
       window.setTimeout(() => {
         if (liveSquares.size < targetCount()) spawnSquare(liveSquares.size, zoneIndex);
       }, respawnDelay);
-    }, 84);
+    }, 88);
   };
 
   const bindInteraction = (square) => {
@@ -177,7 +236,9 @@
     const size = sizeFor(index);
     const color = choose(COLORS);
     const rotation = random(-10, 12);
-    const driftScale = isMobile() ? .62 : 1;
+    const depth = depthFor();
+    const growthDuration = growthDurationFor(size);
+    const driftScale = isMobile() ? .68 : 1;
     const localGeneration = ++generation;
 
     square.className = 'ambient-square';
@@ -191,11 +252,20 @@
     square.style.setProperty('--ambient-top', `${picked.zone.y}%`);
     square.style.setProperty('--ambient-size', `${size}px`);
     square.style.setProperty('--ambient-color', color);
+    square.style.setProperty('--ambient-mix', `${depth.mix}%`);
+    square.style.setProperty('--ambient-opacity', String(depth.opacity));
+    square.style.setProperty('--ambient-blur', `${depth.blur}px`);
     square.style.setProperty('--ambient-rotation', `${rotation}deg`);
-    square.style.setProperty('--ambient-drift-x', `${random(-42, 42) * driftScale}px`);
-    square.style.setProperty('--ambient-drift-y', `${random(-36, 36) * driftScale}px`);
-    square.style.setProperty('--ambient-duration', `${random(12, 18)}s`);
-    square.style.setProperty('--ambient-delay', `${random(-5, 0)}s`);
+    square.style.setProperty('--ambient-start-scale', String(random(.3, .45)));
+    square.style.setProperty('--ambient-grow-duration', `${growthDuration}ms`);
+    square.style.setProperty('--ambient-drift-mid-x', `${random(-34, 34) * driftScale}px`);
+    square.style.setProperty('--ambient-drift-mid-y', `${random(-28, 28) * driftScale}px`);
+    square.style.setProperty('--ambient-drift-x', `${signedRange(30, 65) * driftScale}px`);
+    square.style.setProperty('--ambient-drift-y', `${signedRange(20, 55) * driftScale}px`);
+    square.style.setProperty('--ambient-drift-mid-rotation', `${random(-2.8, 2.8)}deg`);
+    square.style.setProperty('--ambient-drift-rotation', `${random(-5.5, 5.5)}deg`);
+    square.style.setProperty('--ambient-duration', `${random(10, 16)}s`);
+    square.style.setProperty('--ambient-delay', `${random(-4, 0)}s`);
 
     shape.className = 'ambient-square-shape';
     square.appendChild(shape);
@@ -203,21 +273,21 @@
     liveSquares.add(square);
     bindInteraction(square);
 
-    const entryDelay = random(40, 140);
     window.setTimeout(() => {
       if (!square.isConnected) return;
       square.classList.add('is-ready');
+
       window.setTimeout(() => {
         if (!square.isConnected) return;
         square.dataset.state = 'ready';
-      }, reducedMotion.matches ? 190 : 590);
-    }, entryDelay);
+      }, growthDuration + 80);
+    }, random(45, 135));
   }
 
   const seed = () => {
     const count = targetCount();
     for (let i = 0; i < count; i += 1) {
-      window.setTimeout(() => spawnSquare(i), 260 + i * random(210, 330));
+      window.setTimeout(() => spawnSquare(i), 180 + i * random(185, 285));
     }
   };
 
