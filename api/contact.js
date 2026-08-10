@@ -5,7 +5,7 @@ const RATE_LIMIT = 5;
 const RESEND_TIMEOUT_MS = 5000;
 const rateBuckets = new Map();
 
-const allowedOrigins = new Set([
+const canonicalOrigins = new Set([
   'https://www.mikhailkirs.com',
   'https://mikhailkirs.com',
   'https://mikhail-kirs-portfolio.vercel.app'
@@ -20,7 +20,7 @@ function json(body, status = 200) {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
-      'X-MK-Contact-API': '20260810-1325'
+      'X-MK-Contact-API': '20260810-1455'
     }
   });
 }
@@ -40,6 +40,26 @@ function getClientIp(request) {
     return forwarded.split(',')[0].trim();
   }
   return request.headers.get('x-real-ip') || 'unknown';
+}
+
+function isAllowedOrigin(request) {
+  const origin = request.headers.get('origin');
+  if (!origin) return false;
+
+  if (canonicalOrigins.has(origin)) return true;
+
+  try {
+    const requestOrigin = new URL(request.url).origin;
+    if (origin === requestOrigin) return true;
+
+    const forwardedHost = request.headers.get('x-forwarded-host');
+    const forwardedProto = request.headers.get('x-forwarded-proto') || 'https';
+    if (forwardedHost && origin === `${forwardedProto}://${forwardedHost}`) return true;
+  } catch {
+    return false;
+  }
+
+  return false;
 }
 
 function isRateLimited(ip) {
@@ -151,8 +171,7 @@ export default {
       return json({ error: 'Method not allowed.' }, 405);
     }
 
-    const origin = request.headers.get('origin');
-    if (!origin || !allowedOrigins.has(origin)) {
+    if (!isAllowedOrigin(request)) {
       return json({ error: 'Request origin is not allowed.' }, 403);
     }
 
@@ -175,7 +194,6 @@ export default {
     const consent = body.consent === true;
     const startedAt = Number(body.startedAt);
 
-    /* Honeypot: quietly accept automated submissions without sending mail. */
     if (website) {
       return json({ ok: true });
     }

@@ -1,0 +1,70 @@
+@import url('contact-form.css');
+
+/* Contact modal visual refinements — 2026-08-10 */
+
+.contact-dialog {
+  width: min(980px, calc(100vw - 40px));
+  max-width: 980px;
+}
+
+.contact-modal-card {
+  padding: 30px 42px 32px;
+}
+
+.contact-modal-card::before {
+  display: none !important;
+}
+
+.contact-modal-eyebrow {
+  margin-bottom: 12px;
+  font-size: .78rem;
+}
+
+.contact-modal-title {
+  max-width: none;
+  padding-right: 62px;
+  font-size: clamp(2.35rem, 4vw, 3.4rem);
+  white-space: nowrap;
+}
+
+.contact-modal-intro {
+  max-width: 880px;
+  margin-top: 16px;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: rgba(32, 54, 74, .82);
+}
+
+.contact-field label,
+.contact-consent {
+  font-size: .9rem;
+}
+
+.contact-field input,
+.contact-field textarea {
+  font-size: 1rem;
+}
+
+.contact-form-note {
+  font-size: .82rem;
+}
+
+@media (max-width: 900px) {
+  .contact-modal-title {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 700px) {
+  .contact-modal-card {
+    padding: 28px 22px 26px;
+  }
+
+  .contact-modal-title {
+    padding-right: 40px;
+  }
+
+  .contact-modal-intro {
+    font-size: 1rem;
+  }
+}
