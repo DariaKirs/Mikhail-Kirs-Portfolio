@@ -57,10 +57,10 @@ function cleanName(value) {
   return String(value || '').trim().replace(/\s+/g, ' ');
 }
 
-function makeRequestId(email, message) {
+function makeRequestId(name, email, message, startedAt) {
   return crypto
     .createHash('sha256')
-    .update(`${email}|${message}|${Date.now()}|${crypto.randomUUID()}`)
+    .update(`${name}|${email}|${message}|${startedAt}`)
     .digest('hex')
     .slice(0, 40);
 }
@@ -134,7 +134,7 @@ export default async function handler(request, response) {
   const safeName = escapeHtml(name);
   const safeEmail = escapeHtml(email);
   const safeMessage = escapeHtml(message).replaceAll('\n', '<br>');
-  const requestId = makeRequestId(email, message);
+  const requestId = makeRequestId(name, email, message, startedAt);
 
   try {
     const { error } = await resend.emails.send(
