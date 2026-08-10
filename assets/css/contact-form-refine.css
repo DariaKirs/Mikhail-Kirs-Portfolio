@@ -49,6 +49,30 @@
   font-size: .82rem;
 }
 
+/* Send message uses exactly the same approved Google-style treatment as Mail me. */
+.contact-submit.button {
+  border-color: transparent !important;
+  background: linear-gradient(100deg, #EA4335 0%, #FBBC04 34%, #34A853 67%, #4285F4 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(0.74) brightness(0.96);
+  outline: none !important;
+}
+
+.contact-submit.button:hover,
+.contact-submit.button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 rgba(32, 54, 74, 0.08) !important;
+  filter: saturate(0.86) brightness(0.99);
+  outline: 3px solid rgba(50, 110, 139, 0.16) !important;
+  outline-offset: 3px;
+}
+
+.contact-submit.button[disabled] {
+  filter: saturate(0.55) brightness(0.98);
+  transform: none;
+}
+
 @media (max-width: 900px) {
   .contact-modal-title {
     white-space: normal;
