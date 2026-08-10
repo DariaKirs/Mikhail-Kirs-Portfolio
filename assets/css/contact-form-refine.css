@@ -1,6 +1,6 @@
 @import url('contact-form.css');
 
-/* Contact modal visual refinements — 2026-08-10 */
+/* Contact modal visual refinements — preview only, 2026-08-10 */
 
 .contact-dialog {
   width: min(980px, calc(100vw - 40px));
@@ -8,11 +8,42 @@
 }
 
 .contact-modal-card {
+  isolation: isolate;
   padding: 30px 42px 32px;
 }
 
 .contact-modal-card::before {
   display: none !important;
+}
+
+/* Approved soft-square motif. These stay clipped to the modal edges and sit
+   behind the form, so they add identity without competing with the fields. */
+.contact-modal-card::after {
+  content: "";
+  position: absolute;
+  top: 88px;
+  right: -72px;
+  z-index: 0;
+  width: 164px;
+  height: 164px;
+  border-radius: 42px 18px 42px 18px;
+  background: rgba(216, 123, 137, .24);
+  transform: rotate(9deg);
+  pointer-events: none;
+}
+
+.contact-modal-eyebrow,
+.contact-modal-title,
+.contact-modal-intro,
+.contact-form,
+.contact-modal-close {
+  position: relative;
+  z-index: 2;
+}
+
+.contact-modal-close {
+  position: absolute;
+  z-index: 4;
 }
 
 .contact-modal-eyebrow {
@@ -35,6 +66,55 @@
   color: rgba(32, 54, 74, .82);
 }
 
+/* Small muted-green square between the editorial intro and the form. */
+.contact-modal-intro::after {
+  content: "";
+  position: absolute;
+  top: 44px;
+  right: 8%;
+  z-index: -1;
+  width: 82px;
+  height: 82px;
+  border-radius: 24px 10px 24px 10px;
+  background: rgba(126, 156, 134, .18);
+  transform: rotate(-8deg);
+  pointer-events: none;
+}
+
+.contact-form {
+  isolation: isolate;
+}
+
+/* Soft Lilac at the lower-left edge. */
+.contact-form::before {
+  content: "";
+  position: absolute;
+  left: -86px;
+  bottom: -66px;
+  z-index: -1;
+  width: 148px;
+  height: 148px;
+  border-radius: 38px 16px 38px 16px;
+  background: rgba(199, 182, 221, .24);
+  transform: rotate(11deg);
+  pointer-events: none;
+}
+
+/* Mist Blue balances the opposite lower corner. */
+.contact-form::after {
+  content: "";
+  position: absolute;
+  right: -94px;
+  bottom: 14px;
+  z-index: -1;
+  width: 176px;
+  height: 176px;
+  border-radius: 44px 18px 44px 18px;
+  background: rgba(216, 233, 238, .48);
+  transform: rotate(-10deg);
+  pointer-events: none;
+}
+
 .contact-field label,
 .contact-consent {
   font-size: .9rem;
@@ -49,9 +129,37 @@
   font-size: .82rem;
 }
 
+/* Send message uses the same approved softened Google palette as Mail me. */
+.contact-submit.button {
+  border-color: transparent !important;
+  background: linear-gradient(100deg, #EA4335 0%, #FBBC04 34%, #34A853 67%, #4285F4 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 8px 0 rgba(32, 54, 74, 0.10) !important;
+  filter: saturate(.74) brightness(.96);
+}
+
+.contact-submit.button:hover,
+.contact-submit.button:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 0 rgba(32, 54, 74, 0.08) !important;
+  filter: saturate(.86) brightness(.99);
+  outline: 3px solid rgba(50, 110, 139, .16) !important;
+  outline-offset: 3px;
+}
+
+.contact-submit.button[disabled] {
+  filter: saturate(.55) brightness(.98);
+  transform: none;
+}
+
 @media (max-width: 900px) {
   .contact-modal-title {
     white-space: normal;
+  }
+
+  .contact-modal-card::after {
+    right: -96px;
+    opacity: .8;
   }
 }
 
@@ -66,5 +174,30 @@
 
   .contact-modal-intro {
     font-size: 1rem;
+  }
+
+  .contact-modal-card::after {
+    top: 128px;
+    right: -82px;
+    width: 132px;
+    height: 132px;
+  }
+
+  .contact-modal-intro::after {
+    display: none;
+  }
+
+  .contact-form::before {
+    left: -74px;
+    bottom: -46px;
+    width: 118px;
+    height: 118px;
+  }
+
+  .contact-form::after {
+    right: -84px;
+    bottom: 76px;
+    width: 138px;
+    height: 138px;
   }
 }
