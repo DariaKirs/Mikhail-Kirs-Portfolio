@@ -190,12 +190,12 @@
       audioContext = new AudioContextCtor();
       audioMaster = audioContext.createGain();
       audioCompressor = audioContext.createDynamicsCompressor();
-      audioCompressor.threshold.value = -20;
-      audioCompressor.knee.value = 22;
-      audioCompressor.ratio.value = 2.2;
-      audioCompressor.attack.value = .012;
-      audioCompressor.release.value = .28;
-      audioMaster.gain.value = soundEnabled ? .62 : 0;
+      audioCompressor.threshold.value = -18;
+      audioCompressor.knee.value = 24;
+      audioCompressor.ratio.value = 1.8;
+      audioCompressor.attack.value = .006;
+      audioCompressor.release.value = .18;
+      audioMaster.gain.value = soundEnabled ? .58 : 0;
       audioMaster.connect(audioCompressor);
       audioCompressor.connect(audioContext.destination);
     }
@@ -212,19 +212,19 @@
 
   const soundProfileFor = (tier, size) => {
     if (tier === 'xl' || size >= 170) {
-      return { baseHz: 250, duration: .68, bodyGain: .080, bloomGain: .030, haloGain: .012 };
+      return { snapHz: 430, bodyHz: 190, duration: .19, snapGain: .105, bodyGain: .045, skinGain: .015 };
     }
     if (tier === 'm' || size >= 90) {
-      return { baseHz: 320, duration: .58, bodyGain: .072, bloomGain: .027, haloGain: .011 };
+      return { snapHz: 520, bodyHz: 240, duration: .16, snapGain: .098, bodyGain: .041, skinGain: .014 };
     }
     if (tier === 's' || size >= 55) {
-      return { baseHz: 405, duration: .49, bodyGain: .064, bloomGain: .024, haloGain: .010 };
+      return { snapHz: 620, bodyHz: 300, duration: .14, snapGain: .090, bodyGain: .037, skinGain: .013 };
     }
-    return { baseHz: 500, duration: .40, bodyGain: .056, bloomGain: .021, haloGain: .009 };
+    return { snapHz: 760, bodyHz: 370, duration: .12, snapGain: .082, bodyGain: .033, skinGain: .012 };
   };
 
-  /* Soft tonal bloom: no hiss, no abrasive noise burst. A rounded low tone releases into
-     a consonant fifth and a very faint octave halo, so the dissolve feels light rather than spooky. */
+  /* Soap bubble: a tiny membrane snap followed by a short rounded cavity resonance.
+     No musical chord, no hiss and no long tail — just a soft, wet little "plop". */
   const playDustBurst = (tier, size, { preview = false } = {}) => {
     if (!soundEnabled || !AudioContextCtor) return;
 
@@ -232,52 +232,52 @@
       if (!context || !soundEnabled || context.state !== 'running' || !audioMaster) return;
 
       const profile = soundProfileFor(tier, size);
-      const now = context.currentTime + .008;
-      const variation = random(.985, 1.015);
-      const previewScale = preview ? .72 : 1;
+      const now = context.currentTime + .006;
+      const variation = random(.965, 1.035);
+      const previewScale = preview ? .80 : 1;
 
+      const snap = context.createOscillator();
+      snap.type = 'sine';
+      snap.frequency.setValueAtTime(profile.snapHz * 1.42 * variation, now);
+      snap.frequency.exponentialRampToValueAtTime(profile.snapHz * .72 * variation, now + profile.duration * .62);
+      const snapGain = context.createGain();
+      snapGain.gain.setValueAtTime(.0001, now);
+      snapGain.gain.exponentialRampToValueAtTime(profile.snapGain * previewScale, now + .004);
+      snapGain.gain.exponentialRampToValueAtTime(profile.snapGain * .18 * previewScale, now + profile.duration * .34);
+      snapGain.gain.exponentialRampToValueAtTime(.0001, now + profile.duration * .72);
+      snap.connect(snapGain);
+      snapGain.connect(audioMaster);
+      snap.start(now);
+      snap.stop(now + profile.duration * .78);
+
+      const bodyStart = now + .007;
       const body = context.createOscillator();
       body.type = 'sine';
-      body.frequency.setValueAtTime(profile.baseHz * 1.035 * variation, now);
-      body.frequency.exponentialRampToValueAtTime(profile.baseHz * .965 * variation, now + profile.duration * .72);
+      body.frequency.setValueAtTime(profile.bodyHz * 1.08 * variation, bodyStart);
+      body.frequency.exponentialRampToValueAtTime(profile.bodyHz * .90 * variation, bodyStart + profile.duration);
       const bodyGain = context.createGain();
-      bodyGain.gain.setValueAtTime(.0001, now);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * previewScale, now + .018);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * .36 * previewScale, now + profile.duration * .34);
-      bodyGain.gain.exponentialRampToValueAtTime(.0001, now + profile.duration);
+      bodyGain.gain.setValueAtTime(.0001, bodyStart);
+      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * previewScale, bodyStart + .012);
+      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * .30 * previewScale, bodyStart + profile.duration * .46);
+      bodyGain.gain.exponentialRampToValueAtTime(.0001, bodyStart + profile.duration * 1.08);
       body.connect(bodyGain);
       bodyGain.connect(audioMaster);
-      body.start(now);
-      body.stop(now + profile.duration + .04);
+      body.start(bodyStart);
+      body.stop(bodyStart + profile.duration * 1.12);
 
-      const bloomStart = now + .035;
-      const bloom = context.createOscillator();
-      bloom.type = 'sine';
-      bloom.frequency.setValueAtTime(profile.baseHz * 1.5 * variation, bloomStart);
-      bloom.frequency.exponentialRampToValueAtTime(profile.baseHz * 1.46 * variation, bloomStart + profile.duration * .86);
-      const bloomGain = context.createGain();
-      bloomGain.gain.setValueAtTime(.0001, bloomStart);
-      bloomGain.gain.exponentialRampToValueAtTime(profile.bloomGain * previewScale, bloomStart + .045);
-      bloomGain.gain.exponentialRampToValueAtTime(profile.bloomGain * .28 * previewScale, bloomStart + profile.duration * .44);
-      bloomGain.gain.exponentialRampToValueAtTime(.0001, bloomStart + profile.duration * 1.08);
-      bloom.connect(bloomGain);
-      bloomGain.connect(audioMaster);
-      bloom.start(bloomStart);
-      bloom.stop(bloomStart + profile.duration * 1.12);
-
-      const haloStart = now + .075;
-      const halo = context.createOscillator();
-      halo.type = 'sine';
-      halo.frequency.setValueAtTime(profile.baseHz * 2 * variation, haloStart);
-      halo.frequency.exponentialRampToValueAtTime(profile.baseHz * 1.92 * variation, haloStart + profile.duration);
-      const haloGain = context.createGain();
-      haloGain.gain.setValueAtTime(.0001, haloStart);
-      haloGain.gain.exponentialRampToValueAtTime(profile.haloGain * previewScale, haloStart + .06);
-      haloGain.gain.exponentialRampToValueAtTime(.0001, haloStart + profile.duration * 1.18);
-      halo.connect(haloGain);
-      haloGain.connect(audioMaster);
-      halo.start(haloStart);
-      halo.stop(haloStart + profile.duration * 1.22);
+      const skinStart = now + .002;
+      const skin = context.createOscillator();
+      skin.type = 'sine';
+      skin.frequency.setValueAtTime(profile.snapHz * 2.05 * variation, skinStart);
+      skin.frequency.exponentialRampToValueAtTime(profile.snapHz * 1.55 * variation, skinStart + .045);
+      const skinGain = context.createGain();
+      skinGain.gain.setValueAtTime(.0001, skinStart);
+      skinGain.gain.exponentialRampToValueAtTime(profile.skinGain * previewScale, skinStart + .0025);
+      skinGain.gain.exponentialRampToValueAtTime(.0001, skinStart + .052);
+      skin.connect(skinGain);
+      skinGain.connect(audioMaster);
+      skin.start(skinStart);
+      skin.stop(skinStart + .058);
     });
   };
 
@@ -293,7 +293,7 @@
     if (!soundEnabled) {
       if (audioMaster && audioContext) {
         audioMaster.gain.cancelScheduledValues(audioContext.currentTime);
-        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .018);
+        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .014);
       }
       return;
     }
@@ -301,9 +301,9 @@
     ensureAudioContext().then((context) => {
       if (!context || !audioMaster || !soundEnabled) return;
       audioMaster.gain.cancelScheduledValues(context.currentTime);
-      audioMaster.gain.setTargetAtTime(.62, context.currentTime, .02);
+      audioMaster.gain.setTargetAtTime(.58, context.currentTime, .016);
       if (preview) {
-        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 55);
+        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 45);
       }
     });
   };
