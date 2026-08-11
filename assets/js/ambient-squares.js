@@ -76,6 +76,37 @@
     return random(36, 44);
   };
 
+  const rotationProfileForTier = (tier) => {
+    if (tier === 'xl') return { angle: random(4.5, 6.8), duration: random(14.5, 18.5) };
+    if (tier === 'l') return { angle: random(5.2, 7.8), duration: random(12.8, 16.5) };
+    if (tier === 'm') return { angle: random(6.5, 9.5), duration: random(10.5, 13.8) };
+    if (tier === 's') return { angle: random(8.2, 12.2), duration: random(8.2, 11.2) };
+    return { angle: random(10.5, 15.5), duration: random(6.4, 9.1) };
+  };
+
+  const applyAxisDrift = (shape, tier) => {
+    if (reducedMotion.matches || !shape) return null;
+    const profile = rotationProfileForTier(tier);
+    const originX = random(24, 76);
+    const originY = random(20, 80);
+    const start = random(-profile.angle * .55, profile.angle * .55);
+    const mid = random(-profile.angle, profile.angle);
+    const end = random(-profile.angle * .8, profile.angle * .8);
+    shape.style.transformOrigin = `${originX}% ${originY}%`;
+    return shape.animate([
+      { rotate: `${start}deg`, offset: 0 },
+      { rotate: `${mid}deg`, offset: .5 },
+      { rotate: `${end}deg`, offset: 1 }
+    ], {
+      duration: profile.duration * 1000,
+      iterations: Infinity,
+      direction: 'alternate',
+      easing: 'ease-in-out',
+      delay: random(-profile.duration * 1000, 0),
+      composite: 'add'
+    });
+  };
+
   const depthFor = () => {
     const roll = Math.random();
     if (roll < .34) return { opacity: random(.44, .52), blur: random(.9, 1.35) };
@@ -274,6 +305,10 @@
     if (!square || square.dataset.state === 'bursting') return;
 
     square.dataset.state = 'bursting';
+    if (square._axisAnimation) {
+      square._axisAnimation.cancel();
+      square._axisAnimation = null;
+    }
     square.classList.remove('is-grown');
     square.classList.add('is-compressing');
 
@@ -418,6 +453,8 @@
     square.appendChild(motion);
     layer.appendChild(square);
     liveSquares.add(square);
+
+    square._axisAnimation = applyAxisDrift(shape, tier);
 
     if (!reducedMotion.matches) {
       motion.addEventListener('animationend', () => recycleSquare(square, picked.index), { once: true });
