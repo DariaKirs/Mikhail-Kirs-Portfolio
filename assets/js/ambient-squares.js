@@ -44,6 +44,19 @@
   const random = (min, max) => Math.random() * (max - min) + min;
   const choose = (items) => items[Math.floor(Math.random() * items.length)];
   const signedRange = (min, max) => (Math.random() < .5 ? -1 : 1) * random(min, max);
+  const shuffle = (items) => {
+    const arr = [...items];
+    for (let i = arr.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+  let colorPool = shuffle(COLORS);
+  const nextColor = () => {
+    if (!colorPool.length) colorPool = shuffle(COLORS);
+    return colorPool.pop();
+  };
   const desktopTarget = choose([5, 6, 6, 6, 7]);
 
   const isMobile = () => window.innerWidth <= 820;
@@ -258,7 +271,7 @@
   };
 
   const burst = (square) => {
-    if (!square || square.dataset.state !== 'ready') return;
+    if (!square || square.dataset.state === 'bursting') return;
 
     square.dataset.state = 'bursting';
     square.classList.remove('is-grown');
@@ -290,13 +303,15 @@
   };
 
   /* Interaction is resolved geometrically instead of by DOM stacking. This means a square
-     remains burstable while it visually travels under HERO text, buttons or the portrait. */
+     remains burstable while it visually travels under HERO text, buttons or the portrait.
+     Squares are burstable from the moment they become visible; they do not need to finish growing. */
   const squareAtPoint = (x, y) => {
     let best = null;
     let bestDistance = Infinity;
     for (const square of liveSquares) {
-      if (!square.isConnected || square.dataset.state !== 'ready') continue;
+      if (!square.isConnected || square.dataset.state === 'bursting') continue;
       const rect = visibleRectFor(square);
+      if (rect.width < 2 || rect.height < 2) continue;
       if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) continue;
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
@@ -361,7 +376,7 @@
     const motion = document.createElement('span');
     const sway = document.createElement('span');
     const shape = document.createElement('span');
-    const color = choose(COLORS);
+    const color = nextColor();
     const rotation = random(-10, 12);
     const depth = depthFor();
     const growthDuration = growthDurationFor(size);
