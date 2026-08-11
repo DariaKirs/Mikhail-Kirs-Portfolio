@@ -135,7 +135,8 @@
     return safeAnyTier.length ? choose(safeAnyTier) : null;
   };
 
-  const particleBudget = () => isMobile() ? 220 : 420;
+  /* Higher budget lets XL squares create a dense halo without starving later bursts. */
+  const particleBudget = () => isMobile() ? 360 : 780;
 
   const visibleRectFor = (square) => {
     const shape = square.querySelector('.ambient-square-shape');
@@ -152,19 +153,24 @@
     };
   };
 
+  /* Sparse first shell. Particle count and radius now scale much more strongly with size. */
   const createCloud = ({ x, y }, color, size) => {
-    const count = size < 55 ? 8 : size < 100 ? 12 : size < 170 ? 18 : 26;
-    const spread = Math.max(24, size * .56);
+    const count = size < 55 ? 8 : size < 90 ? 14 : size < 170 ? 24 : 40;
+    const spread = size >= 170
+      ? size * .82
+      : size >= 90
+        ? size * .72
+        : Math.max(26, size * .62);
 
     for (let i = 0; i < count; i += 1) {
       const speck = document.createElement('span');
       speck.className = 'ambient-cloud-speck';
-      const speckSize = size >= 170 ? random(4.5, 11) : size >= 90 ? random(4, 9) : random(3, 7);
-      const angle = (i / count) * Math.PI * 2 + random(-.16, .16);
-      const radius = spread * random(.5, 1.02);
+      const speckSize = size >= 170 ? random(4.2, 10.5) : size >= 90 ? random(3.8, 8.5) : random(3, 6.8);
+      const angle = (i / count) * Math.PI * 2 + random(-.11, .11);
+      const radius = spread * random(.56, 1.08);
       const dx = Math.cos(angle) * radius;
       const dy = Math.sin(angle) * radius;
-      const duration = reducedMotion.matches ? 180 : random(430, 680);
+      const duration = reducedMotion.matches ? 180 : size >= 170 ? random(560, 820) : random(440, 700);
       const startOpacity = random(.28, .58);
 
       speck.style.left = `${x}px`;
@@ -174,38 +180,53 @@
       layer.appendChild(speck);
 
       const animation = speck.animate([
-        { transform: 'translate3d(-50%, -50%, 0) scale(.25)', opacity: 0, filter: 'blur(0px)', offset: 0 },
-        { transform: `translate3d(calc(-50% + ${dx * .32}px), calc(-50% + ${dy * .32}px), 0) scale(1.08)`, opacity: startOpacity, filter: 'blur(.2px)', offset: .25 },
-        { transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) scale(.72)`, opacity: 0, filter: 'blur(2.6px)', offset: 1 }
-      ], { duration, delay: random(0, 65), easing: 'cubic-bezier(.16,.58,.18,1)', fill: 'forwards' });
+        { transform: 'translate3d(-50%, -50%, 0) scale(.22)', opacity: 0, filter: 'blur(0px)', offset: 0 },
+        { transform: `translate3d(calc(-50% + ${dx * .28}px), calc(-50% + ${dy * .28}px), 0) scale(1.08)`, opacity: startOpacity, filter: 'blur(.15px)', offset: .24 },
+        { transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) scale(.68)`, opacity: 0, filter: 'blur(2.8px)', offset: 1 }
+      ], { duration, delay: random(0, 70), easing: 'cubic-bezier(.16,.58,.18,1)', fill: 'forwards' });
 
       animation.addEventListener('finish', () => speck.remove(), { once: true });
     }
   };
 
+  /* Fine dust: small squares stay compact; large squares create a broad, nearly circular halo. */
   const createDust = (origin, color, size) => {
-    const wanted = size < 55 ? 62 : size < 90 ? 84 : size < 170 ? 118 : 165;
+    const wanted = size < 55 ? 62 : size < 90 ? 96 : size < 170 ? 154 : 240;
     const room = Math.max(24, particleBudget() - activeParticles);
     const count = Math.min(wanted, room);
-    const sizeFactor = Math.max(.7, Math.min(2.1, size / 105));
-    const spread = Math.max(52, size * .68);
-    const baseDuration = reducedMotion.matches ? 340 : size >= 170 ? random(1550, 2150) : size >= 90 ? random(1350, 1900) : random(1050, 1650);
+    const sizeFactor = Math.max(.7, Math.min(2.2, size / 105));
+    const spread = size >= 170
+      ? size * 1.08
+      : size >= 90
+        ? size * .92
+        : Math.max(54, size * .76);
+    const baseDuration = reducedMotion.matches
+      ? 340
+      : size >= 170
+        ? random(1780, 2450)
+        : size >= 90
+          ? random(1450, 2050)
+          : random(1080, 1680);
 
     for (let i = 0; i < count; i += 1) {
       const particle = document.createElement('span');
       particle.className = 'ambient-particle';
-      const fineDust = Math.random() < .82;
-      const pSize = fineDust ? random(.7, 2.15) : random(2.15, 4.8);
-      const angle = random(0, Math.PI * 2);
-      const distance = spread * random(.38, 1.2) * (fineDust ? random(.8, 1.15) : random(.72, .98));
+      const fineDust = Math.random() < (size >= 170 ? .88 : .84);
+      const pSize = fineDust ? random(.65, 2.05) : random(2.05, 4.6);
+
+      /* Even angular distribution avoids clumps and reads as a bubble-like circular release. */
+      const angle = (i / count) * Math.PI * 2 + random(-.055, .055);
+      const outerRing = Math.random() < (size >= 170 ? .58 : .42);
+      const distanceFactor = outerRing ? random(.76, 1.25) : random(.34, .82);
+      const distance = spread * distanceFactor;
       const dx = Math.cos(angle) * distance;
       const dy = Math.sin(angle) * distance;
-      const curlX = signedRange(5, 20) * sizeFactor;
-      const curlY = signedRange(5, 18) * sizeFactor;
-      const duration = baseDuration + random(-140, 260) + (fineDust ? random(80, 320) : 0);
-      const delay = random(35, 180);
-      const startOpacity = fineDust ? random(.3, .62) : random(.46, .76);
-      const endScale = fineDust ? random(.25, .6) : random(.18, .42);
+      const curlX = signedRange(4, 18) * sizeFactor;
+      const curlY = signedRange(4, 18) * sizeFactor;
+      const duration = baseDuration + random(-120, 320) + (fineDust ? random(120, 380) : 0);
+      const delay = random(25, size >= 170 ? 210 : 170);
+      const startOpacity = fineDust ? random(.28, .6) : random(.44, .74);
+      const endScale = fineDust ? random(.2, .52) : random(.16, .38);
 
       particle.style.left = `${origin.x}px`;
       particle.style.top = `${origin.y}px`;
@@ -216,10 +237,10 @@
       activeParticles += 1;
 
       const animation = particle.animate([
-        { transform: 'translate3d(-50%, -50%, 0) scale(.55)', opacity: 0, filter: 'blur(0px)', offset: 0 },
-        { transform: `translate3d(calc(-50% + ${dx * .18}px), calc(-50% + ${dy * .18}px), 0) scale(1)`, opacity: startOpacity, filter: 'blur(0px)', offset: .16 },
-        { transform: `translate3d(calc(-50% + ${dx * .66 + curlX * .35}px), calc(-50% + ${dy * .66 + curlY * .35}px), 0) scale(.78)`, opacity: startOpacity * .58, filter: 'blur(.75px)', offset: .62 },
-        { transform: `translate3d(calc(-50% + ${dx + curlX}px), calc(-50% + ${dy + curlY}px), 0) scale(${endScale})`, opacity: 0, filter: 'blur(2.8px)', offset: 1 }
+        { transform: 'translate3d(-50%, -50%, 0) scale(.48)', opacity: 0, filter: 'blur(0px)', offset: 0 },
+        { transform: `translate3d(calc(-50% + ${dx * .14}px), calc(-50% + ${dy * .14}px), 0) scale(1)`, opacity: startOpacity, filter: 'blur(0px)', offset: .14 },
+        { transform: `translate3d(calc(-50% + ${dx * .58 + curlX * .28}px), calc(-50% + ${dy * .58 + curlY * .28}px), 0) scale(.8)`, opacity: startOpacity * .66, filter: 'blur(.6px)', offset: .56 },
+        { transform: `translate3d(calc(-50% + ${dx + curlX}px), calc(-50% + ${dy + curlY}px), 0) scale(${endScale})`, opacity: 0, filter: 'blur(3.1px)', offset: 1 }
       ], { duration, delay, easing: 'cubic-bezier(.12,.48,.18,1)', fill: 'forwards' });
 
       animation.addEventListener('finish', () => {
