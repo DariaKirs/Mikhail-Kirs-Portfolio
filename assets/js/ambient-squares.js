@@ -13,6 +13,329 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)');
 
+  /* SOUND — opt-in only. The page is silent on a fresh visit. */
+  const SOUND_STORAGE_KEY = 'mikhail-kirs-sound-enabled';
+  const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
+  let soundEnabled = false;
+  let audioContext = null;
+  let audioMaster = null;
+  let audioCompressor = null;
+  let noiseBuffer = null;
+
+  try {
+    soundEnabled = sessionStorage.getItem(SOUND_STORAGE_KEY) === '1';
+  } catch (error) {
+    soundEnabled = false;
+  }
+
+  const soundStyle = document.createElement('style');
+  soundStyle.textContent = `
+    .ambient-sound-toggle {
+      position: absolute;
+      top: clamp(16px, 1.8vw, 26px);
+      right: clamp(16px, 2vw, 30px);
+      z-index: 7;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid rgba(32, 54, 74, .24);
+      border-radius: 999px;
+      background: rgba(244, 239, 230, .88);
+      color: #20364A;
+      box-shadow: 0 8px 22px rgba(32, 54, 74, .10);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      font: inherit;
+      font-size: .78rem;
+      font-weight: 750;
+      line-height: 1;
+      letter-spacing: .01em;
+      cursor: pointer;
+      transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .ambient-sound-toggle:hover {
+      transform: translateY(-1px);
+      border-color: rgba(47, 139, 255, .38);
+      box-shadow: 0 10px 26px rgba(32, 54, 74, .13);
+    }
+
+    .ambient-sound-toggle:focus-visible {
+      outline: 2px solid #2F8BFF;
+      outline-offset: 3px;
+    }
+
+    .ambient-sound-toggle[aria-pressed="true"] {
+      background: rgba(216, 233, 238, .94);
+      border-color: rgba(47, 139, 255, .34);
+    }
+
+    .ambient-sound-toggle:disabled {
+      opacity: .55;
+      cursor: default;
+      transform: none;
+    }
+
+    .ambient-sound-icon {
+      display: inline-flex;
+      width: 17px;
+      height: 17px;
+      flex: 0 0 17px;
+    }
+
+    .ambient-sound-icon svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .ambient-sound-icon path,
+    .ambient-sound-icon line {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ambient-sound-wave {
+      opacity: 0;
+      transform-origin: 8px 8px;
+      transition: opacity 160ms ease;
+    }
+
+    .ambient-sound-slash {
+      opacity: 1;
+      transition: opacity 160ms ease;
+    }
+
+    .ambient-sound-toggle[aria-pressed="true"] .ambient-sound-wave {
+      opacity: 1;
+      animation: ambient-sound-wave 1.8s ease-in-out infinite;
+    }
+
+    .ambient-sound-toggle[aria-pressed="true"] .ambient-sound-wave.wave-two {
+      animation-delay: 180ms;
+    }
+
+    .ambient-sound-toggle[aria-pressed="true"] .ambient-sound-slash {
+      opacity: 0;
+    }
+
+    @keyframes ambient-sound-wave {
+      0%, 100% { opacity: .45; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 820px) {
+      .ambient-sound-toggle {
+        top: 12px;
+        right: 12px;
+        min-height: 36px;
+        padding: 8px 10px;
+        gap: 7px;
+        font-size: .72rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ambient-sound-toggle,
+      .ambient-sound-wave {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  `;
+  document.head.appendChild(soundStyle);
+
+  const soundToggle = document.createElement('button');
+  soundToggle.type = 'button';
+  soundToggle.className = 'ambient-sound-toggle';
+  soundToggle.innerHTML = `
+    <span class="ambient-sound-icon" aria-hidden="true">
+      <svg viewBox="0 0 18 18" focusable="false">
+        <path d="M3.2 7.1h3L9.7 4v10l-3.5-3.1h-3z"></path>
+        <path class="ambient-sound-wave wave-one" d="M12 6.2c.9.8 1.4 1.7 1.4 2.8s-.5 2-1.4 2.8"></path>
+        <path class="ambient-sound-wave wave-two" d="M14 4.6c1.4 1.2 2.2 2.7 2.2 4.4s-.8 3.2-2.2 4.4"></path>
+        <line class="ambient-sound-slash" x1="11.5" y1="6.1" x2="16" y2="11.9"></line>
+      </svg>
+    </span>
+    <span class="ambient-sound-label">Sound off</span>
+  `;
+  hero.appendChild(soundToggle);
+
+  const updateSoundToggle = () => {
+    const label = soundToggle.querySelector('.ambient-sound-label');
+    if (!AudioContextCtor) {
+      soundToggle.disabled = true;
+      soundToggle.setAttribute('aria-pressed', 'false');
+      soundToggle.setAttribute('aria-label', 'Sound unavailable');
+      soundToggle.title = 'Sound effects are unavailable in this browser';
+      if (label) label.textContent = 'Sound unavailable';
+      return;
+    }
+
+    soundToggle.disabled = false;
+    soundToggle.setAttribute('aria-pressed', String(soundEnabled));
+    soundToggle.setAttribute('aria-label', soundEnabled ? 'Turn sound effects off' : 'Turn sound effects on');
+    soundToggle.title = soundEnabled ? 'Sound effects on — click to mute' : 'Sound effects off — click to enable';
+    if (label) label.textContent = soundEnabled ? 'Sound on' : 'Sound off';
+  };
+
+  const createNoiseBuffer = (context) => {
+    const length = Math.max(1, Math.floor(context.sampleRate * 1.2));
+    const buffer = context.createBuffer(1, length, context.sampleRate);
+    const data = buffer.getChannelData(0);
+    let previous = 0;
+    for (let i = 0; i < length; i += 1) {
+      const white = Math.random() * 2 - 1;
+      previous = previous * .72 + white * .28;
+      data[i] = previous;
+    }
+    return buffer;
+  };
+
+  const ensureAudioContext = async () => {
+    if (!AudioContextCtor) return null;
+    if (!audioContext) {
+      audioContext = new AudioContextCtor();
+      audioMaster = audioContext.createGain();
+      audioCompressor = audioContext.createDynamicsCompressor();
+      audioCompressor.threshold.value = -26;
+      audioCompressor.knee.value = 18;
+      audioCompressor.ratio.value = 4;
+      audioCompressor.attack.value = .004;
+      audioCompressor.release.value = .22;
+      audioMaster.gain.value = soundEnabled ? .72 : 0;
+      audioMaster.connect(audioCompressor);
+      audioCompressor.connect(audioContext.destination);
+      noiseBuffer = createNoiseBuffer(audioContext);
+    }
+
+    if (audioContext.state === 'suspended') {
+      try {
+        await audioContext.resume();
+      } catch (error) {
+        return null;
+      }
+    }
+    return audioContext;
+  };
+
+  const soundProfileFor = (tier, size) => {
+    if (tier === 'xl' || size >= 170) {
+      return { popHz: 290, airHz: 1350, shimmerHz: 980, duration: .72, airGain: .056, popGain: .024, shimmerGain: .0085 };
+    }
+    if (tier === 'm' || size >= 90) {
+      return { popHz: 390, airHz: 1900, shimmerHz: 1260, duration: .56, airGain: .047, popGain: .021, shimmerGain: .0075 };
+    }
+    if (tier === 's' || size >= 55) {
+      return { popHz: 490, airHz: 2550, shimmerHz: 1540, duration: .43, airGain: .039, popGain: .018, shimmerGain: .0065 };
+    }
+    return { popHz: 610, airHz: 3300, shimmerHz: 1840, duration: .34, airGain: .032, popGain: .015, shimmerGain: .0055 };
+  };
+
+  const playDustBurst = (tier, size, { preview = false } = {}) => {
+    if (!soundEnabled || !AudioContextCtor) return;
+
+    ensureAudioContext().then((context) => {
+      if (!context || !soundEnabled || context.state !== 'running' || !audioMaster || !noiseBuffer) return;
+
+      const profile = soundProfileFor(tier, size);
+      const now = context.currentTime + .008;
+      const variation = random(.94, 1.06);
+      const previewScale = preview ? .52 : 1;
+
+      const popSource = context.createBufferSource();
+      popSource.buffer = noiseBuffer;
+      const popFilter = context.createBiquadFilter();
+      popFilter.type = 'lowpass';
+      popFilter.frequency.setValueAtTime(profile.popHz * 2.3 * variation, now);
+      popFilter.Q.value = .55;
+      const popGain = context.createGain();
+      popGain.gain.setValueAtTime(.0001, now);
+      popGain.gain.exponentialRampToValueAtTime(profile.popGain * previewScale, now + .012);
+      popGain.gain.exponentialRampToValueAtTime(.0001, now + .105);
+      popSource.connect(popFilter);
+      popFilter.connect(popGain);
+      popGain.connect(audioMaster);
+      popSource.start(now);
+      popSource.stop(now + .13);
+
+      const airStart = now + .085;
+      const airSource = context.createBufferSource();
+      airSource.buffer = noiseBuffer;
+      const airFilter = context.createBiquadFilter();
+      airFilter.type = 'bandpass';
+      airFilter.frequency.setValueAtTime(profile.airHz * variation, airStart);
+      airFilter.frequency.exponentialRampToValueAtTime(Math.max(540, profile.airHz * .64), airStart + profile.duration);
+      airFilter.Q.value = .72;
+      const airGain = context.createGain();
+      airGain.gain.setValueAtTime(.0001, airStart);
+      airGain.gain.exponentialRampToValueAtTime(profile.airGain * previewScale, airStart + .025);
+      airGain.gain.exponentialRampToValueAtTime(profile.airGain * .52 * previewScale, airStart + profile.duration * .42);
+      airGain.gain.exponentialRampToValueAtTime(.0001, airStart + profile.duration);
+      airSource.connect(airFilter);
+      airFilter.connect(airGain);
+      airGain.connect(audioMaster);
+      airSource.start(airStart);
+      airSource.stop(airStart + profile.duration + .04);
+
+      const shimmerStart = airStart + profile.duration * .28;
+      const shimmer = context.createOscillator();
+      shimmer.type = 'sine';
+      shimmer.frequency.setValueAtTime(profile.shimmerHz * random(.96, 1.04), shimmerStart);
+      shimmer.frequency.exponentialRampToValueAtTime(profile.shimmerHz * .78, shimmerStart + profile.duration * .7);
+      const shimmerGain = context.createGain();
+      shimmerGain.gain.setValueAtTime(.0001, shimmerStart);
+      shimmerGain.gain.exponentialRampToValueAtTime(profile.shimmerGain * previewScale, shimmerStart + .045);
+      shimmerGain.gain.exponentialRampToValueAtTime(.0001, shimmerStart + profile.duration * .72);
+      shimmer.connect(shimmerGain);
+      shimmerGain.connect(audioMaster);
+      shimmer.start(shimmerStart);
+      shimmer.stop(shimmerStart + profile.duration * .76);
+    });
+  };
+
+  const setSoundEnabled = (enabled, preview = false) => {
+    soundEnabled = Boolean(enabled);
+    try {
+      sessionStorage.setItem(SOUND_STORAGE_KEY, soundEnabled ? '1' : '0');
+    } catch (error) {
+      /* Session persistence is optional; sound state still works in-memory. */
+    }
+    updateSoundToggle();
+
+    if (!soundEnabled) {
+      if (audioMaster && audioContext) {
+        audioMaster.gain.cancelScheduledValues(audioContext.currentTime);
+        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .012);
+      }
+      return;
+    }
+
+    ensureAudioContext().then((context) => {
+      if (!context || !audioMaster || !soundEnabled) return;
+      audioMaster.gain.cancelScheduledValues(context.currentTime);
+      audioMaster.gain.setTargetAtTime(.72, context.currentTime, .015);
+      if (preview) {
+        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 45);
+      }
+    });
+  };
+
+  soundToggle.addEventListener('click', () => setSoundEnabled(!soundEnabled, !soundEnabled));
+
+  const unlockStoredSound = () => {
+    if (soundEnabled) ensureAudioContext();
+  };
+  document.addEventListener('pointerdown', unlockStoredSound, { capture: true, passive: true });
+  document.addEventListener('keydown', unlockStoredSound, { capture: true });
+  updateSoundToggle();
+
   const desktopZones = [
     { x: 3, y: 100 },
     { x: 13, y: 101 },
@@ -135,7 +458,6 @@
     return -(layerHeight + size * 1.7 + overshoot);
   };
 
-  /* About 10% slower than the previous Dream 2 pass. */
   const riseDurationFor = () => {
     if (reducedMotion.matches) return 1;
     return isMobile() ? random(17, 23) : random(15.4, 22);
@@ -151,9 +473,6 @@
     return true;
   };
 
-  /* Reserve a horizontal flight corridor for every square. Because every square rises
-     monotonically through the whole HERO, non-overlapping corridors prevent overlaps
-     for the entire journey, not only at birth. */
   const corridorIsSafe = (zone, size, tier) => {
     const width = layer.getBoundingClientRect().width || hero.getBoundingClientRect().width || 1200;
     const x = width * zone.x / 100;
@@ -191,7 +510,6 @@
     return safeAnyTier.length ? choose(safeAnyTier) : null;
   };
 
-  /* Higher budget lets XL squares create a dense halo without starving later bursts. */
   const particleBudget = () => isMobile() ? 360 : 780;
 
   const visibleRectFor = (square) => {
@@ -209,7 +527,6 @@
     };
   };
 
-  /* Sparse first shell. Particle count and radius now scale much more strongly with size. */
   const createCloud = ({ x, y }, color, size) => {
     const count = size < 55 ? 8 : size < 90 ? 14 : size < 170 ? 24 : 40;
     const spread = size >= 170
@@ -245,7 +562,6 @@
     }
   };
 
-  /* Fine dust: small squares stay compact; large squares create a broad, nearly circular halo. */
   const createDust = (origin, color, size) => {
     const wanted = size < 55 ? 62 : size < 90 ? 96 : size < 170 ? 154 : 240;
     const room = Math.max(24, particleBudget() - activeParticles);
@@ -269,8 +585,6 @@
       particle.className = 'ambient-particle';
       const fineDust = Math.random() < (size >= 170 ? .88 : .84);
       const pSize = fineDust ? random(.65, 2.05) : random(2.05, 4.6);
-
-      /* Even angular distribution avoids clumps and reads as a bubble-like circular release. */
       const angle = (i / count) * Math.PI * 2 + random(-.055, .055);
       const outerRing = Math.random() < (size >= 170 ? .58 : .42);
       const distanceFactor = outerRing ? random(.76, 1.25) : random(.34, .82);
@@ -332,6 +646,8 @@
     const compressionDuration = reducedMotion.matches ? 90 : random(105, 150);
     const cloudDuration = reducedMotion.matches ? 140 : random(185, 250);
 
+    playDustBurst(tier, size);
+
     window.setTimeout(() => {
       if (!square.isConnected || token !== Number(square.dataset.generation)) return;
       square.classList.remove('is-compressing');
@@ -349,9 +665,6 @@
     }, compressionDuration);
   };
 
-  /* Interaction is resolved geometrically instead of by DOM stacking. This means a square
-     remains burstable while it visually travels under HERO text, buttons or the portrait.
-     Squares are burstable from the moment they become visible; they do not need to finish growing. */
   const squareAtPoint = (x, y) => {
     let best = null;
     let bestDistance = Infinity;
@@ -371,8 +684,18 @@
     return best;
   };
 
+  const eventTargetsSoundControl = (event) => {
+    const target = event.target;
+    return target instanceof Element && Boolean(target.closest('.ambient-sound-toggle'));
+  };
+
   document.addEventListener('pointermove', (event) => {
     if (!finePointer.matches) return;
+    if (eventTargetsSoundControl(event)) {
+      pointerSeen = false;
+      lastHoverSquare = null;
+      return;
+    }
     pointerX = event.clientX;
     pointerY = event.clientY;
     pointerSeen = true;
@@ -384,7 +707,7 @@
   }, { passive: true });
 
   document.addEventListener('pointerdown', (event) => {
-    if (finePointer.matches) return;
+    if (finePointer.matches || eventTargetsSoundControl(event)) return;
     const hit = squareAtPoint(event.clientX, event.clientY);
     if (hit) burst(hit);
   }, { passive: true });
@@ -427,10 +750,9 @@
     const rotation = random(-10, 12);
     const depth = depthFor();
     const growthDuration = growthDurationFor(size);
-    const driftScale = isMobile() ? 1 : 1;
     const swayAbs = isMobile()
       ? (tier === 'm' ? random(7, 12) : tier === 's' ? random(10, 15) : random(12, 18))
-      : (tier === 'xl' || tier === 'l' ? random(10, 18) : tier === 'm' ? random(16, 24) : random(18, 28)) * driftScale;
+      : (tier === 'xl' || tier === 'l' ? random(10, 18) : tier === 'm' ? random(16, 24) : random(18, 28));
     const localGeneration = ++generation;
 
     square.className = `ambient-square ambient-size-${tier}`;
