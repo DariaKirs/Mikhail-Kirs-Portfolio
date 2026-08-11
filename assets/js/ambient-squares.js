@@ -14,24 +14,24 @@
   const finePointer = window.matchMedia('(pointer: fine)');
 
   /* DREAM 2 rule: every square is born at the bottom of HERO.
-     X positions stay in peripheral/safe lanes while Y remains at the lower edge. */
+     X positions stay in lower safe lanes while the largest squares prefer the edges. */
   const desktopZones = [
-    { x: 4.5, y: 98 },
+    { x: 4.5, y: 99 },
     { x: 13, y: 101 },
-    { x: 28, y: 97 },
-    { x: 46, y: 100 },
+    { x: 28, y: 98 },
+    { x: 46, y: 101 },
     { x: 61, y: 98 },
+    { x: 73, y: 101 },
     { x: 87, y: 101 },
-    { x: 96, y: 97 },
-    { x: 73, y: 100 }
+    { x: 96, y: 98 }
   ];
 
   const mobileZones = [
-    { x: 7, y: 99 },
-    { x: 28, y: 101 },
-    { x: 50, y: 98 },
-    { x: 72, y: 101 },
-    { x: 93, y: 99 }
+    { x: 7, y: 100 },
+    { x: 27, y: 101 },
+    { x: 50, y: 99 },
+    { x: 73, y: 101 },
+    { x: 93, y: 100 }
   ];
 
   const liveSquares = new Set();
@@ -50,78 +50,75 @@
 
   const sizeFor = (index) => {
     if (isMobile()) {
-      if (index === 0) return random(68, 82);
-      if (index === 1) return random(46, 60);
-      return random(34, 46);
+      const pattern = ['l', 's', 'm'];
+      const tier = pattern[index % pattern.length];
+      if (tier === 'l') return { size: random(92, 120), tier };
+      if (tier === 'm') return { size: random(56, 72), tier };
+      return { size: random(34, 44), tier };
     }
 
-    const slot = index % 7;
-    if (slot === 0) return random(98, 112);
-    if (slot === 1) return random(62, 74);
-    if (slot === 2) return random(38, 46);
-    if (slot === 3) return random(56, 70);
-    if (slot === 4) return random(86, 104);
-    if (slot === 5) return random(48, 62);
-    return random(36, 44);
+    /* Four deliberately separated visual scales. With 6 squares there are two XL forms. */
+    const pattern = ['xl', 'xs', 's', 'm', 's', 'xl', 'xs'];
+    const tier = pattern[index % pattern.length];
+    if (tier === 'xl') return { size: random(180, 224), tier };
+    if (tier === 'm') return { size: random(96, 124), tier };
+    if (tier === 's') return { size: random(58, 72), tier };
+    return { size: random(36, 44), tier };
   };
 
   const depthFor = () => {
     const roll = Math.random();
     if (roll < .34) {
-      return {
-        opacity: random(.42, .5),
-        blur: random(1, 1.45),
-        mix: random(84, 88)
-      };
+      return { opacity: random(.42, .5), blur: random(1, 1.45) };
     }
     if (roll < .72) {
-      return {
-        opacity: random(.5, .58),
-        blur: random(.35, .9),
-        mix: random(88, 92)
-      };
+      return { opacity: random(.5, .58), blur: random(.35, .9) };
     }
-    return {
-      opacity: random(.58, .66),
-      blur: random(.02, .32),
-      mix: random(92, 96)
-    };
+    return { opacity: random(.58, .66), blur: random(.02, .32) };
   };
 
   const growthDurationFor = (size) => {
     if (reducedMotion.matches) return 240;
-    if (size >= 85) return random(7200, 9000);
-    if (size >= 55) return random(6500, 8200);
-    return random(5800, 7400);
+    if (size >= 170) return random(4200, 5400);
+    if (size >= 90) return random(3600, 4800);
+    if (size >= 55) return random(3200, 4300);
+    return random(2900, 3900);
   };
 
   const riseFor = (size) => {
     if (reducedMotion.matches) return 0;
     const layerHeight = layer.getBoundingClientRect().height || hero.getBoundingClientRect().height || 720;
-    const overshoot = isMobile() ? random(70, 120) : random(100, 170);
-    return -(layerHeight + size * 1.65 + overshoot);
+    const overshoot = isMobile() ? random(80, 130) : random(120, 190);
+    return -(layerHeight + size * 1.7 + overshoot);
   };
 
   const riseDurationFor = () => {
     if (reducedMotion.matches) return 1;
-    return isMobile() ? random(19, 27) : random(21, 30);
+    return isMobile() ? random(12, 17) : random(14, 20);
   };
 
-  const pickZone = (avoidIndex = -1) => {
-    const available = zones()
-      .map((zone, index) => ({ zone, index }))
-      .filter(({ index }) => !occupiedZones.has(index) && index !== avoidIndex);
+  const tierAllowsZone = (zone, tier) => {
+    if (tier === 'xl' || tier === 'l') return zone.x <= 18 || zone.x >= 82;
+    return true;
+  };
 
+  const pickZone = (tier, avoidIndex = -1) => {
+    const indexed = zones().map((zone, index) => ({ zone, index }));
+    const preferred = indexed.filter(({ zone, index }) =>
+      !occupiedZones.has(index) &&
+      index !== avoidIndex &&
+      tierAllowsZone(zone, tier)
+    );
+    if (preferred.length) return choose(preferred);
+
+    const available = indexed.filter(({ index }) => !occupiedZones.has(index) && index !== avoidIndex);
     if (available.length) return choose(available);
 
-    const fallback = zones()
-      .map((zone, index) => ({ zone, index }))
-      .filter(({ index }) => index !== avoidIndex);
-
-    return choose(fallback.length ? fallback : zones().map((zone, index) => ({ zone, index })));
+    const fallback = indexed.filter(({ index }) => index !== avoidIndex && tierAllowsZone(zones()[index], tier));
+    return choose(fallback.length ? fallback : indexed);
   };
 
-  const particleBudget = () => isMobile() ? 150 : 260;
+  const particleBudget = () => isMobile() ? 220 : 420;
 
   const visibleRectFor = (square) => {
     const shape = square.querySelector('.ambient-square-shape');
@@ -138,53 +135,53 @@
     };
   };
 
-  const createCloud = ({ x, y }, color, mix, size) => {
-    const count = size < 45 ? 11 : size < 75 ? 17 : 24;
-    const spread = Math.max(18, size * .42);
+  /* First burst layer: a sparse shell of larger, soft dust motes expanding like a bubble skin. */
+  const createCloud = ({ x, y }, color, size) => {
+    const count = size < 55 ? 8 : size < 100 ? 12 : size < 170 ? 18 : 26;
+    const spread = Math.max(24, size * .56);
 
     for (let i = 0; i < count; i += 1) {
       const speck = document.createElement('span');
       speck.className = 'ambient-cloud-speck';
 
-      const speckSize = random(4, Math.max(7, size * .13));
-      const angle = random(0, Math.PI * 2);
-      const radius = random(spread * .18, spread);
+      const speckSize = size >= 170 ? random(4.5, 11) : size >= 90 ? random(4, 9) : random(3, 7);
+      const angle = (i / count) * Math.PI * 2 + random(-.16, .16);
+      const radius = spread * random(.5, 1.02);
       const dx = Math.cos(angle) * radius;
-      const dy = Math.sin(angle) * radius * .72;
-      const duration = reducedMotion.matches ? 170 : random(330, 470);
-      const startOpacity = random(.18, .42);
+      const dy = Math.sin(angle) * radius;
+      const duration = reducedMotion.matches ? 180 : random(430, 680);
+      const startOpacity = random(.28, .58);
 
       speck.style.left = `${x}px`;
       speck.style.top = `${y}px`;
       speck.style.setProperty('--cloud-size', `${speckSize}px`);
       speck.style.setProperty('--cloud-color', color);
-      speck.style.setProperty('--cloud-mix', `${Math.min(98, Number(mix) + random(2, 6))}%`);
 
       layer.appendChild(speck);
 
       const animation = speck.animate([
         {
-          transform: 'translate3d(-50%, -50%, 0) scale(.35)',
+          transform: 'translate3d(-50%, -50%, 0) scale(.25)',
           opacity: 0,
           filter: 'blur(0px)',
           offset: 0
         },
         {
-          transform: `translate3d(calc(-50% + ${dx * .42}px), calc(-50% + ${dy * .42}px), 0) scale(.92)`,
+          transform: `translate3d(calc(-50% + ${dx * .32}px), calc(-50% + ${dy * .32}px), 0) scale(1.08)`,
           opacity: startOpacity,
-          filter: 'blur(.7px)',
-          offset: .42
+          filter: 'blur(.2px)',
+          offset: .25
         },
         {
-          transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) scale(1.35)`,
+          transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) scale(.72)`,
           opacity: 0,
-          filter: 'blur(1.8px)',
+          filter: 'blur(2.6px)',
           offset: 1
         }
       ], {
         duration,
-        delay: random(0, 55),
-        easing: 'cubic-bezier(.2,.6,.2,1)',
+        delay: random(0, 65),
+        easing: 'cubic-bezier(.16,.58,.18,1)',
         fill: 'forwards'
       });
 
@@ -192,46 +189,43 @@
     }
   };
 
-  const createDust = (origin, color, mix, size) => {
-    const wanted = size < 45 ? 38 : size < 75 ? 54 : 72;
-    const room = Math.max(18, particleBudget() - activeParticles);
+  /* Second burst layer: very fine radial dust. No gravity drop — it disperses and evaporates. */
+  const createDust = (origin, color, size) => {
+    const wanted = size < 55 ? 62 : size < 90 ? 84 : size < 170 ? 118 : 165;
+    const room = Math.max(24, particleBudget() - activeParticles);
     const count = Math.min(wanted, room);
-    const sizeFactor = Math.max(.72, size / 72);
-    const maxFall = Math.max(100, origin.layerRect.height - origin.y + 90);
+    const sizeFactor = Math.max(.7, Math.min(2.1, size / 105));
+    const spread = Math.max(52, size * .68);
 
     const baseDuration = reducedMotion.matches
-      ? 320
-      : size < 45
-        ? random(850, 1030)
-        : size < 75
-          ? random(1030, 1240)
-          : random(1280, 1500);
+      ? 340
+      : size >= 170
+        ? random(1550, 2150)
+        : size >= 90
+          ? random(1350, 1900)
+          : random(1050, 1650);
 
     for (let i = 0; i < count; i += 1) {
       const particle = document.createElement('span');
       particle.className = 'ambient-particle';
 
-      const fineDust = Math.random() < .66;
-      const pSize = fineDust ? random(1, 2.9) : random(2.8, 6.8);
-      const pHeight = Math.max(1, pSize * random(.5, 1.55));
-      const vx = random(-54, 54) * Math.min(1.16, sizeFactor);
-      const lift = random(-28, 12);
-      const longFall = Math.random() < .38;
-      const rawFall = (longFall ? random(190, 340) : random(90, 190)) * Math.min(1.15, sizeFactor);
-      const fall = Math.min(rawFall, maxFall);
-      const rotation = random(-240, 240);
-      const linger = fineDust ? random(40, 180) : random(0, 80);
-      const duration = baseDuration + (longFall ? random(100, 230) : random(-40, 100)) + linger;
-      const delay = random(0, 85);
-      const startOpacity = fineDust ? random(.34, .68) : random(.48, .78);
+      const fineDust = Math.random() < .82;
+      const pSize = fineDust ? random(.7, 2.15) : random(2.15, 4.8);
+      const angle = random(0, Math.PI * 2);
+      const distance = spread * random(.38, 1.2) * (fineDust ? random(.8, 1.15) : random(.72, .98));
+      const dx = Math.cos(angle) * distance;
+      const dy = Math.sin(angle) * distance;
+      const curlX = signedRange(5, 20) * sizeFactor;
+      const curlY = signedRange(5, 18) * sizeFactor;
+      const duration = baseDuration + random(-140, 260) + (fineDust ? random(80, 320) : 0);
+      const delay = random(35, 180);
+      const startOpacity = fineDust ? random(.3, .62) : random(.46, .76);
+      const endScale = fineDust ? random(.25, .6) : random(.18, .42);
 
       particle.style.left = `${origin.x}px`;
       particle.style.top = `${origin.y}px`;
       particle.style.setProperty('--particle-size', `${pSize}px`);
-      particle.style.setProperty('--particle-height', `${pHeight}px`);
-      particle.style.setProperty('--particle-radius', `${random(12, 48)}% ${random(7, 36)}%`);
       particle.style.setProperty('--particle-color', color);
-      particle.style.setProperty('--particle-mix', `${Math.min(100, Number(mix) + random(3, 8))}%`);
       particle.style.setProperty('--particle-opacity', String(startOpacity));
 
       layer.appendChild(particle);
@@ -239,34 +233,33 @@
 
       const animation = particle.animate([
         {
-          transform: 'translate3d(-50%, -50%, 0) rotate(0deg) scale(.72)',
-          opacity: startOpacity * .72,
+          transform: 'translate3d(-50%, -50%, 0) scale(.55)',
+          opacity: 0,
+          filter: 'blur(0px)',
           offset: 0
         },
         {
-          transform: `translate3d(calc(-50% + ${vx * .3}px), calc(-50% + ${lift}px), 0) rotate(${rotation * .16}deg) scale(1)`,
+          transform: `translate3d(calc(-50% + ${dx * .18}px), calc(-50% + ${dy * .18}px), 0) scale(1)`,
           opacity: startOpacity,
-          offset: .18
+          filter: 'blur(0px)',
+          offset: .16
         },
         {
-          transform: `translate3d(calc(-50% + ${vx * .62}px), calc(-50% + ${lift + fall * .24}px), 0) rotate(${rotation * .46}deg) scale(.86)`,
-          opacity: startOpacity * .82,
-          offset: .48
+          transform: `translate3d(calc(-50% + ${dx * .66 + curlX * .35}px), calc(-50% + ${dy * .66 + curlY * .35}px), 0) scale(.78)`,
+          opacity: startOpacity * .58,
+          filter: 'blur(.75px)',
+          offset: .62
         },
         {
-          transform: `translate3d(calc(-50% + ${vx * .88}px), calc(-50% + ${lift + fall * .7}px), 0) rotate(${rotation * .78}deg) scale(.48)`,
-          opacity: startOpacity * .36,
-          offset: .8
-        },
-        {
-          transform: `translate3d(calc(-50% + ${vx}px), calc(-50% + ${lift + fall}px), 0) rotate(${rotation}deg) scale(.1)`,
+          transform: `translate3d(calc(-50% + ${dx + curlX}px), calc(-50% + ${dy + curlY}px), 0) scale(${endScale})`,
           opacity: 0,
+          filter: 'blur(2.8px)',
           offset: 1
         }
       ], {
         duration,
         delay,
-        easing: 'cubic-bezier(.12,.46,.16,1)',
+        easing: 'cubic-bezier(.12,.48,.18,1)',
         fill: 'forwards'
       });
 
@@ -281,15 +274,15 @@
     if (!square || square.dataset.state !== 'ready') return;
 
     square.dataset.state = 'bursting';
+    square.classList.remove('is-grown');
     square.classList.add('is-compressing');
 
     const zoneIndex = Number(square.dataset.zoneIndex);
     const size = Number(square.dataset.size);
     const color = square.dataset.color;
-    const mix = Number(square.dataset.mix);
     const token = Number(square.dataset.generation);
-    const compressionDuration = reducedMotion.matches ? 90 : random(125, 175);
-    const cloudDuration = reducedMotion.matches ? 150 : random(230, 315);
+    const compressionDuration = reducedMotion.matches ? 90 : random(105, 150);
+    const cloudDuration = reducedMotion.matches ? 140 : random(185, 250);
 
     window.setTimeout(() => {
       if (!square.isConnected || token !== Number(square.dataset.generation)) return;
@@ -298,19 +291,19 @@
       square.classList.add('is-clouding');
 
       const origin = coordinatesFor(square);
-      createCloud(origin, color, mix, size);
+      createCloud(origin, color, size);
 
       window.setTimeout(() => {
         if (!square.isConnected || token !== Number(square.dataset.generation)) return;
 
         const dustOrigin = coordinatesFor(square);
-        createDust(dustOrigin, color, mix, size);
+        createDust(dustOrigin, color, size);
 
         occupiedZones.delete(zoneIndex);
         liveSquares.delete(square);
         square.remove();
 
-        const respawnDelay = reducedMotion.matches ? 1600 : random(1800, 3100);
+        const respawnDelay = reducedMotion.matches ? 1500 : random(1450, 2450);
         window.setTimeout(() => {
           if (liveSquares.size < targetCount()) spawnSquare(liveSquares.size, zoneIndex);
         }, respawnDelay);
@@ -338,7 +331,7 @@
     liveSquares.delete(square);
     square.remove();
 
-    const respawnDelay = reducedMotion.matches ? 1800 : random(180, 620);
+    const respawnDelay = reducedMotion.matches ? 1800 : random(140, 420);
     window.setTimeout(() => {
       if (liveSquares.size < targetCount()) spawnSquare(liveSquares.size, zoneIndex);
     }, respawnDelay);
@@ -347,7 +340,8 @@
   function spawnSquare(index, avoidZone = -1) {
     if (liveSquares.size >= targetCount()) return;
 
-    const picked = pickZone(avoidZone);
+    const sizeSpec = sizeFor(index);
+    const picked = pickZone(sizeSpec.tier, avoidZone);
     if (!picked) return;
 
     occupiedZones.add(picked.index);
@@ -356,38 +350,38 @@
     const motion = document.createElement('span');
     const sway = document.createElement('span');
     const shape = document.createElement('span');
-    const size = sizeFor(index);
+    const size = sizeSpec.size;
+    const tier = sizeSpec.tier;
     const color = choose(COLORS);
     const rotation = random(-10, 12);
     const depth = depthFor();
     const growthDuration = growthDurationFor(size);
-    const driftScale = isMobile() ? .64 : 1;
+    const driftScale = isMobile() ? .66 : 1;
     const localGeneration = ++generation;
 
-    square.className = 'ambient-square';
+    square.className = `ambient-square ambient-size-${tier}`;
     square.dataset.state = 'entering';
     square.dataset.zoneIndex = String(picked.index);
     square.dataset.size = String(size);
+    square.dataset.tier = tier;
     square.dataset.color = color;
-    square.dataset.mix = String(depth.mix);
     square.dataset.generation = String(localGeneration);
 
     square.style.setProperty('--ambient-left', `${picked.zone.x}%`);
     square.style.setProperty('--ambient-top', `${picked.zone.y}%`);
     square.style.setProperty('--ambient-size', `${size}px`);
     square.style.setProperty('--ambient-color', color);
-    square.style.setProperty('--ambient-mix', `${depth.mix}%`);
     square.style.setProperty('--ambient-opacity', String(depth.opacity));
     square.style.setProperty('--ambient-blur', `${depth.blur}px`);
     square.style.setProperty('--ambient-rotation', `${rotation}deg`);
-    square.style.setProperty('--ambient-start-scale', String(random(.12, .24)));
+    square.style.setProperty('--ambient-start-scale', String(random(.1, .22)));
     square.style.setProperty('--ambient-grow-duration', `${growthDuration}ms`);
     square.style.setProperty('--ambient-rise-y', `${riseFor(size)}px`);
     square.style.setProperty('--ambient-rise-duration', `${riseDurationFor()}s`);
-    square.style.setProperty('--ambient-sway-x', `${signedRange(20, 46) * driftScale}px`);
-    square.style.setProperty('--ambient-sway-rotation', `${random(-5.5, 5.5)}deg`);
-    square.style.setProperty('--ambient-sway-duration', `${random(7.5, 12)}s`);
-    square.style.setProperty('--ambient-sway-delay', `${random(-5, 0)}s`);
+    square.style.setProperty('--ambient-sway-x', `${signedRange(22, 58) * driftScale}px`);
+    square.style.setProperty('--ambient-sway-rotation', `${random(-6.5, 6.5)}deg`);
+    square.style.setProperty('--ambient-sway-duration', `${random(5.5, 9.5)}s`);
+    square.style.setProperty('--ambient-sway-delay', `${random(-4, 0)}s`);
 
     motion.className = 'ambient-square-motion';
     sway.className = 'ambient-square-sway';
@@ -411,14 +405,15 @@
       window.setTimeout(() => {
         if (!square.isConnected) return;
         square.dataset.state = 'ready';
-      }, Math.min(growthDuration + 70, 7600));
-    }, random(45, 140));
+        square.classList.add('is-grown');
+      }, growthDuration + 60);
+    }, random(35, 110));
   }
 
   const seed = () => {
     const count = targetCount();
     for (let i = 0; i < count; i += 1) {
-      window.setTimeout(() => spawnSquare(i), 160 + i * random(190, 300));
+      window.setTimeout(() => spawnSquare(i), 120 + i * random(150, 245));
     }
   };
 
