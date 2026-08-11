@@ -192,7 +192,7 @@
     let previous = 0;
     for (let i = 0; i < length; i += 1) {
       const white = Math.random() * 2 - 1;
-      previous = previous * .72 + white * .28;
+      previous = previous * .52 + white * .48;
       data[i] = previous;
     }
     return buffer;
@@ -209,7 +209,7 @@
       audioCompressor.ratio.value = 4;
       audioCompressor.attack.value = .004;
       audioCompressor.release.value = .22;
-      audioMaster.gain.value = soundEnabled ? .72 : 0;
+      audioMaster.gain.value = soundEnabled ? .90 : 0;
       audioMaster.connect(audioCompressor);
       audioCompressor.connect(audioContext.destination);
       noiseBuffer = createNoiseBuffer(audioContext);
@@ -227,15 +227,15 @@
 
   const soundProfileFor = (tier, size) => {
     if (tier === 'xl' || size >= 170) {
-      return { popHz: 290, airHz: 1350, shimmerHz: 980, duration: .72, airGain: .056, popGain: .024, shimmerGain: .0085 };
+      return { popHz: 290, airHz: 1350, shimmerHz: 980, duration: .72, airGain: .129, popGain: .067, shimmerGain: .0145 };
     }
     if (tier === 'm' || size >= 90) {
-      return { popHz: 390, airHz: 1900, shimmerHz: 1260, duration: .56, airGain: .047, popGain: .021, shimmerGain: .0075 };
+      return { popHz: 390, airHz: 1900, shimmerHz: 1260, duration: .56, airGain: .108, popGain: .059, shimmerGain: .0128 };
     }
     if (tier === 's' || size >= 55) {
-      return { popHz: 490, airHz: 2550, shimmerHz: 1540, duration: .43, airGain: .039, popGain: .018, shimmerGain: .0065 };
+      return { popHz: 490, airHz: 2550, shimmerHz: 1540, duration: .43, airGain: .090, popGain: .050, shimmerGain: .0111 };
     }
-    return { popHz: 610, airHz: 3300, shimmerHz: 1840, duration: .34, airGain: .032, popGain: .015, shimmerGain: .0055 };
+    return { popHz: 610, airHz: 3300, shimmerHz: 1840, duration: .34, airGain: .074, popGain: .042, shimmerGain: .0094 };
   };
 
   const playDustBurst = (tier, size, { preview = false } = {}) => {
@@ -247,7 +247,7 @@
       const profile = soundProfileFor(tier, size);
       const now = context.currentTime + .008;
       const variation = random(.94, 1.06);
-      const previewScale = preview ? .52 : 1;
+      const previewScale = preview ? .82 : 1;
 
       const popSource = context.createBufferSource();
       popSource.buffer = noiseBuffer;
@@ -272,7 +272,7 @@
       airFilter.type = 'bandpass';
       airFilter.frequency.setValueAtTime(profile.airHz * variation, airStart);
       airFilter.frequency.exponentialRampToValueAtTime(Math.max(540, profile.airHz * .64), airStart + profile.duration);
-      airFilter.Q.value = .72;
+      airFilter.Q.value = .48;
       const airGain = context.createGain();
       airGain.gain.setValueAtTime(.0001, airStart);
       airGain.gain.exponentialRampToValueAtTime(profile.airGain * previewScale, airStart + .025);
@@ -320,9 +320,9 @@
     ensureAudioContext().then((context) => {
       if (!context || !audioMaster || !soundEnabled) return;
       audioMaster.gain.cancelScheduledValues(context.currentTime);
-      audioMaster.gain.setTargetAtTime(.72, context.currentTime, .015);
+      audioMaster.gain.setTargetAtTime(.90, context.currentTime, .015);
       if (preview) {
-        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 45);
+        window.setTimeout(() => playDustBurst('m', 102, { preview: true }), 45);
       }
     });
   };
