@@ -60,3 +60,35 @@
     window.requestAnimationFrame(requestRevealCheck);
   });
 })();
+
+/* Dream 2 ambient animation is intentionally limited to HERO, ABOUT and CONTACT.
+   Selected Work remains animation-free. The secondary engine reuses the approved
+   sizes, movement, rotation, dust burst and Cartoon Confetti sound preset. */
+(() => {
+  /* ABOUT uses its visible editorial sheet as the animation host, exactly like
+     CONTACT uses contact-box. Previously the host was the entire About section,
+     so the opaque about-layout card sat above the animation layer: hit-testing
+     still worked, but the flying squares were hidden behind the card. */
+  const aboutCard = document.querySelector('#about .about-layout');
+  const contactBox = document.querySelector('#contact .contact-box');
+  if (!aboutCard || !contactBox) return;
+
+  aboutCard.setAttribute('data-ambient-squares-secondary', 'about');
+  contactBox.setAttribute('data-ambient-squares-secondary', 'contact');
+
+  const stackingStyle = document.createElement('style');
+  stackingStyle.textContent = `
+    .about-layout[data-ambient-squares-secondary="about"] > .about-title,
+    .about-layout[data-ambient-squares-secondary="about"] > .about-copy {
+      position: relative;
+      z-index: 2;
+    }
+  `;
+  document.head.appendChild(stackingStyle);
+
+  if (document.querySelector('script[data-ambient-secondary-loader]')) return;
+  const script = document.createElement('script');
+  script.src = 'assets/js/ambient-squares-secondary.js?v=20260811-1253';
+  script.setAttribute('data-ambient-secondary-loader', 'true');
+  document.head.appendChild(script);
+})();
