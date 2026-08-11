@@ -60,3 +60,21 @@
     window.requestAnimationFrame(requestRevealCheck);
   });
 })();
+
+/* Dream 2 ambient animation is intentionally limited to HERO, ABOUT and CONTACT.
+   Selected Work remains animation-free. The secondary engine reuses the approved
+   sizes, movement, rotation, dust burst and Cartoon Confetti sound preset. */
+(() => {
+  const about = document.querySelector('#about');
+  const contactBox = document.querySelector('#contact .contact-box');
+  if (!about || !contactBox) return;
+
+  about.setAttribute('data-ambient-squares-secondary', 'about');
+  contactBox.setAttribute('data-ambient-squares-secondary', 'contact');
+
+  if (document.querySelector('script[data-ambient-secondary-loader]')) return;
+  const script = document.createElement('script');
+  script.src = 'assets/js/ambient-squares-secondary.js?v=20260811-1253';
+  script.setAttribute('data-ambient-secondary-loader', 'true');
+  document.head.appendChild(script);
+})();
