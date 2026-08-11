@@ -190,12 +190,12 @@
       audioContext = new AudioContextCtor();
       audioMaster = audioContext.createGain();
       audioCompressor = audioContext.createDynamicsCompressor();
-      audioCompressor.threshold.value = -18;
-      audioCompressor.knee.value = 20;
-      audioCompressor.ratio.value = 2.3;
-      audioCompressor.attack.value = .003;
-      audioCompressor.release.value = .12;
-      audioMaster.gain.value = soundEnabled ? .60 : 0;
+      audioCompressor.threshold.value = -20;
+      audioCompressor.knee.value = 22;
+      audioCompressor.ratio.value = 2;
+      audioCompressor.attack.value = .004;
+      audioCompressor.release.value = .18;
+      audioMaster.gain.value = soundEnabled ? .56 : 0;
       audioMaster.connect(audioCompressor);
       audioCompressor.connect(audioContext.destination);
     }
@@ -212,19 +212,19 @@
 
   const soundProfileFor = (tier, size) => {
     if (tier === 'xl' || size >= 170) {
-      return { crackHz: 560, bodyHz: 170, duration: .135, crackGain: .092, bodyGain: .057, plasticGain: .013 };
+      return { popHz: 250, sparkleHz: 540, duration: .42, popGain: .055, sparkleGain: .021, count: 10 };
     }
     if (tier === 'm' || size >= 90) {
-      return { crackHz: 680, bodyHz: 215, duration: .118, crackGain: .088, bodyGain: .052, plasticGain: .012 };
+      return { popHz: 315, sparkleHz: 650, duration: .37, popGain: .052, sparkleGain: .020, count: 9 };
     }
     if (tier === 's' || size >= 55) {
-      return { crackHz: 820, bodyHz: 275, duration: .102, crackGain: .083, bodyGain: .047, plasticGain: .011 };
+      return { popHz: 390, sparkleHz: 780, duration: .33, popGain: .048, sparkleGain: .018, count: 8 };
     }
-    return { crackHz: 980, bodyHz: 345, duration: .088, crackGain: .078, bodyGain: .042, plasticGain: .010 };
+    return { popHz: 480, sparkleHz: 930, duration: .29, popGain: .044, sparkleGain: .0165, count: 7 };
   };
 
-  /* Bubble wrap: a dry plastic crack with a compact hollow pop underneath.
-     Short, tactile and springy — more "pak" than the softer, wetter Soap Bubble preset. */
+  /* Cartoon confetti: one soft launch-pop followed by a quick scatter of tiny bright pings.
+     The pings are staggered and lightly stereo-spread so the sound follows the visual dust cloud. */
   const playDustBurst = (tier, size, { preview = false } = {}) => {
     if (!soundEnabled || !AudioContextCtor) return;
 
@@ -232,52 +232,57 @@
       if (!context || !soundEnabled || context.state !== 'running' || !audioMaster) return;
 
       const profile = soundProfileFor(tier, size);
-      const now = context.currentTime + .005;
-      const variation = random(.94, 1.06);
-      const previewScale = preview ? .78 : 1;
+      const now = context.currentTime + .006;
+      const variation = random(.975, 1.025);
+      const previewScale = preview ? .80 : 1;
 
-      const crack = context.createOscillator();
-      crack.type = 'triangle';
-      crack.frequency.setValueAtTime(profile.crackHz * 1.36 * variation, now);
-      crack.frequency.exponentialRampToValueAtTime(profile.crackHz * .64 * variation, now + profile.duration * .42);
-      const crackGain = context.createGain();
-      crackGain.gain.setValueAtTime(.0001, now);
-      crackGain.gain.exponentialRampToValueAtTime(profile.crackGain * previewScale, now + .0025);
-      crackGain.gain.exponentialRampToValueAtTime(profile.crackGain * .14 * previewScale, now + profile.duration * .20);
-      crackGain.gain.exponentialRampToValueAtTime(.0001, now + profile.duration * .48);
-      crack.connect(crackGain);
-      crackGain.connect(audioMaster);
-      crack.start(now);
-      crack.stop(now + profile.duration * .54);
+      const pop = context.createOscillator();
+      pop.type = 'sine';
+      pop.frequency.setValueAtTime(profile.popHz * 1.28 * variation, now);
+      pop.frequency.exponentialRampToValueAtTime(profile.popHz * .86 * variation, now + .12);
+      const popGain = context.createGain();
+      popGain.gain.setValueAtTime(.0001, now);
+      popGain.gain.exponentialRampToValueAtTime(profile.popGain * previewScale, now + .004);
+      popGain.gain.exponentialRampToValueAtTime(profile.popGain * .23 * previewScale, now + .055);
+      popGain.gain.exponentialRampToValueAtTime(.0001, now + .14);
+      pop.connect(popGain);
+      popGain.connect(audioMaster);
+      pop.start(now);
+      pop.stop(now + .15);
 
-      const bodyStart = now + .0045;
-      const body = context.createOscillator();
-      body.type = 'sine';
-      body.frequency.setValueAtTime(profile.bodyHz * 1.16 * variation, bodyStart);
-      body.frequency.exponentialRampToValueAtTime(profile.bodyHz * .82 * variation, bodyStart + profile.duration * .92);
-      const bodyGain = context.createGain();
-      bodyGain.gain.setValueAtTime(.0001, bodyStart);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * previewScale, bodyStart + .007);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * .22 * previewScale, bodyStart + profile.duration * .42);
-      bodyGain.gain.exponentialRampToValueAtTime(.0001, bodyStart + profile.duration * 1.02);
-      body.connect(bodyGain);
-      bodyGain.connect(audioMaster);
-      body.start(bodyStart);
-      body.stop(bodyStart + profile.duration * 1.08);
+      const intervals = [1, 1.125, 1.25, 1.5, 1.667, 2];
+      let scatterCursor = .028;
+      for (let i = 0; i < profile.count; i += 1) {
+        scatterCursor += random(.014, .032);
+        const start = now + scatterCursor + random(0, .012);
+        const decay = random(.07, .125) + (profile.duration - .29) * .18;
+        const interval = intervals[Math.floor(Math.random() * intervals.length)];
+        const frequency = Math.min(2850, profile.sparkleHz * interval * random(.97, 1.03));
+        const peak = profile.sparkleGain * random(.52, 1) * previewScale;
 
-      const plasticStart = now + .0015;
-      const plastic = context.createOscillator();
-      plastic.type = 'triangle';
-      plastic.frequency.setValueAtTime(profile.crackHz * 3.3 * variation, plasticStart);
-      plastic.frequency.exponentialRampToValueAtTime(profile.crackHz * 1.85 * variation, plasticStart + .021);
-      const plasticGain = context.createGain();
-      plasticGain.gain.setValueAtTime(.0001, plasticStart);
-      plasticGain.gain.exponentialRampToValueAtTime(profile.plasticGain * previewScale, plasticStart + .0015);
-      plasticGain.gain.exponentialRampToValueAtTime(.0001, plasticStart + .024);
-      plastic.connect(plasticGain);
-      plasticGain.connect(audioMaster);
-      plastic.start(plasticStart);
-      plastic.stop(plasticStart + .028);
+        const ping = context.createOscillator();
+        ping.type = i % 4 === 0 ? 'triangle' : 'sine';
+        ping.frequency.setValueAtTime(frequency * 1.035, start);
+        ping.frequency.exponentialRampToValueAtTime(frequency * .92, start + decay);
+
+        const pingGain = context.createGain();
+        pingGain.gain.setValueAtTime(.0001, start);
+        pingGain.gain.exponentialRampToValueAtTime(peak, start + random(.003, .007));
+        pingGain.gain.exponentialRampToValueAtTime(.0001, start + decay);
+        ping.connect(pingGain);
+
+        if (typeof context.createStereoPanner === 'function') {
+          const panner = context.createStereoPanner();
+          panner.pan.setValueAtTime(random(-.72, .72), start);
+          pingGain.connect(panner);
+          panner.connect(audioMaster);
+        } else {
+          pingGain.connect(audioMaster);
+        }
+
+        ping.start(start);
+        ping.stop(start + decay + .012);
+      }
     });
   };
 
@@ -293,7 +298,7 @@
     if (!soundEnabled) {
       if (audioMaster && audioContext) {
         audioMaster.gain.cancelScheduledValues(audioContext.currentTime);
-        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .012);
+        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .014);
       }
       return;
     }
@@ -301,9 +306,9 @@
     ensureAudioContext().then((context) => {
       if (!context || !audioMaster || !soundEnabled) return;
       audioMaster.gain.cancelScheduledValues(context.currentTime);
-      audioMaster.gain.setTargetAtTime(.60, context.currentTime, .014);
+      audioMaster.gain.setTargetAtTime(.56, context.currentTime, .016);
       if (preview) {
-        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 42);
+        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 45);
       }
     });
   };
