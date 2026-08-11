@@ -25,11 +25,13 @@
   ];
 
   const mobileZones = [
-    { x: 7, y: 100 },
-    { x: 31, y: 101 },
-    { x: 58, y: 99 },
-    { x: 82, y: 101 },
-    { x: 94, y: 100 }
+    { x: 5, y: 97.5 },
+    { x: 18, y: 98.5 },
+    { x: 32, y: 97.8 },
+    { x: 50, y: 98.8 },
+    { x: 68, y: 97.8 },
+    { x: 82, y: 98.5 },
+    { x: 95, y: 97.5 }
   ];
 
   const liveSquares = new Set();
@@ -64,15 +66,19 @@
   const targetCount = () => isMobile() ? 3 : desktopTarget;
 
   const initialTierFor = (index) => {
-    if (isMobile()) return ['s', 'm', 'l'][index % 3];
+    if (isMobile()) return ['m', 'xs', 's'][index % 3];
     return ['xl', 'xs', 's', 'm', 'xs', 's', 'm'][index % 7];
   };
 
   const sizeForTier = (tier) => {
+    if (isMobile()) {
+      if (tier === 'm') return random(92, 118);
+      if (tier === 's') return random(58, 72);
+      return random(34, 44);
+    }
     if (tier === 'xl') return random(180, 224);
-    if (tier === 'l') return random(92, 120);
     if (tier === 'm') return random(96, 124);
-    if (tier === 's') return isMobile() ? random(34, 44) : random(58, 72);
+    if (tier === 's') return random(58, 72);
     return random(36, 44);
   };
 
@@ -85,7 +91,7 @@
   };
 
   const applyAxisDrift = (shape, tier) => {
-    if (reducedMotion.matches || !shape) return null;
+    if (reducedMotion.matches || !shape) return;
     const profile = rotationProfileForTier(tier);
     const originX = random(24, 76);
     const originY = random(20, 80);
@@ -132,10 +138,14 @@
   /* About 10% slower than the previous Dream 2 pass. */
   const riseDurationFor = () => {
     if (reducedMotion.matches) return 1;
-    return isMobile() ? random(13.2, 18.7) : random(15.4, 22);
+    return isMobile() ? random(17, 23) : random(15.4, 22);
   };
 
   const tierAllowsZone = (zone, tier) => {
+    if (isMobile()) {
+      if (tier === 'm') return zone.x <= 18 || zone.x >= 82;
+      return zone.x >= 32 && zone.x <= 68;
+    }
     if (tier === 'xl') return zone.x <= 7 || zone.x >= 93;
     if (tier === 'l') return zone.x <= 12 || zone.x >= 88;
     return true;
@@ -147,7 +157,9 @@
   const corridorIsSafe = (zone, size, tier) => {
     const width = layer.getBoundingClientRect().width || hero.getBoundingClientRect().width || 1200;
     const x = width * zone.x / 100;
-    const ownSway = tier === 'xl' || tier === 'l' ? 18 : tier === 'm' ? 24 : 28;
+    const ownSway = isMobile()
+      ? (tier === 'm' ? 12 : tier === 's' ? 15 : 18)
+      : (tier === 'xl' || tier === 'l' ? 18 : tier === 'm' ? 24 : 28);
 
     for (const other of liveSquares) {
       if (!other.isConnected || other.dataset.state === 'bursting') continue;
@@ -155,7 +167,7 @@
       const otherSize = Number(other.dataset.size);
       const otherSway = Number(other.dataset.swayAbs || 24);
       const gap = Math.abs(x - otherX);
-      const required = (size + otherSize) / 2 + ownSway + otherSway + 12;
+      const required = (size + otherSize) / 2 + ownSway + otherSway + (isMobile() ? 7 : 12);
       if (gap < required) return false;
     }
     return true;
@@ -305,12 +317,12 @@
     if (!square || square.dataset.state === 'bursting') return;
 
     square.dataset.state = 'bursting';
+    square.classList.remove('is-grown');
+    square.classList.add('is-compressing');
     if (square._axisAnimation) {
       square._axisAnimation.cancel();
       square._axisAnimation = null;
     }
-    square.classList.remove('is-grown');
-    square.classList.add('is-compressing');
 
     const zoneIndex = Number(square.dataset.zoneIndex);
     const tier = square.dataset.tier;
@@ -415,8 +427,10 @@
     const rotation = random(-10, 12);
     const depth = depthFor();
     const growthDuration = growthDurationFor(size);
-    const driftScale = isMobile() ? .6 : 1;
-    const swayAbs = (tier === 'xl' || tier === 'l' ? random(10, 18) : tier === 'm' ? random(16, 24) : random(18, 28)) * driftScale;
+    const driftScale = isMobile() ? 1 : 1;
+    const swayAbs = isMobile()
+      ? (tier === 'm' ? random(7, 12) : tier === 's' ? random(10, 15) : random(12, 18))
+      : (tier === 'xl' || tier === 'l' ? random(10, 18) : tier === 'm' ? random(16, 24) : random(18, 28)) * driftScale;
     const localGeneration = ++generation;
 
     square.className = `ambient-square ambient-size-${tier}`;
