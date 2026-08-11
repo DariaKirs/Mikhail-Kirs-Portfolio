@@ -1,6 +1,6 @@
-/* Interactive Soft Squares — DREAM 2 HERO preview only.
-   Isolated experiment: no production styles depend on this file.
-   DREAM 2 colors remain unblended; depth comes from opacity, size and blur. */
+/* Interactive Soft Squares — DREAM 2 HERO preview.
+   Four deliberately separated scales, faster ascent, living pulse, depth shadows,
+   and a radial dust dissolve instead of confetti/gravity fragments. */
 
 .hero[data-ambient-squares="hero"] {
   position: relative;
@@ -52,18 +52,22 @@
 .ambient-square-shape {
   border-radius: 31% 14% 31% 14%;
   background: var(--ambient-color);
-  opacity: .025;
+  opacity: .02;
   filter: blur(var(--ambient-blur));
   transform: rotate(var(--ambient-rotation)) scale(var(--ambient-start-scale));
   transform-origin: center;
+  box-shadow:
+    0 9px 22px rgba(32, 54, 74, .10),
+    0 2px 8px rgba(32, 54, 74, .07);
   transition:
     opacity var(--ambient-grow-duration) linear,
     transform var(--ambient-grow-duration) cubic-bezier(.16,.7,.18,1),
-    filter 1100ms ease,
+    filter 900ms ease,
+    box-shadow 900ms ease,
     border-radius 320ms ease;
   pointer-events: auto;
   touch-action: manipulation;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity, filter, box-shadow;
 }
 
 .ambient-square.is-ready .ambient-square-shape {
@@ -71,27 +75,72 @@
   transform: rotate(var(--ambient-rotation)) scale(1);
 }
 
+/* Scale-specific depth. The largest forms carry a softer but wider shadow. */
+.ambient-size-xs .ambient-square-shape,
+.ambient-size-s .ambient-square-shape {
+  box-shadow:
+    0 7px 16px rgba(32, 54, 74, .08),
+    0 2px 6px rgba(32, 54, 74, .05);
+}
+
+.ambient-size-m .ambient-square-shape,
+.ambient-size-l .ambient-square-shape {
+  box-shadow:
+    0 12px 28px rgba(32, 54, 74, .11),
+    0 3px 9px rgba(32, 54, 74, .07);
+}
+
+.ambient-size-xl .ambient-square-shape {
+  box-shadow:
+    0 18px 42px rgba(32, 54, 74, .13),
+    0 5px 15px rgba(32, 54, 74, .08);
+}
+
+/* Internal life begins only after growth finishes, so it never cancels the birth/growth transition. */
+.ambient-square.is-grown .ambient-square-shape {
+  animation: ambient-square-breathe 4.9s ease-in-out infinite;
+}
+
+.ambient-size-m.is-grown .ambient-square-shape,
+.ambient-size-l.is-grown .ambient-square-shape {
+  animation-name: ambient-square-breathe-medium;
+  animation-duration: 4.4s;
+}
+
+.ambient-size-xl.is-grown .ambient-square-shape {
+  animation-name: ambient-square-breathe-xl;
+  animation-duration: 3.55s;
+}
+
 .ambient-square.is-compressing .ambient-square-shape {
+  animation: none;
   opacity: .96;
   filter: blur(0);
-  transform: rotate(var(--ambient-rotation)) scale(.86);
+  transform: rotate(var(--ambient-rotation)) scale(.84);
+  box-shadow:
+    0 7px 18px rgba(32, 54, 74, .10),
+    0 2px 6px rgba(32, 54, 74, .06);
   transition:
-    opacity 150ms ease,
-    transform 150ms cubic-bezier(.32,.02,.52,1),
-    filter 150ms ease;
+    opacity 125ms ease,
+    transform 125ms cubic-bezier(.32,.02,.52,1),
+    filter 125ms ease,
+    box-shadow 125ms ease;
   pointer-events: none;
 }
 
 .ambient-square.is-clouding .ambient-square-shape {
-  opacity: .24;
-  filter: blur(5px);
-  border-radius: 46% 38% 50% 42%;
-  transform: rotate(var(--ambient-rotation)) scale(1.12);
+  animation: none;
+  opacity: .15;
+  filter: blur(7px);
+  border-radius: 50%;
+  transform: rotate(var(--ambient-rotation)) scale(1.17);
+  box-shadow: 0 12px 30px rgba(32, 54, 74, .04);
   transition:
-    opacity 285ms ease-out,
-    transform 285ms cubic-bezier(.16,.58,.18,1),
-    filter 285ms ease-out,
-    border-radius 285ms ease-out;
+    opacity 235ms ease-out,
+    transform 235ms cubic-bezier(.16,.58,.18,1),
+    filter 235ms ease-out,
+    border-radius 235ms ease-out,
+    box-shadow 235ms ease-out;
   pointer-events: none;
 }
 
@@ -107,14 +156,15 @@
 .ambient-cloud-speck {
   width: var(--cloud-size);
   height: var(--cloud-size);
-  border-radius: 44% 34% 52% 38%;
+  border-radius: 50%;
   background: var(--cloud-color);
+  box-shadow: 0 0 5px color-mix(in srgb, var(--cloud-color) 34%, transparent);
 }
 
 .ambient-particle {
   width: var(--particle-size);
-  height: var(--particle-height);
-  border-radius: var(--particle-radius);
+  height: var(--particle-size);
+  border-radius: 50%;
   background: var(--particle-color);
   opacity: var(--particle-opacity);
 }
@@ -136,13 +186,55 @@
 
 @keyframes ambient-square-sway {
   0% {
-    transform: translate3d(calc(var(--ambient-sway-x) * -.32), 0, 0) rotate(calc(var(--ambient-sway-rotation) * -.28));
+    transform: translate3d(calc(var(--ambient-sway-x) * -.32), 0, 0) rotate(calc(var(--ambient-sway-rotation) * -.32));
   }
   50% {
-    transform: translate3d(calc(var(--ambient-sway-x) * .18), 0, 0) rotate(calc(var(--ambient-sway-rotation) * .12));
+    transform: translate3d(calc(var(--ambient-sway-x) * .2), 0, 0) rotate(calc(var(--ambient-sway-rotation) * .14));
   }
   100% {
     transform: translate3d(var(--ambient-sway-x), 0, 0) rotate(var(--ambient-sway-rotation));
+  }
+}
+
+@keyframes ambient-square-breathe {
+  0%, 100% {
+    transform: rotate(var(--ambient-rotation)) scale(1);
+    border-radius: 31% 14% 31% 14%;
+  }
+  50% {
+    transform: rotate(calc(var(--ambient-rotation) + 1.1deg)) scale(1.035);
+    border-radius: 27% 18% 34% 12%;
+  }
+}
+
+@keyframes ambient-square-breathe-medium {
+  0%, 100% {
+    transform: rotate(var(--ambient-rotation)) scale(1);
+    border-radius: 31% 14% 31% 14%;
+  }
+  50% {
+    transform: rotate(calc(var(--ambient-rotation) + 1.35deg)) scale(1.052);
+    border-radius: 26% 19% 35% 12%;
+  }
+}
+
+@keyframes ambient-square-breathe-xl {
+  0%, 100% {
+    transform: rotate(var(--ambient-rotation)) scale(1);
+    border-radius: 31% 14% 31% 14%;
+    box-shadow:
+      0 18px 42px rgba(32, 54, 74, .13),
+      0 5px 15px rgba(32, 54, 74, .08);
+  }
+  48% {
+    transform: rotate(calc(var(--ambient-rotation) + 1.8deg)) scale(1.085);
+    border-radius: 25% 20% 36% 11%;
+    box-shadow:
+      0 25px 54px rgba(32, 54, 74, .15),
+      0 7px 18px rgba(32, 54, 74, .09);
+  }
+  62% {
+    transform: rotate(calc(var(--ambient-rotation) + 1.3deg)) scale(1.06);
   }
 }
 
@@ -150,11 +242,21 @@
   .ambient-square.is-ready .ambient-square-shape {
     opacity: clamp(.72, calc(var(--ambient-opacity) + .22), .86);
   }
+
+  .ambient-square.is-grown .ambient-square-shape {
+    animation-duration: 4.4s;
+  }
+
+  .ambient-size-l.is-grown .ambient-square-shape {
+    animation-name: ambient-square-breathe-medium;
+    animation-duration: 3.9s;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .ambient-square-motion,
-  .ambient-square-sway {
+  .ambient-square-sway,
+  .ambient-square.is-grown .ambient-square-shape {
     animation: none;
   }
 
