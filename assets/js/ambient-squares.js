@@ -191,11 +191,11 @@
       audioMaster = audioContext.createGain();
       audioCompressor = audioContext.createDynamicsCompressor();
       audioCompressor.threshold.value = -18;
-      audioCompressor.knee.value = 24;
-      audioCompressor.ratio.value = 1.8;
-      audioCompressor.attack.value = .006;
-      audioCompressor.release.value = .18;
-      audioMaster.gain.value = soundEnabled ? .58 : 0;
+      audioCompressor.knee.value = 20;
+      audioCompressor.ratio.value = 2.3;
+      audioCompressor.attack.value = .003;
+      audioCompressor.release.value = .12;
+      audioMaster.gain.value = soundEnabled ? .60 : 0;
       audioMaster.connect(audioCompressor);
       audioCompressor.connect(audioContext.destination);
     }
@@ -212,19 +212,19 @@
 
   const soundProfileFor = (tier, size) => {
     if (tier === 'xl' || size >= 170) {
-      return { snapHz: 430, bodyHz: 190, duration: .19, snapGain: .105, bodyGain: .045, skinGain: .015 };
+      return { crackHz: 560, bodyHz: 170, duration: .135, crackGain: .092, bodyGain: .057, plasticGain: .013 };
     }
     if (tier === 'm' || size >= 90) {
-      return { snapHz: 520, bodyHz: 240, duration: .16, snapGain: .098, bodyGain: .041, skinGain: .014 };
+      return { crackHz: 680, bodyHz: 215, duration: .118, crackGain: .088, bodyGain: .052, plasticGain: .012 };
     }
     if (tier === 's' || size >= 55) {
-      return { snapHz: 620, bodyHz: 300, duration: .14, snapGain: .090, bodyGain: .037, skinGain: .013 };
+      return { crackHz: 820, bodyHz: 275, duration: .102, crackGain: .083, bodyGain: .047, plasticGain: .011 };
     }
-    return { snapHz: 760, bodyHz: 370, duration: .12, snapGain: .082, bodyGain: .033, skinGain: .012 };
+    return { crackHz: 980, bodyHz: 345, duration: .088, crackGain: .078, bodyGain: .042, plasticGain: .010 };
   };
 
-  /* Soap bubble: a tiny membrane snap followed by a short rounded cavity resonance.
-     No musical chord, no hiss and no long tail — just a soft, wet little "plop". */
+  /* Bubble wrap: a dry plastic crack with a compact hollow pop underneath.
+     Short, tactile and springy — more "pak" than the softer, wetter Soap Bubble preset. */
   const playDustBurst = (tier, size, { preview = false } = {}) => {
     if (!soundEnabled || !AudioContextCtor) return;
 
@@ -232,52 +232,52 @@
       if (!context || !soundEnabled || context.state !== 'running' || !audioMaster) return;
 
       const profile = soundProfileFor(tier, size);
-      const now = context.currentTime + .006;
-      const variation = random(.965, 1.035);
-      const previewScale = preview ? .80 : 1;
+      const now = context.currentTime + .005;
+      const variation = random(.94, 1.06);
+      const previewScale = preview ? .78 : 1;
 
-      const snap = context.createOscillator();
-      snap.type = 'sine';
-      snap.frequency.setValueAtTime(profile.snapHz * 1.42 * variation, now);
-      snap.frequency.exponentialRampToValueAtTime(profile.snapHz * .72 * variation, now + profile.duration * .62);
-      const snapGain = context.createGain();
-      snapGain.gain.setValueAtTime(.0001, now);
-      snapGain.gain.exponentialRampToValueAtTime(profile.snapGain * previewScale, now + .004);
-      snapGain.gain.exponentialRampToValueAtTime(profile.snapGain * .18 * previewScale, now + profile.duration * .34);
-      snapGain.gain.exponentialRampToValueAtTime(.0001, now + profile.duration * .72);
-      snap.connect(snapGain);
-      snapGain.connect(audioMaster);
-      snap.start(now);
-      snap.stop(now + profile.duration * .78);
+      const crack = context.createOscillator();
+      crack.type = 'triangle';
+      crack.frequency.setValueAtTime(profile.crackHz * 1.36 * variation, now);
+      crack.frequency.exponentialRampToValueAtTime(profile.crackHz * .64 * variation, now + profile.duration * .42);
+      const crackGain = context.createGain();
+      crackGain.gain.setValueAtTime(.0001, now);
+      crackGain.gain.exponentialRampToValueAtTime(profile.crackGain * previewScale, now + .0025);
+      crackGain.gain.exponentialRampToValueAtTime(profile.crackGain * .14 * previewScale, now + profile.duration * .20);
+      crackGain.gain.exponentialRampToValueAtTime(.0001, now + profile.duration * .48);
+      crack.connect(crackGain);
+      crackGain.connect(audioMaster);
+      crack.start(now);
+      crack.stop(now + profile.duration * .54);
 
-      const bodyStart = now + .007;
+      const bodyStart = now + .0045;
       const body = context.createOscillator();
       body.type = 'sine';
-      body.frequency.setValueAtTime(profile.bodyHz * 1.08 * variation, bodyStart);
-      body.frequency.exponentialRampToValueAtTime(profile.bodyHz * .90 * variation, bodyStart + profile.duration);
+      body.frequency.setValueAtTime(profile.bodyHz * 1.16 * variation, bodyStart);
+      body.frequency.exponentialRampToValueAtTime(profile.bodyHz * .82 * variation, bodyStart + profile.duration * .92);
       const bodyGain = context.createGain();
       bodyGain.gain.setValueAtTime(.0001, bodyStart);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * previewScale, bodyStart + .012);
-      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * .30 * previewScale, bodyStart + profile.duration * .46);
-      bodyGain.gain.exponentialRampToValueAtTime(.0001, bodyStart + profile.duration * 1.08);
+      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * previewScale, bodyStart + .007);
+      bodyGain.gain.exponentialRampToValueAtTime(profile.bodyGain * .22 * previewScale, bodyStart + profile.duration * .42);
+      bodyGain.gain.exponentialRampToValueAtTime(.0001, bodyStart + profile.duration * 1.02);
       body.connect(bodyGain);
       bodyGain.connect(audioMaster);
       body.start(bodyStart);
-      body.stop(bodyStart + profile.duration * 1.12);
+      body.stop(bodyStart + profile.duration * 1.08);
 
-      const skinStart = now + .002;
-      const skin = context.createOscillator();
-      skin.type = 'sine';
-      skin.frequency.setValueAtTime(profile.snapHz * 2.05 * variation, skinStart);
-      skin.frequency.exponentialRampToValueAtTime(profile.snapHz * 1.55 * variation, skinStart + .045);
-      const skinGain = context.createGain();
-      skinGain.gain.setValueAtTime(.0001, skinStart);
-      skinGain.gain.exponentialRampToValueAtTime(profile.skinGain * previewScale, skinStart + .0025);
-      skinGain.gain.exponentialRampToValueAtTime(.0001, skinStart + .052);
-      skin.connect(skinGain);
-      skinGain.connect(audioMaster);
-      skin.start(skinStart);
-      skin.stop(skinStart + .058);
+      const plasticStart = now + .0015;
+      const plastic = context.createOscillator();
+      plastic.type = 'triangle';
+      plastic.frequency.setValueAtTime(profile.crackHz * 3.3 * variation, plasticStart);
+      plastic.frequency.exponentialRampToValueAtTime(profile.crackHz * 1.85 * variation, plasticStart + .021);
+      const plasticGain = context.createGain();
+      plasticGain.gain.setValueAtTime(.0001, plasticStart);
+      plasticGain.gain.exponentialRampToValueAtTime(profile.plasticGain * previewScale, plasticStart + .0015);
+      plasticGain.gain.exponentialRampToValueAtTime(.0001, plasticStart + .024);
+      plastic.connect(plasticGain);
+      plasticGain.connect(audioMaster);
+      plastic.start(plasticStart);
+      plastic.stop(plasticStart + .028);
     });
   };
 
@@ -293,7 +293,7 @@
     if (!soundEnabled) {
       if (audioMaster && audioContext) {
         audioMaster.gain.cancelScheduledValues(audioContext.currentTime);
-        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .014);
+        audioMaster.gain.setTargetAtTime(0, audioContext.currentTime, .012);
       }
       return;
     }
@@ -301,9 +301,9 @@
     ensureAudioContext().then((context) => {
       if (!context || !audioMaster || !soundEnabled) return;
       audioMaster.gain.cancelScheduledValues(context.currentTime);
-      audioMaster.gain.setTargetAtTime(.58, context.currentTime, .016);
+      audioMaster.gain.setTargetAtTime(.60, context.currentTime, .014);
       if (preview) {
-        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 45);
+        window.setTimeout(() => playDustBurst('s', 64, { preview: true }), 42);
       }
     });
   };
