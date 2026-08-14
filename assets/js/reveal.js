@@ -86,7 +86,6 @@
     { selector: '#contact .contact-main > .eyebrow, #contact .contact-manifesto span', stagger: 105 },
     { selector: '#contact .contact-prompt, #contact .actions', stagger: 130 }
   ];
-
   const elements = [];
   revealGroups.forEach(({ selector, stagger }) => {
     document.querySelectorAll(selector).forEach((element, index) => {
