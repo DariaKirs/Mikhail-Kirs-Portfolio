@@ -263,9 +263,6 @@
   window.addEventListener('resize', requestRevealCheck, { passive: true });
   window.addEventListener('load', requestRevealCheck, { once: true });
 
-  /* Two frames ensure the hidden state is painted before visible elements are
-     released, so the transition is perceptible rather than collapsing into the
-     initial render. */
   window.requestAnimationFrame(() => {
     window.requestAnimationFrame(requestRevealCheck);
   });
@@ -275,10 +272,6 @@
    Selected Work remains animation-free. The secondary engine reuses the approved
    sizes, movement, rotation, dust burst and Cartoon Confetti sound preset. */
 (() => {
-  /* ABOUT uses its visible editorial sheet as the animation host, exactly like
-     CONTACT uses contact-box. Previously the host was the entire About section,
-     so the opaque about-layout card sat above the animation layer: hit-testing
-     still worked, but the flying squares were hidden behind the card. */
   const aboutCard = document.querySelector('#about .about-layout');
   const contactBox = document.querySelector('#contact .contact-box');
   if (!aboutCard || !contactBox) return;
