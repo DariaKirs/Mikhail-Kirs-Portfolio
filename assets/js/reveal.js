@@ -128,13 +128,22 @@
 })();
 
 (() => {
+  const workSection = document.querySelector('#work');
   const aboutCard = document.querySelector('#about .about-layout');
   const contactBox = document.querySelector('#contact .contact-box');
-  if (!aboutCard || !contactBox) return;
+  if (!workSection || !aboutCard || !contactBox) return;
+  workSection.setAttribute('data-ambient-squares-secondary', 'work');
   aboutCard.setAttribute('data-ambient-squares-secondary', 'about');
   contactBox.setAttribute('data-ambient-squares-secondary', 'contact');
   const stackingStyle = document.createElement('style');
-  stackingStyle.textContent = `.about-layout[data-ambient-squares-secondary="about"] > .about-title, .about-layout[data-ambient-squares-secondary="about"] > .about-copy { position:relative; z-index:2; }`;
+  stackingStyle.textContent = `
+    #work[data-ambient-squares-secondary="work"] > .container,
+    .about-layout[data-ambient-squares-secondary="about"] > .about-title,
+    .about-layout[data-ambient-squares-secondary="about"] > .about-copy {
+      position: relative;
+      z-index: 2;
+    }
+  `;
   document.head.appendChild(stackingStyle);
   if (document.querySelector('script[data-ambient-secondary-loader]')) return;
   const script = document.createElement('script');
