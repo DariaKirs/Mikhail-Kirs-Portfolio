@@ -13,7 +13,7 @@
     <div class="work-grid selected-work-grid">
       <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
         <a class="card-media" href="project-mayoral.html" aria-label="Explore Personal Brand Content">
-          <img src="assets/images/selected-work/personal-brand-cover.webp" alt="Modern professional in a Toronto city setting" loading="lazy">
+          <img data-b64-src="assets/images/selected-work/personal-card-ultra.b64" alt="Modern professional in a Toronto city setting">
         </a>
         <div class="card-body">
           <h3>Personal Brand Content</h3>
@@ -24,7 +24,7 @@
 
       <article class="card selected-work-card local-card" style="--category-accent: #7E9C86;">
         <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
-          <img src="assets/images/selected-work/local-business-cover.webp" alt="Independent shops and local businesses in a covered city arcade" loading="lazy">
+          <img data-b64-src="assets/images/selected-work/local-card-ultra.b64" alt="Independent shops and local businesses in a covered city arcade">
         </a>
         <div class="card-body">
           <h3>Local Business Storytelling</h3>
@@ -51,15 +51,17 @@
     style.id = 'selected-work-preview-styles';
     style.textContent = `
       #work.work-section::before { display: none; }
-      #work .selected-work-heading { display:flex; max-width:980px; margin:0 auto clamp(30px,3.5vw,44px); flex-direction:column; align-items:center; gap:0; text-align:center; }
+      #work .selected-work-heading { display:flex; max-width:820px; margin:0 auto clamp(28px,3vw,40px); flex-direction:column; align-items:center; gap:0; text-align:center; }
       #work .selected-work-heading > div { width:100%; }
-      #work .selected-work-heading .eyebrow { margin:0 0 18px; }
-      #work .selected-work-heading h2 { margin:0; font-family:Georgia,'Times New Roman',serif; font-size:clamp(3.15rem,6.2vw,6.1rem); font-weight:500; line-height:.91; letter-spacing:-.055em; text-wrap:balance; }
+      #work .selected-work-heading .eyebrow { margin:0 0 16px; }
+      #work .selected-work-heading h2 { max-width:760px; margin:0 auto; font-family:Georgia,'Times New Roman',serif; font-size:clamp(3rem,4.35vw,4.2rem); font-weight:500; line-height:.92; letter-spacing:-.05em; text-wrap:balance; }
       #work .selected-work-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; align-items:stretch; }
       #work .selected-work-card { position:relative; display:flex; min-width:0; flex-direction:column; overflow:hidden; border-top:0; border-color:rgba(184,170,156,.56); border-radius:22px; }
       #work .selected-work-card::before { content:''; display:block; height:8px; flex:0 0 8px; background:var(--category-accent); }
-      #work .selected-work-card .card-media { min-height:0; aspect-ratio:4/3; }
-      #work .selected-work-card .card-media img { width:100%; height:100%; min-height:0; object-fit:cover; }
+      #work .selected-work-card .card-media { min-height:0; aspect-ratio:4/3; background:#f1ece4; }
+      #work .selected-work-card .card-media img { width:100%; height:100%; min-height:0; object-fit:cover; transition:opacity .18s ease, transform .35s ease; }
+      #work .selected-work-card .card-media img[data-b64-src] { opacity:0; }
+      #work .selected-work-card .card-media img[data-b64-src].is-loaded { opacity:1; }
       #work .personal-card .card-media img { object-position:center 34%; }
       #work .local-card .card-media img { object-position:center center; }
       #work .long-card .card-media img { object-position:center 51%; }
@@ -69,10 +71,23 @@
       #work .selected-work-card .card-link { margin-top:auto; padding-top:24px; color:var(--text); text-decoration-color:var(--category-accent); text-decoration-thickness:3px; }
       #work .selected-work-card .card-link:hover, #work .selected-work-card .card-link:focus-visible { text-decoration-thickness:4px; }
       @media (max-width:1000px) { #work .selected-work-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-      @media (max-width:700px) { #work .selected-work-heading { margin-bottom:30px; } #work .selected-work-heading h2 { font-size:clamp(2.65rem,12vw,4.2rem); line-height:.94; } #work .selected-work-heading h2 br { display:none; } #work .selected-work-grid { grid-template-columns:1fr; gap:20px; } #work .selected-work-card .card-media { aspect-ratio:16/11; } }
+      @media (max-width:700px) { #work .selected-work-heading { margin-bottom:28px; } #work .selected-work-heading h2 { font-size:clamp(2.55rem,11vw,3.7rem); line-height:.94; } #work .selected-work-heading h2 br { display:none; } #work .selected-work-grid { grid-template-columns:1fr; gap:20px; } #work .selected-work-card .card-media { aspect-ratio:16/11; } }
     `;
     document.head.appendChild(style);
   }
+
+  document.querySelectorAll('#work img[data-b64-src]').forEach(async (img) => {
+    try {
+      const response = await fetch(img.dataset.b64Src, { cache: 'force-cache' });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const encoded = (await response.text()).trim();
+      img.src = `data:image/webp;base64,${encoded}`;
+      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+      if (img.complete) img.classList.add('is-loaded');
+    } catch (error) {
+      console.error('Selected Work cover failed to load', error);
+    }
+  });
 })();
 
 (() => {
