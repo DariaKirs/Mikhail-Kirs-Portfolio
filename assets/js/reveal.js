@@ -1,4 +1,214 @@
 (() => {
+  const workContainer = document.querySelector('#work .container');
+  if (!workContainer) return;
+
+  workContainer.innerHTML = `
+    <div class="section-heading selected-work-heading">
+      <div>
+        <p class="eyebrow">Selected Work</p>
+        <h2>Three directions in<br>visual storytelling.</h2>
+      </div>
+      <p>Personal Brand Content, Local Business Storytelling and long-form films.</p>
+    </div>
+
+    <div class="work-grid selected-work-grid">
+      <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
+        <a class="card-media" href="project-mayoral.html" aria-label="Explore Personal Brand Content">
+          <img src="assets/images/selected-work/personal-brand-cover.webp" alt="Modern professional in a Toronto city setting" loading="lazy">
+        </a>
+        <div class="card-body">
+          <h3>Personal Brand Content</h3>
+          <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
+          <a class="card-link" href="project-mayoral.html">Explore work <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <article class="card selected-work-card local-card" style="--category-accent: #7E9C86;">
+        <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
+          <img src="assets/images/selected-work/local-business-cover.webp" alt="Independent shops and local businesses in a covered city arcade" loading="lazy">
+        </a>
+        <div class="card-body">
+          <h3>Local Business Storytelling</h3>
+          <p>Video content that brings city businesses and places into focus.</p>
+          <a class="card-link" href="project-forest-city.html">Explore work <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+
+      <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE;">
+        <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
+          <img src="assets/images/London_Bridge.jpeg" alt="Tower Bridge framed by contemporary London architecture and everyday city life" loading="lazy">
+        </a>
+        <div class="card-body">
+          <h3>Long-Form Visual Storytelling</h3>
+          <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
+          <a class="card-link" href="project-city-storytelling.html">Explore work <span aria-hidden="true">↗</span></a>
+        </div>
+      </article>
+    </div>
+  `;
+
+  if (!document.getElementById('selected-work-preview-styles')) {
+    const style = document.createElement('style');
+    style.id = 'selected-work-preview-styles';
+    style.textContent = `
+      #work.work-section::before {
+        display: none;
+      }
+
+      #work .selected-work-heading {
+        display: flex;
+        max-width: 980px;
+        margin: 0 auto clamp(44px, 5vw, 64px);
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        text-align: center;
+      }
+
+      #work .selected-work-heading > div {
+        width: 100%;
+      }
+
+      #work .selected-work-heading .eyebrow {
+        margin: 0 0 18px;
+      }
+
+      #work .selected-work-heading h2 {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(3.15rem, 6.2vw, 6.1rem);
+        font-weight: 500;
+        line-height: .91;
+        letter-spacing: -.055em;
+        text-wrap: balance;
+      }
+
+      #work .selected-work-heading > p {
+        max-width: 780px;
+        margin: 8px auto 0;
+        color: var(--muted);
+        font-size: clamp(1rem, 1.4vw, 1.22rem);
+        line-height: 1.45;
+      }
+
+      #work .selected-work-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+        align-items: stretch;
+      }
+
+      #work .selected-work-card {
+        position: relative;
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+        overflow: hidden;
+        border-top: 0;
+        border-color: rgba(184, 170, 156, .56);
+        border-radius: 22px;
+      }
+
+      #work .selected-work-card::before {
+        content: '';
+        display: block;
+        height: 8px;
+        flex: 0 0 8px;
+        background: var(--category-accent);
+      }
+
+      #work .selected-work-card .card-media {
+        min-height: 0;
+        aspect-ratio: 4 / 3;
+      }
+
+      #work .selected-work-card .card-media img {
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        object-fit: cover;
+      }
+
+      #work .personal-card .card-media img {
+        object-position: center 34%;
+      }
+
+      #work .local-card .card-media img {
+        object-position: center center;
+      }
+
+      #work .long-card .card-media img {
+        object-position: center 51%;
+      }
+
+      #work .selected-work-card .card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        padding: 26px 24px 24px;
+      }
+
+      #work .selected-work-card h3 {
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: clamp(1.7rem, 2.2vw, 2.15rem);
+        font-weight: 500;
+        line-height: 1.03;
+        letter-spacing: -.04em;
+      }
+
+      #work .selected-work-card .card-body > p {
+        margin: 15px 0 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      #work .selected-work-card .card-link {
+        margin-top: auto;
+        padding-top: 24px;
+        color: var(--text);
+        text-decoration-color: var(--category-accent);
+        text-decoration-thickness: 3px;
+      }
+
+      #work .selected-work-card .card-link:hover,
+      #work .selected-work-card .card-link:focus-visible {
+        text-decoration-thickness: 4px;
+      }
+
+      @media (max-width: 1000px) {
+        #work .selected-work-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 700px) {
+        #work .selected-work-heading {
+          margin-bottom: 38px;
+        }
+
+        #work .selected-work-heading h2 {
+          font-size: clamp(2.65rem, 12vw, 4.2rem);
+          line-height: .94;
+        }
+
+        #work .selected-work-heading h2 br {
+          display: none;
+        }
+
+        #work .selected-work-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+
+        #work .selected-work-card .card-media {
+          aspect-ratio: 16 / 11;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+})();
+
+(() => {
   const revealGroups = [
     { selector: '.work-section .section-heading > div, .work-section .section-heading > p', stagger: 110 },
     { selector: '.work-section .card', stagger: 140 },
