@@ -21,3 +21,14 @@
 section[id] {
   scroll-margin-top: 104px;
 }
+
+/* Selected Work three-card preview: use the original full-resolution cover artwork. */
+#work .personal-card .card-media img {
+  content: url("assets/images/selected-work/Personal_Brand_Cover_1.png") !important;
+  opacity: 1 !important;
+}
+
+#work .local-card .card-media img {
+  content: url("assets/images/selected-work/Local_Cover.png") !important;
+  opacity: 1 !important;
+}

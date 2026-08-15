@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Personal Brand Content by Mikhail Kirs.">
+  <meta name="theme-color" content="#F4EFE6">
+  <title>Personal Brand Content — Mikhail Kirs</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-gap-balance">
+  <style>
+    .personal-brand-page {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .personal-brand-main {
+      overflow: hidden;
+    }
+
+    .personal-brand-sheet {
+      padding: 48px 0 34px;
+    }
+
+    .personal-brand-main-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 420px;
+      gap: clamp(42px, 4.5vw, 70px);
+      align-items: start;
+    }
+
+    .personal-brand-left {
+      display: grid;
+      gap: 0;
+      min-width: 0;
+    }
+
+    .personal-brand-copy {
+      max-width: 760px;
+    }
+
+    .personal-brand-copy > .eyebrow {
+      margin: 0 0 10px;
+      font-size: .92rem;
+    }
+
+    .personal-brand-mask h2 {
+      margin: 0;
+      font-size: clamp(1.72rem, 2vw, 2.08rem);
+      line-height: 1.02;
+      letter-spacing: -.038em;
+    }
+
+    .personal-brand-mask p {
+      max-width: 680px;
+      margin: 6px 0 14px;
+      font-size: clamp(.94rem, 1.06vw, 1.02rem);
+      line-height: 1.4;
+    }
+
+    .personal-brand-question {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(2.8rem, 3.45vw, 3.7rem);
+      line-height: .95;
+      letter-spacing: -.052em;
+      text-wrap: balance;
+    }
+
+    /* Locked to the approved desktop Hero portrait size and geometry. */
+    .personal-brand-visual {
+      position: relative;
+      width: 420px;
+      height: 559px;
+      margin-top: 30px;
+      justify-self: end;
+      isolation: isolate;
+    }
+
+    .personal-brand-visual::before,
+    .personal-brand-visual::after,
+    .personal-brand-photo {
+      position: absolute;
+      width: 420px;
+      height: 559px;
+      left: 50%;
+      top: 50%;
+      border-radius: 40px 21px 40px 21px;
+    }
+
+    .personal-brand-visual::before,
+    .personal-brand-visual::after {
+      content: "";
+      z-index: 1;
+    }
+
+    .personal-brand-visual::before {
+      background: var(--dusty-rose);
+      transform: translate(calc(-50% + 30px), calc(-50% - 24px)) rotate(4.5deg);
+    }
+
+    .personal-brand-visual::after {
+      background: var(--soft-lilac);
+      transform: translate(calc(-50% - 25px), calc(-50% + 22px)) rotate(-3.8deg);
+    }
+
+    .personal-brand-photo {
+      z-index: 5;
+      overflow: hidden;
+      margin: 0;
+      border: 5px solid var(--bg);
+      background: var(--surface);
+      box-shadow: 0 24px 48px rgba(32, 54, 74, .14);
+      transform: translate(-50%, -50%);
+    }
+
+    .personal-brand-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    .personal-brand-concepts {
+      min-width: 0;
+      margin-top: 35px;
+    }
+
+    .personal-brand-concept-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .personal-brand-concept h3 {
+      margin: 0;
+      font-size: clamp(1rem, 1.12vw, 1.2rem);
+      line-height: 1.03;
+      letter-spacing: -.022em;
+    }
+
+    .personal-brand-concept p {
+      margin: 4px 0 0;
+      color: var(--text);
+      font-size: .74rem;
+      line-height: 1.34;
+    }
+
+    .personal-brand-concept.expertise h3 { color: var(--accent-purple); }
+    .personal-brand-concept.contribution h3 { color: var(--muted-green); }
+    .personal-brand-concept.purpose h3 { color: var(--dusty-rose); }
+    .personal-brand-concept.principles h3 { color: var(--button-blue); }
+    .personal-brand-concept.evidence h3 { color: var(--text); }
+
+    .personal-brand-boundary {
+      margin-top: 18px;
+    }
+
+    .personal-brand-boundary h2 {
+      margin: 0;
+      font-size: clamp(1.72rem, 2vw, 2.08rem);
+      line-height: 1.02;
+      letter-spacing: -.038em;
+    }
+
+    .personal-brand-boundary p {
+      max-width: 680px;
+      margin: 6px 0 0;
+      color: var(--text);
+      font-size: clamp(.94rem, 1.06vw, 1.02rem);
+      line-height: 1.4;
+    }
+
+    .personal-brand-visual-message {
+      margin-top: 18px;
+      padding-top: 0;
+    }
+
+    .personal-brand-visual-message h2 {
+      max-width: 720px;
+      margin: 0;
+      font-size: clamp(2.8rem, 3.45vw, 3.7rem);
+      line-height: .95;
+      letter-spacing: -.052em;
+      text-wrap: balance;
+    }
+
+    .personal-brand-visual-message p {
+      max-width: 720px;
+      margin: 10px 0 0;
+      color: var(--text);
+      font-size: clamp(1.05rem, 1.22vw, 1.18rem);
+      line-height: 1.42;
+    }
+
+    @media (max-width: 1050px) {
+      .personal-brand-sheet {
+        padding: 40px 0 38px;
+      }
+
+      .personal-brand-main-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .personal-brand-visual {
+        margin-top: 8px;
+        justify-self: center;
+      }
+
+      .personal-brand-concept-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .personal-brand-concept h3 {
+        font-size: clamp(1.08rem, 1.28vw, 1.34rem);
+      }
+
+      .personal-brand-concept p {
+        font-size: .78rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .personal-brand-sheet {
+        padding: 30px 0 32px;
+      }
+
+      .personal-brand-copy > .eyebrow {
+        font-size: .88rem;
+      }
+
+      .personal-brand-mask h2,
+      .personal-brand-boundary h2 {
+        font-size: 26px;
+      }
+
+      .personal-brand-mask p,
+      .personal-brand-boundary p {
+        font-size: 16px;
+      }
+
+      .personal-brand-question,
+      .personal-brand-visual-message h2 {
+        font-size: 34px;
+        line-height: .98;
+        letter-spacing: -.045em;
+      }
+
+      .personal-brand-visual,
+      .personal-brand-visual::before,
+      .personal-brand-visual::after,
+      .personal-brand-photo {
+        width: 278px;
+        height: 371px;
+      }
+
+      .personal-brand-visual::before,
+      .personal-brand-visual::after,
+      .personal-brand-photo {
+        border-radius: 33px 18px 33px 18px;
+      }
+
+      .personal-brand-visual::before {
+        transform: translate(calc(-50% + 22px), calc(-50% - 17px)) rotate(4.5deg);
+      }
+
+      .personal-brand-visual::after {
+        transform: translate(calc(-50% - 18px), calc(-50% + 17px)) rotate(-3.8deg);
+      }
+
+      .personal-brand-photo {
+        border-width: 4px;
+        box-shadow: 0 20px 36px rgba(32, 54, 74, .12);
+      }
+
+      .personal-brand-concepts,
+      .personal-brand-boundary {
+        margin-top: 16px;
+      }
+
+      .personal-brand-visual-message {
+        margin-top: 18px;
+      }
+
+      .personal-brand-concept-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .personal-brand-concept h3 {
+        font-size: 23px;
+      }
+
+      .personal-brand-concept p {
+        font-size: 16px;
+      }
+
+      .personal-brand-visual-message p {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body class="personal-brand-page">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="Mikhail Kirs home">
+        <span class="brand-mark" aria-hidden="true">MK</span>
+        <span>Mikhail Kirs</span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="index.html#work">Work</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" class="personal-brand-main">
+    <section class="personal-brand-sheet">
+      <div class="container personal-brand-main-grid">
+        <div class="personal-brand-left">
+          <div class="personal-brand-copy">
+            <p class="eyebrow">Personal Brand Content</p>
+            <div class="personal-brand-mask">
+              <h2>A visual brand is not a mask.</h2>
+              <p>It is a visual interpretation of the public position you choose to present.</p>
+            </div>
+            <h1 class="personal-brand-question">What do you want to bring into public view?</h1>
+          </div>
+
+          <div class="personal-brand-concepts">
+            <div class="personal-brand-concept-grid">
+              <div class="personal-brand-concept expertise">
+                <h3>Expertise</h3>
+                <p>What you know. What you do. What you are genuinely good at.</p>
+              </div>
+              <div class="personal-brand-concept contribution">
+                <h3>Contribution</h3>
+                <p>What your work, knowledge or ideas can give to other people.</p>
+              </div>
+              <div class="personal-brand-concept purpose">
+                <h3>Purpose</h3>
+                <p>Why this work matters and what you want it to achieve.</p>
+              </div>
+              <div class="personal-brand-concept principles">
+                <h3>Principles</h3>
+                <p>The standards and relevant beliefs that guide the public position you choose to present.</p>
+              </div>
+              <div class="personal-brand-concept evidence">
+                <h3>Evidence</h3>
+                <p>The work, actions, projects and results that make that public position credible.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="personal-brand-boundary">
+            <h2>You choose the boundary.</h2>
+            <p>Personal Brand Content does not require turning private life into content. We work with the part you choose to make public.</p>
+          </div>
+
+          <div class="personal-brand-visual-message">
+            <h2>The visual context is part of the message.</h2>
+            <p>Location, people, activity, framing, and visual context are not decoration around the message but part of the communication itself.</p>
+          </div>
+        </div>
+
+        <div class="personal-brand-visual" aria-label="Personal Brand Content cover">
+          <figure class="personal-brand-photo">
+            <img src="assets/images/selected-work/Personal_Brand_Cover_2.png" alt="Professional portrait in a Toronto city setting">
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
