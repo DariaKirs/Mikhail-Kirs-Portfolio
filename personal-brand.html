@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-five-concepts">
+  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-typography-hierarchy">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -31,7 +31,7 @@
 
     .personal-brand-left {
       display: grid;
-      gap: 15px;
+      gap: 0;
       min-width: 0;
     }
 
@@ -123,6 +123,7 @@
 
     .personal-brand-concepts {
       min-width: 0;
+      margin-top: 18px;
     }
 
     .personal-brand-concept-grid {
@@ -151,38 +152,45 @@
     .personal-brand-concept.principles h3 { color: var(--button-blue); }
     .personal-brand-concept.evidence h3 { color: var(--text); }
 
+    .personal-brand-boundary {
+      margin-top: 18px;
+    }
+
     .personal-brand-boundary h2 {
       margin: 0;
-      font-size: clamp(1.08rem, 1.24vw, 1.3rem);
-      line-height: 1.05;
-      letter-spacing: -.022em;
+      font-size: clamp(1.72rem, 2vw, 2.08rem);
+      line-height: 1.02;
+      letter-spacing: -.038em;
     }
 
     .personal-brand-boundary p {
       max-width: 680px;
-      margin: 4px 0 0;
+      margin: 6px 0 0;
       color: var(--text);
-      font-size: .78rem;
-      line-height: 1.38;
+      font-size: clamp(.94rem, 1.06vw, 1.02rem);
+      line-height: 1.4;
     }
 
     .personal-brand-visual-message {
-      padding-top: 1px;
+      margin-top: 18px;
+      padding-top: 0;
     }
 
     .personal-brand-visual-message h2 {
+      max-width: 720px;
       margin: 0;
-      font-size: clamp(1.58rem, 2.05vw, 2.15rem);
-      line-height: 1.01;
-      letter-spacing: -.035em;
+      font-size: clamp(2.8rem, 3.45vw, 3.7rem);
+      line-height: .95;
+      letter-spacing: -.052em;
+      text-wrap: balance;
     }
 
     .personal-brand-visual-message p {
       max-width: 720px;
-      margin: 6px 0 0;
+      margin: 10px 0 0;
       color: var(--text);
-      font-size: clamp(.88rem, .98vw, .98rem);
-      line-height: 1.4;
+      font-size: clamp(1.05rem, 1.22vw, 1.18rem);
+      line-height: 1.42;
     }
 
     @media (max-width: 1050px) {
@@ -218,23 +226,22 @@
         padding: 30px 0 32px;
       }
 
-      .personal-brand-left {
-        gap: 16px;
-      }
-
       .personal-brand-copy > .eyebrow {
         font-size: .88rem;
       }
 
-      .personal-brand-mask h2 {
+      .personal-brand-mask h2,
+      .personal-brand-boundary h2 {
         font-size: 26px;
       }
 
-      .personal-brand-mask p {
+      .personal-brand-mask p,
+      .personal-brand-boundary p {
         font-size: 16px;
       }
 
-      .personal-brand-question {
+      .personal-brand-question,
+      .personal-brand-visual-message h2 {
         font-size: 34px;
         line-height: .98;
         letter-spacing: -.045em;
@@ -267,6 +274,15 @@
         box-shadow: 0 20px 36px rgba(32, 54, 74, .12);
       }
 
+      .personal-brand-concepts,
+      .personal-brand-boundary {
+        margin-top: 16px;
+      }
+
+      .personal-brand-visual-message {
+        margin-top: 18px;
+      }
+
       .personal-brand-concept-grid {
         grid-template-columns: 1fr;
         gap: 14px;
@@ -276,18 +292,12 @@
         font-size: 23px;
       }
 
-      .personal-brand-concept p,
-      .personal-brand-boundary p,
-      .personal-brand-visual-message p {
+      .personal-brand-concept p {
         font-size: 16px;
       }
 
-      .personal-brand-boundary h2 {
-        font-size: 25px;
-      }
-
-      .personal-brand-visual-message h2 {
-        font-size: 30px;
+      .personal-brand-visual-message p {
+        font-size: 18px;
       }
     }
   </style>
