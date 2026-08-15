@@ -126,13 +126,14 @@
     }
 
     .personal-brand-concepts {
+      width: calc(100% + 24px);
       min-width: 0;
       margin-top: 35px;
     }
 
     .personal-brand-concept-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: 1.18fr 1.48fr .94fr 1.18fr 1.02fr;
       gap: 12px;
     }
 
@@ -212,6 +213,10 @@
       .personal-brand-visual {
         margin-top: 8px;
         justify-self: center;
+      }
+
+      .personal-brand-concepts {
+        width: 100%;
       }
 
       .personal-brand-concept-grid {
