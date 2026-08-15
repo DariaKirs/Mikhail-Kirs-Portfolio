@@ -12,13 +12,13 @@
 
     <div class="work-grid selected-work-grid">
       <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
-        <a class="card-media" href="project-mayoral.html" aria-label="Explore Personal Brand Content">
+        <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
           <img data-b64-src="assets/images/selected-work/personal-card-ultra.b64" alt="Modern professional in a Toronto city setting">
         </a>
         <div class="card-body">
           <h3>Personal Brand Content</h3>
           <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
-          <a class="card-link" href="project-mayoral.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="personal-brand.html">Explore work <span aria-hidden="true">↗</span></a>
         </div>
       </article>
 
