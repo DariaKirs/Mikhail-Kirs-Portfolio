@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-tight-final">
+  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-five-concepts">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -127,13 +127,13 @@
 
     .personal-brand-concept-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px 22px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 12px;
     }
 
     .personal-brand-concept h3 {
       margin: 0;
-      font-size: clamp(1.08rem, 1.28vw, 1.34rem);
+      font-size: clamp(1rem, 1.12vw, 1.2rem);
       line-height: 1.03;
       letter-spacing: -.022em;
     }
@@ -141,7 +141,7 @@
     .personal-brand-concept p {
       margin: 4px 0 0;
       color: var(--text);
-      font-size: .78rem;
+      font-size: .74rem;
       line-height: 1.34;
     }
 
@@ -151,25 +151,38 @@
     .personal-brand-concept.principles h3 { color: var(--button-blue); }
     .personal-brand-concept.evidence h3 { color: var(--text); }
 
-    .personal-brand-boundary h2,
-    .personal-brand-visual-message h2 {
+    .personal-brand-boundary h2 {
       margin: 0;
-      font-size: clamp(1.28rem, 1.55vw, 1.6rem);
-      line-height: 1.03;
-      letter-spacing: -.026em;
+      font-size: clamp(1.08rem, 1.24vw, 1.3rem);
+      line-height: 1.05;
+      letter-spacing: -.022em;
     }
 
-    .personal-brand-boundary p,
-    .personal-brand-visual-message p {
-      max-width: 700px;
-      margin: 5px 0 0;
+    .personal-brand-boundary p {
+      max-width: 680px;
+      margin: 4px 0 0;
       color: var(--text);
-      font-size: .82rem;
+      font-size: .78rem;
       line-height: 1.38;
     }
 
     .personal-brand-visual-message {
-      padding-top: 0;
+      padding-top: 1px;
+    }
+
+    .personal-brand-visual-message h2 {
+      margin: 0;
+      font-size: clamp(1.58rem, 2.05vw, 2.15rem);
+      line-height: 1.01;
+      letter-spacing: -.035em;
+    }
+
+    .personal-brand-visual-message p {
+      max-width: 720px;
+      margin: 6px 0 0;
+      color: var(--text);
+      font-size: clamp(.88rem, .98vw, .98rem);
+      line-height: 1.4;
     }
 
     @media (max-width: 1050px) {
@@ -189,6 +202,14 @@
 
       .personal-brand-concept-grid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .personal-brand-concept h3 {
+        font-size: clamp(1.08rem, 1.28vw, 1.34rem);
+      }
+
+      .personal-brand-concept p {
+        font-size: .78rem;
       }
     }
 
@@ -261,9 +282,12 @@
         font-size: 16px;
       }
 
-      .personal-brand-boundary h2,
+      .personal-brand-boundary h2 {
+        font-size: 25px;
+      }
+
       .personal-brand-visual-message h2 {
-        font-size: 27px;
+        font-size: 30px;
       }
     }
   </style>
