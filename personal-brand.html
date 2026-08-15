@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-logic-fix">
+  <link rel="stylesheet" href="styles.css?v=20260815-personal-brand-tight-final">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -22,11 +22,6 @@
       padding: 48px 0 34px;
     }
 
-    .personal-brand-sheet-inner {
-      display: grid;
-      gap: 24px;
-    }
-
     .personal-brand-main-grid {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 420px;
@@ -36,7 +31,7 @@
 
     .personal-brand-left {
       display: grid;
-      gap: 20px;
+      gap: 15px;
       min-width: 0;
     }
 
@@ -58,7 +53,7 @@
 
     .personal-brand-mask p {
       max-width: 680px;
-      margin: 6px 0 16px;
+      margin: 6px 0 14px;
       font-size: clamp(.94rem, 1.06vw, 1.02rem);
       line-height: 1.4;
     }
@@ -77,6 +72,7 @@
       position: relative;
       width: 420px;
       height: 559px;
+      margin-top: 30px;
       justify-self: end;
       isolation: isolate;
     }
@@ -132,7 +128,7 @@
     .personal-brand-concept-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px 22px;
+      gap: 10px 22px;
     }
 
     .personal-brand-concept h3 {
@@ -155,41 +151,25 @@
     .personal-brand-concept.principles h3 { color: var(--button-blue); }
     .personal-brand-concept.evidence h3 { color: var(--text); }
 
-    .personal-brand-boundary h2 {
+    .personal-brand-boundary h2,
+    .personal-brand-visual-message h2 {
       margin: 0;
       font-size: clamp(1.28rem, 1.55vw, 1.6rem);
       line-height: 1.03;
       letter-spacing: -.026em;
     }
 
-    .personal-brand-boundary p {
-      max-width: 680px;
+    .personal-brand-boundary p,
+    .personal-brand-visual-message p {
+      max-width: 700px;
       margin: 5px 0 0;
       color: var(--text);
       font-size: .82rem;
       line-height: 1.38;
     }
 
-    /* Final statement: the bridge from personal-brand thinking to Mikhail's visual work. */
     .personal-brand-visual-message {
-      padding-top: 2px;
-      max-width: 1120px;
-    }
-
-    .personal-brand-visual-message h2 {
-      margin: 0;
-      max-width: 980px;
-      font-size: clamp(2rem, 3vw, 3rem);
-      line-height: 1;
-      letter-spacing: -.045em;
-    }
-
-    .personal-brand-visual-message p {
-      max-width: 930px;
-      margin: 9px 0 0;
-      color: var(--text);
-      font-size: clamp(.98rem, 1.15vw, 1.08rem);
-      line-height: 1.45;
+      padding-top: 0;
     }
 
     @media (max-width: 1050px) {
@@ -199,10 +179,11 @@
 
       .personal-brand-main-grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 22px;
       }
 
       .personal-brand-visual {
+        margin-top: 8px;
         justify-self: center;
       }
 
@@ -217,7 +198,7 @@
       }
 
       .personal-brand-left {
-        gap: 18px;
+        gap: 16px;
       }
 
       .personal-brand-copy > .eyebrow {
@@ -275,20 +256,14 @@
       }
 
       .personal-brand-concept p,
-      .personal-brand-boundary p {
+      .personal-brand-boundary p,
+      .personal-brand-visual-message p {
         font-size: 16px;
       }
 
-      .personal-brand-boundary h2 {
-        font-size: 27px;
-      }
-
+      .personal-brand-boundary h2,
       .personal-brand-visual-message h2 {
-        font-size: 32px;
-      }
-
-      .personal-brand-visual-message p {
-        font-size: 17px;
+        font-size: 27px;
       }
     }
   </style>
@@ -312,59 +287,57 @@
 
   <main id="main-content" class="personal-brand-main">
     <section class="personal-brand-sheet">
-      <div class="container personal-brand-sheet-inner">
-        <div class="personal-brand-main-grid">
-          <div class="personal-brand-left">
-            <div class="personal-brand-copy">
-              <p class="eyebrow">Personal Brand Content</p>
-              <div class="personal-brand-mask">
-                <h2>A visual brand is not a mask.</h2>
-                <p>It is a visual interpretation of the public position you choose to present.</p>
-              </div>
-              <h1 class="personal-brand-question">What do you want to bring into public view?</h1>
+      <div class="container personal-brand-main-grid">
+        <div class="personal-brand-left">
+          <div class="personal-brand-copy">
+            <p class="eyebrow">Personal Brand Content</p>
+            <div class="personal-brand-mask">
+              <h2>A visual brand is not a mask.</h2>
+              <p>It is a visual interpretation of the public position you choose to present.</p>
             </div>
+            <h1 class="personal-brand-question">What do you want to bring into public view?</h1>
+          </div>
 
-            <div class="personal-brand-concepts">
-              <div class="personal-brand-concept-grid">
-                <div class="personal-brand-concept expertise">
-                  <h3>Expertise</h3>
-                  <p>What you know. What you do. What you are genuinely good at.</p>
-                </div>
-                <div class="personal-brand-concept contribution">
-                  <h3>Contribution</h3>
-                  <p>What your work, knowledge or ideas can give to other people.</p>
-                </div>
-                <div class="personal-brand-concept purpose">
-                  <h3>Purpose</h3>
-                  <p>Why this work matters and what you want it to achieve.</p>
-                </div>
-                <div class="personal-brand-concept principles">
-                  <h3>Principles</h3>
-                  <p>The standards and relevant beliefs that guide the public position you choose to present.</p>
-                </div>
-                <div class="personal-brand-concept evidence">
-                  <h3>Evidence</h3>
-                  <p>The work, actions, projects and results that make that public position credible.</p>
-                </div>
+          <div class="personal-brand-concepts">
+            <div class="personal-brand-concept-grid">
+              <div class="personal-brand-concept expertise">
+                <h3>Expertise</h3>
+                <p>What you know. What you do. What you are genuinely good at.</p>
               </div>
-            </div>
-
-            <div class="personal-brand-boundary">
-              <h2>You choose the boundary.</h2>
-              <p>Personal Brand Content does not require turning private life into content. We work with the part you choose to make public.</p>
+              <div class="personal-brand-concept contribution">
+                <h3>Contribution</h3>
+                <p>What your work, knowledge or ideas can give to other people.</p>
+              </div>
+              <div class="personal-brand-concept purpose">
+                <h3>Purpose</h3>
+                <p>Why this work matters and what you want it to achieve.</p>
+              </div>
+              <div class="personal-brand-concept principles">
+                <h3>Principles</h3>
+                <p>The standards and relevant beliefs that guide the public position you choose to present.</p>
+              </div>
+              <div class="personal-brand-concept evidence">
+                <h3>Evidence</h3>
+                <p>The work, actions, projects and results that make that public position credible.</p>
+              </div>
             </div>
           </div>
 
-          <div class="personal-brand-visual" aria-label="Personal Brand Content cover">
-            <figure class="personal-brand-photo">
-              <img src="assets/images/selected-work/Personal_Brand_Cover_2.png" alt="Professional portrait in a Toronto city setting">
-            </figure>
+          <div class="personal-brand-boundary">
+            <h2>You choose the boundary.</h2>
+            <p>Personal Brand Content does not require turning private life into content. We work with the part you choose to make public.</p>
+          </div>
+
+          <div class="personal-brand-visual-message">
+            <h2>The visual context is part of the message.</h2>
+            <p>Location, people, activity, framing, and visual context are not decoration around the message but part of the communication itself.</p>
           </div>
         </div>
 
-        <div class="personal-brand-visual-message">
-          <h2>The visual context is part of the message.</h2>
-          <p>Location, people, activity, framing, and visual context are not decoration around the message but part of the communication itself.</p>
+        <div class="personal-brand-visual" aria-label="Personal Brand Content cover">
+          <figure class="personal-brand-photo">
+            <img src="assets/images/selected-work/Personal_Brand_Cover_2.png" alt="Professional portrait in a Toronto city setting">
+          </figure>
         </div>
       </div>
     </section>
