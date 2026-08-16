@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("assets/css/part-1.css");
 @import url("assets/css/part-2.css");
 @import url("assets/css/part-3.css");
@@ -66,4 +67,61 @@ section[id] {
 .personal-brand-page .personal-brand-concept p {
   position: relative;
   z-index: 2;
+}
+
+/* ========================================================================== */
+/* Typography normalization — approved site system                           */
+/* Preserve explicitly approved exceptions: current Hero composition/type,   */
+/* About/Contact type locks, Personal Brand concept-card scale and eyebrow.   */
+/* ========================================================================== */
+
+/* Selected Work had older compacting overrides in part-6 / part-8. Restore
+   the canonical section-heading and card scales used by the rest of the site. */
+@media (min-width: 821px) {
+  #work .section-heading h2 {
+    font-size: clamp(2.45rem, 4.6vw, 4.55rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -.052em !important;
+  }
+
+  #work .card h3,
+  #work .card-city h3 {
+    font-size: clamp(1.8rem, 3vw, 2.45rem) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -.04em !important;
+  }
+
+  #work .card-meta {
+    font-size: .8rem !important;
+  }
+
+  #work .card p:not(.card-meta) {
+    font-size: 1rem !important;
+  }
+}
+
+/* Project-page H1 had an unsupported 7rem ceiling. Keep project titles on the
+   same approved display scale as the global Hero/project heading system. */
+@media (min-width: 821px) {
+  .project-page .project-hero h1 {
+    font-size: clamp(3.5rem, 6.4vw, 6.3rem) !important;
+    line-height: .94 !important;
+    letter-spacing: -.058em !important;
+  }
+}
+
+/* The two Personal Brand principle headings are semantically equal. Keep them
+   on one section-H2 scale while leaving the approved concept cards untouched. */
+.personal-brand-page .personal-brand-context .personal-brand-section-title {
+  font-size: clamp(2.45rem, 4.6vw, 4.55rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.052em !important;
+}
+
+@media (max-width: 700px) {
+  .personal-brand-page .personal-brand-context .personal-brand-section-title {
+    font-size: 38px !important;
+    line-height: .98 !important;
+    letter-spacing: -.048em !important;
+  }
 }
