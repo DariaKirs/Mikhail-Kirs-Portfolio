@@ -37,3 +37,33 @@ section[id] {
 .personal-brand-page .personal-brand-photo img {
   content: url("assets/images/selected-work/Personal_Brend_Cover_4.png") !important;
 }
+
+/* Personal Brand concept cards: keep the coloured panel behind the cream card,
+   rather than tinting the card content. */
+.personal-brand-page .personal-brand-concept {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.personal-brand-page .personal-brand-concept::before {
+  z-index: 0 !important;
+  opacity: 1 !important;
+}
+
+.personal-brand-page .personal-brand-concept::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border: 1px solid rgba(184, 170, 156, .48);
+  border-radius: inherit;
+  background: var(--surface-strong);
+  box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
+}
+
+.personal-brand-page .personal-brand-concept h3,
+.personal-brand-page .personal-brand-concept p {
+  position: relative;
+  z-index: 2;
+}
