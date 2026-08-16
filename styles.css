@@ -32,3 +32,8 @@ section[id] {
   content: url("assets/images/selected-work/Local_Cover.png") !important;
   opacity: 1 !important;
 }
+
+/* Personal Brand page cover preview. */
+.personal-brand-page .personal-brand-photo img {
+  content: url("assets/images/selected-work/Personal_Brend_Cover_4.png") !important;
+}
