@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-color-statements">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-compact-statements">
   <style>
     .personal-brand-page { background: var(--bg); color: var(--text); }
     .personal-brand-main { overflow: hidden; }
@@ -131,11 +131,11 @@
 
     .personal-brand-boundary {
       display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr);
-      gap: clamp(64px, 8vw, 116px);
+      grid-template-columns: minmax(0, 1fr) 500px;
+      gap: clamp(56px, 7vw, 92px);
       max-width: 1120px;
-      margin: 118px auto 0;
-      padding-top: 88px;
+      margin: 112px auto 0;
+      padding-top: 82px;
       border-top: 1px solid var(--line);
       align-items: center;
     }
@@ -148,17 +148,20 @@
     }
     .personal-brand-boundary-title { max-width: 520px; }
 
+    /* Same card language and scale as the concept cards above. */
     .personal-brand-statement-card {
-      --statement-color: var(--accent-purple);
+      --statement-accent: var(--accent-purple);
       --statement-underlay: var(--soft-lilac);
       position: relative;
       isolation: isolate;
-      min-height: 270px;
-      padding: 48px 50px 44px;
-      border-radius: 38px 20px 38px 20px;
-      background: var(--statement-color);
-      color: var(--bg);
-      box-shadow: 0 24px 44px rgba(32, 54, 74, .13);
+      width: 500px;
+      min-height: 226px;
+      justify-self: end;
+      padding: 46px 48px 42px;
+      border: 1px solid rgba(184, 170, 156, .48);
+      border-radius: 34px 17px 34px 17px;
+      background: var(--surface-strong);
+      box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
     }
     .personal-brand-statement-card::before {
       content: "";
@@ -167,49 +170,54 @@
       inset: 0;
       border-radius: inherit;
       background: var(--statement-underlay);
-      transform: translate(18px, 17px) rotate(2.2deg);
+      transform: translate(-18px, -15px) rotate(-2.4deg);
     }
     .personal-brand-statement-card p {
       position: relative;
       z-index: 1;
-      max-width: 570px;
+      max-width: 410px;
       margin: 0;
-      color: inherit;
-      font-size: clamp(1.15rem, 1.55vw, 1.34rem);
-      font-weight: 570;
-      line-height: 1.48;
+      color: var(--statement-accent);
+      font-size: clamp(1.05rem, 1.35vw, 1.22rem);
+      font-weight: 560;
+      line-height: 1.42;
     }
-    .personal-brand-statement-card p + p { margin-top: 28px; }
+    .personal-brand-statement-card p + p { margin-top: 22px; }
     .personal-brand-statement-card .statement-emphasis {
-      font-size: clamp(1.55rem, 2.25vw, 2rem);
-      font-weight: 820;
-      line-height: 1.22;
-      letter-spacing: -.025em;
+      font-size: clamp(1.35rem, 1.85vw, 1.62rem);
+      font-weight: 800;
+      line-height: 1.25;
+      letter-spacing: -.022em;
     }
-    .boundary-card { --statement-color: var(--accent-purple); --statement-underlay: var(--soft-lilac); }
+    .boundary-card {
+      --statement-accent: var(--accent-purple);
+      --statement-underlay: var(--soft-lilac);
+    }
 
-    .personal-brand-context { padding: 94px 0 88px; }
+    .personal-brand-context { padding: 92px 0 86px; }
     .personal-brand-context-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(420px, .98fr);
-      gap: clamp(64px, 8vw, 116px);
+      grid-template-columns: minmax(0, 1fr) 500px;
+      gap: clamp(56px, 7vw, 92px);
+      max-width: 1120px;
+      margin: 0 auto;
       align-items: center;
     }
-    .personal-brand-context-statement { max-width: 690px; }
+    .personal-brand-context-statement { max-width: 560px; }
     .personal-brand-context .personal-brand-section-title {
-      max-width: 690px;
-      font-size: clamp(2.35rem, 3.85vw, 3.9rem);
+      max-width: 560px;
+      font-size: clamp(2.35rem, 3.55vw, 3.65rem);
       line-height: .99;
       letter-spacing: -.05em;
     }
     .context-card {
-      --statement-color: var(--button-blue);
-      --statement-underlay: var(--mist-blue);
+      --statement-accent: var(--dusty-rose);
+      --statement-underlay: var(--dusty-rose);
     }
-    .context-card::before { transform: translate(-18px, 17px) rotate(-2deg); }
+    .context-card::before { transform: translate(18px, 15px) rotate(2.4deg); }
 
     .personal-brand-next {
-      margin-top: 82px;
+      margin-top: 76px;
       padding-top: 32px;
       border-top: 1px solid var(--line);
     }
@@ -232,11 +240,15 @@
 
       .personal-brand-boundary,
       .personal-brand-context-grid { grid-template-columns: 1fr; gap: 42px; }
-      .personal-brand-boundary { margin-top: 94px; padding-top: 70px; }
+      .personal-brand-boundary { margin-top: 90px; padding-top: 66px; }
       .personal-brand-boundary-title,
-      .personal-brand-context-statement { max-width: 760px; }
-      .personal-brand-statement-card { max-width: 760px; min-height: 0; }
-      .personal-brand-context { padding: 76px 0 74px; }
+      .personal-brand-context-statement { max-width: 720px; }
+      .personal-brand-statement-card {
+        width: min(500px, 100%);
+        min-height: 226px;
+        justify-self: start;
+      }
+      .personal-brand-context { padding: 74px 0 72px; }
     }
 
     @media (max-width: 700px) {
@@ -271,26 +283,28 @@
       .personal-brand-concept h3 { font-size: 32px; }
       .personal-brand-concept p { margin-top: 16px; font-size: 20px; line-height: 1.38; }
 
-      .personal-brand-boundary { gap: 32px; margin-top: 74px; padding-top: 54px; }
+      .personal-brand-boundary { gap: 30px; margin-top: 72px; padding-top: 52px; }
       .personal-brand-section-title { font-size: 38px; line-height: .98; letter-spacing: -.048em; }
       .personal-brand-statement-card {
+        width: 100%;
+        min-height: 0;
         padding: 34px 30px 32px;
         border-radius: 29px 16px 29px 16px;
       }
-      .personal-brand-statement-card::before { transform: translate(10px, 10px) rotate(1.7deg); }
+      .personal-brand-statement-card::before { transform: translate(-10px, -9px) rotate(-1.6deg); }
       .personal-brand-statement-card p { font-size: 17px; }
-      .personal-brand-statement-card p + p { margin-top: 22px; }
-      .personal-brand-statement-card .statement-emphasis { font-size: 24px; }
+      .personal-brand-statement-card p + p { margin-top: 18px; }
+      .personal-brand-statement-card .statement-emphasis { font-size: 22px; }
 
-      .personal-brand-context { padding: 58px 0 60px; }
-      .personal-brand-context-grid { gap: 32px; }
+      .personal-brand-context { padding: 56px 0 58px; }
+      .personal-brand-context-grid { gap: 30px; }
       .personal-brand-context .personal-brand-section-title {
         font-size: 35px;
         line-height: 1;
         letter-spacing: -.045em;
       }
-      .context-card::before { transform: translate(-10px, 10px) rotate(-1.7deg); }
-      .personal-brand-next { margin-top: 56px; padding-top: 28px; }
+      .context-card::before { transform: translate(10px, 9px) rotate(1.6deg); }
+      .personal-brand-next { margin-top: 54px; padding-top: 28px; }
       .personal-brand-next .text-link { font-size: 18px; }
     }
   </style>
