@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-editorial-preview">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-concept-cards-preview">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -54,7 +54,6 @@
       text-wrap: balance;
     }
 
-    /* Keep the approved Hero portrait geometry and underlay language intact. */
     .personal-brand-visual {
       position: relative;
       width: 420px;
@@ -108,59 +107,98 @@
     }
 
     .personal-brand-core {
-      padding: 94px 0 102px;
+      padding: 82px 0 100px;
     }
 
     .personal-brand-concept-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      max-width: 1040px;
+      max-width: 1120px;
       margin: 0 auto;
-      column-gap: clamp(72px, 10vw, 150px);
-      row-gap: 64px;
+      column-gap: clamp(68px, 8vw, 118px);
+      row-gap: 48px;
+      align-items: start;
     }
 
     .personal-brand-concept {
-      max-width: 390px;
+      --concept-accent: var(--accent-purple);
+      position: relative;
+      isolation: isolate;
+      min-height: 226px;
+      padding: 46px 48px 42px;
+      border: 1px solid rgba(184, 170, 156, .48);
+      border-radius: 34px 17px 34px 17px;
+      background: var(--surface-strong);
+      box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
+    }
+
+    .personal-brand-concept::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      border-radius: inherit;
+      background: var(--concept-accent);
+      opacity: .9;
+      transform: translate(-18px, -15px) rotate(-2.4deg);
     }
 
     .personal-brand-concept:nth-child(2) {
-      margin-top: 52px;
+      margin-top: 38px;
     }
 
     .personal-brand-concept:nth-child(3) {
-      margin-left: clamp(36px, 5vw, 72px);
+      width: 88%;
+      margin-top: 10px;
+      margin-left: clamp(38px, 5vw, 70px);
     }
 
     .personal-brand-concept:nth-child(4) {
+      width: 94%;
       margin-top: 28px;
+      justify-self: end;
+    }
+
+    .personal-brand-concept:nth-child(2)::before {
+      transform: translate(18px, 14px) rotate(2.8deg);
+    }
+
+    .personal-brand-concept:nth-child(3)::before {
+      transform: translate(-16px, 16px) rotate(2.2deg);
+    }
+
+    .personal-brand-concept:nth-child(4)::before {
+      transform: translate(17px, 15px) rotate(2.6deg);
     }
 
     .personal-brand-concept h3 {
       margin: 0;
-      font-size: clamp(1.8rem, 3vw, 2.45rem);
-      line-height: 1.04;
-      letter-spacing: -.04em;
+      color: var(--concept-accent);
+      font-size: clamp(2.15rem, 3.2vw, 3rem);
+      line-height: 1.01;
+      letter-spacing: -.045em;
     }
 
     .personal-brand-concept p {
-      max-width: 360px;
-      margin: 14px 0 0;
-      font-size: 1.05rem;
-      line-height: 1.5;
+      max-width: 430px;
+      margin: 22px 0 0;
+      color: var(--concept-accent);
+      font-size: clamp(1.22rem, 1.8vw, 1.55rem);
+      font-weight: 500;
+      line-height: 1.36;
     }
 
-    .personal-brand-concept.expertise h3 { color: var(--accent-purple); }
-    .personal-brand-concept.contribution h3 { color: var(--muted-green); }
-    .personal-brand-concept.purpose h3 { color: var(--dusty-rose); }
-    .personal-brand-concept.principles h3 { color: var(--button-blue); }
+    .personal-brand-concept.expertise { --concept-accent: var(--accent-purple); }
+    .personal-brand-concept.contribution { --concept-accent: var(--muted-green); }
+    .personal-brand-concept.purpose { --concept-accent: var(--dusty-rose); }
+    .personal-brand-concept.principles { --concept-accent: var(--button-blue); }
 
     .personal-brand-boundary {
       display: grid;
       grid-template-columns: minmax(0, .88fr) minmax(360px, 1.12fr);
       gap: clamp(52px, 8vw, 110px);
       max-width: 1120px;
-      margin: 104px auto 0;
+      margin: 112px auto 0;
       padding-top: 82px;
       border-top: 1px solid var(--line);
       align-items: start;
@@ -244,7 +282,22 @@
       }
 
       .personal-brand-core {
-        padding: 78px 0 84px;
+        padding: 72px 0 84px;
+      }
+
+      .personal-brand-concept-grid {
+        column-gap: 44px;
+      }
+
+      .personal-brand-concept {
+        min-height: 214px;
+        padding: 40px 38px 36px;
+      }
+
+      .personal-brand-concept:nth-child(3),
+      .personal-brand-concept:nth-child(4) {
+        width: 100%;
+        margin-left: 0;
       }
 
       .personal-brand-boundary,
@@ -254,7 +307,7 @@
       }
 
       .personal-brand-boundary {
-        margin-top: 82px;
+        margin-top: 90px;
         padding-top: 66px;
       }
 
@@ -327,21 +380,35 @@
       .personal-brand-concept:nth-child(2),
       .personal-brand-concept:nth-child(3),
       .personal-brand-concept:nth-child(4) {
-        max-width: 100%;
+        width: 100%;
+        min-height: 0;
         margin: 0;
+        padding: 34px 30px 32px;
+      }
+
+      .personal-brand-concept::before,
+      .personal-brand-concept:nth-child(2)::before,
+      .personal-brand-concept:nth-child(3)::before,
+      .personal-brand-concept:nth-child(4)::before {
+        transform: translate(-10px, -9px) rotate(-1.6deg);
+      }
+
+      .personal-brand-concept:nth-child(even)::before {
+        transform: translate(10px, 9px) rotate(1.6deg);
       }
 
       .personal-brand-concept h3 {
-        font-size: 30px;
+        font-size: 32px;
       }
 
-      .personal-brand-concept p,
-      .personal-brand-context-copy p {
-        font-size: 16px;
+      .personal-brand-concept p {
+        margin-top: 16px;
+        font-size: 20px;
+        line-height: 1.38;
       }
 
       .personal-brand-boundary {
-        margin-top: 62px;
+        margin-top: 72px;
         padding-top: 52px;
       }
 
@@ -358,6 +425,10 @@
 
       .personal-brand-context {
         padding: 58px 0 60px;
+      }
+
+      .personal-brand-context-copy p {
+        font-size: 16px;
       }
 
       .personal-brand-context-copy p + p {
