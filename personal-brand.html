@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-boundary-gate">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-statements-clean">
   <style>
     .personal-brand-page { background: var(--bg); color: var(--text); }
     .personal-brand-main { overflow: hidden; }
@@ -146,66 +146,7 @@
       letter-spacing: -.052em;
       text-wrap: balance;
     }
-    .personal-brand-boundary-title {
-      display: flex;
-      align-items: flex-end;
-      gap: 20px;
-      max-width: 540px;
-    }
-    .personal-brand-boundary-title .personal-brand-section-title {
-      flex: 1 1 auto;
-    }
-
-    .boundary-gate {
-      position: relative;
-      flex: 0 0 82px;
-      width: 82px;
-      height: 84px;
-      margin-bottom: 7px;
-    }
-    .boundary-gate-post {
-      position: absolute;
-      left: 7px;
-      bottom: 0;
-      width: 10px;
-      height: 48px;
-      border-radius: 999px;
-      background: var(--text);
-      box-shadow: 0 7px 16px rgba(32, 54, 74, .08);
-    }
-    .boundary-gate-pivot {
-      position: absolute;
-      z-index: 3;
-      left: 2px;
-      bottom: 38px;
-      width: 20px;
-      height: 20px;
-      border: 4px solid var(--bg);
-      border-radius: 50%;
-      background: var(--dusty-rose);
-      box-shadow: 0 5px 12px rgba(32, 54, 74, .12);
-    }
-    .boundary-gate-arm {
-      position: absolute;
-      z-index: 2;
-      left: 13px;
-      bottom: 44px;
-      width: 66px;
-      height: 12px;
-      border-radius: 999px 999px 999px 5px;
-      background: var(--soft-lilac);
-      box-shadow: inset 0 0 0 1px rgba(105, 65, 140, .12), 0 7px 15px rgba(32, 54, 74, .08);
-      transform-origin: 4px 50%;
-      transform: rotate(0deg);
-    }
-    .personal-brand-boundary.gate-open .boundary-gate-arm {
-      animation: boundary-gate-open 1.05s cubic-bezier(.22, 1, .36, 1) forwards;
-    }
-    @keyframes boundary-gate-open {
-      0% { transform: rotate(0deg); }
-      72% { transform: rotate(-56deg); }
-      100% { transform: rotate(-50deg); }
-    }
+    .personal-brand-boundary-title { max-width: 520px; }
 
     /* Match the concept cards above exactly: cream card in front, coloured underlay behind. */
     .personal-brand-statement-card {
@@ -354,31 +295,6 @@
 
       .personal-brand-boundary { gap: 30px; margin-top: 72px; padding-top: 52px; }
       .personal-brand-section-title { font-size: 38px; line-height: .98; letter-spacing: -.048em; }
-      .personal-brand-boundary-title { gap: 12px; }
-      .boundary-gate {
-        flex-basis: 56px;
-        width: 56px;
-        height: 60px;
-        margin-bottom: 4px;
-      }
-      .boundary-gate-post {
-        left: 6px;
-        width: 7px;
-        height: 34px;
-      }
-      .boundary-gate-pivot {
-        left: 1px;
-        bottom: 27px;
-        width: 17px;
-        height: 17px;
-        border-width: 3px;
-      }
-      .boundary-gate-arm {
-        left: 10px;
-        bottom: 32px;
-        width: 45px;
-        height: 9px;
-      }
       .personal-brand-statement-card {
         width: 100%;
         min-height: 0;
@@ -400,14 +316,6 @@
       .context-card::before { transform: translate(10px, 9px) rotate(1.6deg); }
       .personal-brand-next { margin-top: 54px; padding-top: 28px; }
       .personal-brand-next .text-link { font-size: 18px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .boundary-gate-arm,
-      .personal-brand-boundary.gate-open .boundary-gate-arm {
-        animation: none;
-        transform: rotate(-50deg);
-      }
     }
   </style>
 </head>
@@ -471,11 +379,6 @@
         <div class="personal-brand-boundary">
           <div class="personal-brand-boundary-title">
             <h2 class="personal-brand-section-title">Choose the boundary</h2>
-            <span class="boundary-gate" aria-hidden="true">
-              <span class="boundary-gate-post"></span>
-              <span class="boundary-gate-pivot"></span>
-              <span class="boundary-gate-arm"></span>
-            </span>
           </div>
 
           <div class="personal-brand-statement-card boundary-card">
@@ -490,7 +393,7 @@
       <div class="container">
         <div class="personal-brand-context-grid">
           <div class="personal-brand-context-statement">
-            <h2 class="personal-brand-section-title">Visual context gives form to what you choose to present.</h2>
+            <h2 class="personal-brand-section-title">Visual context gives form to what you choose to present</h2>
           </div>
 
           <div class="personal-brand-statement-card context-card">
@@ -505,28 +408,5 @@
       </div>
     </section>
   </main>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const boundary = document.querySelector('.personal-brand-boundary');
-      if (!boundary) return;
-
-      if (!('IntersectionObserver' in window)) {
-        boundary.classList.add('gate-open');
-        return;
-      }
-
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            boundary.classList.add('gate-open');
-            observer.unobserve(boundary);
-          }
-        });
-      }, { threshold: 0.45 });
-
-      observer.observe(boundary);
-    });
-  </script>
 </body>
 </html>
