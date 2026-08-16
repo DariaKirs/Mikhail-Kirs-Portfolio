@@ -120,8 +120,8 @@ section[id] {
 
 @media (max-width: 700px) {
   .personal-brand-page .personal-brand-context .personal-brand-section-title {
-    font-size: 38px !important;
-    line-height: .98 !important;
-    letter-spacing: -.048em !important;
+    font-size: 32px !important;
+    line-height: 1 !important;
+    letter-spacing: -.045em !important;
   }
 }
