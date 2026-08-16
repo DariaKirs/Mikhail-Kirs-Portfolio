@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 @import url("assets/css/part-1.css");
 @import url("assets/css/part-2.css");
 @import url("assets/css/part-3.css");
@@ -31,4 +32,260 @@ section[id] {
 #work .local-card .card-media img {
   content: url("assets/images/selected-work/Local_Cover.png") !important;
   opacity: 1 !important;
+}
+
+/* Personal Brand page cover preview. */
+.personal-brand-page .personal-brand-photo img {
+  content: url("assets/images/selected-work/Personal_Brend_Cover_4.png") !important;
+}
+
+/* Personal Brand concept cards: keep the coloured panel behind the cream card,
+   rather than tinting the card content. */
+.personal-brand-page .personal-brand-concept {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.personal-brand-page .personal-brand-concept::before {
+  z-index: 0 !important;
+  opacity: 1 !important;
+}
+
+.personal-brand-page .personal-brand-concept::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border: 1px solid rgba(184, 170, 156, .48);
+  border-radius: inherit;
+  background: var(--surface-strong);
+  box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
+}
+
+.personal-brand-page .personal-brand-concept h3,
+.personal-brand-page .personal-brand-concept p {
+  position: relative;
+  z-index: 2;
+}
+
+/* ========================================================================== */
+/* Typography normalization — approved site system                           */
+/* Preserve explicitly approved exceptions: current Hero composition/type,   */
+/* About/Contact type locks, Personal Brand concept-card scale and eyebrow.   */
+/* ========================================================================== */
+
+/* Selected Work had older compacting overrides in part-6 / part-8. Restore
+   the canonical section-heading and card scales used by the rest of the site. */
+@media (min-width: 821px) {
+  #work .section-heading h2 {
+    font-size: clamp(2.45rem, 4.6vw, 4.55rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -.052em !important;
+  }
+
+  #work .card h3,
+  #work .card-city h3 {
+    font-size: clamp(1.8rem, 3vw, 2.45rem) !important;
+    line-height: 1.04 !important;
+    letter-spacing: -.04em !important;
+  }
+
+  #work .card-meta {
+    font-size: .8rem !important;
+  }
+
+  #work .card p:not(.card-meta) {
+    font-size: 1rem !important;
+  }
+}
+
+/* Project-page H1 had an unsupported 7rem ceiling. Keep project titles on the
+   same approved display scale as the global Hero/project heading system. */
+@media (min-width: 821px) {
+  .project-page .project-hero h1 {
+    font-size: clamp(3.5rem, 6.4vw, 6.3rem) !important;
+    line-height: .94 !important;
+    letter-spacing: -.058em !important;
+  }
+}
+
+/* The two Personal Brand principle headings are semantically equal. Keep them
+   on one section-H2 scale while leaving the approved concept cards untouched. */
+.personal-brand-page .personal-brand-context .personal-brand-section-title {
+  font-size: clamp(2.45rem, 4.6vw, 4.55rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.052em !important;
+}
+
+@media (max-width: 700px) {
+  .personal-brand-page .personal-brand-context .personal-brand-section-title {
+    font-size: 28px !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.04em !important;
+  }
+}
+
+/* ========================================================================== */
+/* Personal Brand — true mobile composition                                   */
+/* Keep the approved desktop design intact; compress scale and rhythm only on */
+/* narrow screens so the page reads as one continuous editorial sequence.     */
+/* ========================================================================== */
+@media (max-width: 700px) {
+  .personal-brand-page .container {
+    width: min(calc(100% - 28px), var(--max-width)) !important;
+  }
+
+  .personal-brand-page .personal-brand-hero {
+    padding: 28px 0 38px !important;
+  }
+
+  .personal-brand-page .personal-brand-hero-grid {
+    gap: 20px !important;
+  }
+
+  .personal-brand-page .personal-brand-intro .eyebrow {
+    margin-bottom: 12px !important;
+    font-size: .86rem !important;
+    letter-spacing: .12em !important;
+  }
+
+  .personal-brand-page .personal-brand-question {
+    max-width: 15ch !important;
+    font-size: 32px !important;
+    line-height: .99 !important;
+    letter-spacing: -.043em !important;
+  }
+
+  .personal-brand-page .personal-brand-visual,
+  .personal-brand-page .personal-brand-visual::before,
+  .personal-brand-page .personal-brand-visual::after,
+  .personal-brand-page .personal-brand-photo {
+    width: 250px !important;
+    height: 334px !important;
+  }
+
+  .personal-brand-page .personal-brand-visual {
+    margin-top: 4px !important;
+  }
+
+  .personal-brand-page .personal-brand-visual::before,
+  .personal-brand-page .personal-brand-visual::after,
+  .personal-brand-page .personal-brand-photo {
+    border-radius: 28px 14px 28px 14px !important;
+  }
+
+  .personal-brand-page .personal-brand-visual::before {
+    transform: translate(calc(-50% + 16px), calc(-50% - 12px)) rotate(3.6deg) !important;
+  }
+
+  .personal-brand-page .personal-brand-visual::after {
+    transform: translate(calc(-50% - 14px), calc(-50% + 12px)) rotate(-2.8deg) !important;
+  }
+
+  .personal-brand-page .personal-brand-photo {
+    border-width: 4px !important;
+    box-shadow: 0 16px 28px rgba(32, 54, 74, .10) !important;
+  }
+
+  .personal-brand-page .personal-brand-core {
+    padding: 34px 0 28px !important;
+  }
+
+  .personal-brand-page .personal-brand-concept-grid {
+    grid-template-columns: 1fr !important;
+    row-gap: 20px !important;
+  }
+
+  .personal-brand-page .personal-brand-concept,
+  .personal-brand-page .personal-brand-concept:nth-child(2),
+  .personal-brand-page .personal-brand-concept:nth-child(3),
+  .personal-brand-page .personal-brand-concept:nth-child(4) {
+    width: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 21px 20px 20px !important;
+    border-radius: 22px 12px 22px 12px !important;
+  }
+
+  .personal-brand-page .personal-brand-concept::before,
+  .personal-brand-page .personal-brand-concept:nth-child(2)::before,
+  .personal-brand-page .personal-brand-concept:nth-child(3)::before,
+  .personal-brand-page .personal-brand-concept:nth-child(4)::before {
+    transform: translate(-5px, -4px) rotate(-.9deg) !important;
+  }
+
+  .personal-brand-page .personal-brand-concept:nth-child(even)::before {
+    transform: translate(5px, 4px) rotate(.9deg) !important;
+  }
+
+  .personal-brand-page .personal-brand-concept h3 {
+    font-size: 25px !important;
+    line-height: 1.03 !important;
+    letter-spacing: -.04em !important;
+  }
+
+  .personal-brand-page .personal-brand-concept p {
+    margin-top: 9px !important;
+    font-size: 16px !important;
+    line-height: 1.38 !important;
+  }
+
+  .personal-brand-page .personal-brand-boundary {
+    gap: 16px !important;
+    margin-top: 32px !important;
+    padding-top: 27px !important;
+  }
+
+  .personal-brand-page .personal-brand-section-title {
+    font-size: 28px !important;
+    line-height: 1.02 !important;
+    letter-spacing: -.04em !important;
+  }
+
+  .personal-brand-page .personal-brand-statement-card {
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 21px 20px 20px !important;
+    border-radius: 22px 12px 22px 12px !important;
+  }
+
+  .personal-brand-page .personal-brand-statement-card::before {
+    transform: translate(-5px, -4px) rotate(-.9deg) !important;
+  }
+
+  .personal-brand-page .context-card::before {
+    transform: translate(5px, 4px) rotate(.9deg) !important;
+  }
+
+  .personal-brand-page .personal-brand-statement-card p {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  .personal-brand-page .personal-brand-statement-card p + p {
+    margin-top: 12px !important;
+  }
+
+  .personal-brand-page .personal-brand-statement-card .statement-emphasis {
+    font-size: 20px !important;
+    line-height: 1.25 !important;
+  }
+
+  .personal-brand-page .personal-brand-context {
+    padding: 26px 0 24px !important;
+  }
+
+  .personal-brand-page .personal-brand-context-grid {
+    gap: 16px !important;
+  }
+
+  .personal-brand-page .personal-brand-next {
+    margin-top: 18px !important;
+    padding-top: 14px !important;
+  }
+
+  .personal-brand-page .personal-brand-next .text-link {
+    font-size: 16px !important;
+  }
 }
