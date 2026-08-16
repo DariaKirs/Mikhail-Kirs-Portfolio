@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-context-refinement">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-editorial-statements">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -195,13 +195,13 @@
 
     .personal-brand-boundary {
       display: grid;
-      grid-template-columns: minmax(0, .88fr) minmax(360px, 1.12fr);
-      gap: clamp(52px, 8vw, 110px);
+      grid-template-columns: minmax(0, .9fr) minmax(390px, 1.1fr);
+      gap: clamp(58px, 8vw, 112px);
       max-width: 1120px;
-      margin: 112px auto 0;
-      padding-top: 82px;
+      margin: 116px auto 0;
+      padding-top: 86px;
       border-top: 1px solid var(--line);
-      align-items: start;
+      align-items: center;
     }
 
     .personal-brand-section-title {
@@ -212,32 +212,92 @@
       text-wrap: balance;
     }
 
-    .personal-brand-boundary p {
+    .personal-brand-boundary-title {
+      position: relative;
+      z-index: 1;
+      width: fit-content;
+      max-width: 520px;
+    }
+
+    .personal-brand-boundary-title::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 78%;
+      height: 42px;
+      left: -14px;
+      bottom: -5px;
+      border-radius: 24px 9px 24px 9px;
+      background: var(--soft-lilac);
+      opacity: .58;
+      transform: rotate(-2deg);
+    }
+
+    .personal-brand-boundary-copy {
+      position: relative;
+      padding: 34px 38px 32px 40px;
+      border: 1px solid rgba(184, 170, 156, .42);
+      border-radius: 30px 16px 30px 16px;
+      background: rgba(255, 253, 249, .72);
+      box-shadow: 0 16px 34px rgba(32, 54, 74, .06);
+    }
+
+    .personal-brand-boundary-copy::before {
+      content: "";
+      position: absolute;
+      width: 5px;
+      top: 30px;
+      bottom: 30px;
+      left: -3px;
+      border-radius: 999px;
+      background: var(--accent-purple);
+      opacity: .78;
+    }
+
+    .personal-brand-boundary-copy p {
       max-width: 610px;
       margin: 0;
-      padding-top: 14px;
-      font-size: clamp(1.08rem, 1.65vw, 1.36rem);
-      line-height: 1.55;
+      font-size: clamp(1.08rem, 1.55vw, 1.3rem);
+      line-height: 1.5;
+    }
+
+    .personal-brand-boundary-copy p + p {
+      margin-top: 20px;
+    }
+
+    .personal-brand-boundary-copy .boundary-emphasis {
+      color: var(--accent-purple);
+      font-size: clamp(1.32rem, 2vw, 1.72rem);
+      font-weight: 760;
+      line-height: 1.28;
+      letter-spacing: -.02em;
     }
 
     .personal-brand-context {
       position: relative;
-      padding: 92px 0 84px;
+      padding: 94px 0 86px;
       isolation: isolate;
     }
 
     .personal-brand-context-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.18fr) minmax(350px, .82fr);
-      gap: clamp(52px, 6.5vw, 88px);
-      align-items: start;
+      grid-template-columns: minmax(0, 1.16fr) minmax(360px, .84fr);
+      gap: clamp(54px, 7vw, 96px);
+      align-items: center;
+    }
+
+    .personal-brand-context-statement {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      padding-bottom: 6px;
     }
 
     .personal-brand-context .personal-brand-section-title {
       position: relative;
-      z-index: 1;
+      z-index: 2;
       max-width: 720px;
-      font-size: clamp(2.35rem, 3.6vw, 3.65rem);
+      font-size: clamp(2.3rem, 3.55vw, 3.6rem);
       line-height: .99;
       letter-spacing: -.05em;
     }
@@ -246,34 +306,93 @@
       content: "";
       position: absolute;
       z-index: -1;
-      width: 72%;
-      height: 26px;
+      width: 68%;
+      height: 28px;
       left: -12px;
-      bottom: 3px;
+      bottom: 2px;
       border-radius: 18px 7px 18px 7px;
       background: var(--mist-blue);
-      opacity: .68;
+      opacity: .7;
       transform: rotate(-1.5deg);
     }
 
+    .personal-brand-context-tags {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-top: 36px;
+      padding-left: 16px;
+    }
+
+    .personal-brand-context-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 15px 8px;
+      border: 2px solid currentColor;
+      border-radius: 999px;
+      background: var(--surface-strong);
+      font-size: .74rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      line-height: 1;
+      text-transform: uppercase;
+      box-shadow: 0 8px 18px rgba(32, 54, 74, .06);
+    }
+
+    .personal-brand-context-tag.location {
+      color: var(--muted-green);
+      transform: rotate(-3deg);
+    }
+
+    .personal-brand-context-tag.people {
+      color: var(--dusty-rose);
+      transform: translateY(7px) rotate(2.5deg);
+    }
+
+    .personal-brand-context-tag.activity {
+      color: var(--button-blue);
+      transform: translateY(-3px) rotate(-1.5deg);
+    }
+
     .personal-brand-context-copy {
+      position: relative;
       max-width: 610px;
-      padding-top: 10px;
+      padding: 34px 0 34px 34px;
+      border-left: 1px solid rgba(184, 170, 156, .62);
+    }
+
+    .personal-brand-context-copy::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 74px;
+      left: -5px;
+      top: 34px;
+      border-radius: 999px;
+      background: var(--button-blue);
+      opacity: .82;
     }
 
     .personal-brand-context-copy p {
       margin: 0;
-      font-size: 1.03rem;
-      line-height: 1.55;
-    }
-
-    .personal-brand-context-copy p:first-child {
-      font-size: clamp(1.08rem, 1.45vw, 1.25rem);
-      line-height: 1.48;
+      font-size: clamp(1.08rem, 1.45vw, 1.26rem);
+      line-height: 1.5;
     }
 
     .personal-brand-context-copy p + p {
       margin-top: 18px;
+    }
+
+    .personal-brand-context-copy .context-emphasis {
+      max-width: 520px;
+      color: var(--button-blue);
+      font-size: clamp(1.34rem, 2vw, 1.78rem);
+      font-weight: 760;
+      line-height: 1.28;
+      letter-spacing: -.02em;
     }
 
     .personal-brand-next {
@@ -329,29 +448,32 @@
       .personal-brand-boundary,
       .personal-brand-context-grid {
         grid-template-columns: 1fr;
-        gap: 34px;
       }
 
       .personal-brand-boundary {
-        margin-top: 90px;
-        padding-top: 66px;
+        gap: 42px;
+        margin-top: 92px;
+        padding-top: 68px;
       }
 
-      .personal-brand-boundary p {
-        padding-top: 2px;
+      .personal-brand-boundary-copy {
+        max-width: 720px;
       }
 
       .personal-brand-context {
-        padding: 74px 0 72px;
+        padding: 76px 0 72px;
       }
 
-      .personal-brand-context .personal-brand-section-title {
-        max-width: 660px;
+      .personal-brand-context-grid {
+        gap: 42px;
+      }
+
+      .personal-brand-context-statement {
+        max-width: 760px;
       }
 
       .personal-brand-context-copy {
         max-width: 720px;
-        padding-top: 0;
       }
     }
 
@@ -442,6 +564,7 @@
       }
 
       .personal-brand-boundary {
+        gap: 34px;
         margin-top: 72px;
         padding-top: 52px;
       }
@@ -452,43 +575,86 @@
         letter-spacing: -.048em;
       }
 
-      .personal-brand-boundary p,
-      .personal-brand-context-copy p:first-child {
-        font-size: 18px;
+      .personal-brand-boundary-title::after {
+        width: 74%;
+        height: 28px;
+        left: -8px;
+        bottom: -2px;
       }
 
-      .personal-brand-boundary p {
-        padding-top: 0;
+      .personal-brand-boundary-copy {
+        padding: 28px 26px 27px 30px;
+        border-radius: 24px 13px 24px 13px;
+      }
+
+      .personal-brand-boundary-copy::before {
+        top: 24px;
+        bottom: 24px;
+      }
+
+      .personal-brand-boundary-copy p {
+        font-size: 17px;
+      }
+
+      .personal-brand-boundary-copy .boundary-emphasis {
+        font-size: 22px;
       }
 
       .personal-brand-context {
-        padding: 56px 0 58px;
+        padding: 58px 0 60px;
+      }
+
+      .personal-brand-context-grid {
+        gap: 34px;
       }
 
       .personal-brand-context .personal-brand-section-title {
-        font-size: 34px;
+        font-size: 35px;
         line-height: 1;
         letter-spacing: -.045em;
       }
 
       .personal-brand-context .personal-brand-section-title::after {
-        width: 68%;
+        width: 66%;
         height: 18px;
         left: -7px;
         bottom: 2px;
       }
 
-      .personal-brand-context-copy p {
-        font-size: 16px;
+      .personal-brand-context-tags {
+        gap: 10px;
+        margin-top: 28px;
+        padding-left: 4px;
       }
 
-      .personal-brand-context-copy p + p {
-        margin-top: 16px;
+      .personal-brand-context-tag {
+        min-height: 34px;
+        padding: 8px 12px 7px;
+        font-size: .67rem;
+      }
+
+      .personal-brand-context-copy {
+        padding: 26px 0 26px 24px;
+      }
+
+      .personal-brand-context-copy::before {
+        width: 8px;
+        height: 58px;
+        left: -4px;
+        top: 26px;
+      }
+
+      .personal-brand-context-copy p {
+        font-size: 17px;
+      }
+
+      .personal-brand-context-copy .context-emphasis {
+        font-size: 22px;
       }
 
       .personal-brand-next {
-        margin-top: 52px;
-        padding-top: 26px;
+        margin-top: 54px;
+        padding-top: 28px;
       }
 
       .personal-brand-next .text-link {
@@ -555,8 +721,14 @@
         </div>
 
         <div class="personal-brand-boundary">
-          <h2 class="personal-brand-section-title">Choose the boundary.</h2>
-          <p>Personal Brand Content does not require turning private life into content. It works with the part you choose to make public.</p>
+          <div class="personal-brand-boundary-title">
+            <h2 class="personal-brand-section-title">Choose the boundary.</h2>
+          </div>
+
+          <div class="personal-brand-boundary-copy">
+            <p>Personal Brand Content is not about exposing your private life.</p>
+            <p class="boundary-emphasis">You choose what to make public.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -564,11 +736,18 @@
     <section class="personal-brand-context">
       <div class="container">
         <div class="personal-brand-context-grid">
-          <h2 class="personal-brand-section-title">The visual context is part of the message.</h2>
+          <div class="personal-brand-context-statement">
+            <h2 class="personal-brand-section-title">Visual context gives form to what you choose to present.</h2>
+            <div class="personal-brand-context-tags" aria-label="Elements of visual context">
+              <span class="personal-brand-context-tag location">Location</span>
+              <span class="personal-brand-context-tag people">People</span>
+              <span class="personal-brand-context-tag activity">Activity</span>
+            </div>
+          </div>
 
           <div class="personal-brand-context-copy">
-            <p>It gives visual form to the public position you choose to present.</p>
-            <p>Location, people, and activity are not decoration around the message. They are part of the communication itself.</p>
+            <p>Location, people, and activity are not decoration.</p>
+            <p class="context-emphasis">They are part of the communication itself.</p>
           </div>
         </div>
 
