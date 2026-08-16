@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-concept-cards-preview">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-context-refinement">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -214,45 +214,71 @@
 
     .personal-brand-boundary p {
       max-width: 610px;
-      margin: 4px 0 0;
+      margin: 0;
+      padding-top: 14px;
       font-size: clamp(1.08rem, 1.65vw, 1.36rem);
       line-height: 1.55;
     }
 
     .personal-brand-context {
-      padding: 96px 0 88px;
+      position: relative;
+      padding: 92px 0 84px;
+      isolation: isolate;
     }
 
     .personal-brand-context-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.04fr) minmax(360px, .96fr);
-      gap: clamp(58px, 8vw, 112px);
+      grid-template-columns: minmax(0, 1.18fr) minmax(350px, .82fr);
+      gap: clamp(52px, 6.5vw, 88px);
       align-items: start;
     }
 
+    .personal-brand-context .personal-brand-section-title {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      font-size: clamp(2.35rem, 3.6vw, 3.65rem);
+      line-height: .99;
+      letter-spacing: -.05em;
+    }
+
+    .personal-brand-context .personal-brand-section-title::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 72%;
+      height: 26px;
+      left: -12px;
+      bottom: 3px;
+      border-radius: 18px 7px 18px 7px;
+      background: var(--mist-blue);
+      opacity: .68;
+      transform: rotate(-1.5deg);
+    }
+
     .personal-brand-context-copy {
-      padding-top: 6px;
+      max-width: 610px;
+      padding-top: 10px;
     }
 
     .personal-brand-context-copy p {
-      max-width: 590px;
       margin: 0;
-      font-size: 1.05rem;
-      line-height: 1.58;
+      font-size: 1.03rem;
+      line-height: 1.55;
     }
 
     .personal-brand-context-copy p:first-child {
-      font-size: clamp(1.08rem, 1.65vw, 1.36rem);
-      line-height: 1.5;
+      font-size: clamp(1.08rem, 1.45vw, 1.25rem);
+      line-height: 1.48;
     }
 
     .personal-brand-context-copy p + p {
-      margin-top: 30px;
+      margin-top: 18px;
     }
 
     .personal-brand-next {
-      margin-top: 88px;
-      padding-top: 34px;
+      margin-top: 76px;
+      padding-top: 32px;
       border-top: 1px solid var(--line);
     }
 
@@ -311,8 +337,16 @@
         padding-top: 66px;
       }
 
+      .personal-brand-boundary p {
+        padding-top: 2px;
+      }
+
       .personal-brand-context {
-        padding: 78px 0 76px;
+        padding: 74px 0 72px;
+      }
+
+      .personal-brand-context .personal-brand-section-title {
+        max-width: 660px;
       }
 
       .personal-brand-context-copy {
@@ -423,8 +457,25 @@
         font-size: 18px;
       }
 
+      .personal-brand-boundary p {
+        padding-top: 0;
+      }
+
       .personal-brand-context {
-        padding: 58px 0 60px;
+        padding: 56px 0 58px;
+      }
+
+      .personal-brand-context .personal-brand-section-title {
+        font-size: 34px;
+        line-height: 1;
+        letter-spacing: -.045em;
+      }
+
+      .personal-brand-context .personal-brand-section-title::after {
+        width: 68%;
+        height: 18px;
+        left: -7px;
+        bottom: 2px;
       }
 
       .personal-brand-context-copy p {
@@ -432,12 +483,12 @@
       }
 
       .personal-brand-context-copy p + p {
-        margin-top: 22px;
+        margin-top: 16px;
       }
 
       .personal-brand-next {
-        margin-top: 58px;
-        padding-top: 28px;
+        margin-top: 52px;
+        padding-top: 26px;
       }
 
       .personal-brand-next .text-link {
