@@ -17,19 +17,19 @@
 
   const revealGroups = personalBrandPage
     ? [
-        { selector: '.personal-brand-concept', stagger: 140 },
-        { selector: '.personal-brand-boundary-title, .personal-brand-boundary .personal-brand-statement-card', stagger: 130 },
-        { selector: '.personal-brand-context-statement, .personal-brand-context .personal-brand-statement-card', stagger: 130 }
+        { elements: document.querySelectorAll('.personal-brand-concept'), stagger: 140 },
+        { elements: document.querySelectorAll('.personal-brand-boundary-title, .personal-brand-boundary .personal-brand-statement-card'), stagger: 130 },
+        { elements: document.querySelectorAll('.personal-brand-context-statement, .personal-brand-context .personal-brand-statement-card'), stagger: 130 }
       ]
-    : [
-        { selector: '.local-pair-section:first-of-type .local-wide-card', stagger: 140 },
-        { selector: '.local-pair-section + .local-pair-section .local-wide-card', stagger: 140 }
-      ];
+    : Array.from(document.querySelectorAll('.local-pair-section')).map((section) => ({
+        elements: section.querySelectorAll('.local-wide-card'),
+        stagger: 140
+      }));
 
   const elements = [];
 
-  revealGroups.forEach(({ selector, stagger }) => {
-    document.querySelectorAll(selector).forEach((element, index) => {
+  revealGroups.forEach(({ elements: groupElements, stagger }) => {
+    groupElements.forEach((element, index) => {
       element.classList.add('scroll-reveal');
       element.style.setProperty('--reveal-delay', `${index * stagger}ms`);
       elements.push(element);
