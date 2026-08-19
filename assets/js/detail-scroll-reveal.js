@@ -4,15 +4,26 @@
   const page = personalBrandPage || localBusinessPage;
   if (!page) return;
 
+  /* The terminal navigation link must always remain visible. It is functional
+     navigation, not scroll-reveal content. Keep the same label on both detail
+     pages and return to the Selected Work section. */
+  if (personalBrandPage) {
+    const nextLink = document.querySelector('.personal-brand-next .text-link');
+    if (nextLink) {
+      nextLink.href = 'index.html#work';
+      nextLink.innerHTML = 'See Selected Work <span aria-hidden="true">→</span>';
+    }
+  }
+
   const revealGroups = personalBrandPage
     ? [
         { selector: '.personal-brand-concept', stagger: 140 },
         { selector: '.personal-brand-boundary-title, .personal-brand-boundary .personal-brand-statement-card', stagger: 130 },
-        { selector: '.personal-brand-context-statement, .personal-brand-context .personal-brand-statement-card, .personal-brand-next', stagger: 130 }
+        { selector: '.personal-brand-context-statement, .personal-brand-context .personal-brand-statement-card', stagger: 130 }
       ]
     : [
         { selector: '.local-pair-section:first-of-type .local-wide-card', stagger: 140 },
-        { selector: '.local-pair-section + .local-pair-section .local-wide-card, .local-business-page .selected-detail-next', stagger: 140 }
+        { selector: '.local-pair-section + .local-pair-section .local-wide-card', stagger: 140 }
       ];
 
   const elements = [];
