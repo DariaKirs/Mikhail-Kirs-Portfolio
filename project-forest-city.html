@@ -3,13 +3,245 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Forest City Spotlight case study by Mikhail Kirs, a Local Business Storytelling video series in London, Ontario.">
-  <meta name="theme-color" content="#f7f1e8">
-  <title>Forest City Spotlight — Mikhail Kirs</title>
+  <meta name="description" content="Local Business Storytelling by Mikhail Kirs — presenting local businesses as stories, not just listings.">
+  <meta name="theme-color" content="#F4EFE6">
+  <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
+  <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
+  <style>
+    /* Local Business Storytelling — Urban / Editorial project palette. */
+    .local-business-page .selected-detail-visual::before {
+      background: var(--mist-blue);
+    }
+
+    .local-business-page .selected-detail-visual::after {
+      background: var(--soft-lilac);
+    }
+
+    /* Desktop headline lock: exactly three deliberate lines. */
+    .local-business-page .hero-line {
+      display: block;
+    }
+
+    @media (min-width: 701px) {
+      .local-business-page .selected-detail-intro {
+        max-width: none;
+      }
+
+      .local-business-page .selected-detail-question {
+        max-width: none;
+        font-size: clamp(3.024rem, 5.5296vw, 5.4432rem);
+        line-height: .98;
+        letter-spacing: -.052em;
+        text-wrap: nowrap;
+      }
+
+      .local-business-page .hero-line {
+        white-space: nowrap;
+      }
+    }
+
+    /* Local Business uses the Personal Brand card language in a wider,
+       lower format: two cards per editorial section. */
+    .local-pair-section {
+      border-top: 1px solid var(--line);
+      padding: 68px 0 110px;
+    }
+
+    .local-pair-section + .local-pair-section {
+      padding-top: 96px;
+      padding-bottom: 62px;
+    }
+
+    .local-pair-stack {
+      display: grid;
+      gap: 56px;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .local-wide-card {
+      --concept-accent: var(--text);
+      --underlay-accent: var(--concept-accent);
+      position: relative;
+      isolation: isolate;
+      display: grid;
+      grid-template-columns: minmax(190px, 250px) minmax(0, 1fr);
+      column-gap: clamp(38px, 5vw, 72px);
+      align-items: start;
+      width: 100%;
+      min-height: 205px;
+      padding: 36px 48px 34px;
+      border: 0;
+      border-radius: 34px 17px 34px 17px;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .local-wide-card::before,
+    .local-wide-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+    }
+
+    .local-wide-card::before {
+      z-index: 0;
+      background: var(--underlay-accent);
+      transform: translate(-14px, -11px) rotate(-1.4deg);
+    }
+
+    .local-wide-card::after {
+      z-index: 1;
+      border: 1px solid rgba(184, 170, 156, .48);
+      background: var(--surface-strong);
+      box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
+    }
+
+    .local-wide-card:nth-child(even) {
+      width: 96%;
+      justify-self: end;
+    }
+
+    .local-wide-card:nth-child(even)::before {
+      transform: translate(14px, 11px) rotate(1.4deg);
+    }
+
+    .local-wide-card h3,
+    .local-wide-card .local-card-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .local-wide-card h3 {
+      margin: 0;
+      color: var(--concept-accent);
+      font-size: clamp(2.2rem, 3.15vw, 2.9rem);
+      line-height: 1.01;
+      letter-spacing: -.045em;
+    }
+
+    .local-card-copy {
+      max-width: 720px;
+      color: var(--concept-accent);
+    }
+
+    .local-card-copy p {
+      margin: 0;
+      font-size: clamp(1rem, 1.28vw, 1.16rem);
+      font-weight: 500;
+      line-height: 1.42;
+    }
+
+    .local-card-copy .concept-lead {
+      display: block;
+      margin-bottom: 10px;
+      font-size: clamp(1.15rem, 1.55vw, 1.38rem);
+      font-weight: 800;
+      line-height: 1.28;
+      letter-spacing: -.018em;
+    }
+
+    .local-card {
+      --concept-accent: var(--text);
+      --underlay-accent: var(--mist-blue);
+    }
+    .people-card { --concept-accent: var(--muted-green); }
+    .experience-card { --concept-accent: var(--dusty-rose); }
+    .story-card { --concept-accent: var(--button-blue); }
+
+    .local-business-page .selected-detail-next {
+      max-width: 1120px;
+      margin: 44px auto 0;
+      padding-top: 22px;
+    }
+
+    .local-business-page .selected-detail-next .text-link {
+      color: var(--accent-purple);
+    }
+
+    @media (max-width: 1050px) {
+      .local-pair-section {
+        padding: 56px 0 82px;
+      }
+
+      .local-pair-section + .local-pair-section {
+        padding-top: 72px;
+        padding-bottom: 52px;
+      }
+
+      .local-pair-stack {
+        gap: 44px;
+      }
+
+      .local-wide-card {
+        grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
+        min-height: 195px;
+        padding: 34px 38px 32px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .local-pair-section {
+        padding: 30px 0 36px;
+      }
+
+      .local-pair-section + .local-pair-section {
+        padding: 38px 0 28px;
+      }
+
+      .local-pair-stack {
+        gap: 24px;
+      }
+
+      .local-wide-card,
+      .local-wide-card:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        width: 100%;
+        min-height: 0;
+        padding: 22px 20px 21px;
+        border-radius: 22px 12px 22px 12px;
+      }
+
+      .local-wide-card::before {
+        transform: translate(-5px, -4px) rotate(-.9deg);
+      }
+
+      .local-wide-card:nth-child(even)::before {
+        transform: translate(5px, 4px) rotate(.9deg);
+      }
+
+      .local-wide-card h3 {
+        font-size: 25px;
+        line-height: 1.03;
+      }
+
+      .local-card-copy p {
+        font-size: 16px;
+        line-height: 1.4;
+      }
+
+      .local-card-copy .concept-lead {
+        margin-bottom: 8px;
+        font-size: 18px;
+        line-height: 1.3;
+      }
+
+      .local-business-page .selected-detail-next {
+        margin-top: 28px;
+        padding-top: 16px;
+      }
+
+      .local-business-page .selected-detail-next .text-link {
+        font-size: 16px;
+      }
+    }
+  </style>
 </head>
-<body class="project-page project-page-green">
+<body class="selected-detail-page local-business-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -26,67 +258,66 @@
     </div>
   </header>
 
-  <main id="main-content">
-    <section class="project-hero">
-      <div class="container project-hero-layout">
-        <div class="project-heading-block">
-          <a class="back-link" href="index.html#work">← Selected Work</a>
-          <p class="eyebrow">Local businesses presented as stories, not just listings</p>
-          <h1>Forest City Spotlight</h1>
-          <p class="project-summary">A Local Business Storytelling project based in London, Ontario, created to present local businesses and places through short-form social video.</p>
+  <main id="main-content" class="selected-detail-main">
+    <section class="selected-detail-hero">
+      <div class="container selected-detail-hero-grid">
+        <div class="selected-detail-intro">
+          <p class="eyebrow">Local Business Storytelling</p>
+          <h1 class="selected-detail-question"><span class="hero-line">Local businesses</span><span class="hero-line">presented as stories,</span><span class="hero-line">not just listings!</span></h1>
         </div>
-        <figure class="project-hero-media project-media-green">
-          <img class="media-focus-top" src="assets/images/Misha_Golf_front.jpeg" alt="Mikhail Kirs on location at a golf course during Forest City Spotlight production">
-          <figcaption>Forest City Spotlight · on location in London, Ontario</figcaption>
-        </figure>
-      </div>
 
-      <div class="container project-facts project-facts-branded" aria-label="Project facts">
-        <div class="fact"><strong>Project</strong><span>Forest City Spotlight</span></div>
-        <div class="fact"><strong>Account</strong><span>@forestcityspotlight</span></div>
-        <div class="fact"><strong>Public credit</strong><span>Filmed and Edited by Mikhail Kirs / @mikki.kirs6haa</span></div>
-        <div class="fact"><strong>Location</strong><span>London, Ontario</span></div>
+        <div class="selected-detail-visual" aria-label="Local Business Storytelling cover">
+          <figure class="selected-detail-photo">
+            <img src="assets/images/selected-work/Local_Cover.png" alt="Local Business Storytelling cover image">
+          </figure>
+        </div>
       </div>
     </section>
 
-    <section class="section project-gallery-section episode-section">
+    <section class="local-pair-section" aria-label="Local and people">
       <div class="container">
-        <div class="section-heading compact-heading">
-          <div>
-            <p class="eyebrow">Selected Episodes</p>
-            <h2>Forest City stories.</h2>
-          </div>
-          <p>Each selected episode will pair its original published media with a short description of the featured business or place.</p>
-        </div>
+        <div class="local-pair-stack">
+          <article class="local-wide-card local-card">
+            <h3>LOCAL</h3>
+            <div class="local-card-copy">
+              <p><span class="concept-lead">Local is more than a pin on the map.</span>The environment, local history, and character of a place become part of a business’s identity — and part of how people recognize and remember it.</p>
+            </div>
+          </article>
 
-        <div class="episode-grid">
-          <article class="episode-card">
-            <a class="episode-thumb" href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer" aria-label="Open Forest City Spotlight on Instagram">
-              <img class="media-focus-top" src="assets/images/Misha_golf_profile.jpeg" alt="Mikhail Kirs on the golf course during a Forest City Spotlight shoot" loading="lazy">
-            </a>
-            <div class="episode-copy">
-              <p class="item-number">01</p>
-              <h3>Golf course story</h3>
-              <p>A location-based Forest City Spotlight episode. A direct Reel link and the featured location description will be attached to the published media entry.</p>
-              <a class="text-link" href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
+          <article class="local-wide-card people-card">
+            <h3>PEOPLE</h3>
+            <div class="local-card-copy">
+              <p><span class="concept-lead">A local business grows through people, relationships, and trust.</span>Familiarity, shared experience, and a sense of belonging help strengthen both the business and the community around it.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section next-project-section">
-      <div class="container next-project">
-        <span>Next case study</span>
-        <a href="project-city-storytelling.html">Long-Form Visual Storytelling <span aria-hidden="true">→</span></a>
+    <section class="local-pair-section" aria-label="Experience and story">
+      <div class="container">
+        <div class="local-pair-stack">
+          <article class="local-wide-card experience-card">
+            <h3>EXPERIENCE</h3>
+            <div class="local-card-copy">
+              <p><span class="concept-lead">What people feel and remember goes beyond what they bought.</span>Atmosphere, interaction, and the experience of being there can become just as important as the product or service itself.</p>
+            </div>
+          </article>
+
+          <article class="local-wide-card story-card">
+            <h3>STORY</h3>
+            <div class="local-card-copy">
+              <p><span class="concept-lead">A story gives all of this a form people can remember and share.</span>It brings together the place, the people, and the experience into something distinctive, recognizable, and worth passing on.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="selected-detail-next">
+          <a class="text-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
   </main>
-
-  <footer class="site-footer">
-    <div class="container footer-row">
-      <span>© 2026 Mikhail Kirs&emsp;Website by <a href="https://archkirs.site/en" target="_blank" rel="noopener noreferrer">ARCHKIRS</a>&emsp;·&emsp;<a href="privacy.html">Privacy Policy</a></span>
-    </div>
-  </footer>
+  <script src="assets/js/detail-scroll-reveal.js?v=20260819-detail-preview"></script>
 </body>
 </html>
