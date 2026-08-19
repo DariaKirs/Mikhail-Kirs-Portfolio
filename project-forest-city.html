@@ -19,6 +19,16 @@
       background: var(--soft-lilac);
     }
 
+    .local-business-page .hero-line {
+      display: block;
+    }
+
+    @media (min-width: 701px) {
+      .local-business-page .hero-line {
+        white-space: nowrap;
+      }
+    }
+
     /* Local Business uses the Personal Brand card language in a wider,
        lower format: two cards per editorial section. */
     .local-pair-section {
@@ -240,7 +250,7 @@
       <div class="container selected-detail-hero-grid">
         <div class="selected-detail-intro">
           <p class="eyebrow">Local Business Storytelling</p>
-          <h1 class="selected-detail-question">Local businesses presented as stories, not just listings!</h1>
+          <h1 class="selected-detail-question"><span class="hero-line">Local businesses</span><span class="hero-line">presented as stories,</span><span class="hero-line">not just listings!</span></h1>
         </div>
 
         <div class="selected-detail-visual" aria-label="Local Business Storytelling cover">
