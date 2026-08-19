@@ -19,11 +19,24 @@
       background: var(--soft-lilac);
     }
 
+    /* Desktop headline lock: exactly three deliberate lines. */
     .local-business-page .hero-line {
       display: block;
     }
 
     @media (min-width: 701px) {
+      .local-business-page .selected-detail-intro {
+        max-width: none;
+      }
+
+      .local-business-page .selected-detail-question {
+        max-width: none;
+        font-size: clamp(3.35rem, 3.7vw, 4rem);
+        line-height: .98;
+        letter-spacing: -.052em;
+        text-wrap: nowrap;
+      }
+
       .local-business-page .hero-line {
         white-space: nowrap;
       }
