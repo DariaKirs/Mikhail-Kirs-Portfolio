@@ -23,22 +23,24 @@
        lower format: two cards per editorial section. */
     .local-pair-section {
       border-top: 1px solid var(--line);
-      padding: 68px 0 62px;
+      padding: 68px 0 110px;
     }
 
     .local-pair-section + .local-pair-section {
-      padding-top: 62px;
+      padding-top: 96px;
+      padding-bottom: 62px;
     }
 
     .local-pair-stack {
       display: grid;
-      gap: 40px;
+      gap: 56px;
       max-width: 1120px;
       margin: 0 auto;
     }
 
     .local-wide-card {
       --concept-accent: var(--text);
+      --underlay-accent: var(--concept-accent);
       position: relative;
       isolation: isolate;
       display: grid;
@@ -64,7 +66,7 @@
 
     .local-wide-card::before {
       z-index: 0;
-      background: var(--concept-accent);
+      background: var(--underlay-accent);
       transform: translate(-14px, -11px) rotate(-1.4deg);
     }
 
@@ -119,7 +121,10 @@
       letter-spacing: -.018em;
     }
 
-    .local-card { --concept-accent: var(--text); }
+    .local-card {
+      --concept-accent: var(--text);
+      --underlay-accent: var(--mist-blue);
+    }
     .people-card { --concept-accent: var(--muted-green); }
     .experience-card { --concept-accent: var(--dusty-rose); }
     .story-card { --concept-accent: var(--button-blue); }
@@ -136,11 +141,16 @@
 
     @media (max-width: 1050px) {
       .local-pair-section {
-        padding: 56px 0 52px;
+        padding: 56px 0 82px;
+      }
+
+      .local-pair-section + .local-pair-section {
+        padding-top: 72px;
+        padding-bottom: 52px;
       }
 
       .local-pair-stack {
-        gap: 34px;
+        gap: 44px;
       }
 
       .local-wide-card {
@@ -151,13 +161,16 @@
     }
 
     @media (max-width: 700px) {
-      .local-pair-section,
+      .local-pair-section {
+        padding: 30px 0 36px;
+      }
+
       .local-pair-section + .local-pair-section {
-        padding: 30px 0 28px;
+        padding: 38px 0 28px;
       }
 
       .local-pair-stack {
-        gap: 22px;
+        gap: 24px;
       }
 
       .local-wide-card,
