@@ -3,12 +3,52 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Forest City Spotlight case study by Mikhail Kirs, a Local Business Storytelling video series in London, Ontario.">
+  <meta name="description" content="Local Business Storytelling by Mikhail Kirs — presenting local businesses as stories, not just listings.">
   <meta name="theme-color" content="#F4EFE6">
-  <title>Forest City Spotlight — Mikhail Kirs</title>
+  <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
+  <style>
+    /* Local Business Storytelling — Urban / Editorial project palette.
+       Architecture remains identical to the approved Personal Brand system. */
+    .local-business-page .selected-detail-visual::before {
+      background: var(--mist-blue);
+    }
+
+    .local-business-page .selected-detail-visual::after {
+      background: var(--soft-lilac);
+    }
+
+    .local-business-page .selected-detail-concept:nth-child(1) {
+      --concept-accent: var(--text);
+    }
+
+    .local-business-page .selected-detail-concept:nth-child(2) {
+      --concept-accent: var(--muted-green);
+    }
+
+    .local-business-page .selected-detail-concept:nth-child(3) {
+      --concept-accent: var(--dusty-rose);
+    }
+
+    .local-business-page .selected-detail-concept:nth-child(4) {
+      --concept-accent: var(--button-blue);
+    }
+
+    .local-business-page .concept-lead {
+      display: block;
+      margin-bottom: 14px;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 700px) {
+      .local-business-page .concept-lead {
+        margin-bottom: 9px;
+      }
+    }
+  </style>
 </head>
 <body class="selected-detail-page local-business-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
@@ -32,12 +72,12 @@
       <div class="container selected-detail-hero-grid">
         <div class="selected-detail-intro">
           <p class="eyebrow">Local Business Storytelling</p>
-          <h1 class="selected-detail-question">Local businesses presented as stories, not just listings</h1>
+          <h1 class="selected-detail-question">Local businesses presented as stories, not just listings!</h1>
         </div>
 
-        <div class="selected-detail-visual" aria-label="Forest City Spotlight cover">
+        <div class="selected-detail-visual" aria-label="Local Business Storytelling cover">
           <figure class="selected-detail-photo">
-            <img src="assets/images/selected-work/Local_Cover.png" alt="Forest City Spotlight cover image">
+            <img src="assets/images/selected-work/Local_Cover.png" alt="Local Business Storytelling cover image">
           </figure>
         </div>
       </div>
@@ -47,23 +87,23 @@
       <div class="container">
         <div class="selected-detail-concept-grid">
           <div class="selected-detail-concept">
-            <h3>Project</h3>
-            <p>Forest City Spotlight.</p>
+            <h3>LOCAL</h3>
+            <p><span class="concept-lead">Local is more than a pin on the map.</span>The environment, local history, and character of a place become part of a business’s identity — and part of how people recognize and remember it.</p>
           </div>
 
           <div class="selected-detail-concept">
-            <h3>Format</h3>
-            <p>Local Business Storytelling through short-form social video.</p>
+            <h3>PEOPLE</h3>
+            <p><span class="concept-lead">A local business grows through people, relationships, and trust.</span>Familiarity, shared experience, and a sense of belonging help strengthen both the business and the community around it.</p>
           </div>
 
           <div class="selected-detail-concept">
-            <h3>Credit</h3>
-            <p>Filmed and Edited by Mikhail Kirs / @mikki.kirs6haa.</p>
+            <h3>EXPERIENCE</h3>
+            <p><span class="concept-lead">What people feel and remember goes beyond what they bought.</span>Atmosphere, interaction, and the experience of being there can become just as important as the product or service itself.</p>
           </div>
 
           <div class="selected-detail-concept">
-            <h3>Location</h3>
-            <p>London, Ontario.</p>
+            <h3>STORY</h3>
+            <p><span class="concept-lead">A story gives all of this a form people can remember and share.</span>It brings together the place, the people, and the experience into something distinctive, recognizable, and worth passing on.</p>
           </div>
         </div>
 
