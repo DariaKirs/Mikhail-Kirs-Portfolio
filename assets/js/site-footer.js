@@ -3,6 +3,7 @@
 
   const isHome = /(?:^|\/)index\.html$/.test(location.pathname) || location.pathname === '/' || location.pathname.endsWith('/');
   const homePrefix = isHome ? '' : 'index.html';
+  const INSTAGRAM_URL = 'https://www.instagram.com/mikki.kirs6haa/';
 
   if (!document.querySelector('style[data-mk-footer-styles]')) {
     const style = document.createElement('style');
@@ -209,7 +210,7 @@
           <a href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Mikhail Kirs on LinkedIn" title="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M5.2 8.4H2.3V21h2.9V8.4ZM3.75 3A1.74 1.74 0 1 0 3.75 6.48 1.74 1.74 0 0 0 3.75 3ZM21.7 13.8c0-3.8-2-5.7-4.7-5.7-2.17 0-3.14 1.2-3.68 2.04V8.4h-2.9V21h2.9v-6.25c0-1.65.31-3.25 2.36-3.25 2.02 0 2.05 1.89 2.05 3.36V21h2.9l.07-7.2Z"/></svg>
           </a>
-          <a href="https://instagram.com/mikki.kirs6haa" target="_blank" rel="noopener noreferrer" aria-label="Mikhail Kirs on Instagram" title="Instagram">
+          <a href="${INSTAGRAM_URL}" target="_blank" rel="noopener noreferrer" aria-label="Mikhail Kirs on Instagram" title="Instagram">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
         </div>
@@ -225,6 +226,14 @@
   const oldFooter = document.querySelector('.site-footer');
   if (oldFooter) oldFooter.replaceWith(footer);
   else document.body.appendChild(footer);
+
+  document
+    .querySelectorAll('a[href*="instagram.com/mikki.kirs6haa"]')
+    .forEach((link) => {
+      link.href = INSTAGRAM_URL;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+    });
 
   const footerMail = footer.querySelector('.mk-footer-mail');
   if (footerMail) {
