@@ -192,3 +192,14 @@
     min-width: 0 !important;
   }
 }
+
+/* Mobile homepage Hero: center only the main headline; preserve all approved
+   desktop geometry and the rest of the mobile Hero composition. */
+@media (max-width: 700px) {
+  html body .hero .hero-copy-block h1 {
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+  }
+}
