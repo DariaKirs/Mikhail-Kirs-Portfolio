@@ -7,74 +7,209 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Long-Form Visual Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
-  <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
+  <link rel="stylesheet" href="styles.css?v=20260820-long-form-info">
   <style>
-    /* Long-form uses the approved shared detail-page hero geometry unchanged.
-       Only the single editorial statement card below is customized. */
-    .long-form-page .long-form-statement-wrap {
+    .long-form-page {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .long-form-main {
+      border-top: 1px solid var(--line);
+    }
+
+    .long-form-info {
+      min-height: calc(100svh - 76px);
       display: flex;
-      justify-content: center;
+      align-items: center;
+      padding: clamp(38px, 5vw, 68px) 0;
     }
 
-    .long-form-page .long-form-statement-card {
-      width: min(1040px, 100%) !important;
-      min-height: 0 !important;
-      justify-self: auto !important;
-      padding: 46px 54px 44px !important;
+    .long-form-info-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 340px;
+      gap: clamp(54px, 7vw, 96px);
+      align-items: center;
     }
 
-    .long-form-page .long-form-statement-card p {
-      max-width: none !important;
+    .long-form-copy {
+      max-width: 760px;
     }
 
-    .long-form-page .long-form-statement-card > p:first-child {
-      max-width: 860px !important;
-      font-size: clamp(1.08rem, 1.35vw, 1.28rem) !important;
-      line-height: 1.46 !important;
+    .long-form-copy .eyebrow {
+      margin: 0 0 16px;
+      font-size: 1rem;
+      letter-spacing: .13em;
     }
 
-    .long-form-page .long-form-statement-card .statement-emphasis {
-      max-width: 940px !important;
-      margin-top: 24px !important;
-      font-size: clamp(1.42rem, 2vw, 1.82rem) !important;
-      line-height: 1.26 !important;
-      letter-spacing: -.026em !important;
+    .long-form-title {
+      max-width: 720px;
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(3rem, 4.8vw, 4.9rem);
+      font-weight: 850;
+      line-height: .98;
+      letter-spacing: -.052em;
+      text-wrap: balance;
     }
 
-    .long-form-page .selected-detail-next {
-      width: min(1040px, 100%);
-      margin: 26px auto 0;
-      padding-top: 18px;
+    .long-form-explainer {
+      max-width: 720px;
+      margin-top: clamp(28px, 3vw, 38px);
     }
 
-    @media (max-width: 700px) {
-      .long-form-page .long-form-statement-card {
-        width: 100% !important;
-        padding: 24px 22px 23px !important;
+    .long-form-explainer p {
+      margin: 0;
+    }
+
+    .long-form-explainer .long-form-lead {
+      color: var(--text);
+      font-size: clamp(1.08rem, 1.35vw, 1.25rem);
+      font-weight: 700;
+      line-height: 1.48;
+    }
+
+    .long-form-explainer .long-form-detail {
+      margin-top: 18px;
+      color: rgba(32, 54, 74, .78);
+      font-size: clamp(1rem, 1.15vw, 1.12rem);
+      font-weight: 450;
+      line-height: 1.58;
+    }
+
+    .long-form-link {
+      margin-top: 26px;
+      color: var(--accent-purple);
+    }
+
+    .long-form-visual {
+      position: relative;
+      width: 340px;
+      height: 452px;
+      justify-self: end;
+      isolation: isolate;
+    }
+
+    .long-form-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      border-radius: 34px 18px 34px 18px;
+      background: var(--mist-blue);
+      transform: translate(-18px, 17px) rotate(-3.2deg);
+    }
+
+    .long-form-photo {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      border: 5px solid var(--bg);
+      border-radius: 34px 18px 34px 18px;
+      background: var(--surface);
+      box-shadow: 0 22px 44px rgba(32, 54, 74, .12);
+    }
+
+    .long-form-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+    }
+
+    @media (max-width: 900px) {
+      .long-form-info {
+        min-height: auto;
+        padding: 46px 0 54px;
       }
 
-      .long-form-page .long-form-statement-card > p:first-child {
-        font-size: 16px !important;
-        line-height: 1.42 !important;
+      .long-form-info-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
       }
 
-      .long-form-page .long-form-statement-card .statement-emphasis {
-        margin-top: 16px !important;
-        font-size: 23px !important;
-        line-height: 1.16 !important;
-        letter-spacing: -.035em !important;
+      .long-form-copy {
+        max-width: none;
       }
 
-      .long-form-page .selected-detail-next {
-        width: 100%;
-        margin-top: 18px;
-        padding-top: 14px;
+      .long-form-copy .eyebrow {
+        margin-bottom: 14px;
+        text-align: left;
+      }
+
+      .long-form-title {
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+      }
+
+      .long-form-visual {
+        grid-row: 2;
+        width: min(72vw, 320px);
+        height: auto;
+        aspect-ratio: 3 / 4;
+        justify-self: center;
+        margin: 34px auto 38px;
+      }
+
+      .long-form-explainer {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      .long-form-link {
+        display: inline-flex;
+        margin-top: 24px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .long-form-info {
+        padding: 34px 0 42px;
+      }
+
+      .long-form-copy .eyebrow {
+        font-size: .92rem;
+      }
+
+      .long-form-title {
+        font-size: 34px;
+        line-height: .99;
+        letter-spacing: -.045em;
+      }
+
+      .long-form-visual {
+        width: min(78vw, 300px);
+        margin: 28px auto 34px;
+      }
+
+      .long-form-visual::before {
+        transform: translate(-9px, 10px) rotate(-2.2deg);
+      }
+
+      .long-form-explainer .long-form-lead {
+        font-size: 19px;
+        line-height: 1.48;
+      }
+
+      .long-form-explainer .long-form-detail {
+        margin-top: 16px;
+        font-size: 18px;
+        line-height: 1.52;
+      }
+
+      .long-form-link {
+        margin-top: 22px;
+        font-size: 16px;
       }
     }
   </style>
 </head>
-<body class="selected-detail-page long-form-page">
+<body class="project-page long-form-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -91,33 +226,25 @@
     </div>
   </header>
 
-  <main id="main-content" class="selected-detail-main">
-    <section class="selected-detail-hero">
-      <div class="container selected-detail-hero-grid">
-        <div class="selected-detail-intro">
+  <main id="main-content" class="long-form-main">
+    <section class="long-form-info">
+      <div class="container long-form-info-grid">
+        <div class="long-form-copy">
           <p class="eyebrow">Beyond short-form content</p>
-          <h1 class="selected-detail-question">Stories built for a longer format.</h1>
-        </div>
+          <h1 class="long-form-title">Stories built for a longer format.</h1>
 
-        <div class="selected-detail-visual" aria-label="Long-Form Visual Storytelling cover">
-          <figure class="selected-detail-photo">
-            <img class="media-focus-center" src="assets/images/London_Bridge.jpeg" alt="Tower Bridge viewed through a modern London streetscape">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <section class="selected-detail-core">
-      <div class="container">
-        <div class="long-form-statement-wrap">
-          <div class="selected-detail-statement-card long-form-statement-card">
-            <p>Alongside short-form content, I create long-form films built around research, scripting, historical context and visual storytelling.</p>
-            <p class="statement-emphasis">These personal projects, created during my own trips, give me the space to develop larger scripts, explore long-form storytelling, and carry an idea from research through filming and final edit.</p>
+          <div class="long-form-explainer">
+            <p class="long-form-lead">Alongside short-form content, I create long-form films built around research, scripting, historical context and visual storytelling.</p>
+            <p class="long-form-detail">These personal projects, created during my own trips, give me the space to develop larger scripts, explore long-form storytelling, and carry an idea from research through filming and final edit.</p>
           </div>
+
+          <a class="text-link long-form-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
         </div>
 
-        <div class="selected-detail-next">
-          <a class="text-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
+        <div class="long-form-visual" aria-label="Long-Form Visual Storytelling cover">
+          <figure class="long-form-photo">
+            <img src="assets/images/London_Bridge.jpeg" alt="Tower Bridge viewed through a modern London streetscape">
+          </figure>
         </div>
       </div>
     </section>
