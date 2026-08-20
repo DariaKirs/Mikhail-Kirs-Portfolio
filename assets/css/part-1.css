@@ -155,26 +155,19 @@ a {
   gap: 28px;
 }
 
+/* Official brand lockup: exact SVG supplied for the site header. */
 .brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-weight: 800;
+  display: block;
+  width: 180px;
+  height: 36px;
+  flex: 0 0 auto;
+  background: url("../brand/header-brand.svg") no-repeat left center / contain;
   text-decoration: none;
-  letter-spacing: -0.025em;
 }
 
+.brand > span,
 .brand-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 12px 7px 12px 7px;
-  background: var(--text);
-  color: var(--bg);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  transform: rotate(-3deg);
+  display: none;
 }
 
 .nav-links {
