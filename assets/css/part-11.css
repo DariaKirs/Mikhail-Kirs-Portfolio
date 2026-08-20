@@ -82,11 +82,15 @@
     margin-top: clamp(36px, 3vw, 48px) !important;
   }
 
-  /* Desktop navigation anchors: compensate for each section's own top padding
-     so the visual section content lands directly beneath the sticky header. */
-  #work,
+  /* Desktop navigation anchors: About and Contact can sit almost flush beneath
+     the sticky header, while Selected Work needs a little more breathing room
+     so its eyebrow is never hidden by the header. */
   #about,
   #contact {
     scroll-margin-top: 8px !important;
+  }
+
+  #work {
+    scroll-margin-top: 32px !important;
   }
 }
