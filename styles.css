@@ -289,3 +289,17 @@ section[id] {
     font-size: 16px !important;
   }
 }
+
+/* Mobile Selected Work detail hero titles: keep the eyebrow left-aligned,
+   but center the large headline directly over its portrait. */
+@media (max-width: 700px) {
+  .personal-brand-page .personal-brand-question,
+  .selected-detail-page .selected-detail-question {
+    width: min(100%, 15ch) !important;
+    max-width: 15ch !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    justify-self: center !important;
+  }
+}
