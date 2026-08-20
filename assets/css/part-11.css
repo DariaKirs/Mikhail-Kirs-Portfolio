@@ -119,6 +119,12 @@
     width: 100% !important;
   }
 
+  .mk-site-footer .mk-footer-brand {
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
   .mk-site-footer .mk-footer-nav,
   .mk-site-footer .mk-footer-social {
     width: 100% !important;
@@ -153,7 +159,7 @@
   }
 }
 
-/* Mobile header: brand stays left on row one. Navigation gets its own full-width
+/* Mobile header: center the brand on row one. Navigation gets its own full-width
    row and each label is centered in one of three equal columns. */
 @media (max-width: 700px) {
   .site-header .nav {
@@ -165,7 +171,9 @@
   }
 
   .site-header .brand {
-    align-self: flex-start !important;
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   html body .site-header .nav .nav-links {
