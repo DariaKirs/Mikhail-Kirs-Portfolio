@@ -159,28 +159,86 @@
       .mk-footer-bottom a:focus-visible { color: var(--purple); }
 
       @media (max-width: 700px) {
-        .mk-footer-inner { padding: 34px 0 24px; }
+        /* Mobile header: keep the brand where it is, but center the navigation row. */
+        .site-header .nav-links {
+          width: 100% !important;
+          justify-content: center !important;
+          text-align: center;
+          overflow-x: visible !important;
+        }
+
+        .mk-footer-inner {
+          padding: 34px 0 max(42px, calc(28px + env(safe-area-inset-bottom)));
+        }
+
         .mk-footer-main {
+          width: 100%;
           flex-direction: column;
-          align-items: flex-start;
+          align-items: stretch;
           gap: 28px;
-          padding-bottom: 28px;
+          padding-bottom: 30px;
         }
-        .mk-footer-identity { gap: 20px; }
-        .mk-footer-brand { width: 153px; height: 30px; }
-        .mk-footer-nav { gap: 18px; }
-        .mk-footer-social { gap: 10px; }
-        .mk-footer-social a,
-        .mk-footer-social button { width: 42px; height: 42px; }
-        .mk-footer-bottom {
-          flex-direction: column;
-          align-items: flex-start;
+
+        .mk-footer-identity {
+          width: 100%;
+          gap: 20px;
+        }
+
+        .mk-footer-brand {
+          width: 153px;
+          height: 30px;
+          align-self: flex-start;
+        }
+
+        .mk-footer-nav {
+          width: 100%;
+          justify-content: center;
+          gap: 18px;
+          text-align: center;
+        }
+
+        .mk-footer-social {
+          width: 100%;
+          justify-content: center;
           gap: 10px;
-          padding-top: 18px;
-          font-size: .86rem;
         }
-        .mk-site-footer::before { width: 170px; height: 170px; right: -78px; top: -74px; }
-        .mk-site-footer::after { width: 120px; height: 120px; right: -26px; bottom: -82px; }
+
+        .mk-footer-social a,
+        .mk-footer-social button {
+          width: 42px;
+          height: 42px;
+        }
+
+        .mk-footer-bottom {
+          width: 100%;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          padding-top: 20px;
+          padding-bottom: max(18px, env(safe-area-inset-bottom));
+          font-size: .86rem;
+          text-align: center;
+        }
+
+        .mk-footer-bottom > span {
+          display: block;
+          width: 100%;
+        }
+
+        .mk-site-footer::before {
+          width: 170px;
+          height: 170px;
+          right: -78px;
+          top: -74px;
+        }
+
+        .mk-site-footer::after {
+          width: 120px;
+          height: 120px;
+          right: -26px;
+          bottom: -58px;
+        }
       }
     `;
     document.head.appendChild(style);
