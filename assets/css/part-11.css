@@ -81,4 +81,12 @@
   section#about .education-card {
     margin-top: clamp(36px, 3vw, 48px) !important;
   }
+
+  /* Desktop navigation anchors: compensate for each section's own top padding
+     so the visual section content lands directly beneath the sticky header. */
+  #work,
+  #about,
+  #contact {
+    scroll-margin-top: 8px !important;
+  }
 }
