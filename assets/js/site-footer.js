@@ -62,9 +62,20 @@
         gap: 24px;
       }
 
+      /* Repeat the exact official header lockup in the footer, slightly quieter. */
       .mk-footer-brand {
-        width: fit-content;
+        display: block;
+        width: 162px;
+        height: 32px;
+        flex: 0 0 auto;
+        background: url("assets/brand/header-brand.svg") no-repeat left center / contain !important;
         color: var(--text) !important;
+        text-decoration: none;
+      }
+
+      .mk-footer-brand > span,
+      .mk-footer-brand .brand-mark {
+        display: none !important;
       }
 
       .mk-footer-brand:hover { opacity: .84; }
@@ -155,6 +166,7 @@
           padding-bottom: 28px;
         }
         .mk-footer-identity { gap: 20px; }
+        .mk-footer-brand { width: 153px; height: 30px; }
         .mk-footer-nav { gap: 18px; }
         .mk-footer-social { gap: 10px; }
         .mk-footer-social a,
