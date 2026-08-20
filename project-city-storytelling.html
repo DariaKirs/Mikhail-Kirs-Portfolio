@@ -10,32 +10,8 @@
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
   <style>
-    /* Long-form page: two clean desktop scenes — hero first, statement second. */
-    @media (min-width: 1051px) {
-      .long-form-page .selected-detail-hero {
-        min-height: max(650px, calc(100svh - 76px));
-        display: flex;
-        align-items: center;
-        padding: 48px 0;
-      }
-
-      .long-form-page .selected-detail-hero-grid {
-        width: 100%;
-        min-height: 0;
-      }
-
-      .long-form-page .selected-detail-core {
-        min-height: max(560px, calc(100svh - 76px));
-        display: flex;
-        align-items: center;
-        padding: 54px 0 44px;
-      }
-
-      .long-form-page .selected-detail-core > .container {
-        width: min(calc(100% - 48px), var(--max-width));
-      }
-    }
-
+    /* Long-form uses the approved shared detail-page hero geometry unchanged.
+       Only the single editorial statement card below is customized. */
     .long-form-page .long-form-statement-wrap {
       display: flex;
       justify-content: center;
@@ -68,21 +44,11 @@
 
     .long-form-page .selected-detail-next {
       width: min(1040px, 100%);
-      margin: 24px auto 0;
-      padding-top: 16px;
-    }
-
-    @media (min-width: 701px) and (max-width: 1050px) {
-      .long-form-page .selected-detail-core {
-        padding: 42px 0 44px;
-      }
+      margin: 26px auto 0;
+      padding-top: 18px;
     }
 
     @media (max-width: 700px) {
-      .long-form-page .selected-detail-core {
-        padding: 28px 0 32px;
-      }
-
       .long-form-page .long-form-statement-card {
         width: 100% !important;
         padding: 24px 22px 23px !important;
@@ -102,8 +68,8 @@
 
       .long-form-page .selected-detail-next {
         width: 100%;
-        margin-top: 16px;
-        padding-top: 12px;
+        margin-top: 18px;
+        padding-top: 14px;
       }
     }
   </style>
