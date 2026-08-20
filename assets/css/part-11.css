@@ -94,3 +94,69 @@
     scroll-margin-top: 32px !important;
   }
 }
+
+/* Mobile shell lock. These !important rules intentionally override the older
+   part-4 mobile alignment and the footer's dynamically injected fallback CSS. */
+@media (max-width: 700px) {
+  .site-header .nav-links {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+    overflow-x: visible !important;
+  }
+
+  .mk-site-footer {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+  }
+
+  .mk-site-footer .mk-footer-inner {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    padding-bottom: max(54px, calc(36px + env(safe-area-inset-bottom))) !important;
+  }
+
+  .mk-site-footer .mk-footer-main {
+    width: 100% !important;
+    align-items: center !important;
+  }
+
+  .mk-site-footer .mk-footer-identity {
+    width: 100% !important;
+  }
+
+  .mk-site-footer .mk-footer-nav,
+  .mk-site-footer .mk-footer-social {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .mk-site-footer .mk-footer-bottom {
+    position: relative !important;
+    display: flex !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding-top: 20px !important;
+    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    text-align: center !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .mk-site-footer .mk-footer-bottom > span {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    visibility: visible !important;
+  }
+}
