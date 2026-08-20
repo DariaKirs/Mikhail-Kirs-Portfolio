@@ -228,7 +228,7 @@
     justify-content: flex-start;
     overflow-x: auto;
     flex-wrap: nowrap;
-    padding-bottom: 3px;
+    padding-bottom: 13px;
     scrollbar-width: none;
   }
 
