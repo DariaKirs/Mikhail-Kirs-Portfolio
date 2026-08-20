@@ -10,12 +10,38 @@
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
   <style>
-    /* Long-form page: the explanatory block follows the hero directly now that
-       the redundant four-card concept grid has been removed. */
-    .long-form-page .selected-detail-deep-dive {
-      margin-top: 0;
-      padding-top: 0;
-      border-top: 0;
+    /* Long-form page: one concise statement card follows the hero. */
+    .long-form-page .selected-detail-core {
+      padding-top: 58px;
+      padding-bottom: 72px;
+    }
+
+    .long-form-page .long-form-statement-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .long-form-page .long-form-statement-card {
+      width: min(760px, 100%);
+      min-height: 0;
+      justify-self: auto;
+    }
+
+    .long-form-page .selected-detail-next {
+      width: min(760px, 100%);
+      margin: 34px auto 0;
+    }
+
+    @media (max-width: 700px) {
+      .long-form-page .selected-detail-core {
+        padding-top: 34px;
+        padding-bottom: 38px;
+      }
+
+      .long-form-page .long-form-statement-card,
+      .long-form-page .selected-detail-next {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -40,7 +66,7 @@
     <section class="selected-detail-hero">
       <div class="container selected-detail-hero-grid">
         <div class="selected-detail-intro">
-          <p class="eyebrow">Long-Form Visual Storytelling</p>
+          <p class="eyebrow">Beyond short-form content</p>
           <h1 class="selected-detail-question">Stories built for a longer format.</h1>
         </div>
 
@@ -54,29 +80,10 @@
 
     <section class="selected-detail-core">
       <div class="container">
-        <div class="selected-detail-deep-dive">
-          <div class="selected-detail-deep-dive-title">
-            <h2 class="selected-detail-section-title">Beyond short-form content</h2>
-          </div>
-
-          <div class="selected-detail-statement-card">
+        <div class="long-form-statement-wrap">
+          <div class="selected-detail-statement-card long-form-statement-card">
             <p>Alongside short-form content, I create long-form films built around research, scripting, historical context and visual storytelling.</p>
             <p class="statement-emphasis">These personal projects, created during my own trips, give me the space to develop larger scripts, explore long-form storytelling, and carry an idea from research through filming and final edit.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="selected-detail-context">
-      <div class="container">
-        <div class="selected-detail-context-grid">
-          <div class="selected-detail-context-statement">
-            <h2 class="selected-detail-section-title">Selected long-form projects</h2>
-          </div>
-
-          <div class="selected-detail-statement-card selected-detail-context-card">
-            <p>London · Two personal films</p>
-            <p class="statement-emphasis">Two personal films about London, created during my own trips, as a way to explore long-form storytelling and show how a story can develop through research, scripting, filming and final edit.</p>
           </div>
         </div>
 
