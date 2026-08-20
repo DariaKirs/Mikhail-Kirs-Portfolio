@@ -203,3 +203,20 @@
     text-align: center !important;
   }
 }
+
+/* Mobile Hero sound control preview: reduce the complete control by ~20%
+   without changing its position or any desktop styling. */
+@media (max-width: 700px) {
+  html body .hero .ambient-sound-toggle {
+    min-height: 29px !important;
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    font-size: 0.58rem !important;
+  }
+
+  html body .hero .ambient-sound-icon {
+    width: 14px !important;
+    height: 14px !important;
+    flex: 0 0 14px !important;
+  }
+}
