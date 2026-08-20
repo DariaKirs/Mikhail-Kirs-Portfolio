@@ -10,9 +10,21 @@
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
   <style>
-    /* Long-form page: one wide editorial statement card after the hero. */
+    /* Long-form page: keep the hero and its explanatory card visually connected
+       during scrolling, without changing the approved shared detail architecture. */
+    @media (min-width: 1051px) {
+      .long-form-page .selected-detail-hero {
+        padding-top: 56px;
+        padding-bottom: 34px;
+      }
+
+      .long-form-page .selected-detail-hero-grid {
+        min-height: 575px;
+      }
+    }
+
     .long-form-page .selected-detail-core {
-      padding: 42px 0 46px;
+      padding: 20px 0 42px;
     }
 
     .long-form-page .long-form-statement-wrap {
@@ -47,13 +59,19 @@
 
     .long-form-page .selected-detail-next {
       width: min(1040px, 100%);
-      margin: 26px auto 0;
-      padding-top: 18px;
+      margin: 22px auto 0;
+      padding-top: 16px;
+    }
+
+    @media (min-width: 701px) and (max-width: 1050px) {
+      .long-form-page .selected-detail-core {
+        padding-top: 24px;
+      }
     }
 
     @media (max-width: 700px) {
       .long-form-page .selected-detail-core {
-        padding: 28px 0 34px;
+        padding: 22px 0 32px;
       }
 
       .long-form-page .long-form-statement-card {
@@ -75,8 +93,8 @@
 
       .long-form-page .selected-detail-next {
         width: 100%;
-        margin-top: 18px;
-        padding-top: 14px;
+        margin-top: 16px;
+        padding-top: 12px;
       }
     }
   </style>
