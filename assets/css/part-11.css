@@ -95,16 +95,8 @@
   }
 }
 
-/* Mobile shell lock. These !important rules intentionally override the older
-   part-4 mobile alignment and the footer's dynamically injected fallback CSS. */
+/* Mobile shell lock. Footer only. */
 @media (max-width: 700px) {
-  .site-header .nav-links {
-    width: 100% !important;
-    justify-content: center !important;
-    text-align: center !important;
-    overflow-x: visible !important;
-  }
-
   .mk-site-footer {
     height: auto !important;
     min-height: 0 !important;
@@ -161,25 +153,34 @@
   }
 }
 
-/* Final mobile header composition only. Footer rules above stay untouched.
-   Force the header nav onto its own full-width row, then distribute the three
-   labels across that row. Higher specificity beats the later injected style. */
+/* Mobile header: brand stays left on row one. Navigation gets its own full-width
+   row and each label is centered in one of three equal columns. */
 @media (max-width: 700px) {
   .site-header .nav {
-    flex-wrap: wrap !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
   }
 
-  .site-header .nav .nav-links {
-    flex: 0 0 100% !important;
+  .site-header .brand {
+    align-self: flex-start !important;
+  }
+
+  html body .site-header .nav .nav-links {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     width: 100% !important;
     max-width: none !important;
-    justify-content: space-between !important;
     gap: 0 !important;
-    flex-wrap: nowrap !important;
-    text-align: initial !important;
+    overflow: visible !important;
+    text-align: center !important;
   }
 
-  .site-header .nav .nav-links a {
-    flex: 0 0 auto !important;
+  html body .site-header .nav .nav-links a {
+    justify-self: center !important;
+    width: max-content !important;
+    min-width: 0 !important;
   }
 }
