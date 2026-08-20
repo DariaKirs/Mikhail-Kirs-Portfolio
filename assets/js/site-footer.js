@@ -51,7 +51,7 @@
 
       .mk-footer-main {
         display: flex;
-        align-items: flex-start;
+        align-items: flex-end;
         justify-content: space-between;
         gap: 42px;
         padding-bottom: 34px;
@@ -91,22 +91,28 @@
         gap: 12px;
       }
 
-      .mk-footer-social a {
+      .mk-footer-social a,
+      .mk-footer-social button {
         display: inline-flex;
         width: 44px;
         height: 44px;
+        padding: 0;
         align-items: center;
         justify-content: center;
         border: 1px solid var(--line-dark);
         border-radius: 999px;
         color: var(--text);
         background: rgba(255, 253, 249, .66);
+        font: inherit;
         text-decoration: none;
+        cursor: pointer;
         transition: transform .18s ease, border-color .18s ease, background .18s ease;
       }
 
       .mk-footer-social a:hover,
-      .mk-footer-social a:focus-visible {
+      .mk-footer-social a:focus-visible,
+      .mk-footer-social button:hover,
+      .mk-footer-social button:focus-visible {
         transform: translateY(-2px);
         border-color: var(--purple);
         background: var(--surface-strong);
@@ -144,13 +150,15 @@
         .mk-footer-inner { padding: 34px 0 24px; }
         .mk-footer-main {
           flex-direction: column;
+          align-items: flex-start;
           gap: 28px;
           padding-bottom: 28px;
         }
         .mk-footer-identity { gap: 20px; }
         .mk-footer-nav { gap: 18px; }
         .mk-footer-social { gap: 10px; }
-        .mk-footer-social a { width: 42px; height: 42px; }
+        .mk-footer-social a,
+        .mk-footer-social button { width: 42px; height: 42px; }
         .mk-footer-bottom {
           flex-direction: column;
           align-items: flex-start;
@@ -183,9 +191,9 @@
         </div>
 
         <div class="mk-footer-social" aria-label="Social links">
-          <a href="mailto:mikhail.kirs.ca@gmail.com" aria-label="Email Mikhail Kirs" title="Email">
+          <button type="button" class="mk-footer-mail" aria-label="Open contact form for Mikhail Kirs" title="Email">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-          </a>
+          </button>
           <a href="https://www.linkedin.com/in/mikhail-kirs/" target="_blank" rel="noopener noreferrer" aria-label="Mikhail Kirs on LinkedIn" title="LinkedIn">
             <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M5.2 8.4H2.3V21h2.9V8.4ZM3.75 3A1.74 1.74 0 1 0 3.75 6.48 1.74 1.74 0 0 0 3.75 3ZM21.7 13.8c0-3.8-2-5.7-4.7-5.7-2.17 0-3.14 1.2-3.68 2.04V8.4h-2.9V21h2.9v-6.25c0-1.65.31-3.25 2.36-3.25 2.02 0 2.05 1.89 2.05 3.36V21h2.9l.07-7.2Z"/></svg>
           </a>
@@ -205,4 +213,30 @@
   const oldFooter = document.querySelector('.site-footer');
   if (oldFooter) oldFooter.replaceWith(footer);
   else document.body.appendChild(footer);
+
+  const footerMail = footer.querySelector('.mk-footer-mail');
+  if (footerMail) {
+    footerMail.addEventListener('click', () => {
+      const openContact = () => {
+        if (typeof window.__MK_OPEN_CONTACT__ === 'function') {
+          window.__MK_OPEN_CONTACT__(footerMail);
+          return true;
+        }
+        return false;
+      };
+
+      if (openContact()) return;
+
+      let loader = document.querySelector('script[data-mk-contact-loader]');
+      if (!loader) {
+        loader = document.createElement('script');
+        loader.src = 'assets/js/contact-form-v2.js?v=20260820-footer-contact';
+        loader.defer = true;
+        loader.dataset.mkContactLoader = 'true';
+        document.body.appendChild(loader);
+      }
+
+      loader.addEventListener('load', () => openContact(), { once: true });
+    });
+  }
 })();
