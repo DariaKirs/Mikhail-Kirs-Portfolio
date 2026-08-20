@@ -107,7 +107,7 @@
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
-    padding-bottom: max(54px, calc(36px + env(safe-area-inset-bottom))) !important;
+    padding-bottom: 0 !important;
   }
 
   .mk-site-footer .mk-footer-main {
@@ -145,7 +145,7 @@
     justify-content: center !important;
     gap: 10px !important;
     padding-top: 20px !important;
-    padding-bottom: max(28px, env(safe-area-inset-bottom)) !important;
+    padding-bottom: max(8px, env(safe-area-inset-bottom)) !important;
     text-align: center !important;
     visibility: visible !important;
     opacity: 1 !important;
