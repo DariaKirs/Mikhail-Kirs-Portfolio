@@ -183,28 +183,56 @@ a {
   gap: 24px;
 }
 
+/* Header navigation preview — dark editorial labels with restrained colour rules. */
 .nav-links a {
+  --nav-underline: var(--blue);
   position: relative;
-  color: var(--muted);
+  padding-bottom: 2px;
+  color: var(--text);
   font-size: 0.92rem;
   font-weight: 700;
   text-decoration: none;
 }
 
+.nav-links a:nth-child(1) { --nav-underline: #0f6f8f; }
+.nav-links a:nth-child(2) { --nav-underline: #c6a9df; }
+.nav-links a:nth-child(3) { --nav-underline: #d7a0aa; }
+
 .nav-links a::after {
   content: "";
   position: absolute;
-  left: 0;
-  right: 100%;
+  left: 50%;
   bottom: -6px;
-  height: 2px;
-  background: var(--purple);
-  transition: right 0.2s ease;
+  width: 78%;
+  height: 1.5px;
+  border-radius: 999px;
+  background: var(--nav-underline);
+  opacity: .92;
+  transform: translateX(-50%);
+  transform-origin: center;
+  transition: width .18s ease, height .18s ease, opacity .18s ease, transform .18s ease;
 }
 
-.nav-links a:hover::after,
-.nav-links a:focus-visible::after {
-  right: 0;
+@media (hover: hover) and (pointer: fine) {
+  .nav-links a:hover::after,
+  .nav-links a:focus-visible::after {
+    width: 100%;
+    opacity: 1;
+    transform: translateX(-50%) translateY(1px);
+  }
+}
+
+.nav-links a:active::after,
+.nav-links a[aria-current="page"]::after,
+.nav-links a[aria-current="location"]::after,
+.project-page .nav-links a[href$="#work"]::after,
+.personal-brand-page .nav-links a[href$="#work"]::after,
+body:has(#work:target) .nav-links a[href$="#work"]::after,
+body:has(#about:target) .nav-links a[href$="#about"]::after,
+body:has(#contact:target) .nav-links a[href$="#contact"]::after {
+  width: 100%;
+  height: 2px;
+  opacity: 1;
 }
 
 .hero {
