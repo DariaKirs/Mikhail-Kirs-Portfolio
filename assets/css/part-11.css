@@ -161,17 +161,25 @@
   }
 }
 
-/* Final mobile header composition: preserve the approved footer exactly as-is,
-   but distribute the three header links across the available row width. */
+/* Final mobile header composition only. Footer rules above stay untouched.
+   Force the header nav onto its own full-width row, then distribute the three
+   labels across that row. Higher specificity beats the later injected style. */
 @media (max-width: 700px) {
-  .site-header .nav-links {
+  .site-header .nav {
+    flex-wrap: wrap !important;
+  }
+
+  .site-header .nav .nav-links {
+    flex: 0 0 100% !important;
     width: 100% !important;
+    max-width: none !important;
     justify-content: space-between !important;
     gap: 0 !important;
     flex-wrap: nowrap !important;
+    text-align: initial !important;
   }
 
-  .site-header .nav-links a {
+  .site-header .nav .nav-links a {
     flex: 0 0 auto !important;
   }
 }
