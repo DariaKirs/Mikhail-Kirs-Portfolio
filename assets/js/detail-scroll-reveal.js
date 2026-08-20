@@ -1,4 +1,12 @@
 (() => {
+  if (!document.querySelector('script[data-site-footer]')) {
+    const footerScript = document.createElement('script');
+    footerScript.src = 'assets/js/site-footer.js?v=20260820-footer-preview';
+    footerScript.defer = true;
+    footerScript.dataset.siteFooter = 'true';
+    document.body.appendChild(footerScript);
+  }
+
   const personalBrandPage = document.querySelector('.personal-brand-page');
   const localBusinessPage = document.querySelector('.local-business-page');
   const page = personalBrandPage || localBusinessPage;
