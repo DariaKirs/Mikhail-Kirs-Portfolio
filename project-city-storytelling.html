@@ -10,21 +10,30 @@
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
   <style>
-    /* Long-form page: keep the hero and its explanatory card visually connected
-       during scrolling, without changing the approved shared detail architecture. */
+    /* Long-form page: two clean desktop scenes — hero first, statement second. */
     @media (min-width: 1051px) {
       .long-form-page .selected-detail-hero {
-        padding-top: 56px;
-        padding-bottom: 34px;
+        min-height: max(650px, calc(100svh - 76px));
+        display: flex;
+        align-items: center;
+        padding: 48px 0;
       }
 
       .long-form-page .selected-detail-hero-grid {
-        min-height: 575px;
+        width: 100%;
+        min-height: 0;
       }
-    }
 
-    .long-form-page .selected-detail-core {
-      padding: 20px 0 42px;
+      .long-form-page .selected-detail-core {
+        min-height: max(560px, calc(100svh - 76px));
+        display: flex;
+        align-items: center;
+        padding: 54px 0 44px;
+      }
+
+      .long-form-page .selected-detail-core > .container {
+        width: min(calc(100% - 48px), var(--max-width));
+      }
     }
 
     .long-form-page .long-form-statement-wrap {
@@ -59,19 +68,19 @@
 
     .long-form-page .selected-detail-next {
       width: min(1040px, 100%);
-      margin: 22px auto 0;
+      margin: 24px auto 0;
       padding-top: 16px;
     }
 
     @media (min-width: 701px) and (max-width: 1050px) {
       .long-form-page .selected-detail-core {
-        padding-top: 24px;
+        padding: 42px 0 44px;
       }
     }
 
     @media (max-width: 700px) {
       .long-form-page .selected-detail-core {
-        padding: 22px 0 32px;
+        padding: 28px 0 32px;
       }
 
       .long-form-page .long-form-statement-card {
