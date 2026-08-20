@@ -4,6 +4,25 @@
   const page = personalBrandPage || localBusinessPage;
   if (!page) return;
 
+  /* Match the approved Local Business mobile hero treatment on Personal Brand:
+     keep the eyebrow left-aligned, but center only the large hero headline on
+     screens up to 700px. Desktop and tablet remain untouched. */
+  if (personalBrandPage) {
+    const mobileHeroStyle = document.createElement('style');
+    mobileHeroStyle.textContent = `
+      @media (max-width: 700px) {
+        .personal-brand-page .personal-brand-question {
+          width: 100% !important;
+          max-width: 100% !important;
+          margin-left: auto !important;
+          margin-right: auto !important;
+          text-align: center !important;
+        }
+      }
+    `;
+    document.head.appendChild(mobileHeroStyle);
+  }
+
   /* The terminal navigation link must always remain visible. It is functional
      navigation, not scroll-reveal content. Keep the same label on both detail
      pages and return to the Selected Work section. */
