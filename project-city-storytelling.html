@@ -10,10 +10,9 @@
   <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
   <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
   <style>
-    /* Long-form page: one concise statement card follows the hero. */
+    /* Long-form page: one wide editorial statement card after the hero. */
     .long-form-page .selected-detail-core {
-      padding-top: 58px;
-      padding-bottom: 72px;
+      padding: 42px 0 46px;
     }
 
     .long-form-page .long-form-statement-wrap {
@@ -22,25 +21,62 @@
     }
 
     .long-form-page .long-form-statement-card {
-      width: min(760px, 100%);
-      min-height: 0;
-      justify-self: auto;
+      width: min(1040px, 100%) !important;
+      min-height: 0 !important;
+      justify-self: auto !important;
+      padding: 46px 54px 44px !important;
+    }
+
+    .long-form-page .long-form-statement-card p {
+      max-width: none !important;
+    }
+
+    .long-form-page .long-form-statement-card > p:first-child {
+      max-width: 860px !important;
+      font-size: clamp(1.08rem, 1.35vw, 1.28rem) !important;
+      line-height: 1.46 !important;
+    }
+
+    .long-form-page .long-form-statement-card .statement-emphasis {
+      max-width: 940px !important;
+      margin-top: 24px !important;
+      font-size: clamp(1.42rem, 2vw, 1.82rem) !important;
+      line-height: 1.26 !important;
+      letter-spacing: -.026em !important;
     }
 
     .long-form-page .selected-detail-next {
-      width: min(760px, 100%);
-      margin: 34px auto 0;
+      width: min(1040px, 100%);
+      margin: 26px auto 0;
+      padding-top: 18px;
     }
 
     @media (max-width: 700px) {
       .long-form-page .selected-detail-core {
-        padding-top: 34px;
-        padding-bottom: 38px;
+        padding: 28px 0 34px;
       }
 
-      .long-form-page .long-form-statement-card,
+      .long-form-page .long-form-statement-card {
+        width: 100% !important;
+        padding: 24px 22px 23px !important;
+      }
+
+      .long-form-page .long-form-statement-card > p:first-child {
+        font-size: 16px !important;
+        line-height: 1.42 !important;
+      }
+
+      .long-form-page .long-form-statement-card .statement-emphasis {
+        margin-top: 16px !important;
+        font-size: 23px !important;
+        line-height: 1.16 !important;
+        letter-spacing: -.035em !important;
+      }
+
       .long-form-page .selected-detail-next {
         width: 100%;
+        margin-top: 18px;
+        padding-top: 14px;
       }
     }
   </style>
