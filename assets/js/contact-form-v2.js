@@ -1,4 +1,12 @@
 (() => {
+  if (!document.querySelector('script[data-site-footer]')) {
+    const footerScript = document.createElement('script');
+    footerScript.src = 'assets/js/site-footer.js?v=20260820-footer-preview';
+    footerScript.defer = true;
+    footerScript.dataset.siteFooter = 'true';
+    document.body.appendChild(footerScript);
+  }
+
   const CONTACT_VERSION = '20260810-1455';
   const REQUEST_TIMEOUT_MS = 18000;
   const cssHref = `assets/css/contact-form-refine.css?v=${CONTACT_VERSION}`;
