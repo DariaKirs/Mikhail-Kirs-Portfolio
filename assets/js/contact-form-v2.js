@@ -1,4 +1,7 @@
 (() => {
+  if (window.__MK_CONTACT_FORM_INITIALIZED__) return;
+  window.__MK_CONTACT_FORM_INITIALIZED__ = true;
+
   if (!document.querySelector('script[data-site-footer]')) {
     const footerScript = document.createElement('script');
     footerScript.src = 'assets/js/site-footer.js?v=20260820-footer-preview';
@@ -7,7 +10,7 @@
     document.body.appendChild(footerScript);
   }
 
-  const CONTACT_VERSION = '20260810-1455';
+  const CONTACT_VERSION = '20260820-footer-contact';
   const REQUEST_TIMEOUT_MS = 18000;
   const cssHref = `assets/css/contact-form-refine.css?v=${CONTACT_VERSION}`;
 
@@ -22,20 +25,21 @@
   }
 
   const contactActions = document.querySelector('#contact .actions');
-  if (!contactActions) return;
+  const existingMailLink = contactActions
+    ? Array.from(contactActions.querySelectorAll('.button'))
+        .find((element) => element.textContent.trim().toLowerCase() === 'mail me')
+    : null;
 
-  const existingMailLink = Array.from(contactActions.querySelectorAll('.button'))
-    .find((element) => element.textContent.trim().toLowerCase() === 'mail me');
-
-  if (!existingMailLink) return;
-
-  const mailButton = document.createElement('button');
-  mailButton.type = 'button';
-  mailButton.className = `${existingMailLink.className} mail-form-button`;
-  mailButton.textContent = 'Mail me';
-  mailButton.setAttribute('aria-label', 'Open contact form for Mikhail Kirs');
-  mailButton.dataset.contactOpen = 'true';
-  existingMailLink.replaceWith(mailButton);
+  let mailButton = null;
+  if (existingMailLink) {
+    mailButton = document.createElement('button');
+    mailButton.type = 'button';
+    mailButton.className = `${existingMailLink.className} mail-form-button`;
+    mailButton.textContent = 'Mail me';
+    mailButton.setAttribute('aria-label', 'Open contact form for Mikhail Kirs');
+    mailButton.dataset.contactOpen = 'true';
+    existingMailLink.replaceWith(mailButton);
+  }
 
   const footerText = document.querySelector('.site-footer .footer-row > span');
   if (footerText && !footerText.querySelector('.footer-privacy-link')) {
@@ -47,67 +51,67 @@
     footerText.appendChild(privacyLink);
   }
 
-  const dialog = document.createElement('dialog');
-  dialog.className = 'contact-dialog';
-  dialog.id = 'contact-dialog';
-  dialog.setAttribute('aria-labelledby', 'contact-dialog-title');
-  dialog.innerHTML = `
-    <div class="contact-modal-card">
-      <button class="contact-modal-close" type="button" aria-label="Close contact form">×</button>
-      <p class="contact-modal-eyebrow">Contact</p>
-      <h2 class="contact-modal-title" id="contact-dialog-title">What should we make visible?</h2>
-      <p class="contact-modal-intro">A person, a place, a business, an idea? Tell me what you have in mind, and we’ll find the right visual form.</p>
+  const existingDialog = document.querySelector('#contact-dialog');
+  const dialog = existingDialog || document.createElement('dialog');
+  if (!existingDialog) {
+    dialog.className = 'contact-dialog';
+    dialog.id = 'contact-dialog';
+    dialog.setAttribute('aria-labelledby', 'contact-dialog-title');
+    dialog.innerHTML = `
+      <div class="contact-modal-card">
+        <button class="contact-modal-close" type="button" aria-label="Close contact form">×</button>
+        <p class="contact-modal-eyebrow">Contact</p>
+        <h2 class="contact-modal-title" id="contact-dialog-title">What should we make visible?</h2>
+        <p class="contact-modal-intro">A person, a place, a business, an idea? Tell me what you have in mind, and we’ll find the right visual form.</p>
 
-      <form class="contact-form" id="contact-form" novalidate>
-        <fieldset class="contact-form-fields">
-          <div class="contact-field contact-field-name">
-            <label for="contact-name">Name</label>
-            <input id="contact-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="80" required>
+        <form class="contact-form" id="contact-form" novalidate>
+          <fieldset class="contact-form-fields">
+            <div class="contact-field contact-field-name">
+              <label for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" minlength="2" maxlength="80" required>
+            </div>
+
+            <div class="contact-field contact-field-email">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+            </div>
+
+            <div class="contact-field contact-field-message">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" name="message" minlength="10" maxlength="4000" required></textarea>
+            </div>
+
+            <div class="contact-hp" aria-hidden="true">
+              <label for="contact-website">Website</label>
+              <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <input id="contact-started-at" name="startedAt" type="hidden" value="">
+
+            <label class="contact-consent" for="contact-consent">
+              <input id="contact-consent" name="consent" type="checkbox" required>
+              <span>I agree that Mikhail Kirs may use the information provided above to respond to my inquiry. <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a></span>
+            </label>
+
+            <div class="contact-form-actions">
+              <button class="button contact-submit" type="submit">Send message</button>
+              <p class="contact-form-note">Your details are used only to respond to this inquiry.</p>
+            </div>
+          </fieldset>
+
+          <p class="contact-form-status" role="status" aria-live="polite"></p>
+
+          <div class="contact-success">
+            <strong>Thanks! Your message has been sent.</strong>
+            <p>I’ll reply to the email address you provided.</p>
           </div>
+        </form>
+      </div>
+    `;
 
-          <div class="contact-field contact-field-email">
-            <label for="contact-email">Email</label>
-            <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
-          </div>
-
-          <div class="contact-field contact-field-message">
-            <label for="contact-message">Message</label>
-            <textarea id="contact-message" name="message" minlength="10" maxlength="4000" required></textarea>
-          </div>
-
-          <div class="contact-hp" aria-hidden="true">
-            <label for="contact-website">Website</label>
-            <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off">
-          </div>
-
-          <input id="contact-started-at" name="startedAt" type="hidden" value="">
-
-          <label class="contact-consent" for="contact-consent">
-            <input id="contact-consent" name="consent" type="checkbox" required>
-            <span>I agree that Mikhail Kirs may use the information provided above to respond to my inquiry. <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a></span>
-          </label>
-
-          <div class="contact-form-actions">
-            <button class="button contact-submit" type="submit">Send message</button>
-            <p class="contact-form-note">Your details are used only to respond to this inquiry.</p>
-          </div>
-        </fieldset>
-
-        <p class="contact-form-status" role="status" aria-live="polite"></p>
-
-        <div class="contact-success">
-          <strong>Thanks! Your message has been sent.</strong>
-          <p>I’ll reply to the email address you provided.</p>
-        </div>
-      </form>
-    </div>
-  `;
-
-  const footer = document.querySelector('.site-footer');
-  if (footer) {
-    footer.before(dialog);
-  } else {
-    document.body.appendChild(dialog);
+    const footer = document.querySelector('.site-footer, .mk-site-footer');
+    if (footer) footer.before(dialog);
+    else document.body.appendChild(dialog);
   }
 
   const card = dialog.querySelector('.contact-modal-card');
@@ -120,7 +124,7 @@
   const nameInput = dialog.querySelector('#contact-name');
   const startedAtInput = dialog.querySelector('#contact-started-at');
 
-  let returnFocus = mailButton;
+  let returnFocus = mailButton || document.body;
   let activeSubmission = 0;
 
   const resetFormState = () => {
@@ -136,14 +140,20 @@
     startedAtInput.value = String(Date.now());
   };
 
-  const openDialog = () => {
-    returnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : mailButton;
+  const openDialog = (trigger = null) => {
+    returnFocus = trigger instanceof HTMLElement
+      ? trigger
+      : document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : mailButton || document.body;
     resetFormState();
     document.body.classList.add('contact-modal-open');
-    dialog.showModal();
+    if (!dialog.open) dialog.showModal();
     card.scrollTop = 0;
     window.requestAnimationFrame(() => nameInput.focus());
   };
+
+  window.__MK_OPEN_CONTACT__ = openDialog;
 
   const closeDialog = () => {
     activeSubmission += 1;
@@ -211,7 +221,7 @@
     }
   };
 
-  mailButton.addEventListener('click', openDialog);
+  if (mailButton) mailButton.addEventListener('click', (event) => openDialog(event.currentTarget));
   closeButton.addEventListener('click', closeDialog);
 
   dialog.addEventListener('click', (event) => {
