@@ -64,9 +64,9 @@
 
     .long-form-explainer .long-form-lead {
       color: var(--text);
-      font-size: clamp(1.19rem, 1.49vw, 1.38rem);
+      font-size: clamp(1.19rem, 1.48vw, 1.38rem);
       font-weight: 700;
-      line-height: 1.46;
+      line-height: 1.48;
     }
 
     .long-form-explainer .long-form-detail {
@@ -74,19 +74,17 @@
       color: rgba(32, 54, 74, .78);
       font-size: clamp(1.1rem, 1.27vw, 1.23rem);
       font-weight: 450;
-      line-height: 1.56;
+      line-height: 1.58;
+    }
+
+    .long-form-link {
+      margin-top: 26px;
+      color: var(--purple) !important;
     }
 
     .long-form-link,
-    .long-form-link:visited {
-      margin-top: 26px;
-      color: var(--accent-purple) !important;
-      border-bottom-color: var(--accent-purple) !important;
-      text-decoration-color: var(--accent-purple) !important;
-    }
-
     .long-form-link span {
-      color: var(--accent-purple) !important;
+      color: var(--purple) !important;
     }
 
     .long-form-visual {
@@ -103,18 +101,19 @@
       position: absolute;
       inset: 0;
       border-radius: 34px 18px 34px 18px;
+      pointer-events: none;
     }
 
     .long-form-visual::before {
-      z-index: 1;
+      z-index: 0;
       background: var(--mist-blue);
       transform: translate(-18px, 17px) rotate(-3.2deg);
     }
 
     .long-form-visual::after {
-      z-index: 0;
-      background: #D87B89;
-      transform: translate(16px, -13px) rotate(2.1deg);
+      z-index: 1;
+      background: #d87b89;
+      transform: translate(18px, -16px) rotate(2.2deg);
     }
 
     .long-form-photo {
@@ -270,5 +269,6 @@
       </div>
     </section>
   </main>
+  <script src="assets/js/site-footer.js?v=20260820-footer-preview"></script>
 </body>
 </html>
