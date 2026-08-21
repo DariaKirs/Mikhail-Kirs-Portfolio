@@ -234,3 +234,9 @@
     backdrop-filter: blur(18px) !important;
   }
 }
+
+/* Personal Brand campaign preview: the page now continues directly into the
+   campaign case, so the old intermediate “See selected work” jump is removed. */
+.personal-brand-page .personal-brand-next {
+  display: none !important;
+}
