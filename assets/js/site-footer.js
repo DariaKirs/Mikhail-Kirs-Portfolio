@@ -40,7 +40,7 @@
 
         @media (min-width: 1051px) {
           .personal-brand-page .pb-fixed {
-            gap: 48px !important;
+            gap: 180px !important;
           }
 
           .personal-brand-page .pb-fixed-cards {
