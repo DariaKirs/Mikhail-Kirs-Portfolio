@@ -529,3 +529,23 @@ section[id] {
     padding-top: 0 !important;
   }
 }
+
+/* Mobile campaign polish: explicit spacing and word-form first metric. */
+@media (max-width: 760px) {
+  .personal-brand-page .pb-fixed-campaign-label {
+    margin-bottom: 24px !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric:first-child strong {
+    font-size: 0 !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric:first-child strong::after {
+    content: "seven";
+    display: block;
+    font-size: clamp(1.28rem, 5.2vw, 1.7rem);
+    line-height: .95;
+    letter-spacing: -.045em;
+    color: #c9a5e7;
+  }
+}
