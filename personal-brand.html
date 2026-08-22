@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#f7f1e8">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260822-2048-mobile-polish">
-  <script src="assets/js/site-footer.js?v=20260822-2048-mobile-polish" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260822-2247-card-separation">
+  <script src="assets/js/site-footer.js?v=20260822-2247-card-separation" defer></script>
   <style>
     /* Approved site header lockup and navigation. */
     .site-header {
@@ -419,6 +419,12 @@
 
       .pb-fixed-videos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (min-width: 1051px) {
+      .personal-brand-page .pb-fixed {
+        gap: 180px !important;
       }
     }
 
