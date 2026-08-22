@@ -247,3 +247,119 @@
 .personal-brand-page .personal-brand-context {
   border-top: 0 !important;
 }
+
+/* Personal Brand campaign: restore the typographic scale of the surrounding
+   editorial page. Keep it informational and compact, but never miniature. */
+@media (min-width: 901px) {
+  .personal-brand-page .personal-brand-campaign {
+    padding: 68px 0 76px;
+  }
+
+  .personal-brand-page .campaign-shell {
+    max-width: var(--max-width);
+  }
+
+  .personal-brand-page .campaign-layout {
+    grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
+    gap: clamp(58px, 6vw, 82px);
+  }
+
+  .personal-brand-page .campaign-eyebrow {
+    margin-bottom: 14px;
+    font-size: .94rem;
+    letter-spacing: .12em;
+  }
+
+  .personal-brand-page .campaign-title {
+    max-width: 560px;
+    font-size: clamp(3.15rem, 4.15vw, 3.75rem);
+    line-height: .98;
+    letter-spacing: -.048em;
+  }
+
+  .personal-brand-page .campaign-copy {
+    max-width: 560px;
+    margin-top: 28px;
+  }
+
+  .personal-brand-page .campaign-copy p {
+    font-size: clamp(1.13rem, 1.35vw, 1.28rem);
+    line-height: 1.48;
+  }
+
+  .personal-brand-page .campaign-copy p + p {
+    margin-top: 17px;
+  }
+
+  .personal-brand-page .campaign-role-line {
+    margin-top: 23px !important;
+    font-size: clamp(1.3rem, 1.65vw, 1.48rem) !important;
+    line-height: 1.22 !important;
+  }
+
+  .personal-brand-page .campaign-official-link {
+    margin-top: 18px;
+    font-size: 1.05rem;
+  }
+
+  .personal-brand-page .campaign-metrics {
+    grid-template-columns: .62fr .9fr 1.5fr;
+    gap: clamp(24px, 2.7vw, 36px);
+    margin-top: 34px;
+  }
+
+  .personal-brand-page .campaign-number {
+    margin-bottom: 8px;
+    font-size: clamp(2.25rem, 2.8vw, 2.65rem);
+  }
+
+  .personal-brand-page .campaign-metric:last-child .campaign-number {
+    font-size: clamp(1.75rem, 2.2vw, 2.05rem);
+  }
+
+  .personal-brand-page .campaign-metric-label {
+    max-width: 170px;
+    font-size: .9rem;
+    line-height: 1.24;
+  }
+
+  .personal-brand-page .campaign-metric:last-child .campaign-metric-label {
+    max-width: 205px;
+  }
+
+  .personal-brand-page .campaign-metric-note {
+    margin-top: 16px;
+    font-size: .86rem;
+  }
+
+  .personal-brand-page .campaign-selected-title {
+    margin-bottom: 28px;
+    font-size: clamp(1.75rem, 2.2vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .personal-brand-page .campaign-video-grid {
+    column-gap: clamp(40px, 4.5vw, 60px);
+    row-gap: 42px;
+  }
+
+  .personal-brand-page .campaign-video-card {
+    display: block;
+    min-height: 0;
+  }
+
+  .personal-brand-page .campaign-video-title {
+    font-size: clamp(1.3rem, 1.55vw, 1.45rem);
+    line-height: 1.14;
+  }
+
+  .personal-brand-page .campaign-video-copy {
+    margin: 12px 0 17px;
+    font-size: clamp(1.02rem, 1.18vw, 1.12rem);
+    line-height: 1.46;
+  }
+
+  .personal-brand-page .campaign-video-link {
+    font-size: 1rem;
+  }
+}
