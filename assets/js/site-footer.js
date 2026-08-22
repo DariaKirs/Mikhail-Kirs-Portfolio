@@ -39,9 +39,13 @@
         }
 
         @media (min-width: 1051px) {
+          .personal-brand-page .pb-fixed {
+            gap: 48px !important;
+          }
+
           .personal-brand-page .pb-fixed-cards {
             column-gap: 13px !important;
-            row-gap: 24px !important;
+            row-gap: 13px !important;
           }
         }
       `;
