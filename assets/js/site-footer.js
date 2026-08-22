@@ -5,6 +5,17 @@
   const homePrefix = isHome ? '' : 'index.html';
   const INSTAGRAM_URL = 'https://www.instagram.com/mikki.kirs6haa/';
 
+  if (document.body.classList.contains('personal-brand-page')) {
+    document.querySelector('.pb-fixed-official')?.remove();
+    document.querySelector('.pb-fixed-selected-title')?.remove();
+
+    const selectedVideos = document.querySelector('.pb-fixed-selected');
+    if (selectedVideos) {
+      selectedVideos.style.marginTop = '8px';
+      selectedVideos.style.paddingTop = '0';
+    }
+  }
+
   if (!document.querySelector('style[data-mk-footer-styles]')) {
     const style = document.createElement('style');
     style.dataset.mkFooterStyles = 'true';
