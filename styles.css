@@ -307,3 +307,107 @@ section[id] {
     margin-bottom: 16px !important;
   }
 }
+
+/* Personal Brand campaign metrics preview — stacked stat cards from the approved
+   visual option, keeping the compact campaign composition intact. */
+@media (min-width: 1051px) {
+  .personal-brand-page .pb-fixed-campaign {
+    align-items: start !important;
+  }
+
+  .personal-brand-page .pb-fixed-metrics {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    width: min(100%, 470px) !important;
+    max-width: 470px !important;
+    justify-self: end !important;
+    align-self: start !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric {
+    display: grid !important;
+    grid-template-columns: 46px minmax(0, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 14px !important;
+    min-height: 74px !important;
+    padding: 10px 15px !important;
+    align-items: center !important;
+    border: 1px solid rgba(255, 253, 249, .18) !important;
+    border-radius: 16px !important;
+    background: rgba(255, 253, 249, .055) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025) !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric:first-child {
+    padding-left: 15px !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric::before {
+    content: "";
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    box-sizing: border-box;
+  }
+
+  .personal-brand-page .pb-fixed-metric:nth-child(1)::before {
+    border: 1px solid rgba(201, 165, 231, .28);
+    background-color: rgba(201, 165, 231, .14);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c9a5e7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='6' width='13' height='12' rx='2'/%3E%3Cpath d='m16 10 5-3v10l-5-3z'/%3E%3C/svg%3E");
+  }
+
+  .personal-brand-page .pb-fixed-metric:nth-child(2)::before {
+    border: 1px solid rgba(240, 143, 161, .28);
+    background-color: rgba(240, 143, 161, .13);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f08fa1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z'/%3E%3Ccircle cx='12' cy='12' r='2.5'/%3E%3C/svg%3E");
+  }
+
+  .personal-brand-page .pb-fixed-metric:nth-child(3)::before {
+    border: 1px solid rgba(159, 195, 170, .28);
+    background-color: rgba(159, 195, 170, .13);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239fc3aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 16 5-5 4 3 7-8'/%3E%3Cpath d='M15 6h5v5'/%3E%3C/svg%3E");
+  }
+
+  .personal-brand-page .pb-fixed-metric strong {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0 !important;
+    font-size: clamp(2rem, 2.65vw, 2.8rem) !important;
+    line-height: .92 !important;
+    letter-spacing: -.05em !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric:first-child strong {
+    font-size: 0 !important;
+  }
+
+  .personal-brand-page .pb-fixed-metric:first-child strong::after {
+    content: "seven";
+    display: block;
+    font-size: clamp(2.1rem, 2.9vw, 3rem);
+    line-height: .92;
+    letter-spacing: -.055em;
+    color: #c9a5e7;
+  }
+
+  .personal-brand-page .pb-fixed-metric span {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 4px !important;
+    font-size: .76rem !important;
+    line-height: 1.18 !important;
+  }
+
+  .personal-brand-page .pb-fixed-metrics-note {
+    grid-column: 1 !important;
+    margin: 2px 0 0 !important;
+    padding-left: 2px;
+    font-size: .72rem !important;
+  }
+}
