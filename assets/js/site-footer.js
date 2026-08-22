@@ -37,6 +37,13 @@
             color: #c9a5e7;
           }
         }
+
+        @media (min-width: 1051px) {
+          .personal-brand-page .pb-fixed-cards {
+            column-gap: 13px !important;
+            row-gap: 24px !important;
+          }
+        }
       `;
       document.head.appendChild(mobilePolish);
     }
