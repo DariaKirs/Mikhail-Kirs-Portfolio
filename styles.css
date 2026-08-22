@@ -323,6 +323,7 @@ section[id] {
     max-width: 470px !important;
     justify-self: end !important;
     align-self: start !important;
+    margin-top: 30px !important;
   }
 
   .personal-brand-page .pb-fixed-metric {
