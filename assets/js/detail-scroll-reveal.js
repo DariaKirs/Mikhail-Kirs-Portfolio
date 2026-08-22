@@ -20,9 +20,8 @@
     style.dataset.personalBrandCampaign = 'true';
     style.textContent = `
       .personal-brand-campaign {
-        border-top: 1px solid var(--line);
-        padding: 48px 0 54px;
-        background: rgba(255, 253, 249, .12);
+        padding: 58px 0 68px;
+        background: transparent;
       }
 
       .campaign-shell {
@@ -32,13 +31,13 @@
 
       .campaign-layout {
         display: grid;
-        grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
-        gap: clamp(40px, 5vw, 64px);
+        grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+        gap: clamp(54px, 6vw, 78px);
         align-items: start;
       }
 
       .campaign-eyebrow {
-        margin: 0 0 10px;
+        margin: 0 0 11px;
         color: var(--accent-purple);
         font-size: .78rem;
         font-weight: 780;
@@ -47,16 +46,16 @@
       }
 
       .campaign-title {
-        max-width: 520px;
+        max-width: 500px;
         margin: 0;
-        font-size: clamp(2.2rem, 3.4vw, 3.4rem);
-        line-height: .98;
-        letter-spacing: -.045em;
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1;
+        letter-spacing: -.043em;
       }
 
       .campaign-copy {
         max-width: 520px;
-        margin-top: 20px;
+        margin-top: 22px;
       }
 
       .campaign-copy p {
@@ -68,9 +67,9 @@
       .campaign-copy p + p { margin-top: 13px; }
 
       .campaign-role-line {
-        margin-top: 17px !important;
+        margin-top: 18px !important;
         color: var(--accent-purple);
-        font-size: 1.08rem !important;
+        font-size: 1.06rem !important;
         font-weight: 800;
         line-height: 1.25 !important;
       }
@@ -91,54 +90,53 @@
 
       .campaign-metrics {
         display: grid;
-        grid-template-columns: .72fr .95fr 1.5fr;
-        gap: 9px;
-        margin-top: 24px;
+        grid-template-columns: .66fr .95fr 1.55fr;
+        gap: clamp(18px, 2.2vw, 28px);
+        margin-top: 30px;
+        align-items: start;
       }
 
       .campaign-metric {
         min-width: 0;
-        padding: 14px 12px 13px;
-        border: 1px solid rgba(184, 170, 156, .48);
-        border-radius: 18px 10px 18px 10px;
-        background: rgba(255, 253, 249, .6);
       }
 
       .campaign-number {
         display: block;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
         color: var(--text);
-        font-size: 1.72rem;
+        font-size: 1.82rem;
         font-weight: 840;
         line-height: 1;
         letter-spacing: -.045em;
         white-space: nowrap;
       }
 
+      .campaign-metric:first-child .campaign-number { color: var(--accent-purple); }
+      .campaign-metric:nth-child(2) .campaign-number { color: var(--dusty-rose); }
       .campaign-metric:last-child .campaign-number {
         color: var(--muted-green);
-        font-size: 1.38rem;
+        font-size: 1.44rem;
       }
-
-      .campaign-metric:nth-child(2) .campaign-number { color: var(--dusty-rose); }
-      .campaign-metric:first-child .campaign-number { color: var(--accent-purple); }
 
       .campaign-metric-label {
         display: block;
-        font-size: .72rem;
+        max-width: 150px;
+        font-size: .73rem;
         font-weight: 650;
-        line-height: 1.2;
+        line-height: 1.22;
       }
 
+      .campaign-metric:last-child .campaign-metric-label { max-width: 170px; }
+
       .campaign-metric-note {
-        margin: 9px 0 0;
+        margin: 13px 0 0;
         color: var(--muted, #65717a);
         font-size: .74rem;
         line-height: 1.35;
       }
 
       .campaign-selected-title {
-        margin: 0 0 12px;
+        margin: 0 0 22px;
         font-size: 1.3rem;
         line-height: 1.1;
         letter-spacing: -.025em;
@@ -147,19 +145,18 @@
       .campaign-video-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
+        column-gap: clamp(32px, 4vw, 52px);
+        row-gap: 36px;
       }
 
       .campaign-video-card {
         --video-accent: var(--accent-purple);
-        min-height: 168px;
-        padding: 18px 18px 16px;
-        border: 1px solid rgba(184, 170, 156, .45);
-        border-left: 3px solid var(--video-accent);
-        border-radius: 17px 9px 17px 9px;
-        background: rgba(255, 253, 249, .54);
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-width: 0;
+        min-height: 176px;
+        padding: 0;
+        background: transparent;
       }
 
       .campaign-video-card:nth-child(1) { --video-accent: var(--dusty-rose); }
@@ -176,43 +173,49 @@
       }
 
       .campaign-video-copy {
-        margin: 9px 0 13px;
+        margin: 10px 0 15px;
         font-size: .88rem;
         line-height: 1.4;
       }
 
       .campaign-video-link {
-        margin-top: auto;
+        align-self: end;
+        justify-self: start;
         color: var(--video-accent);
         font-size: .82rem;
       }
 
       @media (max-width: 900px) {
-        .campaign-layout { grid-template-columns: 1fr; gap: 34px; }
+        .campaign-layout { grid-template-columns: 1fr; gap: 42px; }
         .campaign-copy { max-width: 680px; }
         .campaign-metrics { max-width: 620px; }
+        .campaign-selected { max-width: 760px; }
       }
 
       @media (max-width: 700px) {
-        .personal-brand-campaign { padding: 34px 0 40px; }
+        .personal-brand-campaign { padding: 40px 0 48px; }
         .campaign-shell { width: min(calc(100% - 28px), 1120px); }
-        .campaign-layout { gap: 28px; }
+        .campaign-layout { gap: 36px; }
         .campaign-eyebrow { font-size: .72rem; }
-        .campaign-title { font-size: 34px; }
-        .campaign-copy { margin-top: 15px; }
+        .campaign-title { font-size: 32px; }
+        .campaign-copy { margin-top: 16px; }
         .campaign-copy p { font-size: 16px; line-height: 1.45; }
         .campaign-role-line { font-size: 17px !important; }
         .campaign-metrics {
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 8px;
-          margin-top: 20px;
+          gap: 20px 26px;
+          margin-top: 24px;
         }
         .campaign-metric:last-child { grid-column: 1 / -1; }
         .campaign-number { font-size: 1.55rem; }
-        .campaign-metric:last-child .campaign-number { font-size: 1.32rem; }
-        .campaign-video-grid { grid-template-columns: 1fr; gap: 10px; }
-        .campaign-video-card { min-height: 0; padding: 16px 16px 14px; }
-        .campaign-video-copy { font-size: .86rem; }
+        .campaign-metric:last-child .campaign-number { font-size: 1.34rem; }
+        .campaign-selected-title { margin-bottom: 20px; }
+        .campaign-video-grid {
+          grid-template-columns: 1fr;
+          row-gap: 28px;
+        }
+        .campaign-video-card { min-height: 0; }
+        .campaign-video-copy { font-size: .88rem; }
       }
     `;
     document.head.appendChild(style);
