@@ -240,3 +240,10 @@
 .personal-brand-page .personal-brand-next {
   display: none !important;
 }
+
+/* Personal Brand should read as one continuous canvas. Remove the decorative
+   divider rules around the boundary and visual-context chapters. */
+.personal-brand-page .personal-brand-boundary,
+.personal-brand-page .personal-brand-context {
+  border-top: 0 !important;
+}
