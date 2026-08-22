@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f7f1e8">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-exact-copy">
+  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-dark-campaign">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -24,22 +24,27 @@
       gap: 24px;
     }
 
+    .pb-fixed-top,
+    .pb-fixed-campaign-shell {
+      border-radius: var(--radius-md);
+      background: #20364a;
+      box-shadow: var(--shadow);
+    }
+
     .pb-fixed-top {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 356px;
       gap: 30px;
       min-height: 574px;
       padding: 38px;
-      border-radius: var(--radius-md);
-      background: #20364a;
-      box-shadow: var(--shadow);
     }
 
     .pb-fixed-copy {
       min-width: 0;
     }
 
-    .pb-fixed-eyebrow {
+    .pb-fixed-eyebrow,
+    .pb-fixed-campaign-label {
       margin: 0 0 11px;
       color: var(--coral);
       font-size: .76rem;
@@ -65,12 +70,16 @@
       margin-top: 30px;
     }
 
-    .pb-fixed-card {
-      min-height: 132px;
-      padding: 18px 18px 17px;
+    .pb-fixed-card,
+    .pb-fixed-video {
       border: 1px solid rgba(216, 206, 194, .72);
       border-radius: var(--radius-sm);
       background: var(--surface-strong);
+    }
+
+    .pb-fixed-card {
+      min-height: 132px;
+      padding: 18px 18px 17px;
     }
 
     .pb-fixed-card h2 {
@@ -126,41 +135,52 @@
       object-position: center;
     }
 
+    .pb-fixed-campaign-shell {
+      padding: 38px;
+      color: var(--surface);
+    }
+
     .pb-fixed-campaign {
       display: grid;
-      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-      gap: clamp(34px, 5vw, 70px);
+      grid-template-columns: minmax(0, .98fr) minmax(0, 1.02fr);
+      gap: clamp(40px, 5vw, 72px);
       align-items: center;
-      padding: 36px 38px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-md);
-      background: var(--surface-strong);
     }
 
     .pb-fixed-campaign-label {
-      margin: 0 0 9px;
-      color: var(--purple);
-      font-size: .76rem;
-      font-weight: 850;
-      letter-spacing: .14em;
-      text-transform: uppercase;
+      color: var(--coral);
     }
 
     .pb-fixed-campaign-copy h2 {
-      max-width: 520px;
+      max-width: 560px;
       margin: 0;
-      font-size: clamp(2rem, 3.2vw, 3.15rem);
+      color: var(--surface);
+      font-size: clamp(2.35rem, 3.7vw, 3.75rem);
       line-height: .98;
-      letter-spacing: -.048em;
+      letter-spacing: -.05em;
       text-wrap: balance;
     }
 
-    .pb-fixed-campaign-copy > p:last-child {
-      max-width: 560px;
+    .pb-fixed-campaign-copy p {
+      max-width: 620px;
       margin: 17px 0 0;
-      color: var(--muted);
-      font-size: .98rem;
+      color: rgba(255, 253, 249, .78);
+      font-size: .96rem;
       line-height: 1.52;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-role {
+      color: var(--surface);
+      font-weight: 800;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-official {
+      display: inline-block;
+      margin-top: 16px;
+      color: var(--coral);
+      font-size: .9rem;
+      font-weight: 800;
+      text-underline-offset: 4px;
     }
 
     .pb-fixed-metrics {
@@ -173,7 +193,7 @@
     .pb-fixed-metric {
       min-height: 96px;
       padding: 2px 18px 0;
-      border-left: 1px solid var(--line);
+      border-left: 1px solid rgba(255, 253, 249, .22);
     }
 
     .pb-fixed-metric:first-child {
@@ -189,14 +209,14 @@
       white-space: nowrap;
     }
 
-    .pb-fixed-metric:nth-child(1) strong { color: var(--purple); }
-    .pb-fixed-metric:nth-child(2) strong { color: var(--coral); }
-    .pb-fixed-metric:nth-child(3) strong { color: var(--green); }
+    .pb-fixed-metric:nth-child(1) strong { color: #c9a5e7; }
+    .pb-fixed-metric:nth-child(2) strong { color: #f08fa1; }
+    .pb-fixed-metric:nth-child(3) strong { color: #9fc3aa; }
 
     .pb-fixed-metric span {
       display: block;
       margin-top: 8px;
-      color: var(--muted);
+      color: rgba(255, 253, 249, .74);
       font-size: .82rem;
       font-weight: 750;
       line-height: 1.3;
@@ -204,20 +224,35 @@
 
     .pb-fixed-metrics-note {
       grid-column: 1 / -1;
-      margin: 12px 0 0;
-      color: var(--muted);
+      margin: 14px 0 0;
+      color: rgba(255, 253, 249, .62);
       font-size: .76rem;
+    }
+
+    .pb-fixed-selected {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 253, 249, .20);
+    }
+
+    .pb-fixed-selected-title {
+      margin: 0 0 20px;
+      color: var(--surface);
+      font-size: clamp(1.65rem, 2.3vw, 2.15rem);
+      line-height: 1;
+      letter-spacing: -.04em;
     }
 
     .pb-fixed-videos {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: clamp(22px, 3vw, 34px);
-      padding: 8px 38px 6px;
+      gap: 14px;
     }
 
     .pb-fixed-video {
       min-width: 0;
+      min-height: 228px;
+      padding: 19px 18px 18px;
     }
 
     .pb-fixed-video h3 {
@@ -235,8 +270,8 @@
     .pb-fixed-video p {
       margin: 10px 0 0;
       color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.47;
+      font-size: .86rem;
+      line-height: 1.45;
     }
 
     .pb-fixed-video a {
@@ -250,7 +285,9 @@
     }
 
     .pb-fixed-video a:hover,
-    .pb-fixed-video a:focus-visible {
+    .pb-fixed-video a:focus-visible,
+    .pb-fixed-official:hover,
+    .pb-fixed-official:focus-visible {
       text-decoration-thickness: 2px;
     }
 
@@ -284,7 +321,6 @@
 
       .pb-fixed-videos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        row-gap: 28px;
       }
     }
 
@@ -301,11 +337,15 @@
         gap: 18px;
       }
 
+      .pb-fixed-top,
+      .pb-fixed-campaign-shell {
+        padding: 24px 20px;
+        border-radius: var(--radius-md);
+      }
+
       .pb-fixed-top {
         grid-template-columns: 1fr;
         gap: 24px;
-        padding: 24px 20px;
-        border-radius: var(--radius-md);
       }
 
       .pb-fixed-title {
@@ -343,16 +383,11 @@
         min-height: 480px;
       }
 
-      .pb-fixed-campaign {
-        padding: 26px 20px;
-        border-radius: var(--radius-md);
-      }
-
       .pb-fixed-campaign-copy h2 {
         font-size: 32px;
       }
 
-      .pb-fixed-campaign-copy > p:last-child {
+      .pb-fixed-campaign-copy p {
         font-size: 15px;
       }
 
@@ -365,7 +400,7 @@
         min-height: 0;
         padding: 15px 0;
         border-left: 0;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid rgba(255, 253, 249, .20);
       }
 
       .pb-fixed-metric:first-child {
@@ -381,10 +416,18 @@
         margin-top: 4px;
       }
 
+      .pb-fixed-selected {
+        margin-top: 28px;
+        padding-top: 24px;
+      }
+
       .pb-fixed-videos {
         grid-template-columns: 1fr;
-        gap: 26px;
-        padding: 8px 4px 0;
+        gap: 12px;
+      }
+
+      .pb-fixed-video {
+        min-height: 0;
       }
 
       .pb-fixed-video h3 {
@@ -463,54 +506,62 @@
         </div>
       </section>
 
-      <section class="pb-fixed-campaign" aria-labelledby="campaign-title">
-        <div class="pb-fixed-campaign-copy">
-          <p class="pb-fixed-campaign-label">Campaign Project</p>
-          <h2 id="campaign-title">Mustafa Zebuun for Mayor</h2>
-          <p>A series of short videos I produced to support a local campaign. I worked on filming and editing, helping turn ideas and priorities into clear, engaging stories for the community.</p>
+      <section class="pb-fixed-campaign-shell" aria-labelledby="campaign-title">
+        <div class="pb-fixed-campaign">
+          <div class="pb-fixed-campaign-copy">
+            <p class="pb-fixed-campaign-label">2026 Municipal Campaign · London, Ontario</p>
+            <h2 id="campaign-title">Mustafa Zebuun for Mayor</h2>
+            <p>In London’s 2026 municipal election, I joined the Mustafa Zebuun for Mayor campaign at an early stage.</p>
+            <p>My work focuses on filming, editing, and turning campaign topics into clear visual stories for social media — from transit and downtown issues to housing, homelessness, and support for local business.</p>
+            <p class="pb-fixed-role">Filming. Editing. Short-form storytelling.</p>
+            <a class="pb-fixed-official" href="https://zebuunformayor.ca/" target="_blank" rel="noopener noreferrer">Official campaign ↗</a>
+          </div>
+
+          <div class="pb-fixed-metrics" aria-label="Campaign results">
+            <div class="pb-fixed-metric">
+              <strong>7</strong>
+              <span>campaign videos</span>
+            </div>
+            <div class="pb-fixed-metric">
+              <strong>291.1K+</strong>
+              <span>combined views</span>
+            </div>
+            <div class="pb-fixed-metric">
+              <strong>~400 → 1,583</strong>
+              <span>followers during my involvement</span>
+            </div>
+            <p class="pb-fixed-metrics-note">Metrics as of August 21, 2026.</p>
+          </div>
         </div>
 
-        <div class="pb-fixed-metrics" aria-label="Campaign results">
-          <div class="pb-fixed-metric">
-            <strong>7</strong>
-            <span>campaign videos</span>
+        <div class="pb-fixed-selected">
+          <h2 class="pb-fixed-selected-title">Selected videos</h2>
+          <div class="pb-fixed-videos">
+            <article class="pb-fixed-video">
+              <h3>Downtown Vacancies</h3>
+              <p>Vacant commercial spaces, downtown renewal, and putting underused properties back into local circulation.</p>
+              <a href="https://www.instagram.com/p/Da0gmFlxtAY/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
+            </article>
+
+            <article class="pb-fixed-video">
+              <h3>Public Transit</h3>
+              <p>Bus frequency, transfers, safer stops, and practical ways to make London’s transit network easier to use. My first video for the campaign.</p>
+              <a href="https://www.instagram.com/p/DaY0s2gJnj0/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
+            </article>
+
+            <article class="pb-fixed-video">
+              <h3>Supporting Local Business</h3>
+              <p>A campaign message about supporting local businesses — and the launch of the idea that later became Forest City Spotlight.</p>
+              <a href="https://www.instagram.com/p/Da33pq7pqfD/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
+            </article>
+
+            <article class="pb-fixed-video">
+              <h3>Homelessness &amp; Housing Stability</h3>
+              <p>A four-minute social video on prevention, shelters, supportive housing, and pathways toward housing stability — a deliberately longer format that still reached a strong audience.</p>
+              <a href="https://www.instagram.com/p/Dbe30p5gih1/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
+            </article>
           </div>
-          <div class="pb-fixed-metric">
-            <strong>291.1K+</strong>
-            <span>combined views</span>
-          </div>
-          <div class="pb-fixed-metric">
-            <strong>~400 → 1,583</strong>
-            <span>followers during my involvement</span>
-          </div>
-          <p class="pb-fixed-metrics-note">Metrics as of August 21, 2026.</p>
         </div>
-      </section>
-
-      <section class="pb-fixed-videos" aria-label="Selected campaign videos">
-        <article class="pb-fixed-video">
-          <h3>Downtown Vacancies</h3>
-          <p>Vacant commercial spaces, downtown renewal, and putting underused properties back into local circulation.</p>
-          <a href="https://www.instagram.com/p/Da0gmFlxtAY/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
-        </article>
-
-        <article class="pb-fixed-video">
-          <h3>Public Transit</h3>
-          <p>Bus frequency, transfers, safer stops, and practical ways to make London’s transit network easier to use. My first video for the campaign.</p>
-          <a href="https://www.instagram.com/p/DaY0s2gJnj0/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
-        </article>
-
-        <article class="pb-fixed-video">
-          <h3>Supporting Local Business</h3>
-          <p>A campaign message about supporting local businesses — and the launch of the idea that later became Forest City Spotlight.</p>
-          <a href="https://www.instagram.com/p/Da33pq7pqfD/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
-        </article>
-
-        <article class="pb-fixed-video">
-          <h3>Forest City Spotlight — Launch</h3>
-          <p>Introducing Forest City Spotlight: a platform to tell local stories, highlight people, places, and positive change in our city.</p>
-          <a href="https://www.instagram.com/p/Dbe30p5gih1/" target="_blank" rel="noopener noreferrer">Watch on Instagram ↗</a>
-        </article>
       </section>
     </div>
   </main>
