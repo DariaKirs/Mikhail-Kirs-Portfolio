@@ -5,6 +5,43 @@
   const homePrefix = isHome ? '' : 'index.html';
   const INSTAGRAM_URL = 'https://www.instagram.com/mikki.kirs6haa/';
 
+  if (document.body.classList.contains('personal-brand-page')) {
+    document.querySelector('.pb-fixed-official')?.remove();
+    document.querySelector('.pb-fixed-selected-title')?.remove();
+
+    const selectedVideos = document.querySelector('.pb-fixed-selected');
+    if (selectedVideos) {
+      selectedVideos.style.marginTop = '8px';
+      selectedVideos.style.paddingTop = '0';
+    }
+
+    if (!document.querySelector('style[data-pb-mobile-polish]')) {
+      const mobilePolish = document.createElement('style');
+      mobilePolish.dataset.pbMobilePolish = 'true';
+      mobilePolish.textContent = `
+        @media (max-width: 760px) {
+          .personal-brand-page .pb-fixed-campaign-label {
+            margin-bottom: 20px !important;
+          }
+
+          .personal-brand-page .pb-fixed-metric:first-child strong {
+            font-size: 0 !important;
+          }
+
+          .personal-brand-page .pb-fixed-metric:first-child strong::after {
+            content: "seven";
+            display: block;
+            font-size: clamp(1.28rem, 5.2vw, 1.7rem);
+            line-height: .95;
+            letter-spacing: -.045em;
+            color: #c9a5e7;
+          }
+        }
+      `;
+      document.head.appendChild(mobilePolish);
+    }
+  }
+
   if (!document.querySelector('style[data-mk-footer-styles]')) {
     const style = document.createElement('style');
     style.dataset.mkFooterStyles = 'true';
@@ -63,7 +100,6 @@
         gap: 24px;
       }
 
-      /* Repeat the exact official header lockup in the footer, slightly quieter. */
       .mk-footer-brand {
         display: block;
         width: 162px;
@@ -159,7 +195,6 @@
       .mk-footer-bottom a:focus-visible { color: var(--purple); }
 
       @media (max-width: 700px) {
-        /* Mobile header: keep the brand where it is, but center the navigation row. */
         .site-header .nav-links {
           width: 100% !important;
           justify-content: center !important;
