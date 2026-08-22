@@ -202,13 +202,21 @@
         .campaign-copy p { font-size: 16px; line-height: 1.45; }
         .campaign-role-line { font-size: 17px !important; }
         .campaign-metrics {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 20px 26px;
+          grid-template-columns: .65fr 1fr 1.55fr;
+          gap: 10px;
           margin-top: 24px;
+          max-width: none;
         }
-        .campaign-metric:last-child { grid-column: 1 / -1; }
-        .campaign-number { font-size: 1.55rem; }
-        .campaign-metric:last-child .campaign-number { font-size: 1.34rem; }
+        .campaign-metric:last-child { grid-column: auto; }
+        .campaign-number { font-size: 1.35rem; }
+        .campaign-metric:nth-child(2) .campaign-number { font-size: 1.32rem; }
+        .campaign-metric:last-child .campaign-number { font-size: 1.08rem; }
+        .campaign-metric-label,
+        .campaign-metric:last-child .campaign-metric-label {
+          max-width: none;
+          font-size: .62rem;
+          line-height: 1.15;
+        }
         .campaign-selected-title { margin-bottom: 20px; }
         .campaign-video-grid {
           grid-template-columns: 1fr;
