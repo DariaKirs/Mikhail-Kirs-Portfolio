@@ -7,8 +7,102 @@
   <meta name="theme-color" content="#f7f1e8">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-dark-campaign">
+  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-header-footer-polish">
+  <script src="assets/js/site-footer.js?v=20260822-approved-footer" defer></script>
   <style>
+    /* Approved site header lockup and navigation. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 241, 232, 0.9);
+      border-bottom: 1px solid rgba(184, 170, 156, 0.62);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    .site-header .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .site-header .brand {
+      display: block;
+      width: 180px;
+      height: 36px;
+      flex: 0 0 auto;
+      background: url("assets/brand/header-brand.svg") no-repeat left center / contain;
+      text-decoration: none;
+    }
+
+    .site-header .brand > span,
+    .site-header .brand-mark {
+      display: none;
+    }
+
+    .site-header .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .site-header .nav-links a {
+      --nav-underline-rgb: 15, 111, 143;
+      position: relative;
+      padding-bottom: 4px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-header .nav-links a:nth-child(1) { --nav-underline-rgb: 15, 111, 143; }
+    .site-header .nav-links a:nth-child(2) { --nav-underline-rgb: 198, 169, 223; }
+    .site-header .nav-links a:nth-child(3) { --nav-underline-rgb: 215, 160, 170; }
+
+    .site-header .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      width: 115%;
+      height: 2.5px;
+      border-radius: 999px;
+      background: linear-gradient(
+        90deg,
+        rgba(var(--nav-underline-rgb), .18) 0%,
+        rgba(var(--nav-underline-rgb), .62) 12%,
+        rgba(var(--nav-underline-rgb), .98) 30%,
+        rgba(var(--nav-underline-rgb), 1) 72%,
+        rgba(var(--nav-underline-rgb), .72) 86%,
+        rgba(var(--nav-underline-rgb), .08) 100%
+      );
+      box-shadow: 0 0 5px rgba(var(--nav-underline-rgb), .14);
+      opacity: .96;
+      transform: translateX(-50%) skewX(-7deg);
+      transform-origin: center;
+      transition: width .2s ease, opacity .2s ease, filter .2s ease, transform .2s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .site-header .nav-links a:hover::after,
+      .site-header .nav-links a:focus-visible::after {
+        width: 121%;
+        opacity: 1;
+        filter: saturate(1.06) brightness(1.03);
+        transform: translateX(-50%) skewX(-7deg) scaleX(1.015);
+      }
+    }
+
+    .personal-brand-page .site-header .nav-links a[href$="#work"]::after {
+      width: 118%;
+      opacity: 1;
+      filter: saturate(1.08);
+    }
+
     .personal-brand-page {
       background: var(--bg);
       color: var(--text);
@@ -147,8 +241,9 @@
       align-items: center;
     }
 
-    .pb-fixed-campaign-label {
-      color: var(--coral);
+    .pb-fixed-campaign-label,
+    .pb-fixed-campaign-copy .pb-fixed-official {
+      color: var(--coral) !important;
     }
 
     .pb-fixed-campaign-copy h2 {
@@ -177,7 +272,6 @@
     .pb-fixed-campaign-copy .pb-fixed-official {
       display: inline-block;
       margin-top: 16px;
-      color: var(--coral);
       font-size: .9rem;
       font-weight: 800;
       text-underline-offset: 4px;
@@ -232,7 +326,7 @@
     .pb-fixed-selected {
       margin-top: 34px;
       padding-top: 28px;
-      border-top: 1px solid rgba(255, 253, 249, .20);
+      border-top: 0;
     }
 
     .pb-fixed-selected-title {
@@ -250,8 +344,10 @@
     }
 
     .pb-fixed-video {
+      display: flex;
       min-width: 0;
       min-height: 228px;
+      flex-direction: column;
       padding: 19px 18px 18px;
     }
 
@@ -276,7 +372,9 @@
 
     .pb-fixed-video a {
       display: inline-block;
-      margin-top: 13px;
+      align-self: flex-start;
+      margin-top: auto;
+      padding-top: 13px;
       color: var(--purple);
       font-size: .84rem;
       font-weight: 800;
@@ -321,6 +419,38 @@
 
       .pb-fixed-videos {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .site-header .nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 18px !important;
+      }
+
+      .site-header .brand {
+        align-self: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      html body .site-header .nav .nav-links {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        width: 100% !important;
+        max-width: none !important;
+        gap: 0 !important;
+        overflow: visible !important;
+        text-align: center !important;
+      }
+
+      html body .site-header .nav .nav-links a {
+        justify-self: center !important;
+        width: max-content !important;
+        min-width: 0 !important;
       }
     }
 
@@ -419,6 +549,7 @@
       .pb-fixed-selected {
         margin-top: 28px;
         padding-top: 24px;
+        border-top: 0;
       }
 
       .pb-fixed-videos {
