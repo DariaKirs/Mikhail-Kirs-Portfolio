@@ -222,7 +222,10 @@
         .mk-footer-brand {
           width: 153px;
           height: 30px;
-          align-self: flex-start;
+          align-self: center;
+          margin-left: auto;
+          margin-right: auto;
+          background-position: center !important;
         }
 
         .mk-footer-nav {
