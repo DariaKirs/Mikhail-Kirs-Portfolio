@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f7f1e8">
   <title>Personal Brand Content — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-fixed-composition">
+  <link rel="stylesheet" href="styles.css?v=20260822-personal-brand-exact-copy">
   <style>
     .personal-brand-page {
       background: var(--bg);
@@ -87,6 +87,14 @@
       line-height: 1.42;
     }
 
+    .pb-fixed-card p + p {
+      margin-top: 8px;
+    }
+
+    .pb-fixed-card strong {
+      color: var(--text);
+    }
+
     .pb-fixed-card:nth-child(1) h2,
     .pb-fixed-card:nth-child(5) h2 { color: var(--purple); }
     .pb-fixed-card:nth-child(2) h2,
@@ -116,31 +124,6 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
-    }
-
-    .pb-fixed-quote {
-      position: absolute;
-      right: 18px;
-      bottom: 18px;
-      left: 18px;
-      padding: 18px 19px;
-      border-radius: var(--radius-sm);
-      background: var(--purple);
-      color: #fff;
-      box-shadow: 0 14px 30px rgba(23, 23, 23, .18);
-    }
-
-    .pb-fixed-quote p {
-      margin: 0;
-      font-size: .92rem;
-      line-height: 1.4;
-    }
-
-    .pb-fixed-quote strong {
-      display: block;
-      margin-top: 8px;
-      font-size: 1.08rem;
-      line-height: 1.25;
     }
 
     .pb-fixed-campaign {
@@ -360,13 +343,6 @@
         min-height: 480px;
       }
 
-      .pb-fixed-quote {
-        right: 14px;
-        bottom: 14px;
-        left: 14px;
-        padding: 16px;
-      }
-
       .pb-fixed-campaign {
         padding: 26px 20px;
         border-radius: var(--radius-md);
@@ -448,32 +424,34 @@
           <div class="pb-fixed-cards">
             <article class="pb-fixed-card">
               <h2>Expertise</h2>
-              <p>What you do best.<br>What comes naturally.<br>What creates value.</p>
+              <p>What you are genuinely good at.</p>
             </article>
 
             <article class="pb-fixed-card">
               <h2>Contribution</h2>
-              <p>How you help others.<br>Through your work,<br>presence, or ideas.</p>
+              <p>What you have to offer the people and communities you want to reach.</p>
             </article>
 
             <article class="pb-fixed-card">
               <h2>Purpose</h2>
-              <p>Why it matters.<br>What motivates you<br>beyond results.</p>
+              <p>Why this matters and what you want it to achieve.</p>
             </article>
 
             <article class="pb-fixed-card">
               <h2>Principles</h2>
-              <p>Your non-negotiables.<br>The values that guide<br>your choices.</p>
+              <p>Beliefs that guide the position you choose to present.</p>
             </article>
 
             <article class="pb-fixed-card">
               <h2>Choose the boundary</h2>
-              <p>You decide what’s relevant.<br>Not everyone needs access<br>to everything.</p>
+              <p>Personal Brand Content is not about exposing your private life.</p>
+              <p><strong>You choose what to make public.</strong></p>
             </article>
 
             <article class="pb-fixed-card">
               <h2>Visual context gives form to what you choose to present</h2>
-              <p>It gives visual form to what you choose to communicate.</p>
+              <p>Location, people, and activity are not decoration.</p>
+              <p><strong>They are part of the communication itself.</strong></p>
             </article>
           </div>
         </div>
@@ -482,10 +460,6 @@
           <figure class="pb-fixed-photo">
             <img src="assets/images/selected-work/Personal_Brend_Cover_4.png" alt="Personal Brand Content cover image">
           </figure>
-          <div class="pb-fixed-quote">
-            <p>Personal Brand Content is not about exposing your private life.</p>
-            <strong>You choose what to make public.</strong>
-          </div>
         </div>
       </section>
 
