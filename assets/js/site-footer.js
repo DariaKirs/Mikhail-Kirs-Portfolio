@@ -14,6 +14,32 @@
       selectedVideos.style.marginTop = '8px';
       selectedVideos.style.paddingTop = '0';
     }
+
+    if (!document.querySelector('style[data-pb-mobile-polish]')) {
+      const mobilePolish = document.createElement('style');
+      mobilePolish.dataset.pbMobilePolish = 'true';
+      mobilePolish.textContent = `
+        @media (max-width: 760px) {
+          .personal-brand-page .pb-fixed-campaign-label {
+            margin-bottom: 20px !important;
+          }
+
+          .personal-brand-page .pb-fixed-metric:first-child strong {
+            font-size: 0 !important;
+          }
+
+          .personal-brand-page .pb-fixed-metric:first-child strong::after {
+            content: "seven";
+            display: block;
+            font-size: clamp(1.28rem, 5.2vw, 1.7rem);
+            line-height: .95;
+            letter-spacing: -.045em;
+            color: #c9a5e7;
+          }
+        }
+      `;
+      document.head.appendChild(mobilePolish);
+    }
   }
 
   if (!document.querySelector('style[data-mk-footer-styles]')) {
