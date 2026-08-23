@@ -3,404 +3,581 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Long-form visual storytelling projects by Mikhail Kirs, built around research, scripting, historical context and visual storytelling.">
+  <meta name="description" content="Long-Form Visual Storytelling by Mikhail Kirs — personal films built around research, scripting, historical context and visual storytelling.">
   <meta name="theme-color" content="#F4EFE6">
   <title>Long-Form Visual Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260820-long-form-info">
+  <link rel="stylesheet" href="styles.css?v=20260823-long-form-pb-structure">
+  <script src="assets/js/site-footer.js?v=20260823-long-form-pb-structure" defer></script>
   <style>
+    /* Long-Form uses the exact approved Personal Brand / Local Business shell. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 241, 232, 0.9);
+      border-bottom: 1px solid rgba(184, 170, 156, 0.62);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
+    }
+
+    .site-header .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .site-header .brand {
+      display: block;
+      width: 180px;
+      height: 36px;
+      flex: 0 0 auto;
+      background: url("assets/brand/header-brand.svg") no-repeat left center / contain;
+      text-decoration: none;
+    }
+
+    .site-header .brand > span,
+    .site-header .brand-mark { display: none; }
+
+    .site-header .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .site-header .nav-links a {
+      --nav-underline-rgb: 15, 111, 143;
+      position: relative;
+      padding-bottom: 4px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .site-header .nav-links a:nth-child(1) { --nav-underline-rgb: 15, 111, 143; }
+    .site-header .nav-links a:nth-child(2) { --nav-underline-rgb: 198, 169, 223; }
+    .site-header .nav-links a:nth-child(3) { --nav-underline-rgb: 215, 160, 170; }
+
+    .site-header .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -9px;
+      width: 115%;
+      height: 2.5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        rgba(var(--nav-underline-rgb), .18) 0%,
+        rgba(var(--nav-underline-rgb), .62) 12%,
+        rgba(var(--nav-underline-rgb), .98) 30%,
+        rgba(var(--nav-underline-rgb), 1) 72%,
+        rgba(var(--nav-underline-rgb), .72) 86%,
+        rgba(var(--nav-underline-rgb), .08) 100%);
+      box-shadow: 0 0 5px rgba(var(--nav-underline-rgb), .14);
+      opacity: .96;
+      transform: translateX(-50%) skewX(-7deg);
+      transform-origin: center;
+      transition: width .2s ease, opacity .2s ease, filter .2s ease, transform .2s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .site-header .nav-links a:hover::after,
+      .site-header .nav-links a:focus-visible::after {
+        width: 121%;
+        opacity: 1;
+        filter: saturate(1.06) brightness(1.03);
+        transform: translateX(-50%) skewX(-7deg) scaleX(1.015);
+      }
+    }
+
+    .long-form-page .site-header .nav-links a[href$="#work"]::after {
+      width: 118%;
+      opacity: 1;
+      filter: saturate(1.08);
+    }
+
     .long-form-page {
+      --long-form-panel: #D8E9EE;
+      --long-form-ink: #20364A;
+      --long-form-accent: #D87B89;
       background: var(--bg);
       color: var(--text);
     }
 
     .long-form-main {
-      border-top: 1px solid var(--line);
-    }
-
-    .long-form-info {
-      min-height: calc(100svh - 76px);
-      display: flex;
-      align-items: center;
-      padding: clamp(38px, 5vw, 68px) 0;
-    }
-
-    .long-form-info-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 340px;
-      gap: clamp(54px, 7vw, 96px);
-      align-items: center;
-    }
-
-    .long-form-copy {
-      max-width: 760px;
-    }
-
-    .long-form-copy .eyebrow {
-      margin: 0 0 16px;
-      font-size: 1rem;
-      letter-spacing: .13em;
-    }
-
-    .long-form-title {
-      max-width: 720px;
-      margin: 0;
-      color: var(--text);
-      font-size: clamp(3rem, 4.8vw, 4.9rem);
-      font-weight: 850;
-      line-height: .98;
-      letter-spacing: -.052em;
-      text-wrap: balance;
-    }
-
-    .long-form-explainer {
-      max-width: 720px;
-      margin-top: clamp(28px, 3vw, 38px);
-    }
-
-    .long-form-explainer p {
-      margin: 0;
-    }
-
-    .long-form-explainer .long-form-lead {
-      color: var(--text);
-      font-size: clamp(1.19rem, 1.48vw, 1.38rem);
-      font-weight: 700;
-      line-height: 1.48;
-    }
-
-    .long-form-explainer .long-form-detail {
-      margin-top: 18px;
-      color: rgba(32, 54, 74, .78);
-      font-size: clamp(1.1rem, 1.27vw, 1.23rem);
-      font-weight: 450;
-      line-height: 1.58;
-    }
-
-    .long-form-link {
-      margin-top: 26px;
-      color: var(--purple) !important;
-    }
-
-    .long-form-link,
-    .long-form-link span {
-      color: var(--purple) !important;
-    }
-
-    .long-form-visual {
-      position: relative;
-      width: 340px;
-      height: 452px;
-      justify-self: end;
-      isolation: isolate;
-    }
-
-    .long-form-visual::before,
-    .long-form-visual::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 34px 18px 34px 18px;
-      pointer-events: none;
-    }
-
-    .long-form-visual::before {
-      z-index: 0;
-      background: var(--mist-blue);
-      transform: translate(-18px, 17px) rotate(-3.2deg);
-    }
-
-    .long-form-visual::after {
-      z-index: 1;
-      background: #d87b89;
-      transform: translate(18px, -16px) rotate(2.2deg);
-    }
-
-    .long-form-photo {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      height: 100%;
       overflow: hidden;
-      margin: 0;
-      border: 5px solid var(--bg);
-      border-radius: 34px 18px 34px 18px;
-      background: var(--surface);
-      box-shadow: 0 22px 44px rgba(32, 54, 74, .12);
+      padding: 34px 0 58px;
     }
 
-    .long-form-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: 50% 50%;
-    }
-
-    .long-form-case {
-      padding: 0 0 clamp(64px, 7vw, 96px);
-    }
-
-    .long-form-case-shell {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(34px, 4.6vw, 62px);
-      border: 1px solid rgba(32, 54, 74, .08);
-      border-radius: 34px 18px 34px 18px;
-      background: rgba(216, 233, 238, .58);
-      box-shadow: 0 24px 52px rgba(32, 54, 74, .08);
-    }
-
-    .long-form-case-shell::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -90px;
-      top: -110px;
-      border-radius: 54px 22px 54px 22px;
-      background: rgba(216, 123, 137, .24);
-      transform: rotate(11deg);
-      pointer-events: none;
-    }
-
-    .long-form-case-heading {
-      position: relative;
-      z-index: 1;
+    .lf-fixed {
       display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
-      gap: clamp(34px, 5vw, 70px);
-      align-items: end;
-      padding-bottom: clamp(28px, 3vw, 40px);
-      border-bottom: 1px solid rgba(32, 54, 74, .15);
+      gap: 24px;
     }
 
-    .long-form-case-heading .eyebrow {
-      margin: 0 0 12px;
-      color: #d87b89;
-      font-size: .82rem;
+    .lf-fixed-top,
+    .lf-fixed-case-shell {
+      border-radius: var(--radius-md);
+      background: var(--long-form-panel);
+      box-shadow: var(--shadow);
+    }
+
+    .lf-fixed-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 356px;
+      gap: 30px;
+      min-height: 574px;
+      padding: 38px;
+    }
+
+    .lf-fixed-copy { min-width: 0; }
+
+    .lf-fixed-eyebrow,
+    .lf-fixed-case-label {
+      margin: 0 0 11px;
+      color: var(--long-form-accent);
+      font-size: .76rem;
       font-weight: 850;
       letter-spacing: .14em;
       text-transform: uppercase;
     }
 
-    .long-form-case-title {
-      max-width: 690px;
+    .lf-fixed-title {
+      max-width: 710px;
       margin: 0;
-      font-size: clamp(2.45rem, 4vw, 4.15rem);
-      line-height: .98;
+      color: var(--long-form-ink);
+      font-size: clamp(3rem, 4.15vw, 4.15rem);
+      line-height: .97;
+      letter-spacing: -.052em;
+      text-wrap: balance;
+    }
+
+    .lf-title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .lf-fixed-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .lf-fixed-card,
+    .lf-film-card {
+      border: 1px solid rgba(184, 170, 156, .52);
+      border-radius: var(--radius-sm);
+      background: var(--surface-strong);
+    }
+
+    .lf-fixed-card {
+      min-height: 132px;
+      padding: 18px 18px 17px;
+    }
+
+    .lf-fixed-card h2 {
+      margin: 0;
+      font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+      line-height: 1.08;
+      letter-spacing: -.035em;
+    }
+
+    .lf-fixed-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.42;
+    }
+
+    .lf-fixed-card strong { color: var(--text); }
+    .lf-fixed-card:nth-child(1) h2,
+    .lf-fixed-card:nth-child(3) h2 { color: var(--blue); }
+    .lf-fixed-card:nth-child(2) h2,
+    .lf-fixed-card:nth-child(4) h2 { color: var(--long-form-accent); }
+
+    .lf-fixed-photo-wrap {
+      position: relative;
+      min-width: 0;
+      align-self: stretch;
+    }
+
+    .lf-fixed-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 498px;
+      overflow: hidden;
+      margin: 0;
+      border: 4px solid var(--surface-strong);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+    }
+
+    .lf-fixed-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .lf-fixed-case-shell {
+      min-height: 574px;
+      padding: 38px;
+      color: var(--long-form-ink);
+    }
+
+    .lf-fixed-case {
+      display: grid;
+      grid-template-columns: minmax(0, 1.16fr) minmax(340px, .84fr);
+      gap: clamp(34px, 4vw, 54px);
+      min-height: 498px;
+      align-items: center;
+    }
+
+    .lf-fixed-case-copy .lf-fixed-case-label {
+      transform: translateY(-16px);
+      margin-bottom: -2px;
+    }
+
+    .lf-fixed-case-copy h2 {
+      max-width: 610px;
+      margin: 0;
+      color: var(--long-form-ink);
+      font-size: clamp(2.65rem, 4.25vw, 4.35rem);
+      line-height: .96;
       letter-spacing: -.05em;
       text-wrap: balance;
     }
 
-    .long-form-case-intro {
-      margin: 0;
-      color: rgba(32, 54, 74, .78);
-      font-size: clamp(1.04rem, 1.3vw, 1.2rem);
-      line-height: 1.58;
+    .lf-fixed-case-copy p {
+      max-width: 620px;
+      margin: 14px 0 0;
+      color: rgba(32, 54, 74, .82);
+      font-size: 1.06rem;
+      line-height: 1.46;
     }
 
-    .long-form-parts {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0;
+    .lf-fixed-case-copy .lf-fixed-role {
+      color: var(--long-form-ink);
+      font-weight: 800;
     }
 
-    .long-form-part {
+    .lf-language-note {
+      font-size: .88rem !important;
+      font-weight: 700;
+      color: rgba(32, 54, 74, .72) !important;
+    }
+
+    .lf-film-list-wrap {
+      width: min(100%, 540px);
+      max-width: 540px;
       min-width: 0;
-      padding-top: clamp(28px, 3.4vw, 44px);
+      justify-self: end;
+      align-self: center;
+      margin: 0;
+      padding: 0;
     }
 
-    .long-form-part:first-child {
-      padding-right: clamp(24px, 3.4vw, 44px);
+    .lf-film-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
-    .long-form-part + .long-form-part {
-      padding-left: clamp(24px, 3.4vw, 44px);
-      border-left: 1px solid rgba(32, 54, 74, .15);
+    .lf-film-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 84px;
+      grid-template-areas:
+        "title part"
+        "copy part"
+        "link part";
+      column-gap: 12px;
+      min-width: 0;
+      min-height: 154px;
+      padding: 16px 16px 14px;
+      box-shadow: none;
     }
 
-    .long-form-part-number {
-      margin: 0 0 10px;
-      color: #d87b89;
-      font-size: .78rem;
-      font-weight: 850;
-      letter-spacing: .13em;
+    .lf-film-card h3 {
+      grid-area: title;
+      align-self: start;
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.14;
+      letter-spacing: -.025em;
+    }
+
+    .lf-film-card:nth-child(1) h3,
+    .lf-film-card:nth-child(1) .lf-film-part strong { color: var(--blue); }
+    .lf-film-card:nth-child(2) h3,
+    .lf-film-card:nth-child(2) .lf-film-part strong { color: var(--long-form-accent); }
+
+    .lf-film-part {
+      grid-area: part;
+      display: flex;
+      width: 84px;
+      min-width: 84px;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      text-align: right;
+    }
+
+    .lf-film-part strong {
+      display: block;
+      margin: 0;
+      font-size: clamp(1.55rem, 2vw, 2rem);
+      line-height: .95;
+      letter-spacing: -.05em;
+      white-space: nowrap;
+    }
+
+    .lf-film-part span {
+      display: block;
+      margin: 0;
+      color: var(--text);
+      font-size: .68rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-    .long-form-part h3 {
-      margin: 0;
-      font-size: clamp(1.5rem, 2vw, 2rem);
-      line-height: 1.05;
-      letter-spacing: -.035em;
+    .lf-film-card p {
+      grid-area: copy;
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: .82rem;
+      line-height: 1.36;
     }
 
-    .long-form-part p {
-      margin: 15px 0 0;
-      color: rgba(32, 54, 74, .78);
-      font-size: .98rem;
-      line-height: 1.55;
-    }
-
-    .long-form-part a {
-      display: inline-flex;
-      margin-top: 18px;
+    .lf-film-card a {
+      grid-area: link;
+      display: inline-block;
+      justify-self: start;
+      align-self: end;
+      margin: 9px 0 0;
+      padding: 0;
       color: var(--purple);
+      font-size: .8rem;
       font-weight: 800;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
+      line-height: 1.25;
+      text-decoration: none;
     }
 
-    .long-form-language-note {
-      position: relative;
-      z-index: 1;
-      margin: clamp(28px, 3vw, 40px) 0 0;
-      padding-top: 20px;
-      border-top: 1px solid rgba(32, 54, 74, .15);
-      color: rgba(32, 54, 74, .72);
-      font-size: .9rem;
-      font-weight: 700;
-      line-height: 1.45;
+    .lf-film-card a:hover,
+    .lf-film-card a:focus-visible {
+      color: var(--text);
+      text-decoration: none;
     }
 
-    @media (max-width: 900px) {
-      .long-form-info {
-        min-height: auto;
-        padding: 46px 0 54px;
+    @media (min-width: 1051px) {
+      .lf-fixed { gap: 180px; }
+    }
+
+    @media (max-width: 1050px) {
+      .lf-fixed-top {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        min-height: 0;
+        padding: 32px;
       }
 
-      .long-form-info-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
-      }
+      .lf-fixed-title { font-size: clamp(2.7rem, 5.8vw, 3.7rem); }
+      .lf-fixed-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lf-fixed-photo { min-height: 490px; }
+      .lf-fixed-case-shell { min-height: 0; }
 
-      .long-form-copy {
-        max-width: none;
-      }
-
-      .long-form-copy .eyebrow {
-        margin-bottom: 14px;
-        text-align: left;
-      }
-
-      .long-form-title {
-        max-width: 680px;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-      }
-
-      .long-form-visual {
-        grid-row: 2;
-        width: min(72vw, 320px);
-        height: auto;
-        aspect-ratio: 3 / 4;
-        justify-self: center;
-        margin: 34px auto 38px;
-      }
-
-      .long-form-explainer {
-        max-width: 680px;
-        margin: 0 auto;
-      }
-
-      .long-form-link {
-        display: inline-flex;
-        margin-top: 24px;
-      }
-
-      .long-form-case-heading {
+      .lf-fixed-case {
         grid-template-columns: 1fr;
-        gap: 22px;
-        align-items: start;
+        gap: 30px;
+        min-height: 0;
       }
+
+      .lf-film-list-wrap {
+        width: 100%;
+        max-width: 760px;
+        justify-self: start;
+      }
+
+      .lf-title-line { white-space: normal; }
     }
 
     @media (max-width: 700px) {
-      .long-form-parts {
-        grid-template-columns: 1fr;
+      .site-header .nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 18px !important;
       }
 
-      .long-form-part:first-child {
-        padding-right: 0;
+      .site-header .brand {
+        align-self: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
 
-      .long-form-part + .long-form-part {
-        margin-top: 28px;
-        padding-left: 0;
-        padding-top: 28px;
-        border-left: 0;
-        border-top: 1px solid rgba(32, 54, 74, .15);
+      html body .site-header .nav .nav-links {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        width: 100% !important;
+        max-width: none !important;
+        gap: 0 !important;
+        overflow: visible !important;
+        text-align: center !important;
+      }
+
+      html body .site-header .nav .nav-links a {
+        justify-self: center !important;
+        width: max-content !important;
+        min-width: 0 !important;
       }
     }
 
-    @media (max-width: 620px) {
-      .long-form-info {
-        padding: 34px 0 42px;
+    @media (max-width: 760px) {
+      .long-form-main { padding: 22px 0 44px; }
+
+      .long-form-page .container {
+        width: min(calc(100% - 28px), var(--max-width));
       }
 
-      .long-form-copy .eyebrow {
-        font-size: .92rem;
+      .lf-fixed { gap: 18px; }
+
+      .lf-fixed-top,
+      .lf-fixed-case-shell {
+        min-height: 0;
+        padding: 24px 20px;
+        border-radius: var(--radius-md);
       }
 
-      .long-form-title {
-        font-size: 34px;
-        line-height: .99;
-        letter-spacing: -.045em;
+      .lf-fixed-top {
+        display: grid;
+        grid-template-columns: 1fr;
+        row-gap: 0;
       }
 
-      .long-form-visual {
-        width: min(78vw, 300px);
-        margin: 28px auto 34px;
+      .lf-fixed-copy { display: contents; }
+
+      .lf-fixed-eyebrow {
+        order: 1;
+        margin-bottom: 12px;
+        text-align: center;
       }
 
-      .long-form-visual::before {
-        transform: translate(-9px, 10px) rotate(-2.2deg);
+      .lf-fixed-title {
+        order: 2;
+        max-width: 11ch;
+        margin: 0 auto;
+        font-size: 38px;
+        line-height: .98;
+        text-align: center;
+        text-wrap: balance;
       }
 
-      .long-form-visual::after {
-        transform: translate(9px, -8px) rotate(1.6deg);
+      .lf-fixed-photo-wrap {
+        order: 3;
+        width: 100%;
+        max-width: 360px;
+        min-height: 0;
+        margin: 26px auto 0;
       }
 
-      .long-form-explainer .long-form-lead {
-        font-size: 21px;
-        line-height: 1.46;
+      .lf-fixed-photo {
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 3 / 4;
       }
 
-      .long-form-explainer .long-form-detail {
-        margin-top: 16px;
-        font-size: 20px;
-        line-height: 1.5;
-      }
-
-      .long-form-link {
+      .lf-fixed-cards {
+        order: 4;
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 11px;
         margin-top: 22px;
-        font-size: 16px;
       }
 
-      .long-form-case {
-        padding-bottom: 52px;
+      .lf-fixed-card {
+        min-height: 0;
+        padding: 17px;
       }
 
-      .long-form-case-shell {
-        padding: 26px 20px 24px;
-        border-radius: 28px 15px 28px 15px;
+      .lf-fixed-card h2 { font-size: 20px; }
+      .lf-fixed-card p { font-size: 15px; }
+
+      .lf-fixed-case {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        min-height: 0;
       }
 
-      .long-form-case-title {
-        font-size: 34px;
+      .lf-fixed-case-copy .lf-fixed-case-label,
+      .lf-fixed-case-copy h2,
+      .lf-fixed-case-copy .lf-fixed-role,
+      .lf-language-note {
+        text-align: center;
       }
 
-      .long-form-case-intro,
-      .long-form-part p {
-        font-size: 16px;
+      .lf-fixed-case-copy .lf-fixed-case-label {
+        transform: none;
+        margin-bottom: 20px;
+      }
+
+      .lf-fixed-case-copy h2 {
+        max-width: 12ch;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 32px;
+        text-wrap: balance;
+      }
+
+      .lf-fixed-case-copy p { font-size: 15px; }
+
+      .lf-film-list-wrap {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+      }
+
+      .lf-film-list { gap: 11px; }
+
+      .lf-film-card {
+        grid-template-columns: minmax(0, 1fr) 74px;
+        grid-template-areas:
+          "title part"
+          "copy copy"
+          "link link";
+        min-height: 0;
+        padding: 16px 15px 15px;
+        column-gap: 12px;
+      }
+
+      .lf-film-card h3 { font-size: 19px; }
+
+      .lf-film-part {
+        width: 74px;
+        min-width: 74px;
+        justify-content: flex-start;
+      }
+
+      .lf-film-part strong { font-size: 1.38rem; }
+      .lf-film-part span { font-size: .62rem; }
+
+      .lf-film-card p {
+        font-size: 15px;
+        line-height: 1.4;
+      }
+
+      .lf-film-card a {
+        margin-top: 11px;
+        font-size: 14px;
       }
     }
   </style>
 </head>
-<body class="project-page long-form-page">
+<body class="long-form-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -418,60 +595,86 @@
   </header>
 
   <main id="main-content" class="long-form-main">
-    <section class="long-form-info">
-      <div class="container long-form-info-grid">
-        <div class="long-form-copy">
-          <p class="eyebrow">Beyond short-form content</p>
-          <h1 class="long-form-title">Stories built for a longer format.</h1>
+    <div class="container lf-fixed">
+      <section class="lf-fixed-top" aria-labelledby="long-form-title">
+        <div class="lf-fixed-copy">
+          <p class="lf-fixed-eyebrow">Beyond short-form content</p>
+          <h1 id="long-form-title" class="lf-fixed-title">
+            <span class="lf-title-line">Stories built for</span>
+            <span class="lf-title-line">a longer format.</span>
+          </h1>
 
-          <div class="long-form-explainer">
-            <p class="long-form-lead">Alongside short-form content, I create long-form films built around research, scripting, historical context and visual storytelling.</p>
-            <p class="long-form-detail">These personal projects, created during my own trips, give me the space to develop larger scripts, explore long-form storytelling, and carry an idea from research through filming and final edit.</p>
+          <div class="lf-fixed-cards">
+            <article class="lf-fixed-card">
+              <h2>RESEARCH + CONTEXT</h2>
+              <p>Long-form films built around <strong>research and historical context.</strong></p>
+            </article>
+
+            <article class="lf-fixed-card">
+              <h2>SCRIPTING</h2>
+              <p>The space to <strong>develop larger scripts</strong> and explore long-form storytelling.</p>
+            </article>
+
+            <article class="lf-fixed-card">
+              <h2>PERSONAL PROJECTS</h2>
+              <p>These films are <strong>created during my own trips</strong>, with places and everyday experiences becoming part of the story.</p>
+            </article>
+
+            <article class="lf-fixed-card">
+              <h2>FULL PROCESS</h2>
+              <p>Carrying an idea <strong>from research through filming and final edit.</strong></p>
+            </article>
           </div>
-
-          <a class="text-link long-form-link" href="#london-winter-2024">See Selected Work <span aria-hidden="true">→</span></a>
         </div>
 
-        <div class="long-form-visual" aria-label="Long-Form Visual Storytelling cover">
-          <figure class="long-form-photo">
+        <div class="lf-fixed-photo-wrap">
+          <figure class="lf-fixed-photo">
             <img src="assets/images/London_Bridge.jpeg" alt="Tower Bridge viewed through a modern London streetscape">
           </figure>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="long-form-case" id="london-winter-2024" aria-labelledby="london-winter-title">
-      <div class="container">
-        <div class="long-form-case-shell">
-          <div class="long-form-case-heading">
-            <div>
-              <p class="eyebrow">London · Winter 2024 · Two-Part Film</p>
-              <h2 class="long-form-case-title" id="london-winter-title">A city told through a personal journey.</h2>
+      <section class="lf-fixed-case-shell" aria-labelledby="london-winter-title">
+        <div class="lf-fixed-case">
+          <div class="lf-fixed-case-copy">
+            <p class="lf-fixed-case-label">London · Winter 2024 · Two-Part Film</p>
+            <h2 id="london-winter-title">A city told through a personal journey.</h2>
+            <p>Filmed during a winter trip to London, this two-part personal project uses the journey itself as a structure for exploring the city — its neighbourhoods, architecture, history, transport, street culture and everyday life.</p>
+            <p>Moving from residential neighbourhoods to some of London’s most recognizable districts, the films combine on-location storytelling, historical context and everyday urban experiences to build a broader portrait of the city rather than simply document a trip.</p>
+            <p class="lf-fixed-role">Research. Scripting. Filming. Editing.</p>
+            <p class="lf-language-note">Both parts are in Russian. Please enable English subtitles in the YouTube player.</p>
+          </div>
+
+          <div class="lf-film-list-wrap" aria-label="London Winter 2024 two-part film">
+            <div class="lf-film-list">
+              <article class="lf-film-card">
+                <h3>Neighbourhoods, architecture and the route into London</h3>
+                <div class="lf-film-part" aria-label="Part I">
+                  <strong>I</strong><span>Part</span>
+                </div>
+                <p>From Gants Hill and Islington to Shoreditch, London Bridge and St Paul’s, the first part follows the route into and through the city, combining neighbourhoods, architecture, transport, public art and historical context.</p>
+                <a href="https://www.youtube.com/watch?v=wjJA8s8bs5c" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+              </article>
+
+              <article class="lf-film-card">
+                <h3>Landmarks, street life and a more personal London</h3>
+                <div class="lf-film-part" aria-label="Part II">
+                  <strong>II</strong><span>Part</span>
+                </div>
+                <p>Westminster, Trafalgar Square, Soho, Hyde Park, Buckingham Palace and the City — a more lifestyle-driven second part mixing landmarks and historical facts with theatre, street musicians, food, shops and everyday London experiences.</p>
+                <a href="https://www.youtube.com/watch?v=tYkVnmWu07c" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+              </article>
             </div>
-            <p class="long-form-case-intro">Filmed during a winter trip to London, this two-part personal project uses the journey itself as a structure for exploring the city — its neighbourhoods, architecture, history, transport, street culture and everyday life.</p>
           </div>
-
-          <div class="long-form-parts">
-            <article class="long-form-part">
-              <p class="long-form-part-number">Part I</p>
-              <h3>Neighbourhoods, architecture and the route into London</h3>
-              <p>From Gants Hill and Islington to Shoreditch, London Bridge and St Paul’s, the first part follows the route into and through the city, combining neighbourhood observations, public transport, architecture, landmarks and the <em>A Wild Life for Wildlife</em> exhibition.</p>
-              <a href="https://www.youtube.com/watch?v=wjJA8s8bs5c" target="_blank" rel="noopener noreferrer">Watch Part I on YouTube ↗</a>
-            </article>
-
-            <article class="long-form-part">
-              <p class="long-form-part-number">Part II</p>
-              <h3>Landmarks, street life and the atmosphere of the city</h3>
-              <p>The second part moves through Westminster, Trafalgar Square, Soho, Hyde Park, Buckingham Palace and the City, mixing historical context with theatre, street musicians, food, shops, humour and everyday moments from the trip.</p>
-              <a href="https://www.youtube.com/watch?v=tYkVnmWu07c" target="_blank" rel="noopener noreferrer">Watch Part II on YouTube ↗</a>
-            </article>
-          </div>
-
-          <p class="long-form-language-note">Both parts are in Russian. Please enable English subtitles in the YouTube player.</p>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
-  <script src="assets/js/site-footer.js?v=20260820-footer-preview"></script>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>© 2026 Mikhail Kirs&emsp;Website by <a href="https://archkirs.site/en" target="_blank" rel="noopener noreferrer">ARCHKIRS</a></span>
+    </div>
+  </footer>
 </body>
 </html>
