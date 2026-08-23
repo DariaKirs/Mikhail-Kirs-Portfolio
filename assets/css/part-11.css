@@ -85,8 +85,7 @@
 
 /* Local Business / Forest City Spotlight — preview refinement, Aug 23 2026.
    Keep the approved two-column idea, but tighten the business cards and give
-   the campaign eyebrow the same coral treatment and editorial spacing as the
-   first Local Business panel. */
+   the campaign eyebrow the same coral treatment and a tighter editorial rhythm. */
 html body.personal-brand-page.local-business-page {
   --local-business-deep: #5D696B !important;
 }
@@ -97,8 +96,12 @@ html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fi
 
 @media (min-width: 1051px) {
   html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
-    transform: translateY(-30px) !important;
-    margin-bottom: 30px !important;
+    transform: none !important;
+    margin-bottom: 12px !important;
+  }
+
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy p {
+    margin-top: 14px !important;
   }
 
   html body.personal-brand-page.local-business-page .pb-fixed-campaign {
