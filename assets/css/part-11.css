@@ -158,3 +158,19 @@ html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fi
     font-size: clamp(1.55rem, 2vw, 2rem) !important;
   }
 }
+
+/* Long-Form preview color correction: deep navy eyebrow, card headings keep
+   the approved alternating blue / terracotta palette. */
+html body.long-form-page .lf-fixed-eyebrow {
+  color: var(--long-form-ink) !important;
+}
+
+html body.long-form-page .lf-fixed-card:nth-child(1) h2,
+html body.long-form-page .lf-fixed-card:nth-child(3) h2 {
+  color: var(--blue) !important;
+}
+
+html body.long-form-page .lf-fixed-card:nth-child(2) h2,
+html body.long-form-page .lf-fixed-card:nth-child(4) h2 {
+  color: var(--long-form-accent) !important;
+}
