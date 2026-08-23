@@ -81,156 +81,80 @@
   section#about .education-card {
     margin-top: clamp(36px, 3vw, 48px) !important;
   }
-
-  /* Desktop navigation anchors: About and Contact can sit almost flush beneath
-     the sticky header, while Selected Work needs a little more breathing room
-     so its eyebrow is never hidden by the header. */
-  #about,
-  #contact {
-    scroll-margin-top: 8px !important;
-  }
-
-  #work {
-    scroll-margin-top: 32px !important;
-  }
 }
 
-/* Mobile shell lock. Footer only. */
-@media (max-width: 700px) {
-  .mk-site-footer {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+/* Local Business / Forest City Spotlight — preview refinement, Aug 23 2026.
+   Keep the approved two-column idea, but tighten the business cards and give
+   the campaign eyebrow the same coral treatment and a tighter editorial rhythm. */
+html body.personal-brand-page.local-business-page {
+  --local-business-deep: #5D696B !important;
+}
+
+html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
+  color: var(--coral) !important;
+}
+
+@media (min-width: 1051px) {
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
+    transform: translateY(-16px) !important;
+    margin-bottom: -2px !important;
   }
 
-  .mk-site-footer .mk-footer-inner {
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    padding-bottom: 0 !important;
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy h2 {
+    font-size: clamp(2.65rem, 4.25vw, 4.35rem) !important;
+    line-height: .96 !important;
   }
 
-  .mk-site-footer .mk-footer-main {
-    width: 100% !important;
-    align-items: center !important;
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy p {
+    margin-top: 14px !important;
+    font-size: 1.06rem !important;
+    line-height: 1.46 !important;
   }
 
-  .mk-site-footer .mk-footer-identity {
-    width: 100% !important;
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign {
+    grid-template-columns: minmax(0, 1.16fr) minmax(340px, .84fr) !important;
+    gap: clamp(34px, 4vw, 54px) !important;
   }
 
-  .mk-site-footer .mk-footer-brand {
-    align-self: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  html body.personal-brand-page.local-business-page .lb-business-list-wrap {
+    width: min(100%, 540px) !important;
+    max-width: 540px !important;
+    justify-self: end !important;
   }
 
-  .mk-site-footer .mk-footer-nav,
-  .mk-site-footer .mk-footer-social {
-    width: 100% !important;
-    justify-content: center !important;
-    text-align: center !important;
-  }
-
-  .mk-site-footer .mk-footer-bottom {
-    position: relative !important;
-    display: flex !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow: visible !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
+  html body.personal-brand-page.local-business-page .lb-business-list-wrap .pb-fixed-videos {
     gap: 10px !important;
-    padding-top: 20px !important;
-    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
-    text-align: center !important;
-    visibility: visible !important;
-    opacity: 1 !important;
   }
 
-  .mk-site-footer .mk-footer-bottom > span {
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-    visibility: visible !important;
-  }
-}
-
-/* Mobile header: center the brand on row one. Navigation gets its own full-width
-   row and each label is centered in one of three equal columns. */
-@media (max-width: 700px) {
-  .site-header .nav {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    gap: 18px !important;
+  html body.personal-brand-page.local-business-page .lb-business-card {
+    grid-template-columns: minmax(0, 1fr) 84px !important;
+    grid-template-areas:
+      "title views"
+      "copy views"
+      "link views" !important;
+    column-gap: 12px !important;
+    min-height: 126px !important;
+    padding: 14px 16px 13px !important;
   }
 
-  .site-header .brand {
-    align-self: center !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  html body.personal-brand-page.local-business-page .lb-business-card p {
+    margin-top: 7px !important;
+    font-size: .82rem !important;
+    line-height: 1.36 !important;
   }
 
-  html body .site-header .nav .nav-links {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    width: 100% !important;
-    max-width: none !important;
-    gap: 0 !important;
-    overflow: visible !important;
-    text-align: center !important;
+  html body.personal-brand-page.local-business-page .lb-business-card a {
+    margin-top: 9px !important;
   }
 
-  html body .site-header .nav .nav-links a {
-    justify-self: center !important;
-    width: max-content !important;
-    min-width: 0 !important;
-  }
-}
-
-/* Mobile homepage Hero: center only the main headline; preserve all approved
-   desktop geometry and the rest of the mobile Hero composition. */
-@media (max-width: 700px) {
-  html body .hero .hero-copy-block h1 {
-    width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-  }
-}
-
-/* Mobile Hero sound control preview: reduce the complete control by ~20%
-   without changing its position or any desktop styling. */
-@media (max-width: 700px) {
-  html body .hero .ambient-sound-toggle {
-    min-height: 29px !important;
-    padding: 6px 8px !important;
-    gap: 6px !important;
-    font-size: 0.58rem !important;
+  html body.personal-brand-page.local-business-page .lb-business-views {
+    width: 84px !important;
+    min-width: 84px !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
   }
 
-  html body .hero .ambient-sound-icon {
-    width: 14px !important;
-    height: 14px !important;
-    flex: 0 0 14px !important;
-  }
-}
-
-/* Mobile header preview: match desktop frosted-glass behavior and stay fixed
-   to the top while scrolling. The mobile layout itself remains unchanged. */
-@media (max-width: 700px) {
-  html body .site-header {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 50 !important;
-    background: rgba(247, 241, 232, 0.9) !important;
-    border-bottom: 1px solid rgba(184, 170, 156, 0.62) !important;
-    -webkit-backdrop-filter: blur(18px) !important;
-    backdrop-filter: blur(18px) !important;
+  html body.personal-brand-page.local-business-page .lb-business-views strong {
+    font-size: clamp(1.55rem, 2vw, 2rem) !important;
   }
 }

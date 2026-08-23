@@ -7,241 +7,624 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260816-personal-brand-mobile-rhythm">
-  <link rel="stylesheet" href="assets/css/selected-work-detail-template.css?v=20260819-architecture-preview">
+  <link rel="stylesheet" href="styles.css?v=20260823-local-business-geometry2">
+  <script src="assets/js/site-footer.js?v=20260823-local-business-geometry2" defer></script>
   <style>
-    /* Local Business Storytelling — Urban / Editorial project palette. */
-    .local-business-page .selected-detail-visual::before {
-      background: var(--mist-blue);
+    /* Approved site header lockup and navigation — identical to Personal Brand. */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(247, 241, 232, 0.9);
+      border-bottom: 1px solid rgba(184, 170, 156, 0.62);
+      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(18px);
     }
 
-    .local-business-page .selected-detail-visual::after {
-      background: var(--soft-lilac);
+    .site-header .nav {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
     }
 
-    /* Desktop headline lock: exactly three deliberate lines. */
-    .local-business-page .hero-line {
+    .site-header .brand {
       display: block;
+      width: 180px;
+      height: 36px;
+      flex: 0 0 auto;
+      background: url("assets/brand/header-brand.svg") no-repeat left center / contain;
+      text-decoration: none;
     }
 
-    @media (min-width: 701px) {
-      .local-business-page .selected-detail-intro {
-        max-width: none;
-      }
+    .site-header .brand > span,
+    .site-header .brand-mark { display: none; }
 
-      .local-business-page .selected-detail-question {
-        max-width: none;
-        font-size: clamp(3.024rem, 5.5296vw, 5.4432rem);
-        line-height: .98;
-        letter-spacing: -.052em;
-        text-wrap: nowrap;
-      }
-
-      .local-business-page .hero-line {
-        white-space: nowrap;
-      }
+    .site-header .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
     }
 
-    /* Local Business uses the Personal Brand card language in a wider,
-       lower format: two cards per editorial section. */
-    .local-pair-section {
-      border-top: 1px solid var(--line);
-      padding: 68px 0 110px;
-    }
-
-    .local-pair-section + .local-pair-section {
-      padding-top: 96px;
-      padding-bottom: 62px;
-    }
-
-    .local-pair-stack {
-      display: grid;
-      gap: 56px;
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-
-    .local-wide-card {
-      --concept-accent: var(--text);
-      --underlay-accent: var(--concept-accent);
+    .site-header .nav-links a {
+      --nav-underline-rgb: 15, 111, 143;
       position: relative;
-      isolation: isolate;
-      display: grid;
-      grid-template-columns: minmax(190px, 250px) minmax(0, 1fr);
-      column-gap: clamp(38px, 5vw, 72px);
-      align-items: start;
-      width: 100%;
-      min-height: 205px;
-      padding: 36px 48px 34px;
-      border: 0;
-      border-radius: 34px 17px 34px 17px;
-      background: transparent;
-      box-shadow: none;
+      padding-bottom: 4px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 700;
+      text-decoration: none;
     }
 
-    .local-wide-card::before,
-    .local-wide-card::after {
+    .site-header .nav-links a:nth-child(1) { --nav-underline-rgb: 15, 111, 143; }
+    .site-header .nav-links a:nth-child(2) { --nav-underline-rgb: 198, 169, 223; }
+    .site-header .nav-links a:nth-child(3) { --nav-underline-rgb: 215, 160, 170; }
+
+    .site-header .nav-links a::after {
       content: "";
       position: absolute;
-      inset: 0;
-      border-radius: inherit;
+      left: 50%;
+      bottom: -9px;
+      width: 115%;
+      height: 2.5px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        rgba(var(--nav-underline-rgb), .18) 0%,
+        rgba(var(--nav-underline-rgb), .62) 12%,
+        rgba(var(--nav-underline-rgb), .98) 30%,
+        rgba(var(--nav-underline-rgb), 1) 72%,
+        rgba(var(--nav-underline-rgb), .72) 86%,
+        rgba(var(--nav-underline-rgb), .08) 100%);
+      box-shadow: 0 0 5px rgba(var(--nav-underline-rgb), .14);
+      opacity: .96;
+      transform: translateX(-50%) skewX(-7deg);
+      transform-origin: center;
+      transition: width .2s ease, opacity .2s ease, filter .2s ease, transform .2s ease;
     }
 
-    .local-wide-card::before {
-      z-index: 0;
-      background: var(--underlay-accent);
-      transform: translate(-14px, -11px) rotate(-1.4deg);
+    @media (hover: hover) and (pointer: fine) {
+      .site-header .nav-links a:hover::after,
+      .site-header .nav-links a:focus-visible::after {
+        width: 121%;
+        opacity: 1;
+        filter: saturate(1.06) brightness(1.03);
+        transform: translateX(-50%) skewX(-7deg) scaleX(1.015);
+      }
     }
 
-    .local-wide-card::after {
-      z-index: 1;
-      border: 1px solid rgba(184, 170, 156, .48);
+    .local-business-page .site-header .nav-links a[href$="#work"]::after {
+      width: 118%;
+      opacity: 1;
+      filter: saturate(1.08);
+    }
+
+    .local-business-page {
+      --local-business-deep: #2F4236;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .personal-brand-main {
+      overflow: hidden;
+      padding: 34px 0 58px;
+    }
+
+    .pb-fixed {
+      display: grid;
+      gap: 24px;
+    }
+
+    .pb-fixed-top,
+    .pb-fixed-campaign-shell {
+      border-radius: var(--radius-md);
+      background: var(--local-business-deep);
+      box-shadow: var(--shadow);
+    }
+
+    .pb-fixed-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 356px;
+      gap: 30px;
+      min-height: 574px;
+      padding: 38px;
+    }
+
+    .pb-fixed-copy { min-width: 0; }
+
+    .pb-fixed-eyebrow,
+    .pb-fixed-campaign-label {
+      margin: 0 0 11px;
+      color: var(--coral);
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .pb-fixed-title {
+      max-width: 710px;
+      margin: 0;
+      color: var(--surface);
+      font-size: clamp(3rem, 4.15vw, 4.15rem);
+      line-height: .97;
+      letter-spacing: -.052em;
+      text-wrap: balance;
+    }
+
+    .lb-title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .pb-fixed-cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 13px;
+      margin-top: 30px;
+    }
+
+    .pb-fixed-card,
+    .pb-fixed-video {
+      border: 1px solid rgba(216, 206, 194, .72);
+      border-radius: var(--radius-sm);
       background: var(--surface-strong);
-      box-shadow: 0 18px 38px rgba(32, 54, 74, .09);
     }
 
-    .local-wide-card:nth-child(even) {
-      width: 96%;
-      justify-self: end;
+    .pb-fixed-card {
+      min-height: 132px;
+      padding: 18px 18px 17px;
     }
 
-    .local-wide-card:nth-child(even)::before {
-      transform: translate(14px, 11px) rotate(1.4deg);
-    }
-
-    .local-wide-card h3,
-    .local-wide-card .local-card-copy {
-      position: relative;
-      z-index: 2;
-    }
-
-    .local-wide-card h3 {
+    .pb-fixed-card h2 {
       margin: 0;
-      color: var(--concept-accent);
-      font-size: clamp(2.2rem, 3.15vw, 2.9rem);
-      line-height: 1.01;
-      letter-spacing: -.045em;
+      font-size: clamp(1.05rem, 1.35vw, 1.28rem);
+      line-height: 1.08;
+      letter-spacing: -.035em;
     }
 
-    .local-card-copy {
-      max-width: 720px;
-      color: var(--concept-accent);
-    }
-
-    .local-card-copy p {
-      margin: 0;
-      font-size: clamp(1rem, 1.28vw, 1.16rem);
-      font-weight: 500;
+    .pb-fixed-card p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .86rem;
       line-height: 1.42;
     }
 
-    .local-card-copy .concept-lead {
-      display: block;
-      margin-bottom: 10px;
-      font-size: clamp(1.15rem, 1.55vw, 1.38rem);
+    .pb-fixed-card p + p { margin-top: 8px; }
+    .pb-fixed-card strong { color: var(--text); }
+
+    .pb-fixed-card:nth-child(1) h2 { color: var(--purple); }
+    .pb-fixed-card:nth-child(2) h2 { color: var(--coral); }
+    .pb-fixed-card:nth-child(3) h2 { color: var(--green); }
+    .pb-fixed-card:nth-child(4) h2 { color: var(--blue); }
+
+    .pb-fixed-photo-wrap {
+      position: relative;
+      min-width: 0;
+      align-self: stretch;
+    }
+
+    .pb-fixed-photo {
+      width: 100%;
+      height: 100%;
+      min-height: 498px;
+      overflow: hidden;
+      margin: 0;
+      border: 4px solid var(--surface-strong);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+    }
+
+    .pb-fixed-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Forest City Spotlight — same large-screen geometry as the approved first panel. */
+    .pb-fixed-campaign-shell {
+      min-height: 574px;
+      padding: 38px;
+      color: var(--surface);
+    }
+
+    .pb-fixed-campaign {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(390px, .92fr);
+      gap: clamp(36px, 4.6vw, 66px);
+      min-height: 498px;
+      align-items: center;
+    }
+
+    .pb-fixed-campaign-copy h2 {
+      max-width: 610px;
+      margin: 0;
+      color: var(--surface);
+      font-size: clamp(2.35rem, 3.7vw, 3.75rem);
+      line-height: .98;
+      letter-spacing: -.05em;
+      text-wrap: balance;
+    }
+
+    .pb-fixed-campaign-copy p {
+      max-width: 620px;
+      margin: 17px 0 0;
+      color: rgba(255, 253, 249, .82);
+      font-size: .96rem;
+      line-height: 1.52;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-role {
+      color: var(--surface);
       font-weight: 800;
-      line-height: 1.28;
-      letter-spacing: -.018em;
     }
 
-    .local-card {
-      --concept-accent: var(--text);
-      --underlay-accent: var(--mist-blue);
-    }
-    .people-card { --concept-accent: var(--muted-green); }
-    .experience-card { --concept-accent: var(--dusty-rose); }
-    .story-card { --concept-accent: var(--button-blue); }
-
-    .local-business-page .selected-detail-next {
-      max-width: 1120px;
-      margin: 44px auto 0;
-      padding-top: 22px;
+    .lb-business-list-wrap {
+      min-width: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      align-self: center;
+      border: 0;
     }
 
-    .local-business-page .selected-detail-next .text-link {
-      color: var(--accent-purple);
+    .lb-business-list-wrap .pb-fixed-videos {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .lb-business-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 108px;
+      grid-template-areas:
+        "title views"
+        "copy views"
+        "link views";
+      column-gap: 22px;
+      row-gap: 0;
+      min-width: 0;
+      min-height: 142px;
+      padding: 18px 20px 17px;
+      border: 1px solid rgba(216, 206, 194, .72);
+      border-radius: var(--radius-sm);
+      background: var(--surface-strong);
+      box-shadow: none;
+    }
+
+    .lb-business-card h3 {
+      grid-area: title;
+      align-self: start;
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.14;
+      letter-spacing: -.025em;
+    }
+
+    .lb-business-card:nth-child(1) h3,
+    .lb-business-card:nth-child(1) .lb-business-views strong { color: var(--purple); }
+    .lb-business-card:nth-child(2) h3,
+    .lb-business-card:nth-child(2) .lb-business-views strong { color: var(--coral); }
+    .lb-business-card:nth-child(3) h3,
+    .lb-business-card:nth-child(3) .lb-business-views strong { color: var(--green); }
+
+    .lb-business-views {
+      grid-area: views;
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 5px;
+      text-align: right;
+      border: 0;
+    }
+
+    .lb-business-views strong {
+      display: block;
+      margin: 0;
+      font-size: clamp(1.7rem, 2.25vw, 2.2rem);
+      line-height: .95;
+      letter-spacing: -.05em;
+      white-space: nowrap;
+    }
+
+    .lb-business-views span {
+      display: block;
+      margin: 0;
+      color: var(--text);
+      font-size: .68rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .lb-business-card p {
+      grid-area: copy;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .lb-business-card a {
+      grid-area: link;
+      display: inline-block;
+      justify-self: start;
+      align-self: end;
+      margin: 11px 0 0;
+      padding: 0;
+      color: var(--purple);
+      font-size: .8rem;
+      font-weight: 800;
+      line-height: 1.25;
+      text-decoration: none;
+    }
+
+    .lb-business-card a:hover,
+    .lb-business-card a:focus-visible {
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Final Local Business lock: wins over legacy runtime Personal Brand card rules. */
+    html body.local-business-page .pb-fixed-campaign {
+      grid-template-columns: minmax(0, 1.08fr) minmax(390px, .92fr) !important;
+      gap: clamp(36px, 4.6vw, 66px) !important;
+      min-height: 498px !important;
+      align-items: center !important;
+    }
+
+    html body.local-business-page .lb-business-list-wrap {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      align-self: center !important;
+      border: 0 !important;
+    }
+
+    html body.local-business-page .lb-business-list-wrap .pb-fixed-videos {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+
+    html body.local-business-page .lb-business-card {
+      grid-template-columns: minmax(0, 1fr) 108px !important;
+      grid-template-areas:
+        "title views"
+        "copy views"
+        "link views" !important;
+      column-gap: 22px !important;
+      row-gap: 0 !important;
+      min-height: 142px !important;
+      padding: 18px 20px 17px !important;
+      border: 1px solid rgba(216, 206, 194, .72) !important;
+      border-radius: var(--radius-sm) !important;
+      background: var(--surface-strong) !important;
+      box-shadow: none !important;
+    }
+
+    html body.local-business-page .lb-business-views {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: center !important;
+      gap: 5px !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      text-align: right !important;
+    }
+
+    html body.local-business-page .lb-business-card a,
+    html body.local-business-page .lb-business-card a:hover,
+    html body.local-business-page .lb-business-card a:focus-visible {
+      text-decoration: none !important;
+      text-decoration-line: none !important;
+    }
+
+    @media (min-width: 1051px) {
+      .local-business-page .pb-fixed { gap: 180px !important; }
     }
 
     @media (max-width: 1050px) {
-      .local-pair-section {
-        padding: 56px 0 82px;
+      .pb-fixed-top {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        min-height: 0;
+        padding: 32px;
       }
 
-      .local-pair-section + .local-pair-section {
-        padding-top: 72px;
-        padding-bottom: 52px;
+      .pb-fixed-title { font-size: clamp(2.7rem, 5.8vw, 3.7rem); }
+      .pb-fixed-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pb-fixed-photo { min-height: 490px; }
+      .pb-fixed-campaign-shell { min-height: 0; }
+
+      html body.local-business-page .pb-fixed-campaign {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        min-height: 0 !important;
       }
 
-      .local-pair-stack {
-        gap: 44px;
+      html body.local-business-page .lb-business-list-wrap {
+        width: 100% !important;
+        max-width: 760px !important;
       }
 
-      .local-wide-card {
-        grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
-        min-height: 195px;
-        padding: 34px 38px 32px;
-      }
+      .lb-title-line { white-space: normal; }
     }
 
     @media (max-width: 700px) {
-      .local-pair-section {
-        padding: 30px 0 36px;
+      .site-header .nav {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        justify-content: flex-start !important;
+        gap: 18px !important;
       }
 
-      .local-pair-section + .local-pair-section {
-        padding: 38px 0 28px;
+      .site-header .brand {
+        align-self: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
 
-      .local-pair-stack {
-        gap: 24px;
+      html body .site-header .nav .nav-links {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        width: 100% !important;
+        max-width: none !important;
+        gap: 0 !important;
+        overflow: visible !important;
+        text-align: center !important;
       }
 
-      .local-wide-card,
-      .local-wide-card:nth-child(even) {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        width: 100%;
+      html body .site-header .nav .nav-links a {
+        justify-self: center !important;
+        width: max-content !important;
+        min-width: 0 !important;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .personal-brand-main { padding: 22px 0 44px; }
+
+      .local-business-page .container {
+        width: min(calc(100% - 28px), var(--max-width));
+      }
+
+      .pb-fixed { gap: 18px; }
+
+      .pb-fixed-top,
+      .pb-fixed-campaign-shell {
         min-height: 0;
-        padding: 22px 20px 21px;
-        border-radius: 22px 12px 22px 12px;
+        padding: 24px 20px;
+        border-radius: var(--radius-md);
       }
 
-      .local-wide-card::before {
-        transform: translate(-5px, -4px) rotate(-.9deg);
+      .local-business-page .pb-fixed-top {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        row-gap: 0 !important;
       }
 
-      .local-wide-card:nth-child(even)::before {
-        transform: translate(5px, 4px) rotate(.9deg);
+      .local-business-page .pb-fixed-copy { display: contents !important; }
+
+      .local-business-page .pb-fixed-eyebrow {
+        order: 1;
+        margin-bottom: 12px !important;
+        text-align: center !important;
       }
 
-      .local-wide-card h3 {
-        font-size: 25px;
-        line-height: 1.03;
+      .local-business-page .pb-fixed-title {
+        order: 2;
+        max-width: 11ch !important;
+        margin: 0 auto !important;
+        font-size: 38px;
+        line-height: .98;
+        text-align: center !important;
+        text-wrap: balance;
       }
 
-      .local-card-copy p {
-        font-size: 16px;
-        line-height: 1.4;
+      .local-business-page .pb-fixed-photo-wrap {
+        order: 3;
+        width: 100% !important;
+        max-width: 360px !important;
+        min-height: 0 !important;
+        margin: 26px auto 0 !important;
       }
 
-      .local-card-copy .concept-lead {
-        margin-bottom: 8px;
-        font-size: 18px;
-        line-height: 1.3;
+      .local-business-page .pb-fixed-photo {
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: 3 / 4;
       }
 
-      .local-business-page .selected-detail-next {
-        margin-top: 28px;
-        padding-top: 16px;
+      .local-business-page .pb-fixed-cards {
+        order: 4;
+        grid-template-columns: 1fr;
+        width: 100% !important;
+        gap: 11px;
+        margin-top: 22px !important;
       }
 
-      .local-business-page .selected-detail-next .text-link {
-        font-size: 16px;
+      .pb-fixed-card {
+        min-height: 0;
+        padding: 17px;
+      }
+
+      .pb-fixed-card h2 { font-size: 20px; }
+      .pb-fixed-card p { font-size: 15px; }
+
+      html body.local-business-page .pb-fixed-campaign {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+        min-height: 0 !important;
+      }
+
+      .local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label,
+      .local-business-page .pb-fixed-campaign-copy h2,
+      .local-business-page .pb-fixed-campaign-copy .pb-fixed-role {
+        text-align: center !important;
+      }
+
+      .local-business-page .pb-fixed-campaign-copy h2 {
+        max-width: 12ch !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: 32px;
+        text-wrap: balance;
+      }
+
+      .pb-fixed-campaign-copy p { font-size: 15px; }
+
+      html body.local-business-page .lb-business-list-wrap {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+      }
+
+      html body.local-business-page .lb-business-list-wrap .pb-fixed-videos {
+        gap: 11px !important;
+      }
+
+      html body.local-business-page .lb-business-card {
+        grid-template-columns: minmax(0, 1fr) 74px !important;
+        grid-template-areas:
+          "title views"
+          "copy copy"
+          "link link" !important;
+        min-height: 0 !important;
+        padding: 16px 15px 15px !important;
+        column-gap: 12px !important;
+      }
+
+      .local-business-page .lb-business-card h3 { font-size: 19px !important; }
+
+      html body.local-business-page .lb-business-views {
+        justify-content: flex-start !important;
+      }
+
+      .local-business-page .lb-business-views strong { font-size: 1.38rem !important; }
+      .local-business-page .lb-business-views span { font-size: .62rem !important; }
+
+      .local-business-page .lb-business-card p {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
+      }
+
+      .local-business-page .lb-business-card a {
+        margin-top: 11px !important;
+        font-size: 14px !important;
       }
     }
   </style>
 </head>
-<body class="selected-detail-page local-business-page">
+<body class="personal-brand-page local-business-page">
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <header class="site-header">
@@ -258,66 +641,100 @@
     </div>
   </header>
 
-  <main id="main-content" class="selected-detail-main">
-    <section class="selected-detail-hero">
-      <div class="container selected-detail-hero-grid">
-        <div class="selected-detail-intro">
-          <p class="eyebrow">Local Business Storytelling</p>
-          <h1 class="selected-detail-question"><span class="hero-line">Local businesses</span><span class="hero-line">presented as stories,</span><span class="hero-line">not just listings!</span></h1>
+  <main id="main-content" class="personal-brand-main">
+    <div class="container pb-fixed">
+      <section class="pb-fixed-top" aria-labelledby="local-business-title">
+        <div class="pb-fixed-copy">
+          <p class="pb-fixed-eyebrow">Local Business Storytelling</p>
+          <h1 id="local-business-title" class="pb-fixed-title">
+            <span class="lb-title-line">Local businesses</span>
+            <span class="lb-title-line">presented as stories,</span>
+            <span class="lb-title-line">not just listings!</span>
+          </h1>
+
+          <div class="pb-fixed-cards">
+            <article class="pb-fixed-card">
+              <h2>LOCAL</h2>
+              <p><strong>Local is more than a pin on the map.</strong></p>
+              <p>The environment, local history, and character of a place become part of a business’s identity — and part of how people recognize and remember it.</p>
+            </article>
+
+            <article class="pb-fixed-card">
+              <h2>PEOPLE</h2>
+              <p><strong>A local business grows through people, relationships, and trust.</strong></p>
+              <p>Familiarity, shared experience, and a sense of belonging help strengthen both the business and the community around it.</p>
+            </article>
+
+            <article class="pb-fixed-card">
+              <h2>EXPERIENCE</h2>
+              <p><strong>What people feel and remember goes beyond what they bought.</strong></p>
+              <p>Atmosphere, interaction, and the experience of being there can become just as important as the product or service itself.</p>
+            </article>
+
+            <article class="pb-fixed-card">
+              <h2>STORY</h2>
+              <p><strong>A story gives all of this a form people can remember and share.</strong></p>
+              <p>It brings together the place, the people, and the experience into something distinctive, recognizable, and worth passing on.</p>
+            </article>
+          </div>
         </div>
 
-        <div class="selected-detail-visual" aria-label="Local Business Storytelling cover">
-          <figure class="selected-detail-photo">
+        <div class="pb-fixed-photo-wrap">
+          <figure class="pb-fixed-photo">
             <img src="assets/images/selected-work/Local_Cover.png" alt="Local Business Storytelling cover image">
           </figure>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="local-pair-section" aria-label="Local and people">
-      <div class="container">
-        <div class="local-pair-stack">
-          <article class="local-wide-card local-card">
-            <h3>LOCAL</h3>
-            <div class="local-card-copy">
-              <p><span class="concept-lead">Local is more than a pin on the map.</span>The environment, local history, and character of a place become part of a business’s identity — and part of how people recognize and remember it.</p>
-            </div>
-          </article>
+      <section class="pb-fixed-campaign-shell" aria-labelledby="forest-city-title">
+        <div class="pb-fixed-campaign">
+          <div class="pb-fixed-campaign-copy">
+            <p class="pb-fixed-campaign-label">Forest City Spotlight · London, Ontario</p>
+            <h2 id="forest-city-title">From campaign idea to a local business series</h2>
+            <p>The project began with a campaign post announcing a new mini-series designed to give London small businesses free exposure through social media video content.</p>
+            <p>It then became Forest City Spotlight — a dedicated page for showcasing local businesses in London, Ontario.</p>
+            <p class="pb-fixed-role">Filming. Editing. Local business storytelling.</p>
+          </div>
 
-          <article class="local-wide-card people-card">
-            <h3>PEOPLE</h3>
-            <div class="local-card-copy">
-              <p><span class="concept-lead">A local business grows through people, relationships, and trust.</span>Familiarity, shared experience, and a sense of belonging help strengthen both the business and the community around it.</p>
+          <div class="pb-fixed-selected lb-business-list-wrap" aria-label="Forest City Spotlight published stories">
+            <div class="pb-fixed-videos">
+              <article class="pb-fixed-video lb-business-card">
+                <h3>Mexican House</h3>
+                <div class="lb-business-views" aria-label="21.4K views">
+                  <strong>21.4K</strong><span>views</span>
+                </div>
+                <p>The first Forest City Spotlight story: a family-run restaurant built around culture, community, and authentic Mexican food in London.</p>
+                <a href="https://www.instagram.com/p/DbWMRobJIxX/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
+
+              <article class="pb-fixed-video lb-business-card">
+                <h3>GolfersAnonymous</h3>
+                <div class="lb-business-views" aria-label="10.1K views">
+                  <strong>10.1K</strong><span>views</span>
+                </div>
+                <p>A London-based apparel brand founded by Drew Weir, filmed on location with Mikhail also appearing as a clothing model.</p>
+                <a href="https://www.instagram.com/p/DbrrLjggnv5/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
+
+              <article class="pb-fixed-video lb-business-card">
+                <h3>Delights London</h3>
+                <div class="lb-business-views" aria-label="20K views">
+                  <strong>20K</strong><span>views</span>
+                </div>
+                <p>A local confectionery inside Covent Garden Market, presented through its downtown location, atmosphere, and the experience of being there.</p>
+                <a href="https://www.instagram.com/p/DcM2Zi4pj-c/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
             </div>
-          </article>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <section class="local-pair-section" aria-label="Experience and story">
-      <div class="container">
-        <div class="local-pair-stack">
-          <article class="local-wide-card experience-card">
-            <h3>EXPERIENCE</h3>
-            <div class="local-card-copy">
-              <p><span class="concept-lead">What people feel and remember goes beyond what they bought.</span>Atmosphere, interaction, and the experience of being there can become just as important as the product or service itself.</p>
-            </div>
-          </article>
-
-          <article class="local-wide-card story-card">
-            <h3>STORY</h3>
-            <div class="local-card-copy">
-              <p><span class="concept-lead">A story gives all of this a form people can remember and share.</span>It brings together the place, the people, and the experience into something distinctive, recognizable, and worth passing on.</p>
-            </div>
-          </article>
-        </div>
-
-        <div class="selected-detail-next">
-          <a class="text-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
-  <script src="assets/js/detail-scroll-reveal.js?v=20260819-detail-preview"></script>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <span>© 2026 Mikhail Kirs&emsp;Website by <a href="https://archkirs.site/en" target="_blank" rel="noopener noreferrer">ARCHKIRS</a></span>
+    </div>
+  </footer>
 </body>
 </html>
