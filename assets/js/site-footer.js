@@ -4,15 +4,228 @@
   const isHome = /(?:^|\/)index\.html$/.test(location.pathname) || location.pathname === '/' || location.pathname.endsWith('/');
   const homePrefix = isHome ? '' : 'index.html';
   const INSTAGRAM_URL = 'https://www.instagram.com/mikki.kirs6haa/';
+  const isPersonalBrandPage = document.body.classList.contains('personal-brand-page');
+  const isLocalBusinessPage = document.body.classList.contains('local-business-page');
 
-  if (document.body.classList.contains('personal-brand-page')) {
+  if (isPersonalBrandPage) {
     document.querySelector('.pb-fixed-official')?.remove();
     document.querySelector('.pb-fixed-selected-title')?.remove();
 
     const selectedVideos = document.querySelector('.pb-fixed-selected');
-    if (selectedVideos) {
+    if (selectedVideos && !isLocalBusinessPage) {
       selectedVideos.style.marginTop = '8px';
       selectedVideos.style.paddingTop = '0';
+    }
+
+    if (isLocalBusinessPage) {
+      const campaign = document.querySelector('.pb-fixed-campaign');
+      const metrics = campaign?.querySelector('.pb-fixed-metrics');
+      const businessList = document.querySelector('.pb-fixed-selected');
+
+      metrics?.remove();
+
+      if (campaign && businessList) {
+        businessList.classList.add('lb-business-list-wrap');
+        campaign.appendChild(businessList);
+      }
+
+      const viewCounts = ['21.4K', '10.1K', '20K'];
+      document.querySelectorAll('.lb-business-list-wrap .pb-fixed-video').forEach((card, index) => {
+        card.classList.add('lb-business-card');
+
+        if (!card.querySelector('.lb-business-views')) {
+          const views = document.createElement('div');
+          views.className = 'lb-business-views';
+          views.setAttribute('aria-label', `${viewCounts[index]} views`);
+          views.innerHTML = `<strong>${viewCounts[index]}</strong><span>views</span>`;
+          card.querySelector('h3')?.insertAdjacentElement('afterend', views);
+        }
+
+        const link = card.querySelector('a');
+        if (link) link.textContent = 'Open @forestcityspotlight';
+      });
+
+      if (!document.querySelector('style[data-local-business-layout]')) {
+        const localBusinessLayout = document.createElement('style');
+        localBusinessLayout.dataset.localBusinessLayout = 'true';
+        localBusinessLayout.textContent = `
+          .local-business-page .pb-fixed-campaign {
+            grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr) !important;
+            gap: clamp(32px, 4.2vw, 58px) !important;
+            align-items: start !important;
+          }
+
+          .local-business-page .lb-business-list-wrap {
+            min-width: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            align-self: start !important;
+            border-top: 0 !important;
+          }
+
+          .local-business-page .lb-business-list-wrap .pb-fixed-videos {
+            display: grid !important;
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+          }
+
+          .local-business-page .lb-business-card {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) auto !important;
+            grid-template-areas:
+              "title views"
+              "copy copy"
+              "link link" !important;
+            column-gap: 16px !important;
+            row-gap: 0 !important;
+            min-width: 0 !important;
+            min-height: 0 !important;
+            padding: 15px 17px 14px !important;
+            border: 1px solid rgba(216, 206, 194, .72) !important;
+            border-radius: var(--radius-sm) !important;
+            background: var(--surface-strong) !important;
+            box-shadow: none !important;
+          }
+
+          .local-business-page .lb-business-card h3 {
+            grid-area: title !important;
+            align-self: center !important;
+            margin: 0 !important;
+            font-size: 1.04rem !important;
+            line-height: 1.14 !important;
+            letter-spacing: -.025em !important;
+          }
+
+          .local-business-page .lb-business-card:nth-child(1) h3,
+          .local-business-page .lb-business-card:nth-child(1) .lb-business-views strong {
+            color: var(--purple) !important;
+          }
+
+          .local-business-page .lb-business-card:nth-child(2) h3,
+          .local-business-page .lb-business-card:nth-child(2) .lb-business-views strong {
+            color: var(--coral) !important;
+          }
+
+          .local-business-page .lb-business-card:nth-child(3) h3,
+          .local-business-page .lb-business-card:nth-child(3) .lb-business-views strong {
+            color: var(--green) !important;
+          }
+
+          .local-business-page .lb-business-views {
+            grid-area: views !important;
+            display: flex !important;
+            align-items: baseline !important;
+            justify-content: flex-end !important;
+            gap: 5px !important;
+            min-width: max-content !important;
+            text-align: right !important;
+          }
+
+          .local-business-page .lb-business-views strong {
+            display: inline !important;
+            margin: 0 !important;
+            font-size: clamp(1.35rem, 2vw, 1.72rem) !important;
+            line-height: .95 !important;
+            letter-spacing: -.045em !important;
+            white-space: nowrap !important;
+          }
+
+          .local-business-page .lb-business-views span {
+            display: inline !important;
+            margin: 0 !important;
+            color: var(--muted) !important;
+            font-size: .7rem !important;
+            font-weight: 750 !important;
+            line-height: 1 !important;
+            text-transform: uppercase !important;
+            letter-spacing: .06em !important;
+          }
+
+          .local-business-page .lb-business-card p {
+            grid-area: copy !important;
+            margin: 8px 0 0 !important;
+            color: var(--muted) !important;
+            font-size: .84rem !important;
+            line-height: 1.4 !important;
+          }
+
+          .local-business-page .lb-business-card a {
+            grid-area: link !important;
+            justify-self: start !important;
+            align-self: start !important;
+            margin: 10px 0 0 !important;
+            padding: 0 !important;
+            color: var(--purple) !important;
+            font-size: .8rem !important;
+            font-weight: 800 !important;
+            line-height: 1.25 !important;
+            text-decoration-thickness: 1px !important;
+            text-underline-offset: 4px !important;
+          }
+
+          .local-business-page .lb-business-card a:hover,
+          .local-business-page .lb-business-card a:focus-visible {
+            text-decoration-thickness: 2px !important;
+          }
+
+          @media (max-width: 1050px) {
+            .local-business-page .pb-fixed-campaign {
+              grid-template-columns: 1fr !important;
+              gap: 28px !important;
+            }
+
+            .local-business-page .lb-business-list-wrap {
+              width: 100% !important;
+              max-width: 760px !important;
+            }
+          }
+
+          @media (max-width: 760px) {
+            .local-business-page .pb-fixed-campaign {
+              gap: 24px !important;
+            }
+
+            .local-business-page .lb-business-list-wrap {
+              width: 100% !important;
+              max-width: none !important;
+              margin-top: 0 !important;
+            }
+
+            .local-business-page .lb-business-list-wrap .pb-fixed-videos {
+              gap: 11px !important;
+            }
+
+            .local-business-page .lb-business-card {
+              grid-template-columns: minmax(0, 1fr) auto !important;
+              padding: 16px 15px 15px !important;
+              column-gap: 12px !important;
+            }
+
+            .local-business-page .lb-business-card h3 {
+              font-size: 19px !important;
+            }
+
+            .local-business-page .lb-business-views strong {
+              font-size: 1.38rem !important;
+            }
+
+            .local-business-page .lb-business-views span {
+              font-size: .62rem !important;
+            }
+
+            .local-business-page .lb-business-card p {
+              font-size: 15px !important;
+              line-height: 1.4 !important;
+            }
+
+            .local-business-page .lb-business-card a {
+              margin-top: 11px !important;
+              font-size: 14px !important;
+            }
+          }
+        `;
+        document.head.appendChild(localBusinessLayout);
+      }
     }
 
     if (!document.querySelector('style[data-pb-mobile-polish]')) {
@@ -52,12 +265,18 @@
       document.head.appendChild(mobilePolish);
     }
 
-    const revealGroups = [
-      { selector: '.pb-fixed-top, .pb-fixed-campaign-shell', stagger: 0 },
-      { selector: '.pb-fixed-card', stagger: 140 },
-      { selector: '.pb-fixed-metric', stagger: 120 },
-      { selector: '.pb-fixed-video', stagger: 140 }
-    ];
+    const revealGroups = isLocalBusinessPage
+      ? [
+          { selector: '.pb-fixed-top, .pb-fixed-campaign-shell', stagger: 0 },
+          { selector: '.pb-fixed-card', stagger: 140 },
+          { selector: '.lb-business-card', stagger: 140 }
+        ]
+      : [
+          { selector: '.pb-fixed-top, .pb-fixed-campaign-shell', stagger: 0 },
+          { selector: '.pb-fixed-card', stagger: 140 },
+          { selector: '.pb-fixed-metric', stagger: 120 },
+          { selector: '.pb-fixed-video', stagger: 140 }
+        ];
     const revealElements = [];
 
     revealGroups.forEach(({ selector, stagger }) => {
