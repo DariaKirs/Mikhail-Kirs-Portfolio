@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260823-local-business-case">
-  <script src="assets/js/site-footer.js?v=20260823-local-business-case" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260823-local-business-cards">
+  <script src="assets/js/site-footer.js?v=20260823-local-business-cards" defer></script>
   <style>
     /* Approved site header lockup and navigation — identical to Personal Brand. */
     .site-header {
@@ -222,7 +222,7 @@
       object-position: center;
     }
 
-    /* Forest City Spotlight case block — same architecture as the approved campaign block. */
+    /* Forest City Spotlight — story on the left, three compact business cards on the right. */
     .pb-fixed-campaign-shell {
       padding: 38px;
       color: var(--surface);
@@ -230,9 +230,9 @@
 
     .pb-fixed-campaign {
       display: grid;
-      grid-template-columns: minmax(0, .98fr) minmax(0, 1.02fr);
-      gap: clamp(40px, 5vw, 72px);
-      align-items: center;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
+      gap: clamp(32px, 4.2vw, 58px);
+      align-items: start;
     }
 
     .pb-fixed-campaign-copy h2 {
@@ -258,114 +258,106 @@
       font-weight: 800;
     }
 
-    .pb-fixed-metrics {
-      display: grid;
-      grid-template-columns: .9fr .9fr .9fr;
-      gap: 0;
-      align-items: start;
-    }
-
-    .pb-fixed-metric {
-      min-height: 96px;
-      padding: 2px 18px 0;
-      border-left: 1px solid rgba(255, 253, 249, .22);
-    }
-
-    .pb-fixed-metric:first-child {
-      padding-left: 0;
-      border-left: 0;
-    }
-
-    .pb-fixed-metric strong {
-      display: block;
-      font-size: clamp(2rem, 3vw, 3.1rem);
-      line-height: .96;
-      letter-spacing: -.052em;
-      white-space: nowrap;
-    }
-
-    .pb-fixed-metric:nth-child(1) strong { color: #c9a5e7; }
-    .pb-fixed-metric:nth-child(2) strong { color: #f08fa1; }
-    .pb-fixed-metric:nth-child(3) strong { color: #9fc3aa; }
-
-    .pb-fixed-metric span {
-      display: block;
-      margin-top: 8px;
-      color: rgba(255, 253, 249, .74);
-      font-size: .82rem;
-      font-weight: 750;
-      line-height: 1.3;
-    }
-
-    .pb-fixed-metrics-note {
-      grid-column: 1 / -1;
-      margin: 14px 0 0;
-      color: rgba(255, 253, 249, .62);
-      font-size: .76rem;
-    }
-
-    /* Prevent Personal Brand's “seven” replacement from affecting Local Business. */
-    html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong {
-      font-size: clamp(2rem, 2.65vw, 2.8rem) !important;
-    }
-
-    html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong::after {
-      content: none !important;
-      display: none !important;
-    }
-
-    .pb-fixed-selected {
-      margin-top: 34px;
-      padding-top: 28px;
+    .lb-business-list-wrap {
+      min-width: 0;
+      margin: 0;
+      padding: 0;
+      align-self: start;
       border-top: 0;
     }
 
-    .pb-fixed-videos {
+    .lb-business-list-wrap .pb-fixed-videos {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
+      grid-template-columns: 1fr;
+      gap: 10px;
     }
 
-    .pb-fixed-video {
-      display: flex;
+    .lb-business-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "title views"
+        "copy copy"
+        "link link";
+      column-gap: 16px;
+      row-gap: 0;
       min-width: 0;
-      min-height: 228px;
-      flex-direction: column;
-      padding: 19px 18px 18px;
+      min-height: 0;
+      padding: 15px 17px 14px;
+      box-shadow: none;
     }
 
-    .pb-fixed-video h3 {
+    .lb-business-card h3 {
+      grid-area: title;
+      align-self: center;
       margin: 0;
       font-size: 1.04rem;
-      line-height: 1.18;
+      line-height: 1.14;
       letter-spacing: -.025em;
     }
 
-    .pb-fixed-video:nth-child(1) h3 { color: var(--purple); }
-    .pb-fixed-video:nth-child(2) h3 { color: var(--coral); }
-    .pb-fixed-video:nth-child(3) h3 { color: var(--green); }
+    .lb-business-card:nth-child(1) h3,
+    .lb-business-card:nth-child(1) .lb-business-views strong { color: var(--purple); }
+    .lb-business-card:nth-child(2) h3,
+    .lb-business-card:nth-child(2) .lb-business-views strong { color: var(--coral); }
+    .lb-business-card:nth-child(3) h3,
+    .lb-business-card:nth-child(3) .lb-business-views strong { color: var(--green); }
 
-    .pb-fixed-video p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: .86rem;
-      line-height: 1.45;
+    .lb-business-views {
+      grid-area: views;
+      display: flex;
+      min-width: max-content;
+      align-items: baseline;
+      justify-content: flex-end;
+      gap: 5px;
+      text-align: right;
     }
 
-    .pb-fixed-video a {
-      display: inline-block;
-      align-self: flex-start;
-      margin-top: auto;
-      padding-top: 13px;
-      color: var(--purple);
+    .lb-business-views strong {
+      display: inline;
+      margin: 0;
+      font-size: clamp(1.35rem, 2vw, 1.72rem);
+      line-height: .95;
+      letter-spacing: -.045em;
+      white-space: nowrap;
+    }
+
+    .lb-business-views span {
+      display: inline;
+      margin: 0;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: 750;
+      line-height: 1;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .lb-business-card p {
+      grid-area: copy;
+      margin: 8px 0 0;
+      color: var(--muted);
       font-size: .84rem;
+      line-height: 1.4;
+    }
+
+    .lb-business-card a {
+      grid-area: link;
+      display: inline-block;
+      justify-self: start;
+      align-self: start;
+      margin: 10px 0 0;
+      padding: 0;
+      color: var(--purple);
+      font-size: .8rem;
       font-weight: 800;
+      line-height: 1.25;
       text-decoration-thickness: 1px;
       text-underline-offset: 4px;
     }
 
-    .pb-fixed-video a:hover,
-    .pb-fixed-video a:focus-visible { text-decoration-thickness: 2px; }
+    .lb-business-card a:hover,
+    .lb-business-card a:focus-visible { text-decoration-thickness: 2px; }
 
     .lb-next {
       width: min(calc(100% - 40px), var(--max-width));
@@ -380,18 +372,10 @@
     }
 
     @media (min-width: 1051px) {
-      .local-business-page .pb-fixed {
-        gap: 180px !important;
-      }
-
+      .local-business-page .pb-fixed { gap: 180px !important; }
       .local-business-page .pb-fixed-campaign-shell {
         padding-top: 26px !important;
         padding-bottom: 26px !important;
-      }
-
-      .local-business-page .pb-fixed-selected {
-        margin-top: 16px !important;
-        padding-top: 0 !important;
       }
     }
 
@@ -405,9 +389,8 @@
       .pb-fixed-title { font-size: clamp(2.7rem, 5.8vw, 3.7rem); }
       .pb-fixed-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pb-fixed-photo { min-height: 490px; }
-      .pb-fixed-campaign { grid-template-columns: 1fr; gap: 30px; }
-      .pb-fixed-metrics { max-width: 760px; }
-      .pb-fixed-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pb-fixed-campaign { grid-template-columns: 1fr; gap: 28px; }
+      .lb-business-list-wrap { width: 100%; max-width: 760px; }
       .lb-title-line { white-space: normal; }
     }
 
@@ -512,6 +495,11 @@
       .pb-fixed-card h2 { font-size: 20px; }
       .pb-fixed-card p { font-size: 15px; }
 
+      .local-business-page .pb-fixed-campaign {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+      }
+
       .local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label,
       .local-business-page .pb-fixed-campaign-copy h2,
       .local-business-page .pb-fixed-campaign-copy .pb-fixed-role {
@@ -528,69 +516,35 @@
 
       .pb-fixed-campaign-copy p { font-size: 15px; }
 
-      .local-business-page .pb-fixed-metrics {
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 8px !important;
+      .local-business-page .lb-business-list-wrap {
         width: 100% !important;
         max-width: none !important;
-        margin-top: 22px !important;
-        align-items: start !important;
-      }
-
-      .local-business-page .pb-fixed-metric,
-      .local-business-page .pb-fixed-metric:first-child {
-        min-width: 0 !important;
-        min-height: 0 !important;
-        padding: 8px 2px !important;
-        border: 0 !important;
-        background: transparent !important;
-        text-align: center !important;
-      }
-
-      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric strong,
-      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong {
-        display: block !important;
         margin: 0 !important;
-        font-size: clamp(1.28rem, 5.2vw, 1.7rem) !important;
-        line-height: .95 !important;
-        letter-spacing: -.045em !important;
-        white-space: nowrap !important;
       }
 
-      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong::after {
-        content: none !important;
-        display: none !important;
+      .local-business-page .lb-business-list-wrap .pb-fixed-videos {
+        grid-template-columns: 1fr !important;
+        gap: 11px !important;
       }
 
-      .local-business-page .pb-fixed-metric span {
-        display: block !important;
-        margin-top: 6px !important;
-        font-size: clamp(.57rem, 2.35vw, .7rem) !important;
-        line-height: 1.16 !important;
-        text-align: center !important;
+      .local-business-page .lb-business-card {
+        grid-template-columns: minmax(0, 1fr) auto !important;
+        min-height: 0 !important;
+        padding: 16px 15px 15px !important;
+        column-gap: 12px !important;
       }
 
-      .local-business-page .pb-fixed-metrics-note {
-        grid-column: 1 / -1 !important;
-        margin-top: 4px !important;
-        text-align: center !important;
+      .local-business-page .lb-business-card h3 { font-size: 19px !important; }
+      .local-business-page .lb-business-views strong { font-size: 1.38rem !important; }
+      .local-business-page .lb-business-views span { font-size: .62rem !important; }
+      .local-business-page .lb-business-card p {
+        font-size: 15px !important;
+        line-height: 1.4 !important;
       }
-
-      .pb-fixed-selected {
-        margin-top: 28px;
-        padding-top: 24px;
-        border-top: 0;
+      .local-business-page .lb-business-card a {
+        margin-top: 11px !important;
+        font-size: 14px !important;
       }
-
-      .pb-fixed-videos {
-        grid-template-columns: 1fr;
-        gap: 12px;
-      }
-
-      .pb-fixed-video { min-height: 0; }
-      .pb-fixed-video h3 { font-size: 19px; }
-      .pb-fixed-video p { font-size: 15px; }
 
       .lb-next {
         width: min(calc(100% - 28px), var(--max-width));
@@ -674,42 +628,35 @@
             <p class="pb-fixed-role">Filming. Editing. Local business storytelling.</p>
           </div>
 
-          <div class="pb-fixed-metrics" aria-label="Forest City Spotlight results">
-            <div class="pb-fixed-metric">
-              <strong>21.4K</strong>
-              <span>Mexican House views</span>
-            </div>
-            <div class="pb-fixed-metric">
-              <strong>10.1K</strong>
-              <span>GolfersAnonymous views</span>
-            </div>
-            <div class="pb-fixed-metric">
-              <strong>20K</strong>
-              <span>Delights London views</span>
-            </div>
-            <p class="pb-fixed-metrics-note">Metrics as of August 23, 2026.</p>
-          </div>
-        </div>
+          <div class="pb-fixed-selected lb-business-list-wrap" aria-label="Forest City Spotlight published stories">
+            <div class="pb-fixed-videos">
+              <article class="pb-fixed-video lb-business-card">
+                <h3>Mexican House</h3>
+                <div class="lb-business-views" aria-label="21.4K views">
+                  <strong>21.4K</strong><span>views</span>
+                </div>
+                <p>The first Forest City Spotlight story: a family-run restaurant built around culture, community, and authentic Mexican food in London.</p>
+                <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
 
-        <div class="pb-fixed-selected">
-          <div class="pb-fixed-videos">
-            <article class="pb-fixed-video">
-              <h3>Mexican House</h3>
-              <p>The first Forest City Spotlight story: a family-run restaurant built around culture, community, and authentic Mexican food in London.</p>
-              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
-            </article>
+              <article class="pb-fixed-video lb-business-card">
+                <h3>GolfersAnonymous</h3>
+                <div class="lb-business-views" aria-label="10.1K views">
+                  <strong>10.1K</strong><span>views</span>
+                </div>
+                <p>A London-based apparel brand founded by Drew Weir, filmed on location with Mikhail also appearing as a clothing model.</p>
+                <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
 
-            <article class="pb-fixed-video">
-              <h3>GolfersAnonymous</h3>
-              <p>A London-based apparel brand founded by Drew Weir, filmed on location with Mikhail also appearing as a clothing model.</p>
-              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
-            </article>
-
-            <article class="pb-fixed-video">
-              <h3>Delights London</h3>
-              <p>A local confectionery inside Covent Garden Market, presented through its downtown location, atmosphere, and the experience of being there.</p>
-              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
-            </article>
+              <article class="pb-fixed-video lb-business-card">
+                <h3>Delights London</h3>
+                <div class="lb-business-views" aria-label="20K views">
+                  <strong>20K</strong><span>views</span>
+                </div>
+                <p>A local confectionery inside Covent Garden Market, presented through its downtown location, atmosphere, and the experience of being there.</p>
+                <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight</a>
+              </article>
+            </div>
           </div>
         </div>
       </section>
