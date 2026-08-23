@@ -87,6 +87,10 @@
    Keep the approved two-column idea, but tighten the business cards and give
    the campaign eyebrow the same coral treatment and editorial spacing as the
    first Local Business panel. */
+html body.personal-brand-page.local-business-page {
+  --local-business-deep: #426B52 !important;
+}
+
 html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
   color: var(--coral) !important;
 }
