@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260823-local-business-cards">
-  <script src="assets/js/site-footer.js?v=20260823-local-business-cards" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260823-local-business-geometry2">
+  <script src="assets/js/site-footer.js?v=20260823-local-business-geometry2" defer></script>
   <style>
     /* Approved site header lockup and navigation — identical to Personal Brand. */
     .site-header {
@@ -222,21 +222,23 @@
       object-position: center;
     }
 
-    /* Forest City Spotlight — story on the left, three compact business cards on the right. */
+    /* Forest City Spotlight — same large-screen geometry as the approved first panel. */
     .pb-fixed-campaign-shell {
+      min-height: 574px;
       padding: 38px;
       color: var(--surface);
     }
 
     .pb-fixed-campaign {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(340px, .9fr);
-      gap: clamp(32px, 4.2vw, 58px);
-      align-items: start;
+      grid-template-columns: minmax(0, 1.08fr) minmax(390px, .92fr);
+      gap: clamp(36px, 4.6vw, 66px);
+      min-height: 498px;
+      align-items: center;
     }
 
     .pb-fixed-campaign-copy h2 {
-      max-width: 590px;
+      max-width: 610px;
       margin: 0;
       color: var(--surface);
       font-size: clamp(2.35rem, 3.7vw, 3.75rem);
@@ -248,7 +250,7 @@
     .pb-fixed-campaign-copy p {
       max-width: 620px;
       margin: 17px 0 0;
-      color: rgba(255, 253, 249, .78);
+      color: rgba(255, 253, 249, .82);
       font-size: .96rem;
       line-height: 1.52;
     }
@@ -260,38 +262,42 @@
 
     .lb-business-list-wrap {
       min-width: 0;
+      width: 100%;
       margin: 0;
       padding: 0;
-      align-self: start;
-      border-top: 0;
+      align-self: center;
+      border: 0;
     }
 
     .lb-business-list-wrap .pb-fixed-videos {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 10px;
+      gap: 12px;
     }
 
     .lb-business-card {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: minmax(0, 1fr) 108px;
       grid-template-areas:
         "title views"
-        "copy copy"
-        "link link";
-      column-gap: 16px;
+        "copy views"
+        "link views";
+      column-gap: 22px;
       row-gap: 0;
       min-width: 0;
-      min-height: 0;
-      padding: 15px 17px 14px;
+      min-height: 142px;
+      padding: 18px 20px 17px;
+      border: 1px solid rgba(216, 206, 194, .72);
+      border-radius: var(--radius-sm);
+      background: var(--surface-strong);
       box-shadow: none;
     }
 
     .lb-business-card h3 {
       grid-area: title;
-      align-self: center;
+      align-self: start;
       margin: 0;
-      font-size: 1.04rem;
+      font-size: 1.08rem;
       line-height: 1.14;
       letter-spacing: -.025em;
     }
@@ -306,30 +312,32 @@
     .lb-business-views {
       grid-area: views;
       display: flex;
-      min-width: max-content;
-      align-items: baseline;
-      justify-content: flex-end;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
       gap: 5px;
       text-align: right;
+      border: 0;
     }
 
     .lb-business-views strong {
-      display: inline;
+      display: block;
       margin: 0;
-      font-size: clamp(1.35rem, 2vw, 1.72rem);
+      font-size: clamp(1.7rem, 2.25vw, 2.2rem);
       line-height: .95;
-      letter-spacing: -.045em;
+      letter-spacing: -.05em;
       white-space: nowrap;
     }
 
     .lb-business-views span {
-      display: inline;
+      display: block;
       margin: 0;
-      color: var(--muted);
-      font-size: .7rem;
-      font-weight: 750;
+      color: var(--text);
+      font-size: .68rem;
+      font-weight: 800;
       line-height: 1;
-      letter-spacing: .06em;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
@@ -345,38 +353,83 @@
       grid-area: link;
       display: inline-block;
       justify-self: start;
-      align-self: start;
-      margin: 10px 0 0;
+      align-self: end;
+      margin: 11px 0 0;
       padding: 0;
       color: var(--purple);
       font-size: .8rem;
       font-weight: 800;
       line-height: 1.25;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 4px;
+      text-decoration: none;
     }
 
     .lb-business-card a:hover,
-    .lb-business-card a:focus-visible { text-decoration-thickness: 2px; }
-
-    .lb-next {
-      width: min(calc(100% - 40px), var(--max-width));
-      margin: 24px auto 0;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
+    .lb-business-card a:focus-visible {
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .lb-next .text-link {
-      color: var(--purple);
-      font-weight: 800;
+    /* Final Local Business lock: wins over legacy runtime Personal Brand card rules. */
+    html body.local-business-page .pb-fixed-campaign {
+      grid-template-columns: minmax(0, 1.08fr) minmax(390px, .92fr) !important;
+      gap: clamp(36px, 4.6vw, 66px) !important;
+      min-height: 498px !important;
+      align-items: center !important;
+    }
+
+    html body.local-business-page .lb-business-list-wrap {
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      align-self: center !important;
+      border: 0 !important;
+    }
+
+    html body.local-business-page .lb-business-list-wrap .pb-fixed-videos {
+      display: grid !important;
+      grid-template-columns: 1fr !important;
+      gap: 12px !important;
+    }
+
+    html body.local-business-page .lb-business-card {
+      grid-template-columns: minmax(0, 1fr) 108px !important;
+      grid-template-areas:
+        "title views"
+        "copy views"
+        "link views" !important;
+      column-gap: 22px !important;
+      row-gap: 0 !important;
+      min-height: 142px !important;
+      padding: 18px 20px 17px !important;
+      border: 1px solid rgba(216, 206, 194, .72) !important;
+      border-radius: var(--radius-sm) !important;
+      background: var(--surface-strong) !important;
+      box-shadow: none !important;
+    }
+
+    html body.local-business-page .lb-business-views {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-end !important;
+      justify-content: center !important;
+      gap: 5px !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      background: transparent !important;
+      text-align: right !important;
+    }
+
+    html body.local-business-page .lb-business-card a,
+    html body.local-business-page .lb-business-card a:hover,
+    html body.local-business-page .lb-business-card a:focus-visible {
+      text-decoration: none !important;
+      text-decoration-line: none !important;
     }
 
     @media (min-width: 1051px) {
       .local-business-page .pb-fixed { gap: 180px !important; }
-      .local-business-page .pb-fixed-campaign-shell {
-        padding-top: 26px !important;
-        padding-bottom: 26px !important;
-      }
     }
 
     @media (max-width: 1050px) {
@@ -389,8 +442,19 @@
       .pb-fixed-title { font-size: clamp(2.7rem, 5.8vw, 3.7rem); }
       .pb-fixed-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pb-fixed-photo { min-height: 490px; }
-      .pb-fixed-campaign { grid-template-columns: 1fr; gap: 28px; }
-      .lb-business-list-wrap { width: 100%; max-width: 760px; }
+      .pb-fixed-campaign-shell { min-height: 0; }
+
+      html body.local-business-page .pb-fixed-campaign {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        min-height: 0 !important;
+      }
+
+      html body.local-business-page .lb-business-list-wrap {
+        width: 100% !important;
+        max-width: 760px !important;
+      }
+
       .lb-title-line { white-space: normal; }
     }
 
@@ -437,6 +501,7 @@
 
       .pb-fixed-top,
       .pb-fixed-campaign-shell {
+        min-height: 0;
         padding: 24px 20px;
         border-radius: var(--radius-md);
       }
@@ -495,9 +560,10 @@
       .pb-fixed-card h2 { font-size: 20px; }
       .pb-fixed-card p { font-size: 15px; }
 
-      .local-business-page .pb-fixed-campaign {
+      html body.local-business-page .pb-fixed-campaign {
         grid-template-columns: 1fr !important;
         gap: 24px !important;
+        min-height: 0 !important;
       }
 
       .local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label,
@@ -516,43 +582,45 @@
 
       .pb-fixed-campaign-copy p { font-size: 15px; }
 
-      .local-business-page .lb-business-list-wrap {
+      html body.local-business-page .lb-business-list-wrap {
         width: 100% !important;
         max-width: none !important;
         margin: 0 !important;
       }
 
-      .local-business-page .lb-business-list-wrap .pb-fixed-videos {
-        grid-template-columns: 1fr !important;
+      html body.local-business-page .lb-business-list-wrap .pb-fixed-videos {
         gap: 11px !important;
       }
 
-      .local-business-page .lb-business-card {
-        grid-template-columns: minmax(0, 1fr) auto !important;
+      html body.local-business-page .lb-business-card {
+        grid-template-columns: minmax(0, 1fr) 74px !important;
+        grid-template-areas:
+          "title views"
+          "copy copy"
+          "link link" !important;
         min-height: 0 !important;
         padding: 16px 15px 15px !important;
         column-gap: 12px !important;
       }
 
       .local-business-page .lb-business-card h3 { font-size: 19px !important; }
+
+      html body.local-business-page .lb-business-views {
+        justify-content: flex-start !important;
+      }
+
       .local-business-page .lb-business-views strong { font-size: 1.38rem !important; }
       .local-business-page .lb-business-views span { font-size: .62rem !important; }
+
       .local-business-page .lb-business-card p {
         font-size: 15px !important;
         line-height: 1.4 !important;
       }
+
       .local-business-page .lb-business-card a {
         margin-top: 11px !important;
         font-size: 14px !important;
       }
-
-      .lb-next {
-        width: min(calc(100% - 28px), var(--max-width));
-        margin-top: 18px;
-        padding-top: 14px;
-      }
-
-      .lb-next .text-link { font-size: 16px; }
     }
   </style>
 </head>
@@ -660,10 +728,6 @@
           </div>
         </div>
       </section>
-    </div>
-
-    <div class="lb-next">
-      <a class="text-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
     </div>
   </main>
 
