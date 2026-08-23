@@ -7,8 +7,8 @@
   <meta name="theme-color" content="#F4EFE6">
   <title>Local Business Storytelling — Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260823-local-business-pb-system">
-  <script src="assets/js/site-footer.js?v=20260823-local-business-pb-system" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260823-local-business-case">
+  <script src="assets/js/site-footer.js?v=20260823-local-business-case" defer></script>
   <style>
     /* Approved site header lockup and navigation — identical to Personal Brand. */
     .site-header {
@@ -39,9 +39,7 @@
     }
 
     .site-header .brand > span,
-    .site-header .brand-mark {
-      display: none;
-    }
+    .site-header .brand-mark { display: none; }
 
     .site-header .nav-links {
       display: flex;
@@ -71,15 +69,13 @@
       width: 115%;
       height: 2.5px;
       border-radius: 999px;
-      background: linear-gradient(
-        90deg,
+      background: linear-gradient(90deg,
         rgba(var(--nav-underline-rgb), .18) 0%,
         rgba(var(--nav-underline-rgb), .62) 12%,
         rgba(var(--nav-underline-rgb), .98) 30%,
         rgba(var(--nav-underline-rgb), 1) 72%,
         rgba(var(--nav-underline-rgb), .72) 86%,
-        rgba(var(--nav-underline-rgb), .08) 100%
-      );
+        rgba(var(--nav-underline-rgb), .08) 100%);
       box-shadow: 0 0 5px rgba(var(--nav-underline-rgb), .14);
       opacity: .96;
       transform: translateX(-50%) skewX(-7deg);
@@ -119,22 +115,25 @@
       gap: 24px;
     }
 
+    .pb-fixed-top,
+    .pb-fixed-campaign-shell {
+      border-radius: var(--radius-md);
+      background: var(--local-business-deep);
+      box-shadow: var(--shadow);
+    }
+
     .pb-fixed-top {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 356px;
       gap: 30px;
       min-height: 574px;
       padding: 38px;
-      border-radius: var(--radius-md);
-      background: var(--local-business-deep);
-      box-shadow: var(--shadow);
     }
 
-    .pb-fixed-copy {
-      min-width: 0;
-    }
+    .pb-fixed-copy { min-width: 0; }
 
-    .pb-fixed-eyebrow {
+    .pb-fixed-eyebrow,
+    .pb-fixed-campaign-label {
       margin: 0 0 11px;
       color: var(--coral);
       font-size: .76rem;
@@ -165,12 +164,16 @@
       margin-top: 30px;
     }
 
-    .pb-fixed-card {
-      min-height: 132px;
-      padding: 18px 18px 17px;
+    .pb-fixed-card,
+    .pb-fixed-video {
       border: 1px solid rgba(216, 206, 194, .72);
       border-radius: var(--radius-sm);
       background: var(--surface-strong);
+    }
+
+    .pb-fixed-card {
+      min-height: 132px;
+      padding: 18px 18px 17px;
     }
 
     .pb-fixed-card h2 {
@@ -187,13 +190,8 @@
       line-height: 1.42;
     }
 
-    .pb-fixed-card p + p {
-      margin-top: 8px;
-    }
-
-    .pb-fixed-card strong {
-      color: var(--text);
-    }
+    .pb-fixed-card p + p { margin-top: 8px; }
+    .pb-fixed-card strong { color: var(--text); }
 
     .pb-fixed-card:nth-child(1) h2 { color: var(--purple); }
     .pb-fixed-card:nth-child(2) h2 { color: var(--coral); }
@@ -224,6 +222,151 @@
       object-position: center;
     }
 
+    /* Forest City Spotlight case block — same architecture as the approved campaign block. */
+    .pb-fixed-campaign-shell {
+      padding: 38px;
+      color: var(--surface);
+    }
+
+    .pb-fixed-campaign {
+      display: grid;
+      grid-template-columns: minmax(0, .98fr) minmax(0, 1.02fr);
+      gap: clamp(40px, 5vw, 72px);
+      align-items: center;
+    }
+
+    .pb-fixed-campaign-copy h2 {
+      max-width: 590px;
+      margin: 0;
+      color: var(--surface);
+      font-size: clamp(2.35rem, 3.7vw, 3.75rem);
+      line-height: .98;
+      letter-spacing: -.05em;
+      text-wrap: balance;
+    }
+
+    .pb-fixed-campaign-copy p {
+      max-width: 620px;
+      margin: 17px 0 0;
+      color: rgba(255, 253, 249, .78);
+      font-size: .96rem;
+      line-height: 1.52;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-role {
+      color: var(--surface);
+      font-weight: 800;
+    }
+
+    .pb-fixed-metrics {
+      display: grid;
+      grid-template-columns: .9fr .9fr .9fr;
+      gap: 0;
+      align-items: start;
+    }
+
+    .pb-fixed-metric {
+      min-height: 96px;
+      padding: 2px 18px 0;
+      border-left: 1px solid rgba(255, 253, 249, .22);
+    }
+
+    .pb-fixed-metric:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .pb-fixed-metric strong {
+      display: block;
+      font-size: clamp(2rem, 3vw, 3.1rem);
+      line-height: .96;
+      letter-spacing: -.052em;
+      white-space: nowrap;
+    }
+
+    .pb-fixed-metric:nth-child(1) strong { color: #c9a5e7; }
+    .pb-fixed-metric:nth-child(2) strong { color: #f08fa1; }
+    .pb-fixed-metric:nth-child(3) strong { color: #9fc3aa; }
+
+    .pb-fixed-metric span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255, 253, 249, .74);
+      font-size: .82rem;
+      font-weight: 750;
+      line-height: 1.3;
+    }
+
+    .pb-fixed-metrics-note {
+      grid-column: 1 / -1;
+      margin: 14px 0 0;
+      color: rgba(255, 253, 249, .62);
+      font-size: .76rem;
+    }
+
+    /* Prevent Personal Brand's “seven” replacement from affecting Local Business. */
+    html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong {
+      font-size: clamp(2rem, 2.65vw, 2.8rem) !important;
+    }
+
+    html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong::after {
+      content: none !important;
+      display: none !important;
+    }
+
+    .pb-fixed-selected {
+      margin-top: 34px;
+      padding-top: 28px;
+      border-top: 0;
+    }
+
+    .pb-fixed-videos {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .pb-fixed-video {
+      display: flex;
+      min-width: 0;
+      min-height: 228px;
+      flex-direction: column;
+      padding: 19px 18px 18px;
+    }
+
+    .pb-fixed-video h3 {
+      margin: 0;
+      font-size: 1.04rem;
+      line-height: 1.18;
+      letter-spacing: -.025em;
+    }
+
+    .pb-fixed-video:nth-child(1) h3 { color: var(--purple); }
+    .pb-fixed-video:nth-child(2) h3 { color: var(--coral); }
+    .pb-fixed-video:nth-child(3) h3 { color: var(--green); }
+
+    .pb-fixed-video p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.45;
+    }
+
+    .pb-fixed-video a {
+      display: inline-block;
+      align-self: flex-start;
+      margin-top: auto;
+      padding-top: 13px;
+      color: var(--purple);
+      font-size: .84rem;
+      font-weight: 800;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .pb-fixed-video a:hover,
+    .pb-fixed-video a:focus-visible { text-decoration-thickness: 2px; }
+
     .lb-next {
       width: min(calc(100% - 40px), var(--max-width));
       margin: 24px auto 0;
@@ -236,6 +379,22 @@
       font-weight: 800;
     }
 
+    @media (min-width: 1051px) {
+      .local-business-page .pb-fixed {
+        gap: 180px !important;
+      }
+
+      .local-business-page .pb-fixed-campaign-shell {
+        padding-top: 26px !important;
+        padding-bottom: 26px !important;
+      }
+
+      .local-business-page .pb-fixed-selected {
+        margin-top: 16px !important;
+        padding-top: 0 !important;
+      }
+    }
+
     @media (max-width: 1050px) {
       .pb-fixed-top {
         grid-template-columns: minmax(0, 1fr) 300px;
@@ -243,21 +402,13 @@
         padding: 32px;
       }
 
-      .pb-fixed-title {
-        font-size: clamp(2.7rem, 5.8vw, 3.7rem);
-      }
-
-      .pb-fixed-cards {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .pb-fixed-photo {
-        min-height: 490px;
-      }
-
-      .lb-title-line {
-        white-space: normal;
-      }
+      .pb-fixed-title { font-size: clamp(2.7rem, 5.8vw, 3.7rem); }
+      .pb-fixed-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .pb-fixed-photo { min-height: 490px; }
+      .pb-fixed-campaign { grid-template-columns: 1fr; gap: 30px; }
+      .pb-fixed-metrics { max-width: 760px; }
+      .pb-fixed-videos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .lb-title-line { white-space: normal; }
     }
 
     @media (max-width: 700px) {
@@ -293,30 +444,64 @@
     }
 
     @media (max-width: 760px) {
-      .personal-brand-main {
-        padding: 22px 0 44px;
-      }
+      .personal-brand-main { padding: 22px 0 44px; }
 
       .local-business-page .container {
         width: min(calc(100% - 28px), var(--max-width));
       }
 
-      .pb-fixed-top {
-        grid-template-columns: 1fr;
-        gap: 24px;
+      .pb-fixed { gap: 18px; }
+
+      .pb-fixed-top,
+      .pb-fixed-campaign-shell {
         padding: 24px 20px;
         border-radius: var(--radius-md);
       }
 
-      .pb-fixed-title {
-        font-size: 38px;
-        line-height: .98;
+      .local-business-page .pb-fixed-top {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        row-gap: 0 !important;
       }
 
-      .pb-fixed-cards {
+      .local-business-page .pb-fixed-copy { display: contents !important; }
+
+      .local-business-page .pb-fixed-eyebrow {
+        order: 1;
+        margin-bottom: 12px !important;
+        text-align: center !important;
+      }
+
+      .local-business-page .pb-fixed-title {
+        order: 2;
+        max-width: 11ch !important;
+        margin: 0 auto !important;
+        font-size: 38px;
+        line-height: .98;
+        text-align: center !important;
+        text-wrap: balance;
+      }
+
+      .local-business-page .pb-fixed-photo-wrap {
+        order: 3;
+        width: 100% !important;
+        max-width: 360px !important;
+        min-height: 0 !important;
+        margin: 26px auto 0 !important;
+      }
+
+      .local-business-page .pb-fixed-photo {
+        height: auto !important;
+        min-height: 0 !important;
+        aspect-ratio: 3 / 4;
+      }
+
+      .local-business-page .pb-fixed-cards {
+        order: 4;
         grid-template-columns: 1fr;
+        width: 100% !important;
         gap: 11px;
-        margin-top: 24px;
+        margin-top: 22px !important;
       }
 
       .pb-fixed-card {
@@ -324,24 +509,88 @@
         padding: 17px;
       }
 
-      .pb-fixed-card h2 {
-        font-size: 20px;
+      .pb-fixed-card h2 { font-size: 20px; }
+      .pb-fixed-card p { font-size: 15px; }
+
+      .local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label,
+      .local-business-page .pb-fixed-campaign-copy h2,
+      .local-business-page .pb-fixed-campaign-copy .pb-fixed-role {
+        text-align: center !important;
       }
 
-      .pb-fixed-card p {
-        font-size: 15px;
+      .local-business-page .pb-fixed-campaign-copy h2 {
+        max-width: 12ch !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: 32px;
+        text-wrap: balance;
       }
 
-      .pb-fixed-photo-wrap {
-        width: 100%;
-        max-width: 360px;
-        min-height: 480px;
-        margin: 0 auto;
+      .pb-fixed-campaign-copy p { font-size: 15px; }
+
+      .local-business-page .pb-fixed-metrics {
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: 8px !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin-top: 22px !important;
+        align-items: start !important;
       }
 
-      .pb-fixed-photo {
-        min-height: 480px;
+      .local-business-page .pb-fixed-metric,
+      .local-business-page .pb-fixed-metric:first-child {
+        min-width: 0 !important;
+        min-height: 0 !important;
+        padding: 8px 2px !important;
+        border: 0 !important;
+        background: transparent !important;
+        text-align: center !important;
       }
+
+      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric strong,
+      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong {
+        display: block !important;
+        margin: 0 !important;
+        font-size: clamp(1.28rem, 5.2vw, 1.7rem) !important;
+        line-height: .95 !important;
+        letter-spacing: -.045em !important;
+        white-space: nowrap !important;
+      }
+
+      html body.local-business-page .pb-fixed-campaign-shell .pb-fixed-metric:first-child strong::after {
+        content: none !important;
+        display: none !important;
+      }
+
+      .local-business-page .pb-fixed-metric span {
+        display: block !important;
+        margin-top: 6px !important;
+        font-size: clamp(.57rem, 2.35vw, .7rem) !important;
+        line-height: 1.16 !important;
+        text-align: center !important;
+      }
+
+      .local-business-page .pb-fixed-metrics-note {
+        grid-column: 1 / -1 !important;
+        margin-top: 4px !important;
+        text-align: center !important;
+      }
+
+      .pb-fixed-selected {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 0;
+      }
+
+      .pb-fixed-videos {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .pb-fixed-video { min-height: 0; }
+      .pb-fixed-video h3 { font-size: 19px; }
+      .pb-fixed-video p { font-size: 15px; }
 
       .lb-next {
         width: min(calc(100% - 28px), var(--max-width));
@@ -349,9 +598,7 @@
         padding-top: 14px;
       }
 
-      .lb-next .text-link {
-        font-size: 16px;
-      }
+      .lb-next .text-link { font-size: 16px; }
     }
   </style>
 </head>
@@ -414,6 +661,56 @@
           <figure class="pb-fixed-photo">
             <img src="assets/images/selected-work/Local_Cover.png" alt="Local Business Storytelling cover image">
           </figure>
+        </div>
+      </section>
+
+      <section class="pb-fixed-campaign-shell" aria-labelledby="forest-city-title">
+        <div class="pb-fixed-campaign">
+          <div class="pb-fixed-campaign-copy">
+            <p class="pb-fixed-campaign-label">Forest City Spotlight · London, Ontario</p>
+            <h2 id="forest-city-title">From campaign idea to a local business series</h2>
+            <p>The project began with a campaign post announcing a new mini-series designed to give London small businesses free exposure through social media video content.</p>
+            <p>It then became Forest City Spotlight — a dedicated page for showcasing local businesses in London, Ontario.</p>
+            <p class="pb-fixed-role">Filming. Editing. Local business storytelling.</p>
+          </div>
+
+          <div class="pb-fixed-metrics" aria-label="Forest City Spotlight results">
+            <div class="pb-fixed-metric">
+              <strong>21.4K</strong>
+              <span>Mexican House views</span>
+            </div>
+            <div class="pb-fixed-metric">
+              <strong>10.1K</strong>
+              <span>GolfersAnonymous views</span>
+            </div>
+            <div class="pb-fixed-metric">
+              <strong>20K</strong>
+              <span>Delights London views</span>
+            </div>
+            <p class="pb-fixed-metrics-note">Metrics as of August 23, 2026.</p>
+          </div>
+        </div>
+
+        <div class="pb-fixed-selected">
+          <div class="pb-fixed-videos">
+            <article class="pb-fixed-video">
+              <h3>Mexican House</h3>
+              <p>The first Forest City Spotlight story: a family-run restaurant built around culture, community, and authentic Mexican food in London.</p>
+              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
+            </article>
+
+            <article class="pb-fixed-video">
+              <h3>GolfersAnonymous</h3>
+              <p>A London-based apparel brand founded by Drew Weir, filmed on location with Mikhail also appearing as a clothing model.</p>
+              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
+            </article>
+
+            <article class="pb-fixed-video">
+              <h3>Delights London</h3>
+              <p>A local confectionery inside Covent Garden Market, presented through its downtown location, atmosphere, and the experience of being there.</p>
+              <a href="https://www.instagram.com/forestcityspotlight/" target="_blank" rel="noopener noreferrer">Open @forestcityspotlight ↗</a>
+            </article>
+          </div>
         </div>
       </section>
     </div>
