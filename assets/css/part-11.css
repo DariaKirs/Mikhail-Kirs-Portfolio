@@ -174,3 +174,18 @@ html body.long-form-page .lf-fixed-card:nth-child(2) h2,
 html body.long-form-page .lf-fixed-card:nth-child(4) h2 {
   color: var(--long-form-accent) !important;
 }
+
+/* Long-Form film cards: remove the redundant Part I / Part II side labels and
+   let the approved card copy use the full width. */
+html body.long-form-page .lf-film-part {
+  display: none !important;
+}
+
+html body.long-form-page .lf-film-card {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-template-areas:
+    "title"
+    "copy"
+    "link" !important;
+  column-gap: 0 !important;
+}
