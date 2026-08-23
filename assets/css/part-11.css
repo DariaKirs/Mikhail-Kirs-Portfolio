@@ -96,12 +96,19 @@ html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fi
 
 @media (min-width: 1051px) {
   html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
-    transform: none !important;
-    margin-bottom: 12px !important;
+    transform: translateY(-16px) !important;
+    margin-bottom: -2px !important;
+  }
+
+  html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy h2 {
+    font-size: clamp(2.65rem, 4.25vw, 4.35rem) !important;
+    line-height: .96 !important;
   }
 
   html body.personal-brand-page.local-business-page .pb-fixed-campaign-copy p {
     margin-top: 14px !important;
+    font-size: 1.06rem !important;
+    line-height: 1.46 !important;
   }
 
   html body.personal-brand-page.local-business-page .pb-fixed-campaign {
