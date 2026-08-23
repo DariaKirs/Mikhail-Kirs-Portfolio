@@ -136,6 +136,135 @@
       object-position: 50% 50%;
     }
 
+    .long-form-case {
+      padding: 0 0 clamp(64px, 7vw, 96px);
+    }
+
+    .long-form-case-shell {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(34px, 4.6vw, 62px);
+      border: 1px solid rgba(32, 54, 74, .08);
+      border-radius: 34px 18px 34px 18px;
+      background: rgba(216, 233, 238, .58);
+      box-shadow: 0 24px 52px rgba(32, 54, 74, .08);
+    }
+
+    .long-form-case-shell::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -90px;
+      top: -110px;
+      border-radius: 54px 22px 54px 22px;
+      background: rgba(216, 123, 137, .24);
+      transform: rotate(11deg);
+      pointer-events: none;
+    }
+
+    .long-form-case-heading {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, .95fr);
+      gap: clamp(34px, 5vw, 70px);
+      align-items: end;
+      padding-bottom: clamp(28px, 3vw, 40px);
+      border-bottom: 1px solid rgba(32, 54, 74, .15);
+    }
+
+    .long-form-case-heading .eyebrow {
+      margin: 0 0 12px;
+      color: #d87b89;
+      font-size: .82rem;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .long-form-case-title {
+      max-width: 690px;
+      margin: 0;
+      font-size: clamp(2.45rem, 4vw, 4.15rem);
+      line-height: .98;
+      letter-spacing: -.05em;
+      text-wrap: balance;
+    }
+
+    .long-form-case-intro {
+      margin: 0;
+      color: rgba(32, 54, 74, .78);
+      font-size: clamp(1.04rem, 1.3vw, 1.2rem);
+      line-height: 1.58;
+    }
+
+    .long-form-parts {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+    }
+
+    .long-form-part {
+      min-width: 0;
+      padding-top: clamp(28px, 3.4vw, 44px);
+    }
+
+    .long-form-part:first-child {
+      padding-right: clamp(24px, 3.4vw, 44px);
+    }
+
+    .long-form-part + .long-form-part {
+      padding-left: clamp(24px, 3.4vw, 44px);
+      border-left: 1px solid rgba(32, 54, 74, .15);
+    }
+
+    .long-form-part-number {
+      margin: 0 0 10px;
+      color: #d87b89;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .long-form-part h3 {
+      margin: 0;
+      font-size: clamp(1.5rem, 2vw, 2rem);
+      line-height: 1.05;
+      letter-spacing: -.035em;
+    }
+
+    .long-form-part p {
+      margin: 15px 0 0;
+      color: rgba(32, 54, 74, .78);
+      font-size: .98rem;
+      line-height: 1.55;
+    }
+
+    .long-form-part a {
+      display: inline-flex;
+      margin-top: 18px;
+      color: var(--purple);
+      font-weight: 800;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .long-form-language-note {
+      position: relative;
+      z-index: 1;
+      margin: clamp(28px, 3vw, 40px) 0 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(32, 54, 74, .15);
+      color: rgba(32, 54, 74, .72);
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
     @media (max-width: 900px) {
       .long-form-info {
         min-height: auto;
@@ -180,6 +309,30 @@
       .long-form-link {
         display: inline-flex;
         margin-top: 24px;
+      }
+
+      .long-form-case-heading {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        align-items: start;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .long-form-parts {
+        grid-template-columns: 1fr;
+      }
+
+      .long-form-part:first-child {
+        padding-right: 0;
+      }
+
+      .long-form-part + .long-form-part {
+        margin-top: 28px;
+        padding-left: 0;
+        padding-top: 28px;
+        border-left: 0;
+        border-top: 1px solid rgba(32, 54, 74, .15);
       }
     }
 
@@ -226,6 +379,24 @@
         margin-top: 22px;
         font-size: 16px;
       }
+
+      .long-form-case {
+        padding-bottom: 52px;
+      }
+
+      .long-form-case-shell {
+        padding: 26px 20px 24px;
+        border-radius: 28px 15px 28px 15px;
+      }
+
+      .long-form-case-title {
+        font-size: 34px;
+      }
+
+      .long-form-case-intro,
+      .long-form-part p {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
@@ -258,13 +429,45 @@
             <p class="long-form-detail">These personal projects, created during my own trips, give me the space to develop larger scripts, explore long-form storytelling, and carry an idea from research through filming and final edit.</p>
           </div>
 
-          <a class="text-link long-form-link" href="index.html#work">See Selected Work <span aria-hidden="true">→</span></a>
+          <a class="text-link long-form-link" href="#london-winter-2024">See Selected Work <span aria-hidden="true">→</span></a>
         </div>
 
         <div class="long-form-visual" aria-label="Long-Form Visual Storytelling cover">
           <figure class="long-form-photo">
             <img src="assets/images/London_Bridge.jpeg" alt="Tower Bridge viewed through a modern London streetscape">
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="long-form-case" id="london-winter-2024" aria-labelledby="london-winter-title">
+      <div class="container">
+        <div class="long-form-case-shell">
+          <div class="long-form-case-heading">
+            <div>
+              <p class="eyebrow">London · Winter 2024 · Two-Part Film</p>
+              <h2 class="long-form-case-title" id="london-winter-title">A city told through a personal journey.</h2>
+            </div>
+            <p class="long-form-case-intro">Filmed during a winter trip to London, this two-part personal project uses the journey itself as a structure for exploring the city — its neighbourhoods, architecture, history, transport, street culture and everyday life.</p>
+          </div>
+
+          <div class="long-form-parts">
+            <article class="long-form-part">
+              <p class="long-form-part-number">Part I</p>
+              <h3>Neighbourhoods, architecture and the route into London</h3>
+              <p>From Gants Hill and Islington to Shoreditch, London Bridge and St Paul’s, the first part follows the route into and through the city, combining neighbourhood observations, public transport, architecture, landmarks and the <em>A Wild Life for Wildlife</em> exhibition.</p>
+              <a href="https://www.youtube.com/watch?v=wjJA8s8bs5c" target="_blank" rel="noopener noreferrer">Watch Part I on YouTube ↗</a>
+            </article>
+
+            <article class="long-form-part">
+              <p class="long-form-part-number">Part II</p>
+              <h3>Landmarks, street life and the atmosphere of the city</h3>
+              <p>The second part moves through Westminster, Trafalgar Square, Soho, Hyde Park, Buckingham Palace and the City, mixing historical context with theatre, street musicians, food, shops, humour and everyday moments from the trip.</p>
+              <a href="https://www.youtube.com/watch?v=tYkVnmWu07c" target="_blank" rel="noopener noreferrer">Watch Part II on YouTube ↗</a>
+            </article>
+          </div>
+
+          <p class="long-form-language-note">Both parts are in Russian. Please enable English subtitles in the YouTube player.</p>
         </div>
       </div>
     </section>
