@@ -1,0 +1,185 @@
+name: One-time WebP image cleanup
+
+on:
+  push:
+    branches:
+      - preview/selected-work-covers
+    paths:
+      - .github/workflows/cleanup-images-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview/selected-work-covers
+          fetch-depth: 0
+
+      - name: Install Pillow
+        run: python -m pip install --quiet Pillow
+
+      - name: Convert only required photography to WebP
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          from PIL import Image, ImageOps
+
+          root = Path('assets/images')
+          targets = {
+              root / 'Portrait.JPG': (root / 'hero-mikhail.webp', 900),
+              root / 'IMG_5720.jpeg': (root / 'about-fanshawe.webp', 720),
+              root / 'Bordo_Mustafa.jpeg': (root / 'mayoral-reel.webp', 1000),
+              root / 'Misha_Golf_front.jpeg': (root / 'local-golf.webp', 1000),
+              root / 'London_Bridge.jpeg': (root / 'long-form.webp', 1200),
+              root / 'Grafity_Mustafa.jpeg': (root / 'mayoral-hero.webp', 1200),
+              root / 'selected-work' / 'Personal_Brand_Cover_1.png': (root / 'selected-work' / 'personal-brand.webp', 1000),
+              root / 'selected-work' / 'Personal_Brend_Cover_4.png': (root / 'personal-brand-main.webp', 1000),
+              root / 'selected-work' / 'Local_Cover.png': (root / 'local-business-main.webp', 1000),
+          }
+
+          for src, (dst, max_width) in targets.items():
+              if not src.exists():
+                  raise SystemExit(f'Missing required source: {src}')
+              dst.parent.mkdir(parents=True, exist_ok=True)
+              with Image.open(src) as im:
+                  im = ImageOps.exif_transpose(im).convert('RGB')
+                  if im.width > max_width:
+                      new_h = round(im.height * max_width / im.width)
+                      im = im.resize((max_width, new_h), Image.Resampling.LANCZOS)
+                  im.save(dst, 'WEBP', quality=82, method=6, optimize=True)
+                  print(f'{src} -> {dst}: {dst.stat().st_size/1024:.1f} KB, {im.width}x{im.height}')
+          PY
+
+      - name: Point active site directly at WebP files
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import json, re
+
+          files = [
+              Path('index.html'), Path('personal-brand.html'), Path('project-forest-city.html'),
+              Path('project-city-storytelling.html'), Path('project-mayoral.html')
+          ]
+
+          mappings = {
+              '%2Fassets%2Fimages%2FPortrait.JPG': 'assets/images/hero-mikhail.webp',
+              '%2Fassets%2Fimages%2FPortrait_Fanshawe.JPG': 'assets/images/about-fanshawe.webp',
+              '%2Fassets%2Fimages%2FIMG_5720.jpeg': 'assets/images/about-fanshawe.webp',
+              '%2Fassets%2Fimages%2FBordo_Mustafa.jpeg': 'assets/images/mayoral-reel.webp',
+              '%2Fassets%2Fimages%2FMisha_Golf_front.jpeg': 'assets/images/local-golf.webp',
+              '%2Fassets%2Fimages%2FLondon_Bridge.jpeg': 'assets/images/long-form.webp',
+              '%2Fassets%2Fimages%2FGrafity_Mustafa.jpeg': 'assets/images/mayoral-hero.webp',
+              '%2Fassets%2Fimages%2Fselected-work%2FPersonal_Brend_Cover_4.png': 'assets/images/personal-brand-main.webp',
+              '%2Fassets%2Fimages%2Fselected-work%2FLocal_Cover.png': 'assets/images/local-business-main.webp',
+              '%2Fassets%2Fimages%2Fselected-work%2FPersonal_Brand_Cover_1.png': 'assets/images/selected-work/personal-brand.webp',
+          }
+
+          direct = {
+              'assets/images/Portrait.JPG': 'assets/images/hero-mikhail.webp',
+              'assets/images/Portrait_Fanshawe.JPG': 'assets/images/about-fanshawe.webp',
+              'assets/images/IMG_5720.jpeg': 'assets/images/about-fanshawe.webp',
+              'assets/images/Bordo_Mustafa.jpeg': 'assets/images/mayoral-reel.webp',
+              'assets/images/Misha_Golf_front.jpeg': 'assets/images/local-golf.webp',
+              'assets/images/London_Bridge.jpeg': 'assets/images/long-form.webp',
+              'assets/images/Grafity_Mustafa.jpeg': 'assets/images/mayoral-hero.webp',
+              'assets/images/selected-work/Personal_Brend_Cover_4.png': 'assets/images/personal-brand-main.webp',
+              'assets/images/selected-work/Local_Cover.png': 'assets/images/local-business-main.webp',
+              'assets/images/selected-work/Personal_Brand_Cover_1.png': 'assets/images/selected-work/personal-brand.webp',
+          }
+
+          for path in files:
+              text = path.read_text()
+              # Replace Vercel optimizer src values with direct static WebP files.
+              for encoded, dst in mappings.items():
+                  text = re.sub(r'/_vercel/image\?url=' + re.escape(encoded) + r'&(?:amp;)?w=\d+&(?:amp;)?q=\d+', dst, text)
+              for src, dst in direct.items():
+                  text = text.replace(src, dst)
+              # srcset was only useful for the optimizer; one compact WebP is now served directly.
+              text = re.sub(r'\s+srcset="[^"]*"', '', text)
+              text = re.sub(r'\s+sizes="[^"]*"', '', text)
+              path.write_text(text)
+
+          # Remove the legacy CSS image-substitution rules that caused source conflicts.
+          p8 = Path('assets/css/part-8.css')
+          text = p8.read_text()
+          text = re.sub(r'\n?\s*content:\s*url\("\.\./images/IMG_5720\.jpeg"\)\s*!important;\s*', '\n', text)
+          text = re.sub(r'/\* New approved Mustafa photography\. \*/.*?/\* Contact is the visual reference', '/* Contact is the visual reference', text, flags=re.S)
+          p8.write_text(text)
+
+          p11 = Path('assets/css/part-11.css')
+          text = p11.read_text()
+          text = re.sub(r'\n/\* Image optimization pass — preview only\..*\Z', '\n', text, flags=re.S)
+          p11.write_text(text)
+
+          styles = Path('styles.css')
+          text = styles.read_text()
+          text = re.sub(r'\n?\s*content:\s*url\("assets/images/[^\"]+\.(?:png|jpe?g|JPG)"\)\s*!important;\s*', '\n', text)
+          styles.write_text(text)
+
+          # Direct WebP delivery: runtime Vercel image transformation is no longer needed.
+          v = Path('vercel.json')
+          data = json.loads(v.read_text())
+          data.pop('images', None)
+          v.write_text(json.dumps(data, indent=2) + '\n')
+          PY
+
+      - name: Delete unused raster masters and legacy image artifacts
+        run: |
+          python <<'PY'
+          from pathlib import Path
+
+          root = Path('assets/images')
+          keep = {
+              root / 'hero-mikhail.webp',
+              root / 'about-fanshawe.webp',
+              root / 'mayoral-reel.webp',
+              root / 'local-golf.webp',
+              root / 'long-form.webp',
+              root / 'mayoral-hero.webp',
+              root / 'personal-brand-main.webp',
+              root / 'local-business-main.webp',
+              root / 'selected-work' / 'personal-brand.webp',
+          }
+
+          removable = {'.jpg', '.jpeg', '.png', '.webp', '.b64', '.txt'}
+          for path in sorted(root.rglob('*')):
+              if path.is_file() and path.suffix.lower() in removable and path not in keep:
+                  print('delete', path)
+                  path.unlink()
+          PY
+
+      - name: Verify active site has no JPEG/PNG or optimizer references
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          scan = [Path('index.html'), Path('personal-brand.html'), Path('project-forest-city.html'),
+                  Path('project-city-storytelling.html'), Path('project-mayoral.html'), Path('styles.css')]
+          scan += sorted(Path('assets/css').glob('*.css'))
+          scan += sorted(Path('assets/js').glob('*.js'))
+
+          bad = []
+          pat = re.compile(r'(?:assets/images/|\.\./images/)[^\s\"\')]+\.(?:jpg|jpeg|png)|/_vercel/image', re.I)
+          for path in scan:
+              text = path.read_text(errors='ignore')
+              for m in pat.finditer(text):
+                  bad.append(f'{path}: {m.group(0)}')
+          if bad:
+              print('\n'.join(bad))
+              raise SystemExit('Legacy raster references remain; refusing to commit cleanup.')
+          print('Verification passed: active site uses direct WebP photography only.')
+          PY
+
+      - name: Commit cleanup and remove one-time workflow
+        run: |
+          rm -f .github/workflows/cleanup-images-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Clean image assets and serve direct WebP photography"
+          git push origin HEAD:preview/selected-work-covers
