@@ -239,11 +239,14 @@ html body.long-form-page .lf-film-card {
 
 /* Image optimization pass — preview only.
    Vercel transforms the existing approved source images on demand and serves
-   AVIF/WebP from the CDN. Use one 800px variant first to preserve the current
-   crop and visual composition while removing multi-megabyte transfers. */
-html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .hero-identity .collage-portrait img,
-html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about .about-portrait-stack img {
+   AVIF/WebP from the CDN. Keep Hero and About on separate source files so the
+   About graduation portrait cannot be replaced by the Hero portrait. */
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .hero-identity .collage-portrait img {
   content: url("/_vercel/image?url=%2Fassets%2Fimages%2FPortrait.JPG&w=800&q=75") !important;
+}
+
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about .about-portrait-stack img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FIMG_5720.jpeg&w=800&q=75") !important;
 }
 
 html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work .card-purple .card-media img {
