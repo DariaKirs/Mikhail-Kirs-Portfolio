@@ -189,3 +189,36 @@ html body.long-form-page .lf-film-card {
     "link" !important;
   column-gap: 0 !important;
 }
+
+/* Homepage mobile header — match the approved Selected Work mobile geometry. */
+@media (max-width: 700px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .brand {
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav .nav-links {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: none !important;
+    gap: 0 !important;
+    overflow: visible !important;
+    text-align: center !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav .nav-links a {
+    justify-self: center !important;
+    width: max-content !important;
+    min-width: 0 !important;
+  }
+}
