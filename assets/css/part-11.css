@@ -236,3 +236,55 @@ html body.long-form-page .lf-film-card {
     scroll-margin-top: 30px !important;
   }
 }
+
+/* Image optimization pass — preview only.
+   Vercel transforms the existing approved source images on demand and serves
+   AVIF/WebP from the CDN. Use one 800px variant first to preserve the current
+   crop and visual composition while removing multi-megabyte transfers. */
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .hero-identity .collage-portrait img,
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about .about-portrait-stack img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FPortrait.JPG&w=800&q=75") !important;
+}
+
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work .card-purple .card-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FBordo_Mustafa.jpeg&w=800&q=75") !important;
+}
+
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work .card-green .card-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FMisha_Golf_front.jpeg&w=800&q=75") !important;
+}
+
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work .card-city .card-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FLondon_Bridge.jpeg&w=800&q=75") !important;
+}
+
+/* Preserve the alternate approved Selected Work cover art if those semantic
+   classes are present in the active homepage markup. */
+html body #work .personal-card .card-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2Fselected-work%2FPersonal_Brand_Cover_1.png&w=800&q=75") !important;
+}
+
+html body #work .local-card .card-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2Fselected-work%2FLocal_Cover.png&w=800&q=75") !important;
+}
+
+html body.personal-brand-page:not(.local-business-page) .pb-fixed-photo img,
+html body.personal-brand-page:not(.local-business-page) .personal-brand-photo img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2Fselected-work%2FPersonal_Brend_Cover_4.png&w=800&q=75") !important;
+}
+
+html body.personal-brand-page.local-business-page .pb-fixed-photo img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2Fselected-work%2FLocal_Cover.png&w=800&q=75") !important;
+}
+
+html body.long-form-page .lf-fixed-photo img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FLondon_Bridge.jpeg&w=800&q=75") !important;
+}
+
+html body.project-page-purple .project-hero-media img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FGrafity_Mustafa.jpeg&w=800&q=75") !important;
+}
+
+html body.project-page-purple .episode-thumb img {
+  content: url("/_vercel/image?url=%2Fassets%2Fimages%2FBordo_Mustafa.jpeg&w=800&q=75") !important;
+}
