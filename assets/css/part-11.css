@@ -268,3 +268,15 @@ html body.long-form-page .lf-film-card {
     scroll-margin-top: 30px !important;
   }
 }
+
+
+/* Homepage Selected Work image source lock — 2026-08-24.
+   Prevent stale/legacy CSS content:url() rules from replacing the new WebP src. */
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page)
+  #work .work-grid > .card:nth-child(1) .card-media > img,
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page)
+  #work .work-grid > .card:nth-child(2) .card-media > img,
+html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page)
+  #work .work-grid > .card:nth-child(3) .card-media > img {
+  content: normal !important;
+}
