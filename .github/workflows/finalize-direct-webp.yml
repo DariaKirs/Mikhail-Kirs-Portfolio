@@ -1,0 +1,118 @@
+name: Finalize direct WebP migration
+
+on:
+  push:
+    branches:
+      - preview/selected-work-covers
+    paths:
+      - .github/workflows/finalize-direct-webp.yml
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: preview/selected-work-covers
+          fetch-depth: 0
+
+      - name: Remove legacy image overrides and redundant responsive markup
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          import re
+
+          active_pages = [
+              Path('index.html'),
+              Path('personal-brand.html'),
+              Path('project-forest-city.html'),
+              Path('project-city-storytelling.html'),
+          ]
+
+          # Each prepared WebP is a deliberate final static asset; remove the old
+          # optimizer-era srcset/sizes markup so the browser requests it directly once.
+          for path in active_pages:
+              text = path.read_text()
+              text = re.sub(r'\s+srcset="[^"]*"', '', text)
+              text = re.sub(r'\s+sizes="[^"]*"', '', text)
+              path.write_text(text)
+
+          # Update alt text where the underlying image changed to a different subject.
+          index = Path('index.html')
+          text = index.read_text()
+          text = text.replace(
+              'alt="Mustafa Zebuun on location during campaign content production"',
+              'alt="Personal Brand Content portrait in an urban setting"'
+          )
+          text = text.replace(
+              'alt="Mikhail Kirs on location at a golf course during Forest City Spotlight production"',
+              'alt="Local Business Storytelling in an urban retail setting"'
+          )
+          index.write_text(text)
+
+          lf = Path('project-city-storytelling.html')
+          text = lf.read_text().replace(
+              'alt="Tower Bridge viewed through a modern London streetscape"',
+              'alt="London Eye in the city landscape"'
+          )
+          lf.write_text(text)
+
+          # Remove every legacy raster content:url() substitution from the CSS cascade.
+          # These were the source of the repeated image-replacement conflicts.
+          for css in sorted(Path('assets/css').glob('*.css')) + [Path('styles.css')]:
+              if not css.exists():
+                  continue
+              text = css.read_text()
+              text = re.sub(
+                  r'\s*content:\s*url\((?:"|\')?[^\)]*\.(?:jpe?g|png|JPG)(?:"|\')?\)\s*!important;?',
+                  '', text, flags=re.I
+              )
+              css.write_text(text)
+
+          # Verify the active portfolio path is now truly direct-WebP only.
+          required = {
+              'index.html': [
+                  'assets/images/hero-mikhail.webp',
+                  'assets/images/about-fanshawe.webp',
+                  'assets/images/selected-work-personal-brand.webp',
+                  'assets/images/local-business.webp',
+                  'assets/images/long-form-cover-london-bridge.webp',
+              ],
+              'personal-brand.html': ['assets/images/personal-brand-main.webp'],
+              'project-forest-city.html': ['assets/images/local-business.webp'],
+              'project-city-storytelling.html': ['assets/images/long-form-main-london-eye.webp'],
+          }
+
+          for filename, needles in required.items():
+              text = Path(filename).read_text()
+              for needle in needles:
+                  if needle not in text:
+                      raise SystemExit(f'{filename}: missing {needle}')
+              if '/_vercel/image' in text:
+                  raise SystemExit(f'{filename}: optimizer reference remains')
+              if 'srcset=' in text:
+                  raise SystemExit(f'{filename}: srcset remains after static-WebP cleanup')
+
+          # No CSS file may replace an img source with an old JPEG/PNG anymore.
+          offenders = []
+          raster_content = re.compile(r'content\s*:\s*url\([^\)]*\.(?:jpe?g|png)', re.I)
+          for css in sorted(Path('assets/css').glob('*.css')) + [Path('styles.css')]:
+              if css.exists() and raster_content.search(css.read_text()):
+                  offenders.append(str(css))
+          if offenders:
+              raise SystemExit('Legacy raster content:url remains in: ' + ', '.join(offenders))
+
+          print('Final direct-WebP verification passed.')
+          PY
+
+      - name: Commit final cleanup and remove one-time workflow
+        run: |
+          rm -f .github/workflows/finalize-direct-webp.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finalize direct WebP image sources"
+          git push origin HEAD:preview/selected-work-covers
