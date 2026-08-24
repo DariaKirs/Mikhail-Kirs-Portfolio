@@ -189,3 +189,82 @@ html body.long-form-page .lf-film-card {
     "link" !important;
   column-gap: 0 !important;
 }
+
+/* Homepage mobile header — match the approved Selected Work mobile geometry. */
+@media (max-width: 700px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    gap: 18px !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .brand {
+    align-self: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav .nav-links {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    max-width: none !important;
+    gap: 0 !important;
+    overflow: visible !important;
+    text-align: center !important;
+  }
+
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) .site-header .nav .nav-links a {
+    justify-self: center !important;
+    width: max-content !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Homepage desktop Selected Work anchor: compensate for the section's own
+   top padding so the heading lands immediately below the sticky header. */
+@media (min-width: 821px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work.work-section {
+    scroll-margin-top: 18px !important;
+  }
+}
+
+@media (min-width: 821px) and (max-height: 820px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work.work-section {
+    scroll-margin-top: 30px !important;
+  }
+}
+
+/* Homepage desktop About anchor: cancel the global 104px section offset
+   so the About sheet lands high enough beneath the sticky header. */
+@media (min-width: 821px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about.about-section {
+    scroll-margin-top: 18px !important;
+  }
+}
+
+@media (min-width: 821px) and (max-height: 820px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about.about-section {
+    scroll-margin-top: 30px !important;
+  }
+}
+
+
+/* Homepage navigation anchors — final shared desktop offset. */
+@media (min-width: 821px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work.work-section,
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about.about-section,
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #contact.contact-section {
+    scroll-margin-top: 18px !important;
+  }
+}
+
+@media (min-width: 821px) and (max-height: 820px) {
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #work.work-section,
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #about.about-section,
+  html body:not(.personal-brand-page):not(.local-business-page):not(.long-form-page) #contact.contact-section {
+    scroll-margin-top: 30px !important;
+  }
+}

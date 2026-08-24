@@ -25,18 +25,15 @@ section[id] {
 
 /* Selected Work three-card preview: use the original full-resolution cover artwork. */
 #work .personal-card .card-media img {
-  content: url("assets/images/selected-work/Personal_Brand_Cover_1.png") !important;
-  opacity: 1 !important;
+opacity: 1 !important;
 }
 
 #work .local-card .card-media img {
-  content: url("assets/images/selected-work/Local_Cover.png") !important;
-  opacity: 1 !important;
+opacity: 1 !important;
 }
 
 /* Personal Brand page cover preview. */
 .personal-brand-page .personal-brand-photo img {
-  content: url("assets/images/selected-work/Personal_Brend_Cover_4.png") !important;
 }
 
 /* Personal Brand concept cards: keep the coloured panel behind the cream card,

@@ -250,8 +250,7 @@ body {
 }
 
 .about-portrait-stack img {
-  content: url("../images/IMG_5720.jpeg") !important;
-  aspect-ratio: 3 / 4 !important;
+aspect-ratio: 3 / 4 !important;
   object-fit: cover !important;
   object-position: 50% 50% !important;
 }
@@ -270,13 +269,11 @@ body {
 
 /* New approved Mustafa photography. */
 .work-section .card-purple .card-media img {
-  content: url("../images/IMG_7726.jpeg") !important;
   object-fit: cover !important;
   object-position: 50% 30% !important;
 }
 
 .project-page-purple .project-hero-media img {
-  content: url("../images/IMG_7164.jpeg") !important;
   object-fit: cover !important;
   object-position: 50% 38% !important;
 }
