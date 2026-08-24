@@ -6,11 +6,13 @@ on:
       - preview/selected-work-covers
     paths:
       - .github/workflows/cleanup-images-once.yml
-  pull_request_target:
+  pull_request:
     branches:
       - preview/selected-work-covers
     types:
       - opened
+      - synchronize
+      - reopened
 
 permissions:
   contents: write
