@@ -1,0 +1,118 @@
+name: Fix Selected Work root cause
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/fix-selected-work-root.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Make Selected Work static and remove legacy runtime replacement
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          stamp = '20260824-2124'
+
+          index = Path('index.html')
+          text = index.read_text()
+          start_marker = '    <section class="section work-section" id="work">'
+          end_marker = '    <section class="section about-section" id="about">'
+          start = text.index(start_marker)
+          end = text.index(end_marker)
+
+          work = '''    <section class="section work-section" id="work">
+      <div class="container">
+        <div class="section-heading selected-work-heading">
+          <div>
+            <p class="eyebrow">Selected Work</p>
+            <h2>Three directions in<br>visual storytelling.</h2>
+          </div>
+        </div>
+
+        <div class="work-grid selected-work-grid">
+          <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
+            <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
+              <img src="assets/images/selected-work-personal-brand.webp"
+                   alt="Personal Brand Content portrait in an urban setting" decoding="async">
+            </a>
+            <div class="card-body">
+              <h3>Personal Brand Content</h3>
+              <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
+              <a class="card-link" href="personal-brand.html">Explore work <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="card selected-work-card local-card" style="--category-accent: #7E9C86;">
+            <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
+              <img src="assets/images/local-business.webp"
+                   alt="Local Business Storytelling in an urban retail setting" decoding="async">
+            </a>
+            <div class="card-body">
+              <h3>Local Business Storytelling</h3>
+              <p>Video content that brings city businesses and places into focus.</p>
+              <a class="card-link" href="project-forest-city.html">Explore work <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE;">
+            <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
+              <img src="assets/images/long-form-cover-london-bridge.webp"
+                   alt="Tower Bridge framed by contemporary London architecture and everyday city life" decoding="async">
+            </a>
+            <div class="card-body">
+              <h3>Long-Form Visual Storytelling</h3>
+              <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
+              <a class="card-link" href="project-city-storytelling.html">Explore work <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+'''
+          text = text[:start] + work + text[end:]
+          import re
+          text = re.sub(r'assets/js/reveal\.js\?v=[^"\']+', f'assets/js/reveal.js?v={stamp}', text)
+          text = re.sub(r'styles\.css\?v=[^"\']+', f'styles.css?v={stamp}', text)
+          index.write_text(text)
+
+          reveal = Path('assets/js/reveal.js')
+          js = reveal.read_text()
+          divider = '\n})();\n\n(() => {'
+          if divider not in js:
+              raise SystemExit('Legacy Selected Work runtime block boundary not found')
+          _, rest = js.split(divider, 1)
+          reveal.write_text('(() => {' + rest)
+
+          css = Path('assets/css/part-11.css')
+          c = css.read_text()
+          marker = '/* Selected Work static source of truth — 2026-08-24. */'
+          if marker not in c:
+              c += '''\n\n/* Selected Work static source of truth — 2026-08-24.\n   Markup lives in index.html. JS only handles reveal and ambient behavior. */\n#work.work-section::before { display: none; }\n#work .selected-work-heading { display:flex; max-width:820px; margin:0 auto clamp(28px,3vw,40px); flex-direction:column; align-items:center; gap:0; text-align:center; }\n#work .selected-work-heading > div { width:100%; }\n#work .selected-work-heading h2 { max-width:760px; margin:0 auto; }\n#work .selected-work-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; align-items:stretch; }\n#work .selected-work-card { position:relative; display:flex; min-width:0; flex-direction:column; overflow:hidden; border-top:0; border-color:rgba(184,170,156,.56); border-radius:22px; }\n#work .selected-work-card::before { content:''; display:block; height:8px; flex:0 0 8px; background:var(--category-accent); }\n#work .selected-work-card .card-media { min-height:0; aspect-ratio:4/3; background:#f1ece4; }\n#work .selected-work-card .card-media img { width:100%; height:100%; min-height:0; object-fit:cover; transition:opacity .18s ease, transform .35s ease; }\n#work .personal-card .card-media img { object-position:center 34%; }\n#work .local-card .card-media img { object-position:center center; }\n#work .long-card .card-media img { object-position:center 51%; }\n#work .selected-work-card .card-body { display:flex; flex:1; flex-direction:column; padding:26px 24px 24px; }\n#work .selected-work-card .card-link { margin-top:auto; padding-top:24px; color:var(--text); text-decoration-color:var(--category-accent); }\n@media (max-width:1000px) { #work .selected-work-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }\n@media (max-width:700px) {\n  #work .selected-work-heading { margin-bottom:28px; }\n  #work .selected-work-heading h2 br { display:none; }\n  #work .selected-work-grid { grid-template-columns:1fr; gap:20px; }\n  #work .selected-work-card .card-media { aspect-ratio:16/11; }\n}\n'''
+              css.write_text(c)
+
+          styles = Path('styles.css')
+          s = styles.read_text()
+          s = re.sub(r'@import url\("assets/css/part-11\.css\?v=[^"\']+"\);', f'@import url("assets/css/part-11.css?v={stamp}");', s)
+          styles.write_text(s)
+          PY
+
+      - name: Commit root-cause fix
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/js/reveal.js assets/css/part-11.css styles.css
+          git commit -m "Remove legacy Selected Work runtime replacement"
+          git push origin HEAD:main
