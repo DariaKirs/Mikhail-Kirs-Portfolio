@@ -13,7 +13,7 @@
     <div class="work-grid selected-work-grid">
       <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
         <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
-          <img data-b64-src="assets/images/selected-work/personal-card-ultra.b64" alt="Modern professional in a Toronto city setting">
+          <img src="assets/images/selected-work-personal-brand.webp" alt="Personal Brand Content portrait in an urban setting" decoding="async">
         </a>
         <div class="card-body">
           <h3>Personal Brand Content</h3>
@@ -24,7 +24,7 @@
 
       <article class="card selected-work-card local-card" style="--category-accent: #7E9C86;">
         <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
-          <img data-b64-src="assets/images/selected-work/local-card-ultra.b64" alt="Independent shops and local businesses in a covered city arcade">
+          <img src="assets/images/local-business.webp" alt="Local Business Storytelling in an urban retail setting" decoding="async">
         </a>
         <div class="card-body">
           <h3>Local Business Storytelling</h3>
@@ -35,7 +35,7 @@
 
       <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE;">
         <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
-          <img src="assets/images/London_Bridge.jpeg" alt="Tower Bridge framed by contemporary London architecture and everyday city life" loading="lazy">
+          <img src="assets/images/long-form-cover-london-bridge.webp" alt="Tower Bridge framed by contemporary London architecture and everyday city life" decoding="async">
         </a>
         <div class="card-body">
           <h3>Long-Form Visual Storytelling</h3>
@@ -59,8 +59,6 @@
       #work .selected-work-card::before { content:''; display:block; height:8px; flex:0 0 8px; background:var(--category-accent); }
       #work .selected-work-card .card-media { min-height:0; aspect-ratio:4/3; background:#f1ece4; }
       #work .selected-work-card .card-media img { width:100%; height:100%; min-height:0; object-fit:cover; transition:opacity .18s ease, transform .35s ease; }
-      #work .selected-work-card .card-media img[data-b64-src] { opacity:0; }
-      #work .selected-work-card .card-media img[data-b64-src].is-loaded { opacity:1; }
       #work .personal-card .card-media img { object-position:center 34%; }
       #work .local-card .card-media img { object-position:center center; }
       #work .long-card .card-media img { object-position:center 51%; }
@@ -71,19 +69,6 @@
     `;
     document.head.appendChild(style);
   }
-
-  document.querySelectorAll('#work img[data-b64-src]').forEach(async (img) => {
-    try {
-      const response = await fetch(img.dataset.b64Src, { cache: 'force-cache' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const encoded = (await response.text()).trim();
-      img.src = `data:image/webp;base64,${encoded}`;
-      img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-      if (img.complete) img.classList.add('is-loaded');
-    } catch (error) {
-      console.error('Selected Work cover failed to load', error);
-    }
-  });
 })();
 
 (() => {
