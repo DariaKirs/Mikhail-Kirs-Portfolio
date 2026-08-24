@@ -6,6 +6,11 @@ on:
       - preview/selected-work-covers
     paths:
       - .github/workflows/cleanup-images-once.yml
+  pull_request_target:
+    branches:
+      - preview/selected-work-covers
+    types:
+      - opened
 
 permissions:
   contents: write
@@ -93,17 +98,14 @@ jobs:
 
           for path in files:
               text = path.read_text()
-              # Replace Vercel optimizer src values with direct static WebP files.
               for encoded, dst in mappings.items():
                   text = re.sub(r'/_vercel/image\?url=' + re.escape(encoded) + r'&(?:amp;)?w=\d+&(?:amp;)?q=\d+', dst, text)
               for src, dst in direct.items():
                   text = text.replace(src, dst)
-              # srcset was only useful for the optimizer; one compact WebP is now served directly.
               text = re.sub(r'\s+srcset="[^"]*"', '', text)
               text = re.sub(r'\s+sizes="[^"]*"', '', text)
               path.write_text(text)
 
-          # Remove the legacy CSS image-substitution rules that caused source conflicts.
           p8 = Path('assets/css/part-8.css')
           text = p8.read_text()
           text = re.sub(r'\n?\s*content:\s*url\("\.\./images/IMG_5720\.jpeg"\)\s*!important;\s*', '\n', text)
@@ -120,7 +122,6 @@ jobs:
           text = re.sub(r'\n?\s*content:\s*url\("assets/images/[^\"]+\.(?:png|jpe?g|JPG)"\)\s*!important;\s*', '\n', text)
           styles.write_text(text)
 
-          # Direct WebP delivery: runtime Vercel image transformation is no longer needed.
           v = Path('vercel.json')
           data = json.loads(v.read_text())
           data.pop('images', None)
