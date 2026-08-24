@@ -250,8 +250,7 @@ body {
 }
 
 .about-portrait-stack img {
-  content: url("../images/IMG_5720.jpeg") !important;
-  aspect-ratio: 3 / 4 !important;
+aspect-ratio: 3 / 4 !important;
   object-fit: cover !important;
   object-position: 50% 50% !important;
 }
