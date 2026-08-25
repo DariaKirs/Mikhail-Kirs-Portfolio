@@ -454,3 +454,38 @@ html body.long-form-page .lf-film-card .watch-cta {
     padding-bottom: 22px !important;
   }
 }
+
+/* A2 positioning refinement — keep approved WATCH styling, move only placement. */
+html body.personal-brand-page:not(.local-business-page) .pb-fixed-video .watch-cta {
+  align-self: flex-end !important;
+  margin-left: auto !important;
+}
+
+@media (min-width: 761px) {
+  html body.personal-brand-page.local-business-page .lb-business-card {
+    grid-template-areas:
+      "title views"
+      "copy views"
+      "copy link" !important;
+  }
+
+  html body.personal-brand-page.local-business-page .lb-business-card .watch-cta {
+    justify-self: end !important;
+    align-self: end !important;
+    margin-left: auto !important;
+  }
+}
+
+@media (max-width: 760px) {
+  html body.personal-brand-page.local-business-page .lb-business-card .watch-cta {
+    justify-self: end !important;
+    align-self: end !important;
+    margin-left: auto !important;
+  }
+}
+
+html body.long-form-page .lf-film-card .watch-cta {
+  justify-self: end !important;
+  align-self: end !important;
+  margin-left: auto !important;
+}
