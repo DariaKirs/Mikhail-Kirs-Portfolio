@@ -42,7 +42,7 @@
         }
 
         const link = card.querySelector('a');
-        if (link) { link.textContent = 'WATCH ↗'; link.classList.add('watch-cta', 'watch-instagram'); }
+        if (link) { link.textContent = 'WATCH'; link.classList.add('watch-cta', 'watch-instagram'); }
       });
 
       if (!document.querySelector('style[data-local-business-layout]')) {

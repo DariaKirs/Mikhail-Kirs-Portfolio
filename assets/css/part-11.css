@@ -271,111 +271,186 @@ html body.long-form-page .lf-film-card {
 
 
 /* ========================================================================== */
-/* A1 preview — Selected Work previous / next navigation                      */
-/* ========================================================================== */
-.work-sequence-nav { width: 100%; }
-.work-sequence-nav-top { margin: 0 0 22px; }
-.work-sequence-nav-bottom { margin: 28px 0 0; }
-.work-sequence-inner { display: flex; align-items: stretch; justify-content: space-between; gap: 18px; }
+
+/* A1 refined preview — lightweight Selected Work section switching. */
+.work-sequence-nav {
+  width: 100%;
+}
+
+.work-sequence-nav-top {
+  margin: 0 0 14px;
+}
+
+.work-sequence-nav-bottom {
+  margin: 24px 0 0;
+}
+
+.work-sequence-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
 .work-sequence-link {
   --sequence-accent: var(--blue);
-  display: grid;
-  min-width: 210px;
-  max-width: 280px;
-  gap: 5px;
-  padding: 12px 16px 13px;
-  border: 1px solid rgba(184, 170, 156, .62);
-  border-bottom: 4px solid var(--sequence-accent);
-  border-radius: 18px 8px 18px 8px;
-  background: rgba(255, 253, 249, .88);
-  color: var(--text);
+  display: inline-flex;
+  width: max-content;
+  max-width: 48%;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: .96rem;
+  font-weight: 700;
+  line-height: 1.2;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(32, 54, 74, .065);
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  box-shadow: none;
 }
-.work-sequence-link.is-back { margin-right: auto; text-align: left; }
-.work-sequence-link.is-next { margin-left: auto; text-align: right; }
-.work-sequence-action {
+
+.work-sequence-link.is-back {
+  margin-right: auto;
+  text-align: left;
+}
+
+.work-sequence-link.is-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+.work-sequence-copy strong {
   color: var(--sequence-accent);
-  font-size: .72rem;
   font-weight: 900;
-  line-height: 1;
-  letter-spacing: .14em;
-  text-transform: uppercase;
 }
-.work-sequence-name { font-size: 1rem; font-weight: 800; line-height: 1.12; letter-spacing: -.02em; }
+
+.work-sequence-arrow {
+  flex: 0 0 auto;
+  color: var(--sequence-accent);
+  font-size: 1.35em;
+  font-weight: 900;
+  line-height: .8;
+  transition: transform .18s ease;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .work-sequence-link:hover,
   .work-sequence-link:focus-visible {
-    transform: translateY(-2px);
-    background: var(--surface-strong);
-    box-shadow: 0 14px 28px rgba(32, 54, 74, .10);
+    color: var(--text);
+  }
+
+  .work-sequence-link.is-next:hover .work-sequence-arrow,
+  .work-sequence-link.is-next:focus-visible .work-sequence-arrow {
+    transform: translateX(4px);
+  }
+
+  .work-sequence-link.is-back:hover .work-sequence-arrow,
+  .work-sequence-link.is-back:focus-visible .work-sequence-arrow {
+    transform: translateX(-4px);
   }
 }
 
-/* A2 preview — one imperative WATCH action for every video link. */
+/* A2 refined preview — simple imperative WATCH buttons. */
 .watch-cta {
   display: inline-flex !important;
   width: max-content !important;
-  min-width: 92px;
-  align-items: center;
-  justify-content: center;
-  align-self: flex-start;
+  min-width: 104px !important;
+  min-height: 46px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: flex-start !important;
   margin-top: auto !important;
-  padding: 9px 14px !important;
-  border: 1.5px solid currentColor;
-  border-radius: 999px;
-  font-size: .76rem !important;
+  padding: 0 20px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  font-size: .8rem !important;
   font-weight: 900 !important;
   line-height: 1 !important;
-  letter-spacing: .11em;
-  text-transform: uppercase;
+  letter-spacing: .08em !important;
+  text-transform: uppercase !important;
   text-decoration: none !important;
   text-underline-offset: 0 !important;
-  transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
 }
-.watch-cta.watch-instagram {
-  border-color: var(--accent-purple, var(--purple)) !important;
-  background: transparent !important;
-  color: var(--accent-purple, var(--purple)) !important;
-  box-shadow: none !important;
-}
-.watch-cta.watch-youtube {
-  border-color: #C8102E !important;
-  background: #C8102E !important;
+
+/* Instagram — filled social gradient, same pill language as Contact actions. */
+html body .watch-cta.watch-instagram,
+html body.local-business-page .lb-business-card a.watch-cta.watch-instagram {
+  border: 0 !important;
+  background: linear-gradient(110deg, #833AB4 0%, #C13584 42%, #E1306C 68%, #F77737 100%) !important;
   color: #fff !important;
-  box-shadow: 0 7px 0 rgba(200, 16, 46, .12) !important;
+  box-shadow: 0 8px 0 rgba(193, 53, 132, .15) !important;
 }
+
+/* Long Form — Fanshawe red stays exactly within the approved site palette. */
+html body.long-form-page .watch-cta.watch-youtube {
+  border: 0 !important;
+  background: var(--fanshawe-red, #C8102E) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 0 rgba(200, 16, 46, .14) !important;
+}
+
+/* Give the Long Form film cards enough vertical breathing room for the CTA. */
+html body.long-form-page .lf-film-card {
+  min-height: 190px !important;
+  padding-bottom: 24px !important;
+  row-gap: 8px !important;
+}
+
+html body.long-form-page .lf-film-card .watch-cta {
+  margin-top: 14px !important;
+}
+
 @media (hover: hover) and (pointer: fine) {
-  .watch-cta:hover,
-  .watch-cta:focus-visible { transform: translateY(-1px); }
-  .watch-cta.watch-instagram:hover,
-  .watch-cta.watch-instagram:focus-visible {
-    background: rgba(105, 65, 140, .08) !important;
-    color: var(--accent-purple, var(--purple)) !important;
+  html body .watch-cta:hover,
+  html body .watch-cta:focus-visible {
+    transform: translateY(-2px) !important;
+    filter: saturate(1.04) brightness(1.02);
   }
-  .watch-cta.watch-youtube:hover,
-  .watch-cta.watch-youtube:focus-visible {
-    background: #B50E29 !important;
-    border-color: #B50E29 !important;
-    color: #fff !important;
+
+  html body .watch-cta.watch-instagram:hover,
+  html body .watch-cta.watch-instagram:focus-visible {
+    box-shadow: 0 11px 0 rgba(193, 53, 132, .12) !important;
+  }
+
+  html body.long-form-page .watch-cta.watch-youtube:hover,
+  html body.long-form-page .watch-cta.watch-youtube:focus-visible {
+    box-shadow: 0 11px 0 rgba(200, 16, 46, .11) !important;
   }
 }
+
 @media (max-width: 700px) {
-  .work-sequence-nav-top { margin-bottom: 16px; }
-  .work-sequence-nav-bottom { margin-top: 20px; }
-  .work-sequence-inner { gap: 10px; }
+  .work-sequence-nav-top {
+    margin-bottom: 12px;
+  }
+
+  .work-sequence-nav-bottom {
+    margin-top: 18px;
+  }
+
+  .work-sequence-inner {
+    gap: 14px;
+  }
+
   .work-sequence-link {
-    min-width: 0;
-    max-width: calc(50% - 5px);
-    flex: 1 1 0;
-    padding: 11px 12px 12px;
+    max-width: 50%;
+    gap: 5px;
+    font-size: .84rem;
+    line-height: 1.24;
   }
+
   .work-sequence-link:only-child {
-    width: min(64%, 240px);
-    max-width: 240px;
-    flex: none;
+    max-width: 78%;
   }
-  .work-sequence-action { font-size: .67rem; }
-  .work-sequence-name { font-size: .92rem; }
+
+  .work-sequence-arrow {
+    font-size: 1.25em;
+  }
+
+  html body.long-form-page .lf-film-card {
+    min-height: 0 !important;
+    padding-bottom: 22px !important;
+  }
 }
