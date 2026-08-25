@@ -13,6 +13,20 @@
 })();
 
 (() => {
+  if (document.querySelector('script[data-vercel-speed-insights]')) return;
+
+  window.si = window.si || function () {
+    (window.siq = window.siq || []).push(arguments);
+  };
+
+  const speedInsightsScript = document.createElement('script');
+  speedInsightsScript.src = '/_vercel/speed-insights/script.js';
+  speedInsightsScript.defer = true;
+  speedInsightsScript.dataset.vercelSpeedInsights = 'true';
+  document.head.appendChild(speedInsightsScript);
+})();
+
+(() => {
   const revealGroups = [
     { selector: '.work-section .section-heading > div, .work-section .section-heading > p', stagger: 110 },
     { selector: '.work-section .card', stagger: 140 },
