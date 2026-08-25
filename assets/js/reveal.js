@@ -18,7 +18,7 @@
         <div class="card-body">
           <h3>Personal Brand Content</h3>
           <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
-          <a class="card-link" href="personal-brand.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="personal-brand.html">STEP INSIDE</a>
         </div>
       </article>
 
@@ -29,7 +29,7 @@
         <div class="card-body">
           <h3>Local Business Storytelling</h3>
           <p>Video content that brings city businesses and places into focus.</p>
-          <a class="card-link" href="project-forest-city.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="project-forest-city.html">STEP INSIDE</a>
         </div>
       </article>
 
@@ -40,7 +40,7 @@
         <div class="card-body">
           <h3>Long-Form Visual Storytelling</h3>
           <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
-          <a class="card-link" href="project-city-storytelling.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="project-city-storytelling.html">STEP INSIDE</a>
         </div>
       </article>
     </div>
@@ -63,7 +63,57 @@
       #work .local-card .card-media img { object-position:center center; }
       #work .long-card .card-media img { object-position:center 51%; }
       #work .selected-work-card .card-body { display:flex; flex:1; flex-direction:column; padding:26px 24px 24px; }
-      #work .selected-work-card .card-link { margin-top:auto; padding-top:24px; color:var(--text); text-decoration-color:var(--category-accent); }
+
+      #work .personal-card {
+        --step-bg:#F0EAF6;
+        --step-bg-hover:#E6DCF0;
+        --step-border:#C7B6DD;
+        --step-ink:#68478E;
+      }
+      #work .local-card {
+        --step-bg:#E8EFEA;
+        --step-bg-hover:#DCE8DF;
+        --step-border:#9AB2A0;
+        --step-ink:#496651;
+      }
+      #work .long-card {
+        --step-bg:#E8F3F6;
+        --step-bg-hover:#DCECF1;
+        --step-border:#B7D5DE;
+        --step-ink:#315D70;
+      }
+
+      #work .selected-work-card .card-link {
+        display:inline-flex;
+        width:fit-content;
+        min-height:42px;
+        align-items:center;
+        justify-content:center;
+        margin-top:auto;
+        padding:0 18px;
+        border:1px solid var(--step-border);
+        border-radius:999px;
+        background:var(--step-bg);
+        color:var(--step-ink);
+        font-size:.78rem;
+        font-weight:850;
+        line-height:1;
+        letter-spacing:.06em;
+        text-decoration:none;
+        box-shadow:0 5px 12px rgba(32,54,74,.06);
+        transition:transform .18s ease, background .18s ease, box-shadow .18s ease, border-color .18s ease;
+      }
+      #work .selected-work-card .card-link:hover,
+      #work .selected-work-card .card-link:focus-visible {
+        transform:translateY(-2px);
+        background:var(--step-bg-hover);
+        box-shadow:0 8px 16px rgba(32,54,74,.10);
+      }
+      #work .selected-work-card .card-link:focus-visible {
+        outline:2px solid var(--step-ink);
+        outline-offset:3px;
+      }
+
       @media (max-width:1000px) { #work .selected-work-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
       @media (max-width:700px) { #work .selected-work-heading { margin-bottom:28px; } #work .selected-work-heading h2 br { display:none; } #work .selected-work-grid { grid-template-columns:1fr; gap:20px; } #work .selected-work-card .card-media { aspect-ratio:16/11; } }
     `;
