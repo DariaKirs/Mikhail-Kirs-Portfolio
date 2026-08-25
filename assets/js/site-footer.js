@@ -1,3 +1,17 @@
+(() => {
+  if (document.querySelector('script[data-vercel-analytics]')) return;
+
+  window.va = window.va || function () {
+    (window.vaq = window.vaq || []).push(arguments);
+  };
+
+  const analyticsScript = document.createElement('script');
+  analyticsScript.src = '/_vercel/insights/script.js';
+  analyticsScript.defer = true;
+  analyticsScript.dataset.vercelAnalytics = 'true';
+  document.head.appendChild(analyticsScript);
+})();
+
 (async () => {
   const currentScript = document.currentScript;
   if (currentScript) currentScript.dataset.siteFooter = 'true';
