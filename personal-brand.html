@@ -282,7 +282,9 @@
     }
 
     .pb-fixed-campaign-label,
-    .pb-fixed-campaign-copy .pb-fixed-official {
+    .pb-fixed-campaign-copy .pb-fixed-official,
+    .pb-fixed-press-label,
+    .pb-fixed-press-link {
       color: var(--coral) !important;
     }
 
@@ -314,6 +316,38 @@
       margin-top: 16px;
       font-size: .9rem;
       font-weight: 800;
+      text-underline-offset: 4px;
+    }
+
+    .pb-fixed-press {
+      max-width: 620px;
+      margin-top: 24px;
+      padding-top: 18px;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-press-label {
+      margin: 0 0 7px;
+      font-size: .72rem;
+      font-weight: 850;
+      line-height: 1.2;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .pb-fixed-campaign-copy .pb-fixed-press-meta {
+      margin: 0;
+      color: var(--surface);
+      font-size: .92rem;
+      font-weight: 760;
+      line-height: 1.4;
+    }
+
+    .pb-fixed-press-link {
+      display: inline-block;
+      margin-top: 9px;
+      font-size: .82rem;
+      font-weight: 800;
+      text-decoration-thickness: 1px;
       text-underline-offset: 4px;
     }
 
@@ -425,7 +459,9 @@
     .pb-fixed-video a:hover,
     .pb-fixed-video a:focus-visible,
     .pb-fixed-official:hover,
-    .pb-fixed-official:focus-visible {
+    .pb-fixed-official:focus-visible,
+    .pb-fixed-press-link:hover,
+    .pb-fixed-press-link:focus-visible {
       text-decoration-thickness: 2px;
     }
 
@@ -699,9 +735,12 @@
             <p class="pb-fixed-campaign-label">2026 Municipal Campaign · London, Ontario</p>
             <h2 id="campaign-title">Mustafa Zebuun for Mayor</h2>
             <p>In London’s 2026 municipal election, I joined the Mustafa Zebuun for Mayor campaign at an early stage.</p>
-            <p>My work focuses on filming, editing, and turning campaign topics into clear visual stories for social media - from transit and downtown issues to housing, homelessness, and support for local business.</p>
-            <p class="pb-fixed-role">Filming. Editing. Short-form storytelling.</p>
-            <a class="pb-fixed-official" href="https://zebuunformayor.ca/" target="_blank" rel="noopener noreferrer">Official campaign ↗</a>
+            <p>My work focuses on filming, editing, and turning campaign topics into clear visual stories for social media.</p>
+            <div class="pb-fixed-press">
+              <p class="pb-fixed-press-label">IN THE PRESS</p>
+              <p class="pb-fixed-press-meta">CBC Arts “London is liminal” August 24, 2026</p>
+              <a class="pb-fixed-press-link" href="https://www.cbc.ca/arts/loiterfest-9.7316003" target="_blank" rel="noopener noreferrer">VIEW ON CBC ARTS</a>
+            </div>
           </div>
 
           <div class="pb-fixed-metrics" aria-label="Campaign results">
