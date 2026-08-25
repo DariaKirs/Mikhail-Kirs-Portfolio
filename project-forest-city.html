@@ -522,12 +522,16 @@
 
       .local-business-page .pb-fixed-title {
         order: 2;
-        max-width: 11ch !important;
+        max-width: none !important;
         margin: 0 auto !important;
         font-size: 38px;
         line-height: .98;
         text-align: center !important;
         text-wrap: balance;
+      }
+
+      .local-business-page .lb-title-line {
+        white-space: nowrap !important;
       }
 
       .local-business-page .pb-fixed-photo-wrap {
@@ -572,6 +576,19 @@
         text-align: center !important;
       }
 
+      .local-business-page .pb-fixed-campaign-copy .pb-fixed-campaign-label {
+        text-transform: none !important;
+        line-height: 1.35 !important;
+      }
+
+      .local-business-page .lb-campaign-label-line {
+        display: block;
+      }
+
+      .local-business-page .lb-campaign-label-divider {
+        display: none;
+      }
+
       .local-business-page .pb-fixed-campaign-copy h2 {
         max-width: 12ch !important;
         margin-left: auto !important;
@@ -593,20 +610,24 @@
       }
 
       html body.local-business-page .lb-business-card {
-        grid-template-columns: minmax(0, 1fr) 74px !important;
+        grid-template-columns: minmax(0, 1fr) auto !important;
         grid-template-areas:
-          "title views"
+          "title title"
           "copy copy"
-          "link link" !important;
+          "views link" !important;
         min-height: 0 !important;
         padding: 16px 15px 15px !important;
         column-gap: 12px !important;
+        row-gap: 0 !important;
       }
 
       .local-business-page .lb-business-card h3 { font-size: 19px !important; }
 
       html body.local-business-page .lb-business-views {
-        justify-content: flex-start !important;
+        align-items: flex-start !important;
+        justify-content: flex-end !important;
+        margin-top: 11px !important;
+        text-align: left !important;
       }
 
       .local-business-page .lb-business-views strong { font-size: 1.38rem !important; }
@@ -618,6 +639,8 @@
       }
 
       .local-business-page .lb-business-card a {
+        justify-self: end !important;
+        align-self: end !important;
         margin-top: 11px !important;
         font-size: 14px !important;
       }
@@ -703,7 +726,7 @@
       <section class="pb-fixed-campaign-shell" aria-labelledby="forest-city-title">
         <div class="pb-fixed-campaign">
           <div class="pb-fixed-campaign-copy">
-            <p class="pb-fixed-campaign-label">Forest City Spotlight · London, Ontario</p>
+            <p class="pb-fixed-campaign-label"><span class="lb-campaign-label-line">Forest City Spotlight</span><span class="lb-campaign-label-divider"> · </span><span class="lb-campaign-label-line">London, Ontario</span></p>
             <h2 id="forest-city-title">From campaign idea to a local business series</h2>
             <p>The project began with a campaign post announcing a new mini-series designed to give London small businesses free exposure through social media video content.</p>
             <p>It then became Forest City Spotlight - a dedicated page for showcasing local businesses in London, Ontario.</p>
