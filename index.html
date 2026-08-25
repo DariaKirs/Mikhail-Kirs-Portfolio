@@ -12,8 +12,10 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=20260809-2106">
   <link rel="stylesheet" href="assets/css/ambient-squares.css?v=20260810-1650">
+  <link rel="stylesheet" href="assets/css/selected-work-home.css?v=20260825-cleanup1">
+  <link rel="stylesheet" href="assets/css/home-ambient-secondary.css?v=20260825-cleanup1">
   <script src="assets/js/ambient-squares.js?v=20260810-1650" defer></script>
-  <script src="assets/js/reveal.js?v=20260825-a1-a2-preview" defer></script>
+  <script src="assets/js/reveal.js?v=20260825-cleanup1" defer></script>
   <script src="assets/js/contact-form-v2.js?v=20260810-1455" defer></script>
   <style>
     /* Contact - single source of truth for layout and centering. */
@@ -393,57 +395,44 @@
 
     <section class="section work-section" id="work">
       <div class="container">
-        <div class="section-heading">
+        <div class="section-heading selected-work-heading">
           <div>
             <p class="eyebrow">Selected Work</p>
-            <h2>Three directions in visual storytelling.</h2>
+            <h2>Three directions in<br>visual storytelling.</h2>
           </div>
-          <p>Personal Brand Content, Local Business Storytelling and long-form films.</p>
         </div>
 
-        <div class="work-grid">
-          <article class="card card-purple">
-            <a class="card-media" href="project-mayoral.html" aria-label="Open Mustafa Zebuun Mayoral Campaign case study">
-              <img class="media-focus-top"
-                   src="assets/images/selected-work-personal-brand.webp"
-                   alt="Personal Brand Content portrait in an urban setting" decoding="async">
-              <span class="media-label">Personal Brand Content</span>
+        <div class="work-grid selected-work-grid">
+          <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD; --cta-bg: #7C57C5;">
+            <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
+              <img src="assets/images/selected-work-personal-brand.webp" alt="Personal Brand Content portrait in an urban setting" decoding="async">
             </a>
             <div class="card-body">
-              <p class="card-meta">London, Ontario · Mayoral Campaign</p>
-              <h3>Mustafa Zebuun Mayoral Campaign</h3>
-              <p>Visual and production work for Mustafa Zebuun’s mayoral campaign in London, Ontario. Political topics and messaging are determined by the candidate himself.</p>
-              <a class="card-link" href="project-mayoral.html">View case study <span aria-hidden="true">↗</span></a>
+              <h3>Personal Brand Content</h3>
+              <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
+              <a class="card-link" href="personal-brand.html">STEP INSIDE</a>
             </div>
           </article>
 
-          <article class="card card-green">
-            <a class="card-media" href="project-forest-city.html" aria-label="Open Forest City Spotlight case study">
-              <img class="media-focus-top"
-                   src="assets/images/local-business.webp"
-                   alt="Local Business Storytelling in an urban retail setting" decoding="async">
-              <span class="media-label">Local Business Storytelling</span>
+          <article class="card selected-work-card local-card" style="--category-accent: #7E9C86; --cta-bg: #5B8763;">
+            <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
+              <img src="assets/images/local-business.webp" alt="Local Business Storytelling in an urban retail setting" decoding="async">
             </a>
             <div class="card-body">
-              <p class="card-meta">London, Ontario · Video Series</p>
-              <h3>Forest City Spotlight</h3>
-              <p>A Local Business Storytelling series presenting London businesses and places through short-form social video.</p>
-              <a class="card-link" href="project-forest-city.html">View case study <span aria-hidden="true">↗</span></a>
+              <h3>Local Business Storytelling</h3>
+              <p>Video content that brings city businesses and places into focus.</p>
+              <a class="card-link" href="project-forest-city.html">STEP INSIDE</a>
             </div>
           </article>
 
-          <article class="card card-city">
-            <a class="card-media" href="project-city-storytelling.html" aria-label="Open Long-Form Visual Storytelling case study">
-              <img class="media-focus-center"
-                   src="assets/images/long-form-cover-london-bridge.webp"
-                   alt="Tower Bridge framed by contemporary London architecture" decoding="async">
-              <span class="media-label">Long-Form Storytelling</span>
+          <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE; --cta-bg: #4DA7C8;">
+            <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
+              <img src="assets/images/long-form-cover-london-bridge.webp" alt="Tower Bridge framed by contemporary London architecture and everyday city life" decoding="async">
             </a>
             <div class="card-body">
-              <p class="card-meta">Long-Form Films · Personal Projects</p>
               <h3>Long-Form Visual Storytelling</h3>
-              <p>Personal long-form projects built around research, scripting, historical context and visual storytelling.</p>
-              <a class="card-link" href="project-city-storytelling.html">View case study <span aria-hidden="true">↗</span></a>
+              <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
+              <a class="card-link" href="project-city-storytelling.html">STEP INSIDE</a>
             </div>
           </article>
         </div>
