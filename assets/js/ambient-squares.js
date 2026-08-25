@@ -13,7 +13,7 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(pointer: fine)');
 
-  /* SOUND — opt-in only. The page is silent on a fresh visit. */
+  /* SOUND - opt-in only. The page is silent on a fresh visit. */
   const SOUND_STORAGE_KEY = 'mikhail-kirs-sound-enabled';
   const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
   let soundEnabled = false;
@@ -180,7 +180,7 @@
     soundToggle.disabled = false;
     soundToggle.setAttribute('aria-pressed', String(soundEnabled));
     soundToggle.setAttribute('aria-label', soundEnabled ? 'Turn sound effects off' : 'Turn sound effects on');
-    soundToggle.title = soundEnabled ? 'Sound effects on — click to mute' : 'Sound effects off — click to enable';
+    soundToggle.title = soundEnabled ? 'Sound effects on - click to mute' : 'Sound effects off - click to enable';
     if (label) label.textContent = soundEnabled ? 'Sound on' : 'Sound off';
   };
 
