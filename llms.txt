@@ -1,0 +1,17 @@
+# Mikhail Kirs Portfolio
+
+> Portfolio of Mikhail Kirs, a London, Ontario-based video content producer working across personal brand content, local business storytelling, and long-form visual storytelling.
+
+This is the English-language public portfolio of Mikhail Kirs. The primary pages below contain the full project descriptions as static HTML.
+
+## Primary pages
+
+- [Home](https://www.mikhailkirs.com/): Portfolio overview, selected work, biography, education, and contact links.
+- [Personal Brand Content](https://www.mikhailkirs.com/personal-brand.html): Personal brand framework and a 2026 London, Ontario municipal campaign video case study.
+- [Local Business Storytelling](https://www.mikhailkirs.com/project-forest-city.html): Forest City Spotlight, a local business video storytelling series in London, Ontario.
+- [Long-Form Visual Storytelling](https://www.mikhailkirs.com/project-city-storytelling.html): A two-part London Winter 2024 personal film project built around research, scripting, filming, editing, history, and everyday city life.
+
+## Public profiles
+
+- [LinkedIn](https://www.linkedin.com/in/mikhail-kirs/)
+- [Instagram](https://instagram.com/mikki.kirs6haa)

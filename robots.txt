@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# OpenAI search crawler. The wildcard rule above already permits other compliant crawlers.
+User-agent: OAI-SearchBot
+Allow: /
+
 Sitemap: https://www.mikhailkirs.com/sitemap.xml
