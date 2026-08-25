@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Long-Form Visual Storytelling by Mikhail Kirs — personal films built around research, scripting, historical context and visual storytelling.">
+  <meta name="description" content="Long-Form Visual Storytelling by Mikhail Kirs - personal films built around research, scripting, historical context and visual storytelling.">
   <meta name="theme-color" content="#F4EFE6">
-  <title>Long-Form Visual Storytelling — Mikhail Kirs</title>
+  <title>Long-Form Visual Storytelling - Mikhail Kirs</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20260823-long-form-pb-structure">
-  <script src="assets/js/site-footer.js?v=20260823-long-form-pb-structure" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260825-a1-a2-refine3">
+  <script src="assets/js/site-footer.js?v=20260825-a1-a2-refine3" defer></script>
   <style>
     /* Long-Form uses the exact approved Personal Brand / Local Business shell. */
     .site-header {
@@ -517,6 +517,12 @@
       .lf-fixed-case-copy .lf-fixed-case-label {
         transform: none;
         margin-bottom: 20px;
+        font-size: 0;
+      }
+
+      .lf-fixed-case-copy .lf-fixed-case-label::after {
+        content: "London · Winter 2024";
+        font-size: .76rem;
       }
 
       .lf-fixed-case-copy h2 {
@@ -589,6 +595,15 @@
   </header>
 
   <main id="main-content" class="long-form-main">
+  <nav class="work-sequence-nav work-sequence-nav-top" aria-label="Selected Work section navigation">
+    <div class="container work-sequence-inner">
+      <a class="work-sequence-link is-back" style="--sequence-accent:#7E9C86" href="project-forest-city.html">
+        <span class="work-sequence-arrow" aria-hidden="true">←</span>
+        <span class="work-sequence-copy">Switch to <strong>Local Business</strong></span>
+      </a>
+    </div>
+  </nav>
+
     <div class="container lf-fixed">
       <section class="lf-fixed-top" aria-labelledby="long-form-title">
         <div class="lf-fixed-copy">
@@ -634,7 +649,7 @@
           <div class="lf-fixed-case-copy">
             <p class="lf-fixed-case-label">London · Winter 2024 · Two-Part Film</p>
             <h2 id="london-winter-title">A city told through a personal journey.</h2>
-            <p>Filmed during a winter trip to London, this two-part personal project uses the journey itself as a structure for exploring the city — its neighbourhoods, architecture, history, transport, street culture and everyday life.</p>
+            <p>Filmed during a winter trip to London, this two-part personal project uses the journey itself as a structure for exploring the city - its neighbourhoods, architecture, history, transport, street culture and everyday life.</p>
             <p>Moving from residential neighbourhoods to some of London’s most recognizable districts, the films combine on-location storytelling, historical context and everyday urban experiences to build a broader portrait of the city rather than simply document a trip.</p>
             <p class="lf-fixed-role">Research. Scripting. Filming. Editing.</p>
             <p class="lf-language-note">Both parts are in Russian. Please enable English subtitles in the YouTube player.</p>
@@ -648,7 +663,7 @@
                   <strong>I</strong><span>Part</span>
                 </div>
                 <p>From Gants Hill and Islington to Shoreditch, London Bridge and St Paul’s, the first part follows the route into and through the city, combining neighbourhoods, architecture, transport, public art and historical context.</p>
-                <a href="https://www.youtube.com/watch?v=wjJA8s8bs5c" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+                <a class="watch-cta watch-youtube" href="https://www.youtube.com/watch?v=wjJA8s8bs5c" target="_blank" rel="noopener noreferrer">WATCH</a>
               </article>
 
               <article class="lf-film-card">
@@ -656,14 +671,22 @@
                 <div class="lf-film-part" aria-label="Part II">
                   <strong>II</strong><span>Part</span>
                 </div>
-                <p>Westminster, Trafalgar Square, Soho, Hyde Park, Buckingham Palace and the City — a more lifestyle-driven second part mixing landmarks and historical facts with theatre, street musicians, food, shops and everyday London experiences.</p>
-                <a href="https://www.youtube.com/watch?v=tYkVnmWu07c" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
+                <p>Westminster, Trafalgar Square, Soho, Hyde Park, Buckingham Palace and the City - a more lifestyle-driven second part mixing landmarks and historical facts with theatre, street musicians, food, shops and everyday London experiences.</p>
+                <a class="watch-cta watch-youtube" href="https://www.youtube.com/watch?v=tYkVnmWu07c" target="_blank" rel="noopener noreferrer">WATCH</a>
               </article>
             </div>
           </div>
         </div>
       </section>
     </div>
+  <nav class="work-sequence-nav work-sequence-nav-bottom" aria-label="Selected Work section navigation">
+    <div class="container work-sequence-inner">
+      <a class="work-sequence-link is-back" style="--sequence-accent:#7E9C86" href="project-forest-city.html">
+        <span class="work-sequence-arrow" aria-hidden="true">←</span>
+        <span class="work-sequence-copy">Switch to <strong>Local Business</strong></span>
+      </a>
+    </div>
+  </nav>
   </main>
 
   <footer class="site-footer">

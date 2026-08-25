@@ -11,36 +11,36 @@
     </div>
 
     <div class="work-grid selected-work-grid">
-      <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD;">
+      <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD; --cta-bg: #7C57C5;">
         <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
           <img src="assets/images/selected-work-personal-brand.webp" alt="Personal Brand Content portrait in an urban setting" decoding="async">
         </a>
         <div class="card-body">
           <h3>Personal Brand Content</h3>
           <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
-          <a class="card-link" href="personal-brand.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="personal-brand.html">STEP INSIDE</a>
         </div>
       </article>
 
-      <article class="card selected-work-card local-card" style="--category-accent: #7E9C86;">
+      <article class="card selected-work-card local-card" style="--category-accent: #7E9C86; --cta-bg: #5B8763;">
         <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
           <img src="assets/images/local-business.webp" alt="Local Business Storytelling in an urban retail setting" decoding="async">
         </a>
         <div class="card-body">
           <h3>Local Business Storytelling</h3>
           <p>Video content that brings city businesses and places into focus.</p>
-          <a class="card-link" href="project-forest-city.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="project-forest-city.html">STEP INSIDE</a>
         </div>
       </article>
 
-      <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE;">
+      <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE; --cta-bg: #4DA7C8;">
         <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
           <img src="assets/images/long-form-cover-london-bridge.webp" alt="Tower Bridge framed by contemporary London architecture and everyday city life" decoding="async">
         </a>
         <div class="card-body">
           <h3>Long-Form Visual Storytelling</h3>
           <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
-          <a class="card-link" href="project-city-storytelling.html">Explore work <span aria-hidden="true">↗</span></a>
+          <a class="card-link" href="project-city-storytelling.html">STEP INSIDE</a>
         </div>
       </article>
     </div>
@@ -63,7 +63,10 @@
       #work .local-card .card-media img { object-position:center center; }
       #work .long-card .card-media img { object-position:center 51%; }
       #work .selected-work-card .card-body { display:flex; flex:1; flex-direction:column; padding:26px 24px 24px; }
-      #work .selected-work-card .card-link { margin-top:auto; padding-top:24px; color:var(--text); text-decoration-color:var(--category-accent); }
+      #work .selected-work-card .card-body > p { margin-bottom:14px; }
+      #work .selected-work-card .card-link { display:inline-flex; align-items:center; justify-content:center; align-self:center; min-height:39px; margin-top:auto; padding:0 16px; border:1px solid rgba(32,54,74,.12); border-radius:999px; background:var(--cta-bg); color:#fff; font-size:.75rem; font-weight:850; line-height:1; letter-spacing:.05em; text-decoration:none; box-shadow:0 8px 18px rgba(32,54,74,.12); transition:transform .18s ease, filter .18s ease, box-shadow .18s ease; }
+      #work .selected-work-card .card-link:hover, #work .selected-work-card .card-link:focus-visible { transform:translateY(-2px); filter:saturate(1.04) brightness(1.03); box-shadow:0 12px 22px rgba(32,54,74,.16); }
+      #work .selected-work-card .card-link:focus-visible { outline:2px solid var(--cta-bg); outline-offset:3px; }
       @media (max-width:1000px) { #work .selected-work-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
       @media (max-width:700px) { #work .selected-work-heading { margin-bottom:28px; } #work .selected-work-heading h2 br { display:none; } #work .selected-work-grid { grid-template-columns:1fr; gap:20px; } #work .selected-work-card .card-media { aspect-ratio:16/11; } }
     `;
