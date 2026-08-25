@@ -1,6 +1,6 @@
 # Mikhail Kirs — Portfolio
 
-Static portfolio website for Mikhail Kirs, a London, Ontario–based Video Content Producer focused on Personal Brand Content, Local Business Storytelling, long-form city work and visual communication.
+Static portfolio website for Mikhail Kirs, a London, Ontario–based Video Content Creator focused on Personal Brand Content, Local Business Storytelling, long-form city work and visual communication.
 
 ## Production pages
 
