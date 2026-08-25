@@ -31,5 +31,7 @@ jobs:
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "Finalize A1 navigation and A2 watch CTAs preview"
+          git commit -m "Refine A1 switch links and A2 watch buttons preview"
           git push origin HEAD:preview/selected-work-covers
+
+# trigger: refine-3
