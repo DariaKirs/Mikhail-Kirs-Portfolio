@@ -1,80 +1,4 @@
 (() => {
-  const workContainer = document.querySelector('#work .container');
-  if (!workContainer) return;
-
-  workContainer.innerHTML = `
-    <div class="section-heading selected-work-heading">
-      <div>
-        <p class="eyebrow">Selected Work</p>
-        <h2>Three directions in<br>visual storytelling.</h2>
-      </div>
-    </div>
-
-    <div class="work-grid selected-work-grid">
-      <article class="card selected-work-card personal-card" style="--category-accent: #C7B6DD; --cta-bg: #7C57C5;">
-        <a class="card-media" href="personal-brand.html" aria-label="Explore Personal Brand Content">
-          <img src="assets/images/selected-work-personal-brand.webp" alt="Personal Brand Content portrait in an urban setting" decoding="async">
-        </a>
-        <div class="card-body">
-          <h3>Personal Brand Content</h3>
-          <p>Visual content that helps people share who they are, what inspires them, and build a recognizable visual brand.</p>
-          <a class="card-link" href="personal-brand.html">STEP INSIDE</a>
-        </div>
-      </article>
-
-      <article class="card selected-work-card local-card" style="--category-accent: #7E9C86; --cta-bg: #5B8763;">
-        <a class="card-media" href="project-forest-city.html" aria-label="Explore Local Business Storytelling">
-          <img src="assets/images/local-business.webp" alt="Local Business Storytelling in an urban retail setting" decoding="async">
-        </a>
-        <div class="card-body">
-          <h3>Local Business Storytelling</h3>
-          <p>Video content that brings city businesses and places into focus.</p>
-          <a class="card-link" href="project-forest-city.html">STEP INSIDE</a>
-        </div>
-      </article>
-
-      <article class="card selected-work-card long-card" style="--category-accent: #D8E9EE; --cta-bg: #4DA7C8;">
-        <a class="card-media" href="project-city-storytelling.html" aria-label="Explore Long-Form Visual Storytelling">
-          <img src="assets/images/long-form-cover-london-bridge.webp" alt="Tower Bridge framed by contemporary London architecture and everyday city life" decoding="async">
-        </a>
-        <div class="card-body">
-          <h3>Long-Form Visual Storytelling</h3>
-          <p>Cinematic video stories inspired by place and atmosphere, informed by history, legends and real life.</p>
-          <a class="card-link" href="project-city-storytelling.html">STEP INSIDE</a>
-        </div>
-      </article>
-    </div>
-  `;
-
-  if (!document.getElementById('selected-work-preview-styles')) {
-    const style = document.createElement('style');
-    style.id = 'selected-work-preview-styles';
-    style.textContent = `
-      #work.work-section::before { display: none; }
-      #work .selected-work-heading { display:flex; max-width:820px; margin:0 auto clamp(28px,3vw,40px); flex-direction:column; align-items:center; gap:0; text-align:center; }
-      #work .selected-work-heading > div { width:100%; }
-      #work .selected-work-heading h2 { max-width:760px; margin:0 auto; }
-      #work .selected-work-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; align-items:stretch; }
-      #work .selected-work-card { position:relative; display:flex; min-width:0; flex-direction:column; overflow:hidden; border-top:0; border-color:rgba(184,170,156,.56); border-radius:22px; }
-      #work .selected-work-card::before { content:''; display:block; height:8px; flex:0 0 8px; background:var(--category-accent); }
-      #work .selected-work-card .card-media { min-height:0; aspect-ratio:4/3; background:#f1ece4; }
-      #work .selected-work-card .card-media img { width:100%; height:100%; min-height:0; object-fit:cover; transition:opacity .18s ease, transform .35s ease; }
-      #work .personal-card .card-media img { object-position:center 34%; }
-      #work .local-card .card-media img { object-position:center center; }
-      #work .long-card .card-media img { object-position:center 51%; }
-      #work .selected-work-card .card-body { display:flex; flex:1; flex-direction:column; padding:26px 24px 24px; }
-      #work .selected-work-card .card-body > p { margin-bottom:14px; }
-      #work .selected-work-card .card-link { display:inline-flex; align-items:center; justify-content:center; align-self:center; min-height:39px; margin-top:auto; padding:0 16px; border:1px solid rgba(32,54,74,.12); border-radius:999px; background:var(--cta-bg); color:#fff; font-size:.75rem; font-weight:850; line-height:1; letter-spacing:.05em; text-decoration:none; box-shadow:0 8px 18px rgba(32,54,74,.12); transition:transform .18s ease, filter .18s ease, box-shadow .18s ease; }
-      #work .selected-work-card .card-link:hover, #work .selected-work-card .card-link:focus-visible { transform:translateY(-2px); filter:saturate(1.04) brightness(1.03); box-shadow:0 12px 22px rgba(32,54,74,.16); }
-      #work .selected-work-card .card-link:focus-visible { outline:2px solid var(--cta-bg); outline-offset:3px; }
-      @media (max-width:1000px) { #work .selected-work-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-      @media (max-width:700px) { #work .selected-work-heading { margin-bottom:28px; } #work .selected-work-heading h2 br { display:none; } #work .selected-work-grid { grid-template-columns:1fr; gap:20px; } #work .selected-work-card .card-media { aspect-ratio:16/11; } }
-    `;
-    document.head.appendChild(style);
-  }
-})();
-
-(() => {
   const revealGroups = [
     { selector: '.work-section .section-heading > div, .work-section .section-heading > p', stagger: 110 },
     { selector: '.work-section .card', stagger: 140 },
@@ -83,6 +7,7 @@
     { selector: '#contact .contact-main > .eyebrow, #contact .contact-manifesto span', stagger: 105 },
     { selector: '#contact .contact-prompt, #contact .actions', stagger: 130 }
   ];
+
   const elements = [];
   revealGroups.forEach(({ selector, stagger }) => {
     document.querySelectorAll(selector).forEach((element, index) => {
@@ -91,24 +16,32 @@
       elements.push(element);
     });
   });
+
   if (!elements.length) return;
   document.documentElement.classList.add('reveal-ready');
+
   let ticking = false;
   const revealVisibleElements = () => {
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
     const triggerLine = viewportHeight * 0.86;
+
     elements.forEach((element) => {
       if (element.classList.contains('is-visible')) return;
       const rect = element.getBoundingClientRect();
-      if (rect.top <= triggerLine && rect.bottom >= 0) element.classList.add('is-visible');
+      if (rect.top <= triggerLine && rect.bottom >= 0) {
+        element.classList.add('is-visible');
+      }
     });
+
     ticking = false;
   };
+
   const requestRevealCheck = () => {
     if (ticking) return;
     ticking = true;
     window.requestAnimationFrame(revealVisibleElements);
   };
+
   window.addEventListener('scroll', requestRevealCheck, { passive: true });
   window.addEventListener('resize', requestRevealCheck, { passive: true });
   window.addEventListener('load', requestRevealCheck, { once: true });
@@ -120,22 +53,14 @@
   const aboutCard = document.querySelector('#about .about-layout');
   const contactBox = document.querySelector('#contact .contact-box');
   if (!workSection || !aboutCard || !contactBox) return;
+
   workSection.setAttribute('data-ambient-squares-secondary', 'work');
   aboutCard.setAttribute('data-ambient-squares-secondary', 'about');
   contactBox.setAttribute('data-ambient-squares-secondary', 'contact');
-  const stackingStyle = document.createElement('style');
-  stackingStyle.textContent = `
-    #work[data-ambient-squares-secondary="work"] > .container,
-    .about-layout[data-ambient-squares-secondary="about"] > .about-title,
-    .about-layout[data-ambient-squares-secondary="about"] > .about-copy {
-      position: relative;
-      z-index: 2;
-    }
-  `;
-  document.head.appendChild(stackingStyle);
+
   if (document.querySelector('script[data-ambient-secondary-loader]')) return;
   const script = document.createElement('script');
-  script.src = 'assets/js/ambient-squares-secondary.js?v=20260811-1253';
-  script.setAttribute('data-ambient-secondary-loader', 'true');
+  script.src = 'assets/js/ambient-squares-secondary.js?v=20260825-cleanup1';
+  script.dataset.ambientSecondaryLoader = 'true';
   document.head.appendChild(script);
 })();
