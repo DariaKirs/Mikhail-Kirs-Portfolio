@@ -1,9 +1,40 @@
 (() => {
   if (document.querySelector('script[data-vercel-analytics]')) return;
 
+  const ANALYTICS_OPT_OUT_KEY = 'va-disable';
+  const params = new URLSearchParams(window.location.search);
+  const analyticsPreference = params.get('analytics');
+
+  if (analyticsPreference === 'off') {
+    try {
+      localStorage.setItem(ANALYTICS_OPT_OUT_KEY, '1');
+    } catch (_) {}
+  } else if (analyticsPreference === 'on') {
+    try {
+      localStorage.removeItem(ANALYTICS_OPT_OUT_KEY);
+    } catch (_) {}
+  }
+
+  if (analyticsPreference === 'off' || analyticsPreference === 'on') {
+    params.delete('analytics');
+    const query = params.toString();
+    history.replaceState(
+      null,
+      '',
+      `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`
+    );
+  }
+
   window.va = window.va || function () {
     (window.vaq = window.vaq || []).push(arguments);
   };
+
+  window.va('beforeSend', (event) => {
+    try {
+      if (localStorage.getItem(ANALYTICS_OPT_OUT_KEY)) return null;
+    } catch (_) {}
+    return event;
+  });
 
   const analyticsScript = document.createElement('script');
   analyticsScript.src = '/_vercel/insights/script.js';
