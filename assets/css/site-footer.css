@@ -159,7 +159,7 @@
 
 @media (min-width: 1051px) {
   .personal-brand-page:not(.local-business-page) .pb-fixed-selected {
-    margin-top: 88px !important;
+    margin-top: 64px !important;
   }
 }
 
