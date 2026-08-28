@@ -57,6 +57,86 @@
   document.head.appendChild(speedInsightsScript);
 })();
 
+(() => {
+  if (!document.body.classList.contains('personal-brand-page')) return;
+
+  const press = document.querySelector('.pb-fixed-press');
+  if (!press) return;
+
+  if (!document.querySelector('style[data-cbc-news-press-preview]')) {
+    const style = document.createElement('style');
+    style.dataset.cbcNewsPressPreview = 'true';
+    style.textContent = `
+      .pb-fixed-press-entry + .pb-fixed-press-entry {
+        margin-top: 20px;
+      }
+
+      .pb-fixed-campaign-copy .pb-fixed-press-source,
+      .pb-fixed-campaign-copy .pb-fixed-press-title,
+      .pb-fixed-campaign-copy .pb-fixed-press-date,
+      .pb-fixed-campaign-copy .pb-fixed-press-description {
+        display: block;
+      }
+
+      .pb-fixed-campaign-copy .pb-fixed-press-source {
+        color: var(--surface);
+        font-size: .92rem;
+        font-weight: 800;
+      }
+
+      .pb-fixed-campaign-copy .pb-fixed-press-title {
+        margin-top: 2px;
+        color: var(--surface);
+        font-size: .92rem;
+        font-weight: 760;
+        line-height: 1.4;
+      }
+
+      .pb-fixed-campaign-copy .pb-fixed-press-date {
+        margin-top: 2px;
+        color: rgba(255, 253, 249, .62);
+        font-size: .8rem;
+        font-weight: 650;
+      }
+
+      .pb-fixed-campaign-copy .pb-fixed-press-description {
+        margin: 7px 0 0;
+        color: rgba(255, 253, 249, .72);
+        font-size: .84rem;
+        line-height: 1.45;
+      }
+
+      .pb-fixed-press-entry .pb-fixed-press-link {
+        margin-top: 7px;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  press.innerHTML = `
+    <p class="pb-fixed-press-label">IN THE PRESS</p>
+
+    <div class="pb-fixed-press-entry">
+      <p class="pb-fixed-press-meta">
+        <span class="pb-fixed-press-source">CBC News</span>
+        <span class="pb-fixed-press-title">“London’s youngest mayoral candidate aims to reach voters through viral videos and social media”</span>
+        <span class="pb-fixed-press-date">August 27, 2026</span>
+      </p>
+      <p class="pb-fixed-press-description">The article features a campaign video credited “Filmed and edited by @mikki.kirs6haa.”</p>
+      <a class="pb-fixed-press-link" href="https://www.cbc.ca/news/canada/london/london-s-youngest-mayoral-candidate-aims-to-reach-voters-through-viral-videos-and-social-media-9.7321257" target="_blank" rel="noopener noreferrer">VIEW ON CBC NEWS</a>
+    </div>
+
+    <div class="pb-fixed-press-entry">
+      <p class="pb-fixed-press-meta">
+        <span class="pb-fixed-press-source">CBC Arts</span>
+        <span class="pb-fixed-press-title">“London is liminal”</span>
+        <span class="pb-fixed-press-date">August 24, 2026</span>
+      </p>
+      <a class="pb-fixed-press-link" href="https://www.cbc.ca/arts/loiterfest-9.7316003" target="_blank" rel="noopener noreferrer">VIEW ON CBC ARTS</a>
+    </div>
+  `;
+})();
+
 (async () => {
   const currentScript = document.currentScript;
   if (currentScript) currentScript.dataset.siteFooter = 'true';
