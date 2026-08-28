@@ -60,81 +60,158 @@
 (() => {
   if (!document.body.classList.contains('personal-brand-page')) return;
 
-  const press = document.querySelector('.pb-fixed-press');
-  if (!press) return;
+  const oldPress = document.querySelector('.pb-fixed-press');
+  if (oldPress) oldPress.remove();
 
-  if (!document.querySelector('style[data-cbc-news-press-preview]')) {
+  const fixedContainer = document.querySelector('.pb-fixed');
+  if (!fixedContainer || document.querySelector('.pb-media-wrap')) return;
+
+  if (!document.querySelector('style[data-media-section-preview]')) {
     const style = document.createElement('style');
-    style.dataset.cbcNewsPressPreview = 'true';
+    style.dataset.mediaSectionPreview = 'true';
     style.textContent = `
-      .pb-fixed-press-entry + .pb-fixed-press-entry {
-        margin-top: 20px;
+      .pb-media-wrap {
+        margin-top: 24px;
       }
 
-      .pb-fixed-campaign-copy .pb-fixed-press-source,
-      .pb-fixed-campaign-copy .pb-fixed-press-title,
-      .pb-fixed-campaign-copy .pb-fixed-press-date,
-      .pb-fixed-campaign-copy .pb-fixed-press-description {
-        display: block;
+      .pb-media-section {
+        padding: 34px 38px 38px;
+        border-radius: var(--radius-md);
+        background: #20364a;
+        box-shadow: var(--shadow);
       }
 
-      .pb-fixed-campaign-copy .pb-fixed-press-source {
-        color: var(--surface);
-        font-size: .92rem;
+      .pb-media-heading {
+        margin: 0 0 22px;
+        color: var(--coral);
+        font-size: .76rem;
+        font-weight: 850;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+      }
+
+      .pb-media-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .pb-media-card {
+        display: flex;
+        min-width: 0;
+        min-height: 204px;
+        flex-direction: column;
+        padding: 22px;
+        border-radius: var(--radius-sm);
+        background: var(--surface-strong);
+      }
+
+      .pb-media-source {
+        margin: 0;
+        color: var(--coral);
+        font-size: .72rem;
+        font-weight: 850;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+      }
+
+      .pb-media-title {
+        margin: 10px 0 0;
+        color: var(--text);
+        font-size: clamp(1.05rem, 1.35vw, 1.25rem);
         font-weight: 800;
+        line-height: 1.18;
+        letter-spacing: -.025em;
       }
 
-      .pb-fixed-campaign-copy .pb-fixed-press-title {
-        margin-top: 2px;
-        color: var(--surface);
-        font-size: .92rem;
-        font-weight: 760;
-        line-height: 1.4;
-      }
-
-      .pb-fixed-campaign-copy .pb-fixed-press-date {
-        margin-top: 2px;
-        color: rgba(255, 253, 249, .62);
+      .pb-media-date {
+        margin: 8px 0 0;
+        color: var(--muted);
         font-size: .8rem;
-        font-weight: 650;
+        font-weight: 700;
       }
 
-      .pb-fixed-campaign-copy .pb-fixed-press-description {
-        margin: 7px 0 0;
-        color: rgba(255, 253, 249, .72);
-        font-size: .84rem;
+      .pb-media-copy {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: .86rem;
         line-height: 1.45;
       }
 
-      .pb-fixed-press-entry .pb-fixed-press-link {
-        margin-top: 7px;
+      .pb-media-link {
+        display: inline-block;
+        align-self: flex-start;
+        margin-top: auto;
+        padding-top: 18px;
+        color: var(--coral);
+        font-size: .82rem;
+        font-weight: 800;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+      }
+
+      .pb-media-link:hover,
+      .pb-media-link:focus-visible {
+        text-decoration-thickness: 2px;
+      }
+
+      @media (max-width: 760px) {
+        .pb-media-wrap {
+          margin-top: 18px;
+        }
+
+        .pb-media-section {
+          padding: 24px 20px;
+        }
+
+        .pb-media-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+        }
+
+        .pb-media-card {
+          min-height: 0;
+          padding: 19px 18px;
+        }
+
+        .pb-media-title {
+          font-size: 19px;
+        }
+
+        .pb-media-copy {
+          font-size: 15px;
+        }
       }
     `;
     document.head.appendChild(style);
   }
 
-  press.innerHTML = `
-    <p class="pb-fixed-press-label">IN THE PRESS</p>
+  const wrap = document.createElement('div');
+  wrap.className = 'container pb-media-wrap';
+  wrap.innerHTML = `
+    <section class="pb-media-section" aria-labelledby="media-title">
+      <h2 id="media-title" class="pb-media-heading">IN THE MEDIA</h2>
+      <div class="pb-media-grid">
+        <article class="pb-media-card">
+          <p class="pb-media-source">CBC NEWS</p>
+          <h3 class="pb-media-title">“London’s youngest mayoral candidate aims to reach voters through viral videos and social media”</h3>
+          <p class="pb-media-date">August 27, 2026</p>
+          <p class="pb-media-copy">The article features a campaign video with the credit “Filmed and edited by @mikki.kirs6haa.”</p>
+          <a class="pb-media-link" href="https://www.cbc.ca/news/canada/london/london-s-youngest-mayoral-candidate-aims-to-reach-voters-through-viral-videos-and-social-media-9.7321257" target="_blank" rel="noopener noreferrer">VIEW ON CBC NEWS</a>
+        </article>
 
-    <div class="pb-fixed-press-entry">
-      <p class="pb-fixed-press-meta">
-        <span class="pb-fixed-press-source">CBC News</span>
-        <span class="pb-fixed-press-title">“London’s youngest mayoral candidate aims to reach voters through viral videos and social media”</span>
-        <span class="pb-fixed-press-date">August 27, 2026</span>
-      </p>
-      <p class="pb-fixed-press-description">The article features a campaign video credited “Filmed and edited by @mikki.kirs6haa.”</p>
-      <a class="pb-fixed-press-link" href="https://www.cbc.ca/news/canada/london/london-s-youngest-mayoral-candidate-aims-to-reach-voters-through-viral-videos-and-social-media-9.7321257" target="_blank" rel="noopener noreferrer">VIEW ON CBC NEWS</a>
-    </div>
-
-    <div class="pb-fixed-press-entry">
-      <p class="pb-fixed-press-meta">
-        <span class="pb-fixed-press-source">CBC Arts</span>
-        <span class="pb-fixed-press-title">“London is liminal”</span>
-        <span class="pb-fixed-press-date">August 24, 2026</span>
-      </p>
-      <a class="pb-fixed-press-link" href="https://www.cbc.ca/arts/loiterfest-9.7316003" target="_blank" rel="noopener noreferrer">VIEW ON CBC ARTS</a>
-    </div>
+        <article class="pb-media-card">
+          <p class="pb-media-source">CBC ARTS</p>
+          <h3 class="pb-media-title">“London is liminal”</h3>
+          <p class="pb-media-date">August 24, 2026</p>
+          <p class="pb-media-copy">Portrait published with the photo credit “Misha Kirs.”</p>
+          <a class="pb-media-link" href="https://www.cbc.ca/arts/loiterfest-9.7316003" target="_blank" rel="noopener noreferrer">VIEW ON CBC ARTS</a>
+        </article>
+      </div>
+    </section>
   `;
+
+  fixedContainer.insertAdjacentElement('afterend', wrap);
 })();
 
 (async () => {
