@@ -155,6 +155,12 @@
         text-decoration-thickness: 2px;
       }
 
+      @media (min-width: 1051px) {
+        .personal-brand-page .pb-fixed-selected {
+          margin-top: 58px;
+        }
+      }
+
       @media (max-width: 760px) {
         .pb-media-wrap {
           margin-top: 18px;
